@@ -1,0 +1,36 @@
+<html>
+  <head>
+
+<%= stylesheet_link_tag 'admin' %>
+</head>
+<body>
+<%
+comments_sys_on = 'yes'
+cb = (comments_sys_on == 'yes')
+%>
+<div id="admin_nav">
+	<ul class="navlist">
+		<li>
+      <%= link_to("Posts", admin_posts_path(), :class => 'current', :accesskey => '1') %>
+      <%= link_to(image_tag('admin/new_button.png', :alt => 'Create a new post', :id => 'new_post_button'), new_admin_post_path(), :accesskey => 'n') %>
+    </li>
+		<li><a accesskey="2" href="/admin/pages" title="Pages"<%= ' class="current"' if params[:action][0..3] == 'page' %>>Pages</a></li>
+		<% if cb %><li><a accesskey="3" href="/admin/comments" title="Comments"<%= ' class="current"' if (params[:action][0..6] == 'comment' or params[:action][0..8] == 'blacklist') %>>Comments</a></li><% end %>
+		<li><a accesskey="<%= (cb ? '4' : '3') %>" href="/admin/tags" title="Tags"<%= ' class="current"' if params[:action][0..2] == 'tag' %>>Tags</a></li>
+		<li><a accesskey="<%= (cb ? '5' : '4') %>" href="/admin/authors" title="Authors"<%= ' class="current"' if params[:action][0..5] == 'author' %>>Authors</a></li>
+		<li class="end"><a accesskey="<%= (cb ? '6' : '5') %>" id="ping_obj" href="/admin/ping" title="Ping"<%= ' class="current"' if params[:action][0..3] == 'ping' %> onclick="showPingPanel(); return false;">Ping</a></li>
+	</ul>
+	<ul class="navlist right">
+	    <li><a accesskey="p" href="/admin/prefs" title="Preferences"<%= ' class="current"' if params[:action][0..4] == 'prefs' %>>Preferences</a></li>
+		<li><a accesskey="u" href="/admin/updates" title="Updates"<%= ' class="current"' if params[:action] == 'updates' %>>Updates</a></li>
+		<li><a accesskey="h" id="help_obj" href="/admin/help" title="Help"<%= ' class="current"' if params[:action] == 'help' %> onclick="showHelpPanel(); return false;">Help</a></li>
+		<li><a accesskey="l" href="/logout" title="Logout">Logout</a></li>
+		<li class="end"><a accesskey="v" href="/" target="_blank" title="View Site">View Site</a></li>
+	</ul><br/>
+</div>
+	
+<div id="box">
+	<%= yield %>
+</div>
+</body>
+</html>

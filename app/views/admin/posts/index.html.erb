@@ -1,0 +1,44 @@
+<div id="header">
+	<h1 class="skinny">Your posts</h1>
+	<h2 class="fat">Gray denotes inactive posts, rows with <span class="future_key">lined background</span> are future posts.</h2><br/>
+	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
+</div>
+<% comments_on = "yes" %>
+<table class="list" cellspacing="0" cellpadding="0">
+	
+	<tr>
+		<th class="first_col">Created At</th>
+		<th>Title</th>
+		<th>Excerpt</th>
+		<% if comments_on == 'yes' %><th class="small_col">Comments</th><% end %>
+		<th class="del_col">X</th>
+	</tr>
+	
+	<% @posts.each_with_index do |post, index| -%>
+		<tr class="<% if post.created_at > Time.now %>futurepost <% end %><% if !post.active? %>inactive <% end %><%= cycle('alt_row ', '') %><%= (index == 1 ? 'first_row' : '') %>">
+			<td class="first_col"><%= post.created_at.strftime('%d %b, %Y') %></td>
+			<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, (true || comments_on == 'yes' ? 30 : 40))), 'edit_url' %></td>
+			<td><% tmpc = truncate(post.body, (true || comments_on == 'yes' ? 55 : 65)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
+			<% if comments_on == 'yes' %><td class="small_col"><%= post.comments.size %></td><% end %>
+			<td class="del_col"><%= link_to 'X', '/admin/posts/destroy/' + post.id.to_s, :confirm => "You are about to delete this post. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
+		</tr>
+	<% end -%>
+	<% unless @posts.length > 0 -%>
+	<tr class="first_row"><td class="first_col" colspan="<% if comments_on == 'yes' %>5<% else %>4<% end %>"><span class="gray">There are no posts at this time.</span></td></tr>
+	<% end -%>
+	<% if @post_pages %>
+	<tr class="header">
+		<th colspan="<% if comments_on == 'yes' %>5<% else %>4<% end %>">
+			<div class="pagination">
+				<div class="prev">
+					<%= link_to '&laquo; Previous page', { :sort => params[:sort], :page => @post_pages.current.previous } if @post_pages.current.previous %>
+				&nbsp;</div>
+				<div class="next">&nbsp;
+					<%= link_to 'Next page &raquo;', { :sort => params[:sort], :page => @post_pages.current.next } if @post_pages.current.next %>
+				</div>
+			</div>
+		</th>
+	</tr>
+	<% end %>
+</table>
+<br/>

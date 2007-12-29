@@ -1,0 +1,13 @@
+ * OpenID auth for comments
+ * OpenID auth for admin
+ * Live preview for comments
+ * Live preview for composition
+ * Humanized reading
+ * XHTML 1.1 template
+ * Defensio/Askimet comment checking
+ * Offline comment checking
+ * Filtered columns - textile/markdown/lesstile
+ * Syntax highlighting with CodeRay
+ * ATOM feed
+ * Tags
+ * Sections/pages

@@ -1,0 +1,46 @@
+<% if np %>
+    
+    <div id="admin_sub_nav">
+        <div class="sn_left">
+            You're creating a new post.
+        </div>
+        <div class="sn_right">
+            <%= link_to '&larr; Return to the posts list', admin_posts_path() %>
+        </div><br/>
+    </div>
+    
+<% elsif ep %>
+
+    <div id="admin_sub_nav">
+        <div class="sn_left">
+            <% if @post.created_at <= Time.sl_local %>
+                This post is currently <% if @post.is_active %><b>active</b> and can be <%= link_to 'viewed on your site', Post.permalink(@post), :target => '_blank' %>.<% else -%>inactive and <b>cannot</b> be viewed on your site.<% end -%>
+            <% else %>
+                This future post is currently <% if @post.is_active %><b>active</b> but <b>does not</b> appear on your site.<% else -%>inactive and <b>cannot</b> be viewed on your site.<% end -%>
+            <% end %>
+        </div>
+        <div class="sn_right">
+            <%= link_to '&larr; Return to the posts list', Site.full_url + '/admin/posts' %>
+        </div><br/>
+    </div>
+
+<% else %>
+    
+    <div id="admin_sub_nav">
+        <div class="sn_left">
+            <% form_tag(Site.full_url + '/admin/posts/search', :id => 'post_search_form') do %>
+            <%= link_to '<b>Create a new post</b>', Site.full_url + '/admin/posts/new' %> or search them:&nbsp;<%= text_field_tag('q', (params[:q] != '' ? params[:q] : ''), :id => 'sf') %>
+            <% end -%>
+        </div>
+        <div class="sn_right">
+        <% if get_pref('COMMENTING_ON') == 'yes' -%>
+            <% form_tag(Site.full_url + '/admin/posts/batch/comments', :id => 'post_search_form') do %>
+            Set comments <select id="comment_batch_setting" name="comment_batch[setting]"><option value="1">open</option><option value="2">closed</option><option value="0">off</option></select> on posts created <select id="comment_batch_timeframe" name="comment_batch[timeframe]"><option value="7">in the last week</option><option value="30">in the last month</option><option value="365">in the last year</option><option value="0">since the beginning</option></select> <input type="submit" name="go" value="Go" class="tiny_button" onclick="return confirm('You are about to run a batch-processing command on your posts. This is permanent.\n\nAre you ABSOLUTELY sure?');"/>
+            <% end -%>
+        <% else -%>
+            Comments system is turned off. <%= link_to 'Turn it on?', Site.full_url + '/admin/comments/toggle' %>
+        <% end -%>
+        </div><br/>
+    </div>
+    
+<% end %>

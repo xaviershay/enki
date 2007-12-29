@@ -1,0 +1,12 @@
+<h1><%= @post.title %></h1>
+<div><%= @post.body_html %></div>
+<ul>
+  <% @post.comments.each do |comment| -%>
+  <li><%= comment.body_html %></li>
+  <% end -%>
+</ul>
+<h2>Post a comment</h2>
+<% form_for([@post, @comment]) do |form| -%>
+  <%= form.text_area 'body' %>
+  <%= submit_tag "Add Comment" %>
+<% end -%>
