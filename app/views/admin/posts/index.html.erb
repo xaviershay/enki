@@ -17,7 +17,7 @@
 	<% @posts.each_with_index do |post, index| -%>
 		<tr class="<% if post.created_at > Time.now %>futurepost <% end %><% if !post.active? %>inactive <% end %><%= cycle('alt_row ', '') %><%= (index == 1 ? 'first_row' : '') %>">
 			<td class="first_col"><%= post.created_at.strftime('%d %b, %Y') %></td>
-			<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, (true || comments_on == 'yes' ? 30 : 40))), 'edit_url' %></td>
+			<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, (true || comments_on == 'yes' ? 30 : 40))), edit_admin_post_path(post) %></td>
 			<td><% tmpc = truncate(post.body, (true || comments_on == 'yes' ? 55 : 65)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
 			<% if comments_on == 'yes' %><td class="small_col"><%= post.comments.size %></td><% end %>
 			<td class="del_col"><%= link_to 'X', '/admin/posts/destroy/' + post.id.to_s, :confirm => "You are about to delete this post. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
