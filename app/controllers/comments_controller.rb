@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
           @comment.author_url              = @comment.author
           @comment.author                  = open_id_fields["fullname"].to_s
           @comment.author_email            = open_id_fields["email"].to_s
-          @comment.author_openid_authority = response.identity_url
+          @comment.author_openid_authority = response.endpoint.server_url
 
           @comment.openid_error = ""
         end
