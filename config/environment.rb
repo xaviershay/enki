@@ -59,6 +59,7 @@ Rails::Initializer.run do |config|
 end
 
 require 'lesstile'
+require 'coderay'
 require 'core_extensions/string'
 require 'core_extensions/object'
 $:.unshift("vendor/ruby-openid-2.0.2/lib")
