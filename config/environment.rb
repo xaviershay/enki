@@ -60,3 +60,7 @@ end
 
 require 'lesstile'
 require 'core_extensions/string'
+$:.unshift("vendor/ruby-openid-2.0.2/lib")
+require 'openid'
+require 'openid/store/filesystem'
+require 'openid/extensions/sreg'

@@ -6,6 +6,9 @@ class Post < ActiveRecord::Base
   before_create :generate_slug
   before_save   :apply_filter
 
+  validates_presence_of :title
+  validates_presence_of :body
+
   class << self
     def find_recent(options = {})
       find(:all, {:order => 'created_at DESC'}.merge(options))

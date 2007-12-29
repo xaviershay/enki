@@ -1,4 +1,4 @@
-<%= render :partial => 'post', :locals => {:post => @post} %>
+<%= render :partial => 'posts/post', :locals => {:post => @post} %>
 <ol class="commentlist">
   <% @post.comments.each do |comment| -%>
   <li<%= cycle ' class="alt"', '' %> id="comment-{{ comment.id }}">
@@ -7,7 +7,9 @@
   <% end -%>
 </ol>    
 <h2>Post a comment</h2>
+<div><%= @comment.errors.full_messages %></div>
 <% form_for([@post, @comment]) do |form| -%>
+  <%= form.text_field 'author' %>
   <%= form.text_area 'body' %>
   <%= submit_tag "Add Comment" %>
 <% end -%>
