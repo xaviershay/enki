@@ -1,6 +1,6 @@
 <h1><%= @post.title %></h1>
 <div><%= @post.body_html %></div>
-<div>Tagged with: <%= @post.tags.collect {|tag| link_to(tag.name, posts_path(:tag => tag))}.join(", ") %>
+<div>Tagged with: <%= @post.tags.collect {|tag| link_to(tag.name, posts_path(:tag => tag))}.join(", ") %></div>
 <ul>
   <% @post.comments.each do |comment| -%>
   <li><%= comment.body_html %></li>
