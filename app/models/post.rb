@@ -3,7 +3,8 @@ class Post < ActiveRecord::Base
 
   has_many :comments
 
-  before_save :apply_filter
+  before_create :generate_slug
+  before_save   :apply_filter
 
   class << self
     def find_recent(options = {})
@@ -25,5 +26,12 @@ class Post < ActiveRecord::Base
 
   def apply_filter
     self.body_html = RedCloth.new(self.body).to_html
+  end
+
+  protected
+
+  def generate_slug
+    self.slug ||= self.title
+    self.slug.slugorize!
   end
 end

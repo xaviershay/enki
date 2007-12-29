@@ -59,3 +59,4 @@ Rails::Initializer.run do |config|
 end
 
 require 'lesstile'
+require 'core_extensions/string'
