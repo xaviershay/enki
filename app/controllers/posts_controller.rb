@@ -9,6 +9,6 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find_by_permalink(*[:year, :month, :day, :slug].collect {|x| params[x] })
-    @comment = @post.comments.build
+    @comment = Comment.new
   end
 end

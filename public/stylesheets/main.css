@@ -1,0 +1,577 @@
+/* Common colors */
+#page_container, #footer, #introduction em
+{
+  background-color: white;
+}
+
+/* High level containers */
+html
+{
+  background-color: #cccccc;
+}
+
+body 
+{ 
+  color: black;
+  background-color: #cccccc;
+  
+  font: normal 12px verdana, arial, helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+#flower_1
+{
+  position: absolute;
+  left: 40px;
+  top: 45px;
+}
+
+#flower_1 g path
+{
+  stroke-width:15;
+}
+
+#flower_2
+{
+  position: absolute;
+  left: 10px;
+  bottom: 0px;
+}
+
+#flower_2 g path
+{
+  stroke-width:20;
+}
+#page_container
+{
+  width: 70em; 
+  border: solid 6px black; 
+ 
+  position: absolute;
+  min-height: 600px;
+  
+  padding: 5px;
+  color: black;
+}
+
+#footer
+{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+
+  font-size: 8pt;
+  padding: 5px;
+  
+  color: gray;
+}
+
+/* Headings */
+
+#robot-head
+{
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
+
+img.eyecandy
+{
+  border: none;
+}
+
+img.inline
+{
+  float: right;
+  margin-left: 1em;
+}
+
+h1#page_heading
+{
+  margin-left: 200px;
+  margin-top:  100px;
+  height: 90px;
+  font-size: 24pt;
+}
+
+h2
+{
+  font-size: 1.2em;
+  color: #333333;
+}
+
+h2 a, h3, h4, h5
+{
+  color: #333333;
+}
+p.subtitle
+{
+  font-style: italic;
+}
+
+/* Text */
+p 
+{
+  padding: 0px;
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+strong
+{
+  color: #333333;
+}
+/* Links */
+.openid
+{
+  background-image: url("/images/openid_icon.png");
+  padding-left: 15px;
+  background-repeat: no-repeat;
+  background-position: 0px 2px;
+}
+/*
+.openid:before
+{
+  content: url("/images/openid_icon.png");
+}
+*/
+a 
+{
+  color: #c41f1f;
+  
+  text-decoration: none;    
+}
+  
+a:hover
+{
+  text-decoration: underline;    
+}
+  
+#footer a
+{
+  color: gray;
+  text-decoration: underline;
+}
+
+img
+{
+  border: solid 1px black;
+}
+
+/* Two columns */
+#navigation 
+{
+  position: absolute;
+  width: 8em;
+  top: 216px; 
+  left: 0px;
+
+  border-right: solid 6px black;
+  border-left: none;
+  border-top: solid 6px black;
+  border-bottom: solid 6px black;
+
+  background-color: white;
+  padding: 5px;
+  z-index: 1;
+}
+
+#navigation h2
+{
+  display: inline;
+}
+
+
+#navigation label
+{
+  margin-left: 0;
+  font-style: normal;
+}
+
+#navigation ul
+{
+  padding-left: 10px;
+  
+  margin-left: 0px;
+  margin-top: 0px;
+  list-style: none;
+}
+  
+#navigation ul li
+{
+  padding-left: 0px;
+  margin-left: 0px;
+}
+
+#navigation h3
+{
+  font-size: 1.2em;
+  font-weight: bold;
+  font-family: verdana,arial,helvetica,sans-serif;
+}
+
+#navigation input
+{
+  border: solid 1px black;
+  width: 100%;
+}
+
+#navigation form
+{
+  margin-bottom: 1em;
+}
+
+#main 
+{
+  margin-left: 9em;
+
+  
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 15px;
+  padding-bottom: 40px;
+}
+
+div.meta
+{
+ margin-top: 1em;
+ margin-bottom: 3em; 
+}
+/* Formatting */   
+#introduction 
+{
+  font-style: italic;
+  width: 400px;
+  text-align: center;
+
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#introduction em
+{
+  color: #c41f1f;
+}
+  
+/* Home */
+.meta 
+{
+
+}
+
+.meta ul
+{
+  list-style: none;
+  margin: 0px;
+  padding-left: 0em;
+  padding-bottom: 0.5em;
+  display: inline;
+  color: #cccccc;
+  font-size: 10pt;
+}
+
+.meta a
+{
+  color: #bbbbbb;
+  border-bottom: dotted 1px #bbbbbb;
+}
+
+.meta a:hover
+{
+  text-decoration: none;
+}
+
+.meta ul li
+{
+  display: inline;
+}
+ 
+.meta ul li:after
+{
+  content: " | ";
+}
+
+.meta ul li:last-child:after
+{
+  content: "";
+}
+
+h2
+{
+  margin-bottom: 0px;
+}
+
+.separator 
+{
+  height: 1px;
+  margin-top:5px;
+  clear: both;
+}
+
+/* Tables */
+tr, th
+{
+  font: 10pt georgia, serif;
+  text-align: left;
+
+}
+
+th
+{
+  font-weight: bold;
+}
+
+/* Forms */
+label
+{
+  margin-left: 1em;
+}
+
+textarea, select
+{
+  font: normal 12px verdana, arial, helvetica, sans-serif;
+}
+
+textarea
+{
+  width: 490px;
+  }
+#project_summary
+{
+  height: 150px;
+}
+
+#new_comment textarea, #edit_comment textarea
+{
+  height: 150px;
+}
+
+table
+{
+  border-spacing: 0px;
+
+  }
+
+.alt, .container_alt
+{
+  background-color: #fafafa;
+}
+
+td
+{
+  padding: 5px;
+}
+
+table.content td.date, td.title, td.type
+{ 
+  vertical-align: top;
+  white-space: nowrap;
+}
+table.projects th.name { width: 120px; }
+table.projects th.date { width: 100px; }
+
+#bonus label
+{
+  width: 130px;
+ }
+div.comments div.container, div.comments div.container_alt 
+{
+  clear: both;
+  margin-bottom: 5px;
+}
+
+div.comments div.body
+{
+
+  padding: 5px;
+}
+div.comments div.meta
+{
+  min-height: 0px;
+  padding: 0px
+}
+  
+div.comments div.separator
+{
+  height: 10px;
+}
+
+.fieldWithErrors
+{
+  display: inline;
+}
+
+.fieldWithErrors input, .textareaWithErrors textarea
+{
+  background-color: #ffeaea;
+}
+
+span.error
+{
+  font-weight: bold;
+  }
+  
+hr
+{
+  border-top: dotted 1px black;
+  border-bottom: none;
+  height: 1px;
+}
+
+#textilizer textarea
+{
+  height: 200px;
+}
+
+#preview
+{
+  height: 200px;
+  overflow: auto;
+}
+
+
+/* Syntax */
+
+
+/* TOC */
+fieldset.toc
+{
+  float: right; 
+  border: dotted 1px black; 
+  background-color: #fafafa;
+  padding: 10px;
+  margin-left: 5px;
+}
+
+.toc legend
+{
+  font-weight: bold;
+}
+
+.toc ol
+{
+  margin: 0px;
+  padding-left: 0px;
+  list-style-position: inside;
+}
+
+.toc ol ol
+{
+  list-style-type: lower-alpha;
+  padding-left: 15px;
+}
+
+pre.ruby .keyword { color: #c41f1f; }
+pre.ruby .constant { color: #961818; }
+pre.ruby .comment { color: #f37e00; }
+pre.ruby .string { color: #b77c0a; }
+
+/* CODERAY */
+.CodeRay {
+  background-color: #f8f8f8;
+  border: 1px solid silver;
+  font-family: 'Courier New', 'Terminal', monospace;
+  color: #100;
+  margin-bottom: 1em;
+}
+.CodeRay pre { margin: 0px; font-size: 12px }
+
+div.CodeRay { }
+
+span.CodeRay { white-space: pre; border: 0px; padding: 2px }
+
+table.CodeRay { border-collapse: collapse; width: 100%; padding: 2px }
+table.CodeRay td { padding: 2px 4px; vertical-align: top }
+
+.CodeRay .line_numbers, .CodeRay .no {
+  background-color: #eaeaea;
+  color: gray;
+  text-align: right;
+}
+.CodeRay .line_numbers tt { font-weight: bold }
+.CodeRay .no { padding: 0px 4px }
+.CodeRay .code { width: 100% }
+
+ol.CodeRay { font-size: 10pt }
+ol.CodeRay li { white-space: pre }
+
+.CodeRay .code pre { overflow: auto }
+.af { color:#00C }
+.an { color:#007 }
+.av { color:#700 }
+.aw { color:#C00 }
+.bi { color:#509; font-weight:bold }
+.c  { color:#888 }
+
+.ch { color:#04D }
+.ch .k { color:#04D }
+.ch .dl { color:#039 }
+
+.cl { color:#B06; font-weight:bold }
+.co { color:#036; font-weight:bold }
+.cr { color:#0A0 }
+.cv { color:#369 }
+.df { color:#099; font-weight:bold }
+.di { color:#088; font-weight:bold }
+.dl { color:black }
+.do { color:#970 }
+.ds { color:#D42; font-weight:bold }
+.e  { color:#666; font-weight:bold }
+.en { color:#800; font-weight:bold }
+.er { color:#F00; background-color:#FAA }
+.ex { color:#F00; font-weight:bold }
+.fl { color:#60E; font-weight:bold }
+.fu { color:#06B; font-weight:bold }
+.gv { color:#d70; font-weight:bold }
+.hx { color:#058; font-weight:bold }
+.i  { color:#00D; font-weight:bold }
+.ic { color:#B44; font-weight:bold }
+
+.il { background: #eee }
+.il .il { background: #ddd }
+.il .il .il { background: #ccc }
+.il .dl { font-weight: bold ! important; color: #888 ! important }
+
+.in { color:#B2B; font-weight:bold }
+.iv { color:#33B }
+.la { color:#970; font-weight:bold }
+.lv { color:#963 }
+.oc { color:#40E; font-weight:bold }
+.on { color:#000; font-weight:bold }
+.op { }
+.pc { color:#038; font-weight:bold }
+.pd { color:#369; font-weight:bold }
+.pp { color:#579 }
+.pt { color:#339; font-weight:bold }
+.r  { color:#080; font-weight:bold }
+
+.rx { background-color:#fff0ff }
+.rx .k { color:#808 }
+.rx .dl { color:#404 }
+.rx .mod { color:#C2C }
+.rx .fu  { color:#404; font-weight: bold }
+
+.s  { background-color:#fff0f0 }
+.s  .s { background-color:#ffe0e0 }
+.s  .s  .s { background-color:#ffd0d0 }
+.s  .k { color:#D20 }
+.s  .dl { color:#710 }
+
+.sh { background-color:#f0fff0 }
+.sh .k { color:#2B2 }
+.sh .dl { color:#161 }
+
+.sy { color:#A60 }
+.sy .k { color:#A60 }
+.sy .dl { color:#630 }
+
+.ta { color:#070 }
+.tf { color:#070; font-weight:bold }
+.ts { color:#D70; font-weight:bold }
+.ty { color:#339; font-weight:bold }
+.v  { color:#036 }
+.xt { color:#444 }
+

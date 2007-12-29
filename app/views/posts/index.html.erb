@@ -1,6 +1,5 @@
 <% @posts.each do |post| -%>
-<h1><%= link_to(post.title, post_path(post)) %></h1>
-<div>
-  <%= post.body_html %>
-</div>  
+<div class="post post-#{post.id}">
+  <%= render :partial => 'post', :locals => {:post => post} %>
+</div>
 <% end -%>
