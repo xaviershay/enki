@@ -60,7 +60,10 @@ end
 
 require 'lesstile'
 require 'core_extensions/string'
+require 'core_extensions/object'
 $:.unshift("vendor/ruby-openid-2.0.2/lib")
 require 'openid'
 require 'openid/store/filesystem'
 require 'openid/extensions/sreg'
+
+class OpenID::AuthenticationFailure < OpenID::OpenIDError; end;
