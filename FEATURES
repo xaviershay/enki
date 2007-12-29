@@ -6,7 +6,7 @@
  * XHTML 1.1 template
  * Defensio/Askimet comment checking
  * Offline comment checking
- * Filtered columns - textile/markdown/lesstile
+ - Filtered columns - textile/lesstile
  * Syntax highlighting with CodeRay
  * ATOM feed
  * Tags

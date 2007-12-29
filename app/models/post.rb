@@ -1,6 +1,8 @@
 class Post < ActiveRecord::Base
   has_many :comments
 
+  before_save :apply_filter
+
   class << self
     def find_recent(options = {})
       find(:all, {:order => 'created_at DESC'}.merge(options))
@@ -19,7 +21,7 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def body_html
-    body
+  def apply_filter
+    self.body_html = RedCloth.new(self.body).to_html
   end
 end
