@@ -586,7 +586,7 @@ ul.navlist.right {
     display: inline;
     list-style-type: none;
     padding: 0 9px 2px 6px;
-    border-right: 1px solid #555;
+    border-left: 1px solid #555;
 }
 .navlist li a {
     padding-bottom: 2px;
@@ -608,9 +608,8 @@ ul.navlist.right {
     border: 0;
     padding: 0;
 }
-.navlist li.end {
+.navlist li.first {
     border: 0;
-    padding-right: 20px;
 }
 .navlist.right li.end {
     padding-right: 0;
