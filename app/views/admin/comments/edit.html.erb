@@ -9,38 +9,20 @@
 <table class="super" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="super_left" valign="top" class="no_pad">
-      <% form_for([:admin, @comment]) do |form| -%>  
-<table class="form" cellpadding="0" cellspacing="0">
-<!--[form:post]-->
-
-        <tr class="breaker"><td colspan="2">Commenter</td></tr>
-        <tr><td class="labels"><label for="comment_author">Name</label></td><td class="fields">
+      <% admin_form_for([:admin, @comment]) do |form| -%>  
+        <% form.wrap do -%>
+          <%= form.break "Commenter" %>
           <%= form.text_field 'author', :size => '58', :class => 'normal_ic_width' %>
-        </td></tr>
-        <tr><td class="labels"><label for="comment_author_url">Indentity URL</label></td><td class="fields">
           <%= form.text_field 'author_url', :size => '58', :class => 'normal_ic_width' %>
-        </td></tr>
-        <tr><td class="labels"><label for="comment_author_openid_authority">Authority URL</label></td><td class="fields">
           <%= form.text_field 'author_openid_authority', :size => '58', :class => 'normal_ic_width' %>
-        </td></tr>
-        <tr><td class="labels"><label for="comment_author_email">Email</label></td><td class="fields">
           <%= form.text_field 'author_email', :size => '58', :class => 'normal_ic_width' %>
-        </td></tr>
-        <tr class="breaker"><td colspan="2">Content</td></tr>
 
-        <tr><td class="labels"><label for="comment_body_raw"><b>Body</b></label></td><td class="fields">
-        <%= form.text_area 'body', :rows => '22', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %><br/><a href="http://lesstile.rubyforge.org">Lesstile enabled</a>
-        </tr>
-        <tr>
-          <td colspan="2">
-			  <div class="submit_area">
-          <%= submit_tag 'Update this comment', :class => 'submit' %> or 
-          <%= link_to 'cancel and return to comment list', admin_comments_path %>
-        </div>
-          </td>
-        </tr>  
+          <%= form.break "Content" %>
+
+          <%= form.text_area 'body', :rows => '22', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width', :help => "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>" %>
+          <%= form.submit_with_cancel(admin_comments_path) %>
+        <% end -%>
 			<% end -%>
-      </table>
     </td>
 		<td class="super_right" valign="top">
 			

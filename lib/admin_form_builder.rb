@@ -13,11 +13,15 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def text_field(attribute, options = {})
-    wrap_field(attribute, super)
+    wrap_field(attribute, options) do |attribute, options|
+      super(attribute, options)
+    end
   end
 
   def text_area(attribute, options = {})
-    wrap_field(attribute, super)
+    wrap_field(attribute, options) do |attribute, options|
+      super(attribute, options)
+    end
   end
 
   def submit_with_cancel(cancel_path)
@@ -35,11 +39,15 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
 
   protected
 
-  def wrap_field(attribute, field)
+  def wrap_field(attribute, options)
+    extra = "<br /><span class='small gray'>#{extra}</span>" if extra = options.delete(:help)
     ret = <<-EOS
       <tr>
         <td class="labels"><label for=''>#{attribute.to_s.titleize}</label></td>
-        <td class="fields">#{field}</td>
+        <td class="fields">
+          #{yield(attribute, options)}
+          #{extra}
+        </td>
       </tr>  
     EOS
   end
