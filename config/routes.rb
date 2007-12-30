@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :posts
     admin.resources :pages
-    admin.resources :comments
+    admin.resources :comments, :member => {:mark_as_spam => :put, :mark_as_ham => :put}
   end
 
   map.connect 'pages/:id', :controller => 'pages', :action => 'show'
