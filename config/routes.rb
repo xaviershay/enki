@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resources :posts
     admin.resources :pages
+    admin.resources :comments
   end
 
   map.connect 'pages/:id', :controller => 'pages', :action => 'show'

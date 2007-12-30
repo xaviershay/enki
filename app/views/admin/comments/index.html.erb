@@ -1,0 +1,47 @@
+<%= render :partial => 'subnav' %>
+
+<div id="header">
+	<h1 class="skinny">Reader comments</h1>
+	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
+</div>
+
+<table class="list" cellspacing="0" cellpadding="0">
+	
+	<tr>
+		<th class="first_col">Created At</th>
+		<th>Commenter</th>
+		<th>Excerpt</th>
+		<th class="small_col">Post</th>
+		<th class="approved_col">Spam</th>
+		<th class="del_col">X</th>
+	</tr>
+	
+	<% @comments.each_with_index do |comment, index| -%>
+		<tr id="tca<%= comment.id %>" class="<% if !comment.approved? %>inactive <% end %><%= cycle('', 'alt_row') %><%= (index == 1 ? ' first_row' : '') %>">
+			<td class="first_col"><%= comment.created_at.strftime('%d %b, %Y') %></td>
+			<td><%= link_to (comment.author, edit_admin_comment_path(comment)) %></td>
+			<td><%= truncate(comment.body, 40) %></td>
+			<td class="small_col"><%= link_to(comment.post_title, edit_admin_post_path(comment.post))%></td>
+			<td class="approved_col"><%= comment.spam? ? 'spam' : 'ham' %></td>
+			<td class="del_col"><%= link_to('X', admin_comment_path(comment), :method => :delete, :confirm => "You are about to delete this comment. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
+		</tr>
+	<% end -%>
+	<% if @comments.empty? -%>
+	<tr class="first_row"><td class="first_col" colspan="6"><span class="gray">There are no comments at this time.</span></td></tr>
+	<% end -%>
+	<% if @comment_pages %>
+	<tr class="header">
+		<th colspan="6">
+			<div class="pagination">
+				<div class="prev">
+					<%= link_to '&laquo; Previous page', { :sort => params[:sort], :page => @comment_pages.current.previous } if @comment_pages.current.previous %>
+				&nbsp;</div>
+				<div class="next">&nbsp;
+					<%= link_to 'Next page &raquo;', { :sort => params[:sort], :page => @comment_pages.current.next } if @comment_pages.current.next %>
+				</div>
+			</div>
+		</th>
+	</tr>
+	<% end %>
+</table>
+<br/>

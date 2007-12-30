@@ -36,4 +36,13 @@ class Comment < ActiveRecord::Base
   def user_logged_in?
     false
   end
+
+  def approved?
+    true
+  end
+ 
+  # Delegates
+  def post_title
+    post.title
+  end
 end
