@@ -1,0 +1,11 @@
+development:
+  api_key: 1234
+  owner_url: http://localhost:3000
+ 
+test:
+  api_key: 1234
+  owner_url: http://localhost:3000 
+ 
+production:
+  api_key: 5678
+  owner_url: http://example.com

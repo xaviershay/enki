@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  acts_as_defensio_comment :fields => { :content => :body, :article => :post }
+    
   attr_accessor :openid_error
   attr_accessor :openid_valid
 
@@ -25,5 +27,13 @@ class Comment < ActiveRecord::Base
 
   def requires_openid_authentication?
     self.author.index(".")
+  end
+
+  def trusted_user?
+    false
+  end
+
+  def user_logged_in?
+    false
   end
 end

@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+  acts_as_defensio_article 
   acts_as_taggable
 
   has_many :comments

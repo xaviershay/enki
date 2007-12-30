@@ -1,0 +1,37 @@
+== Defensio
+
+* Complete doc of Defensio API: Defensio::Client
+* Plugin doc: Defensio::ActsAs::ClassMethods
+
+=== Installation
+
+1. Install the plugin
+  script/plugin install http://code.macournoyer.com/svn/plugins/defensio/
+2. Get an API key at http://defensio.com and dump it in config/defensio.yml
+3. Add new column to your spammable model
+  script/generate defensio_migration comment
+
+You're ready to go!
+
+=== Usage
+
+In your "article" class, add:
+
+  acts_as_defensio_article
+
+In your "comment" class, add:
+
+  acts_as_defensio_comment :fields => { :content => :comment }
+
+The :fields option allows you to configure fields that are sent
+to Defensio to classify a comment.
+
+Look at Defensio::Client for a list of all those fields.
+
+In the controller, before creating a comment set the request environment variables:
+  @comment.env = request.env
+
+Then when the comment is created the +spam+, +spaminess+ and +signature+
+columns will magically be set for your own pleasure.
+
+Check out other examples in http://code.macournoyer.com/svn/plugins/defensio/example

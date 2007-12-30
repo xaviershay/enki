@@ -13,6 +13,8 @@ class CommentsController < ApplicationController
 
   def create
     @comment = session[:pending_comment] || Comment.new((params[:comment] || {}).merge(:post => @post))
+    @comment.env = request.env
+
     session[:pending_comment] = nil
 
     if @comment.requires_openid_authentication?
