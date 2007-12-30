@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   def index
     if @tag = params[:tag]
-      @posts = Post.find_tagged_with(@tag)
+      @posts = Post.find_recent_by_tag(@tag)
     else
-      @posts = Post.find_recent(:limit => 15)
+      @posts = Post.find_recent(:include => :tags)
     end
   end
 

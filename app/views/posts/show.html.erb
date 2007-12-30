@@ -1,6 +1,6 @@
 <%= render :partial => 'posts/post', :locals => {:post => @post} %>
 <ol class="commentlist">
-  <% @post.comments.each do |comment| -%>
+  <% @post.approved_comments.each do |comment| -%>
   <li<%= cycle ' class="alt"', '' %> id="comment-{{ comment.id }}">
     <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
   </li>

@@ -17,7 +17,7 @@
 	</tr>
 	
 	<% @pages.each_with_index do |page, index| -%>
-		<tr class="<%= cycle('alt_row', '') %><%= (index == 0 ? ' first_row' : '') %>">
+		<tr class="<%= cycle('', 'alt_row') %><%= (index == 0 ? ' first_row' : '') %>">
 			<td class="first_col"><%= page.created_at.strftime('%d %b, %Y') %></td>
 			<td><%= link_to(page.title, edit_admin_page_url(page)) %></td>
 			<td><%= truncate(page.body, 50) %></td>

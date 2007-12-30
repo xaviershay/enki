@@ -24,12 +24,14 @@
           <li><%= link_to(link.name, link.url) %></li>
         <% end -%>
       </ul>
-      <h2>Categories</h2>
-      <ul>
-        <% popular_tags.each do |tag| -%>
-        <li><%= link_to(tag.name, posts_path(:tag => tag)) %></li>
-        <% end -%>
-      </ul>
+      <% unless popular_tags.empty? -%>
+        <h2>Categories</h2>
+        <ul>
+          <% popular_tags.each do |tag| -%>
+          <li><%= link_to(tag.name, posts_path(:tag => tag)) %></li>
+          <% end -%>
+        </ul>
+      <% end -%>
     </div>    
     
     <div id="footer">&#169; The Author. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a></div>

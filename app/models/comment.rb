@@ -7,6 +7,7 @@ class Comment < ActiveRecord::Base
   belongs_to :post
 
   before_save :apply_filter
+  after_save  :denormalize
 
   validates_presence_of :author
   validates_presence_of :body
@@ -41,6 +42,10 @@ class Comment < ActiveRecord::Base
     true
   end
  
+  def denormalize
+    self.post.update_attribute(:approved_comments_count, self.post.approved_comments.count)
+  end
+
   # Delegates
   def post_title
     post.title

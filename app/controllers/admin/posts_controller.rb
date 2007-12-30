@@ -3,7 +3,7 @@ class Admin::PostsController < Admin::BaseController
     actions :all
 
     response_for(:create) do
-      redirect_to(:action => 'edit', :id => @page)
+      redirect_to(:action => 'edit', :id => @post)
     end
 
     after(:create) do
@@ -15,7 +15,7 @@ class Admin::PostsController < Admin::BaseController
     end
 
     response_for(:update) do
-      redirect_to(:action => 'edit', :id => @page)
+      redirect_to(:action => 'edit', :id => @post)
     end
   end
 end

@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   acts_as_taggable
 
   has_many :comments
+  has_many :approved_comments, :class_name => 'Comment', :conditions => 'comments.spam = 0'
 
   before_create :generate_slug
   before_save   :apply_filter
@@ -11,8 +12,12 @@ class Post < ActiveRecord::Base
   validates_presence_of :body
 
   class << self
-    def find_recent(options = {})
-      find(:all, {:order => 'created_at DESC'}.merge(options))
+    def find_recent(options = {:limit => 15})
+      find(:all, {:order => 'posts.created_at DESC'}.merge(options))
+    end
+
+    def find_recent_by_tag(tag, options = {:limit => 15})
+      find_tagged_with(tag, {:order => 'posts.created_at DESC'}.merge(options))
     end
 
     def find_by_permalink(year, month, day, slug)
