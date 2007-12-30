@@ -16,6 +16,10 @@ module UrlHelper
     post_path(post) + "/comments"
   end
 
+  def page_path(page)
+    "/pages/#{page.slug}"
+  end
+
   def author_link(comment)
     if comment.author_url.blank?
       comment.author

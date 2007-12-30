@@ -1,0 +1,28 @@
+<%  temp_repair = error_messages_for('page') || '' %>
+<%= temp_repair.gsub('Body raw', 'Body') %>
+
+<table class="form" cellpadding="0" cellspacing="0">
+<!--[form:page]-->
+<tr class="breaker btop"><td colspan="2">Linking</td></tr>
+
+<tr><td class="labels"><label for="page_the_link">URL for this page</label></td><td class="fields">
+/pages/<span id="the_link" style="display: inline"><%= @page.slug %></span></td></tr>
+
+<tr><td class="labels"><label for="page_permalink"><b>Link</b></label></td><td class="fields">
+<%= form.text_field 'slug' %><br/><span class="small gray">Value will be converted to lowercase and sanitized.</span></td></tr>
+
+<tr class="breaker"><td colspan="2">Content</td></tr>
+
+<tr><td class="labels"><label for="page_title"><b>Title</b></label></td><td class="fields">
+<%= form.text_field 'title', :class => 'normal_i_width' %></td></tr>
+
+<tr><td class="labels"><label for="page_body_raw"><b>Body</b></label></td><td class="fields">
+<%= form.text_area 'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %><br/>
+
+<tr class="breaker"><td colspan="2"><a class="section_toggler" href="javascript://" onclick="Element.toggle('dt1');Element.toggle('dt2');Element.toggle('dt_i1');Element.toggle('dt_i2');">Details&nbsp;&nbsp;<img id="dt_i1" src="/images/admin/arrow_right.gif" border="0" alt=""/><img id="dt_i2" src="/images/admin/arrow_down.gif" border="0" alt="" style="display: none;"/></a></td></tr>
+
+<tr id="dt1" style="display: none;"><td class="labels"><label for="page_is_active">Is active?</label></td><td class="fields">
+<%= check_box 'page2', 'is_active', :checked => 'checked' %><label for="page_is_active" class="left">&nbsp;<span class="small gray">If the box is checked, the page is available on your site</span></label></td></tr>
+
+<!--[eoform:post]-->
+</table>

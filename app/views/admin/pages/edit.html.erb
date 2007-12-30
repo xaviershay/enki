@@ -1,0 +1,39 @@
+<%= render :partial => 'admin/pages/subnav', :locals => {:np => false, :ep => true} %>
+
+<div id="header">
+	<h1>Editing page</h1>
+	<h2>Required fields in <b>bold</b>.</h2><br/>
+	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
+</div>
+
+<table class="super" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="super_left" valign="top" class="no_pad">
+			<% form_for([:admin, @page]) do |form| -%>
+			  <%= render :partial => 'form', :locals => {:form => form} %>
+			  <div class="submit_area"><%= submit_tag 'Update this page', :class => 'submit' %> or <%= link_to('cancel and return to page list', admin_pages_path) %></div>
+			<% end -%>
+		</td>
+		<td class="super_right" valign="top">
+			
+			<div id="showing_prev" style="display: none;">
+			    <table id="preview_tbl" cellpadding="0" cellspacing="0">
+    				<tr class="breaker btop">
+    				    <td class="t_left">Content preview</td>
+    				    <td class="t_right"><span class="small gray"><a id="previewToggle_one" href="javascript://" onclick="togglePreview('showing_prev', 'hiding_prev');" class="create_bg">&larr; Hide preview</a></span></td>
+    				</tr>
+    				<tr><td colspan="2" class="nobo super_full"><div id="preview"><%= @preview %></div></td></tr>
+    			</table>
+			</div>
+			<div id="hiding_prev">
+			    <table id="show_preview" cellpadding="0" cellspacing="0">
+    				<tr>
+    					<td><span class="small"><a id="previewToggle_two" href="javascript://" onclick="togglePreview('showing_prev', 'hiding_prev');">Show content preview &rarr;</a></span></td>
+    				</tr>
+    			</table>
+			</div>
+			
+		</td>
+	</tr>
+</table>
+<br/>

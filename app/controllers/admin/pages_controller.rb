@@ -1,4 +1,4 @@
-class Admin::PostsController < Admin::BaseController
+class Admin::PagesController < Admin::BaseController
   make_resourceful do
     actions :all
 
@@ -7,11 +7,11 @@ class Admin::PostsController < Admin::BaseController
     end
 
     after(:create) do
-      flash[:notice] = "Post created"
+      flash[:notice] = "Page created"
     end
 
     after(:update) do
-      flash[:notice] = "Post updated"
+      flash[:notice] = "Page updated"
     end
 
     response_for(:update) do

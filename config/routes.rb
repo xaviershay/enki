@@ -1,7 +1,10 @@
 ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resources :posts
+    admin.resources :pages
   end
+
+  map.connect 'pages/:id', :controller => 'pages', :action => 'show'
 
   map.connect ':year/:month/:day/:slug/comments', :controller => 'comments', :action => 'index'
   map.connect ':year/:month/:day/:slug',         :controller => 'posts', :action => 'show'
