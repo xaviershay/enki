@@ -1,12 +1,8 @@
-<table class="form" cellpadding="0" cellspacing="0">
-<!--[form:post]-->
-<tr class="breaker btop"><td colspan="2">Content</td></tr>
+<% form.wrap do %>
+  <%= form.break "Content" %>
+  <%= form.text_field 'title', :size => '58', :class => 'normal_i_width' %>
+  <%= form.text_area  'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %>
+  <%= form.text_field 'tag_list', :size => '58', :class => 'normal_i_width' %>
 
-<tr><td class="labels"><label for="post_title"><b>Title</b></label></td><td class="fields">
-<%= form.text_field 'title', :size => '58', :class => 'normal_i_width' %></td></tr>
-
-<tr><td><label for="post_body"><b>Body</b></label></td><td>
-<%= form.text_area 'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %></tr>
-
-<tr><td class="labels"><label for="post_tag_list"><b>Tags</b></label></td><td class="fields">
-<%= form.text_field 'tag_list', :size => '58', :class => 'normal_i_width' %></td></tr>
+  <%= form.submit_with_cancel(admin_posts_path) %>
+<% end -%>

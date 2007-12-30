@@ -8,14 +8,9 @@
 <table class="super" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="super_left" valign="top" class="no_pad">
-      <% form_for([:admin, @post]) do |form| -%>
-        <%= render :partial => 'form', :locals => {:form => form} %>
-        <tr><td colspan="2">
-			  <div class="submit_area"><%= submit_tag 'Edit post', :class => 'submit' %> or <%= link_to 'cancel and return to post list', admin_posts_path %></div>
-        </td></tr>
+      <% admin_form_for([:admin, @post]) do |form| -%>
+          <%= render :partial => 'form', :locals => {:form => form} %>
       <% end -%>
-			
-			
 		</td>
 	</tr>
 </table>
