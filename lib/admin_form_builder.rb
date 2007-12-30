@@ -8,7 +8,8 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def break(title)
-    "<tr class='breaker btop'><td colspan='2'>#{title}</td></tr>"
+    @counter = @counter.to_i + 1
+    "<tr class='breaker#{@counter == 1 ? ' btop' : ''}'><td colspan='2'>#{title}</td></tr>"
   end
 
   def text_field(attribute, options = {})
@@ -37,7 +38,7 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   def wrap_field(attribute, field)
     ret = <<-EOS
       <tr>
-        <td class="labels"><label for=''>#{attribute.titleize}</label></td>
+        <td class="labels"><label for=''>#{attribute.to_s.titleize}</label></td>
         <td class="fields">#{field}</td>
       </tr>  
     EOS

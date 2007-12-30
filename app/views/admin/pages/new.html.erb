@@ -8,9 +8,8 @@
 <table class="super" cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="super_left" valign="top" class="no_pad">
-			<% form_for([:admin, @page]) do |form| -%>
+			<% admin_form_for([:admin, @page]) do |form| -%>
 			  <%= render :partial => 'form', :locals => {:form => form} %>
-			  <div class="submit_area"><%= submit_tag('Create new page', :class => 'submit') %> or <%= link_to('cancel and return to page list', admin_pages_path) %></div>
 			<% end -%>
 		</td>
 		<td class="super_right" valign="top">
