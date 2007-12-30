@@ -24,7 +24,7 @@ cb = (comments_sys_on == 'yes')
 	    <li><a accesskey="p" href="/admin/prefs" title="Preferences"<%= ' class="current"' if params[:action][0..4] == 'prefs' %>>Preferences</a></li>
 		<li><a accesskey="u" href="/admin/updates" title="Updates"<%= ' class="current"' if params[:action] == 'updates' %>>Updates</a></li>
 		<li><a accesskey="h" id="help_obj" href="/admin/help" title="Help"<%= ' class="current"' if params[:action] == 'help' %> onclick="showHelpPanel(); return false;">Help</a></li>
-		<li><a accesskey="l" href="/logout" title="Logout">Logout</a></li>
+		<li><%= link_to("Logout", admin_session_path, :accesskey => 'l', :method => :delete) %></li>
 		<li class="end"><a accesskey="v" href="/" target="_blank" title="View Site">View Site</a></li>
 	</ul><br/>
 </div>

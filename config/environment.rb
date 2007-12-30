@@ -67,4 +67,14 @@ require 'openid'
 require 'openid/store/filesystem'
 require 'openid/extensions/sreg'
 
-class OpenID::AuthenticationFailure < OpenID::OpenIDError; end;
+class OpenID::AuthenticationFailure < OpenID::OpenIDError
+  attr_accessor :response
+
+  def initialize(response)
+    @response = response
+  end
+
+  def identity_url
+    @response.identity_url
+  end
+end
