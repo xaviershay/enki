@@ -1,4 +1,17 @@
 class AdminFormBuilder < ActionView::Helpers::FormBuilder
+  class << self
+    def decorate_method(method_name, wrapper)
+      define_method(method_name) do |*args|
+        send(wrapper, *args) do |*args|
+          super(*args)
+        end
+      end
+    end
+  end
+
+  decorate_method :text_field, :field_with_label
+  decorate_method :text_area,  :field_with_label
+
   def wrap(&proc)
     @template.concat(<<-EOS, @proc.binding)
       <table class="form">
@@ -10,18 +23,6 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   def break(title)
     @counter = @counter.to_i + 1
     "<tr class='breaker#{@counter == 1 ? ' btop' : ''}'><td colspan='2'>#{title}</td></tr>"
-  end
-
-  def text_field(attribute, options = {})
-    wrap_field(attribute, options) do |attribute, options|
-      super(attribute, options)
-    end
-  end
-
-  def text_area(attribute, options = {})
-    wrap_field(attribute, options) do |attribute, options|
-      super(attribute, options)
-    end
   end
 
   def submit_with_cancel(cancel_path)
@@ -39,7 +40,7 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
 
   protected
 
-  def wrap_field(attribute, options)
+  def field_with_label(attribute, options)
     extra = "<br /><span class='small gray'>#{extra}</span>" if extra = options.delete(:help)
     ret = <<-EOS
       <tr>
