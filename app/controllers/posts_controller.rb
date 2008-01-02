@@ -5,6 +5,11 @@ class PostsController < ApplicationController
     else
       @posts = Post.find_recent(:include => :tags)
     end
+
+    respond_to do |format|
+      format.html
+      format.atom { render :layout => false }
+    end
   end
 
   def show

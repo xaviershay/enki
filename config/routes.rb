@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tags
   end
 
+  map.resources :posts
+
   map.connect 'pages/:id', :controller => 'pages', :action => 'show'
 
   map.connect ':year/:month/:day/:slug/comments', :controller => 'comments', :action => 'index'
