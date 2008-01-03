@@ -192,14 +192,14 @@ module ActiveRecord
           end
 
           def fallback_string_to_date(string)
-            new_date *ParseDate.parsedate(string)[0..2]
+            new_date(*::Date._parse(string, false).values_at(:year, :mon, :mday))
           end
 
           def fallback_string_to_time(string)
             time_hash = Date._parse(string)
             time_hash[:sec_fraction] = microseconds(time_hash)
 
-            new_time *time_hash.values_at(:year, :mon, :mday, :hour, :min, :sec, :sec_fraction)
+            new_time(*time_hash.values_at(:year, :mon, :mday, :hour, :min, :sec, :sec_fraction))
           end
       end
 
@@ -417,7 +417,11 @@ module ActiveRecord
       #   end
       def column(name, type, options = {})
         column = self[name] || ColumnDefinition.new(@base, name, type)
-        column.limit = options[:limit] || native[type.to_sym][:limit] if options[:limit] or native[type.to_sym]
+        if options[:limit]
+          column.limit = options[:limit]
+        elsif native[type.to_sym].is_a?(Hash)
+          column.limit = native[type.to_sym][:limit]
+        end
         column.precision = options[:precision]
         column.scale = options[:scale]
         column.default = options[:default]

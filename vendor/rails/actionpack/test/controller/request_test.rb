@@ -731,7 +731,11 @@ class MultipartRequestParameterParsingTest < Test::Unit::TestCase
     assert_equal 'bar', params['foo']
 
     file = params['file']
-    assert_kind_of Tempfile, file
+    if RUBY_VERSION > '1.9'
+      assert_kind_of File, file
+    else
+      assert_kind_of Tempfile, file
+    end
     assert_equal 'file.txt', file.original_filename
     assert_equal "text/plain", file.content_type
     assert ('a' * 20480) == file.read
@@ -789,7 +793,7 @@ end
 
 class XmlParamsParsingTest < Test::Unit::TestCase
   def test_single_file
-    person = parse_body("<person><name>David</name><avatar type='file' name='me.jpg' content_type='image/jpg'>#{Base64.encode64('ABC')}</avatar></person>")
+    person = parse_body("<person><name>David</name><avatar type='file' name='me.jpg' content_type='image/jpg'>#{ActiveSupport::Base64.encode64('ABC')}</avatar></person>")
 
     assert_equal "image/jpg", person['person']['avatar'].content_type
     assert_equal "me.jpg", person['person']['avatar'].original_filename
@@ -801,8 +805,8 @@ class XmlParamsParsingTest < Test::Unit::TestCase
       <person>
         <name>David</name>
         <avatars>
-          <avatar type='file' name='me.jpg' content_type='image/jpg'>#{Base64.encode64('ABC')}</avatar>
-          <avatar type='file' name='you.gif' content_type='image/gif'>#{Base64.encode64('DEF')}</avatar>
+          <avatar type='file' name='me.jpg' content_type='image/jpg'>#{ActiveSupport::Base64.encode64('ABC')}</avatar>
+          <avatar type='file' name='you.gif' content_type='image/gif'>#{ActiveSupport::Base64.encode64('DEF')}</avatar>
         </avatars>
       </person>
     end_body

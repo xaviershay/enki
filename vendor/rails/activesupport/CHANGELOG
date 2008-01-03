@@ -1,6 +1,14 @@
 *SVN*
 
-* Ruby 1.9 compatibility.  #1689, #10466, #10468 [Cheah Chu Yeow, Pratik Naik, Jeremy Kemper]
+* Fixed String#titleize to work for strings with 's too #10571 [trek]
+
+* Changed the implementation of Enumerable#group_by to use a double array approach instead of a hash such that the insert order is honored [DHH/Marcel]
+
+* remove multiple enumerations from ActiveSupport::JSON#convert_json_to_yaml when dealing with date/time values.  [rick]
+
+* Hash#symbolize_keys skips keys that can't be symbolized.  #10500 [Brad Greenlee]
+
+* Ruby 1.9 compatibility.  #1689, #10466, #10468, #10554, #10594, #10632 [Cheah Chu Yeow, Pratik Naik, Jeremy Kemper, Dirkjan Bussink, fxn]
 
 * TimeZone#to_s uses UTC rather than GMT.  #1689 [Cheah Chu Yeow]
 

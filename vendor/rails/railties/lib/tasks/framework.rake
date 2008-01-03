@@ -69,6 +69,9 @@ namespace :rails do
       for framework in %w(railties actionpack activerecord actionmailer activesupport activeresource)
         system "svn export #{rails_svn}/#{framework} vendor/rails/#{framework}" + (ENV['REVISION'] ? " -r #{ENV['REVISION']}" : "")
       end
+      
+      puts "Updating current scripts, javascripts, and configuration settings"
+      Rake::Task["rails:update"].invoke
     end
   end
 
@@ -105,7 +108,7 @@ namespace :rails do
       require 'railties_path'  
       project_dir = RAILS_ROOT + '/public/javascripts/'
       scripts = Dir[RAILTIES_PATH + '/html/javascripts/*.js']
-      scripts.reject!{|s| File.basename(s) == 'application.js'} if File.exists?(project_dir + 'application.js')
+      scripts.reject!{|s| File.basename(s) == 'application.js'} if File.exist?(project_dir + 'application.js')
       FileUtils.cp(scripts, project_dir)
     end
 

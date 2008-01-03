@@ -109,6 +109,7 @@ class FormOptionsHelperTest < Test::Unit::TestCase
       )
   end
 
+  # FIXME: fails on Ruby 1.9, probably in html-scanner
   def test_hash_options_for_select
     assert_dom_equal(
       "<option value=\"&lt;Kroner&gt;\">&lt;DKR&gt;</option>\n<option value=\"Dollar\">$</option>",
@@ -1293,4 +1294,32 @@ COUNTRIES
                  "</select>",
                  html
   end
+
+  def test_time_zone_select_with_default_time_zone_and_nil_value
+     @firm = Firm.new()
+     @firm.time_zone = nil
+      html = time_zone_select( "firm", "time_zone", nil, :default => 'B' )
+      assert_dom_equal "<select id=\"firm_time_zone\" name=\"firm[time_zone]\">" +
+                   "<option value=\"A\">A</option>\n" +
+                   "<option value=\"B\" selected=\"selected\">B</option>\n" +
+                   "<option value=\"C\">C</option>\n" +
+                   "<option value=\"D\">D</option>\n" +
+                   "<option value=\"E\">E</option>" +
+                   "</select>",
+                   html
+  end
+
+  def test_time_zone_select_with_default_time_zone_and_value
+     @firm = Firm.new('D')
+      html = time_zone_select( "firm", "time_zone", nil, :default => 'B' )
+      assert_dom_equal "<select id=\"firm_time_zone\" name=\"firm[time_zone]\">" +
+                   "<option value=\"A\">A</option>\n" +
+                   "<option value=\"B\">B</option>\n" +
+                   "<option value=\"C\">C</option>\n" +
+                   "<option value=\"D\" selected=\"selected\">D</option>\n" +
+                   "<option value=\"E\">E</option>" +
+                   "</select>",
+                   html
+  end
+
 end
