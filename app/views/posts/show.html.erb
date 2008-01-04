@@ -7,9 +7,20 @@
   <% end -%>
 </ol>    
 <h2>Post a comment</h2>
-<div><%= @comment.errors.full_messages %></div>
+  <% unless @comment.errors.empty? -%>
+  <div class="errors">
+    <h3>Comment not added!</h3>
+    <ul>
+      <% @comment.errors.sort_by(&:first).each do |error| -%>
+        <li><%= format_comment_error(error) %></li>
+      <% end -%>  
+    </ul>
+  </div>  
+  <% end -%>  
 <% form_for([@post, @comment]) do |form| -%>
-  <%= form.text_field 'author' %>
-  <%= form.text_area 'body' %>
-  <%= submit_tag "Add Comment" %>
+  <div>
+    <p><%= form.text_field 'author' %><label for="comment_author"><small>Name or <a href="http://openid.net/">OpenID</a> (required)</small></label></p>
+    <p><%= form.text_area 'body' %><br /><small>(<a href="http://lesstile.rubyforge.org">lesstile enabled</a> - surround code blocks with ---)</small></p>
+    <p><%= submit_tag "Add Comment" %></p>
+  </div>
 <% end -%>

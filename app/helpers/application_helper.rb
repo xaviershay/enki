@@ -18,4 +18,12 @@ module ApplicationHelper
       <link rel="openid.delegate" href="#{delegate}" />
     EOS
   end
+  
+  def format_comment_error(error)
+    {
+      'body'   => 'Please comment',
+      'author' => 'Please provide your name or OpenID identity URL',
+      'base'   => error.last
+    }[error.first]
+  end
 end

@@ -1,96 +1,46 @@
-/* Common colors */
-#page_container, #footer, #introduction em
-{
-  background-color: white;
-}
-
 /* High level containers */
-html
-{
-  background-color: #cccccc;
-}
-
 body 
 { 
   color: black;
-  background-color: #cccccc;
   
   font: normal 12px verdana, arial, helvetica, sans-serif;
   line-height: 1.5;
+  padding: 0px;
+  margin: 0px;
 }
 
-#flower_1
-{
-  position: absolute;
-  left: 40px;
-  top: 45px;
-}
-
-#flower_1 g path
-{
-  stroke-width:15;
-}
-
-#flower_2
-{
-  position: absolute;
-  left: 10px;
-  bottom: 0px;
-}
-
-#flower_2 g path
-{
-  stroke-width:20;
-}
 #page_container
 {
   width: 70em; 
-  border: solid 6px black; 
  
   position: absolute;
-  min-height: 600px;
+  min-height: 400px;
   
-  padding: 5px;
   color: black;
+
+  margin-top: 5px;
+  padding-left: 10px;
+  border-right: solid 1px #aaaaaa;
+  border-top: solid 1px #aaaaaa;
 }
 
 #footer
 {
   position: absolute;
-  bottom: 0px;
-  right: 0px;
-
+  bottom: -1px;
+  right: -1px;
   font-size: 8pt;
-  padding: 5px;
-  
+  padding-top: 5px;
+  padding-right: 15px;
+  padding-bottom: 5px;
+  padding-left: 5px;
   color: gray;
+  border-bottom: solid 1px #aaaaaa;
 }
 
 /* Headings */
-
-#robot-head
-{
-  position: absolute;
-  top: 20px;
-  right: 50px;
-}
-
-img.eyecandy
-{
-  border: none;
-}
-
-img.inline
-{
-  float: right;
-  margin-left: 1em;
-}
-
 h1#page_heading
 {
-  margin-left: 200px;
-  margin-top:  100px;
-  height: 90px;
   font-size: 24pt;
 }
 
@@ -103,10 +53,6 @@ h2
 h2 a, h3, h4, h5
 {
   color: #333333;
-}
-p.subtitle
-{
-  font-style: italic;
 }
 
 /* Text */
@@ -131,19 +77,19 @@ strong
   background-repeat: no-repeat;
   background-position: 0px 2px;
 }
-/*
-.openid:before
-{
-  content: url("/images/openid_icon.png");
-}
-*/
+
 a 
 {
-  color: #c41f1f;
+  color: #000051;
   
   text-decoration: none;    
 }
   
+small a, label a
+{
+  text-decoration: underline;
+}
+
 a:hover
 {
   text-decoration: underline;    
@@ -164,18 +110,17 @@ img
 #navigation 
 {
   position: absolute;
-  width: 8em;
-  top: 216px; 
-  left: 0px;
+  width: 10em;
+  top: -1px; 
+  right: -1px;
 
-  border-right: solid 6px black;
-  border-left: none;
-  border-top: solid 6px black;
-  border-bottom: solid 6px black;
+  border: none;
+  border-left: solid 1px #aaaaaa;
+  border-bottom: solid 1px #aaaaaa;
+  border-top: solid 1px white;
+  border-right: solid 1px white;
 
-  background-color: white;
-  padding: 5px;
-  z-index: 1;
+  padding: 10px;
 }
 
 #navigation h2
@@ -225,11 +170,8 @@ img
 
 #main 
 {
-  margin-left: 9em;
-
-  
   padding-right: 15px;
-  padding-left: 15px;
+  padding-left: 0px;
   padding-top: 15px;
   padding-bottom: 40px;
 }
@@ -240,27 +182,6 @@ div.meta
  margin-bottom: 3em; 
 }
 /* Formatting */   
-#introduction 
-{
-  font-style: italic;
-  width: 400px;
-  text-align: center;
-
-  margin-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#introduction em
-{
-  color: #c41f1f;
-}
-  
-/* Home */
-.meta 
-{
-
-}
 
 .meta ul
 {
@@ -311,19 +232,6 @@ h2
   clear: both;
 }
 
-/* Tables */
-tr, th
-{
-  font: 10pt georgia, serif;
-  text-align: left;
-
-}
-
-th
-{
-  font-weight: bold;
-}
-
 /* Forms */
 label
 {
@@ -337,8 +245,9 @@ textarea, select
 
 textarea
 {
-  width: 490px;
-  }
+  width: 500px;
+}
+
 #project_summary
 {
   height: 150px;
@@ -349,43 +258,14 @@ textarea
   height: 150px;
 }
 
-table
-{
-  border-spacing: 0px;
-
-  }
-
 .alt, .container_alt
 {
   background-color: #fafafa;
 }
 
-td
-{
-  padding: 5px;
-}
-
-table.content td.date, td.title, td.type
-{ 
-  vertical-align: top;
-  white-space: nowrap;
-}
-table.projects th.name { width: 120px; }
-table.projects th.date { width: 100px; }
-
-#bonus label
-{
-  width: 130px;
- }
-div.comments div.container, div.comments div.container_alt 
-{
-  clear: both;
-  margin-bottom: 5px;
-}
 
 div.comments div.body
 {
-
   padding: 5px;
 }
 div.comments div.meta
@@ -399,14 +279,23 @@ div.comments div.separator
   height: 10px;
 }
 
+div.errors
+{
+  border: solid 1px red;
+  background-color: #ffcccc;
+  padding: 5px;
+  padding-left: 10px;
+  width: 485px;
+}
+
+div.errors h3
+{
+  font-size: 1.0em;
+}
+
 .fieldWithErrors
 {
   display: inline;
-}
-
-.fieldWithErrors input, .textareaWithErrors textarea
-{
-  background-color: #ffeaea;
 }
 
 span.error
@@ -419,11 +308,6 @@ hr
   border-top: dotted 1px black;
   border-bottom: none;
   height: 1px;
-}
-
-#textilizer textarea
-{
-  height: 200px;
 }
 
 #preview
