@@ -34,6 +34,13 @@
           <% end -%>
         </ul>
       <% end -%>
+      <form method="get" id="sform" action="/posts">
+        <div>
+          <h2><label for="q">Search</label></h2>
+
+          <input type="text" id="q" value="" name="q" />
+        </div>
+      </form>
     </div>    
     
     <div id="footer">&#169; <%= config[:author] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a></div>

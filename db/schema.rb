@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(:version => 3) do
     t.text     "body_html",               :default => "",   :null => false
     t.boolean  "active",                  :default => true, :null => false
     t.integer  "approved_comments_count",                   :null => false
+    t.string   "cached_tag_list"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -57,8 +58,7 @@ ActiveRecord::Schema.define(:version => 3) do
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
-    t.string  "name"
-    t.integer "taggings_count"
+    t.string "name"
   end
 
 end

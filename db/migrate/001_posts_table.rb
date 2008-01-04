@@ -13,6 +13,8 @@ class PostsTable < ActiveRecord::Migration
         t.integer :approved_comments_count
       end
 
+      table.string :cached_tag_list
+
       table.timestamps
     end
 

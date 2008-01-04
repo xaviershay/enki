@@ -12,12 +12,21 @@ class Post < ActiveRecord::Base
   validates_presence_of :body
 
   class << self
-    def find_recent(options = {:limit => 15})
+    DEFAULT_LIMIT = 15
+
+    def find_recent(options = {:limit => DEFAULT_LIMIT})
       find(:all, {:order => 'posts.created_at DESC'}.merge(options))
     end
 
-    def find_recent_by_tag(tag, options = {:limit => 15})
+    def find_recent_by_tag(tag, options = {:limit => DEFAULT_LIMIT})
       find_tagged_with(tag, {:order => 'posts.created_at DESC'}.merge(options))
+    end
+
+    def find_by_search(q, options = {})
+      search_fields = [:title, :body, :cached_tag_list]
+      with_scope(:find => {:conditions => [search_fields.collect {|field| "#{field} LIKE :q"}.join(' or '), {:q => "%#{q}%"}]}) do
+        find(:all, {:order => 'posts.created_at DESC'}.merge(options))
+      end
     end
 
     def find_by_permalink(year, month, day, slug)
