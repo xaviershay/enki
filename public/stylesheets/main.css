@@ -170,7 +170,7 @@ img
 
 #main 
 {
-  padding-right: 15px;
+  padding-right: 150px;
   padding-left: 0px;
   padding-top: 15px;
   padding-bottom: 40px;
@@ -315,7 +315,6 @@ hr
   height: 200px;
   overflow: auto;
 }
-
 
 /* Syntax */
 
