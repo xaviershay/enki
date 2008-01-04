@@ -5,13 +5,15 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-<title>My Awesome Blog</title>
-<%= stylesheet_link_tag 'main' %>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+  <title><%= config[:title] %></title>
+  <%= stylesheet_link_tag 'main' %>
+  <%= open_id_delegation_link_tags(config[:open_id_delegation, :server], config[:open_id_delegation, :delegate]) %>
+  <%= auto_discovery_link_tag(:atom, :format => 'atom') %>
 </head>
 <body>
   <div id="page_container">
-    <h1 id="page_heading">My Awesome Blog</h1>
+    <h1 id="page_heading"><%= config[:title] %></h1>
 
     <div id="main">
       <%= yield %>
@@ -34,7 +36,7 @@
       <% end -%>
     </div>    
     
-    <div id="footer">&#169; The Author. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a></div>
+    <div id="footer">&#169; <%= config[:author] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a></div>
   </div>
 </body>
 </html>

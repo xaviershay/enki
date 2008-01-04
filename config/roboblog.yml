@@ -1,0 +1,6 @@
+title:  Roboblog
+author: Don Alias
+
+open_id_delegation:
+  server: http://www.myopenid.com/server
+  delegate: http://username.myopenid.com
