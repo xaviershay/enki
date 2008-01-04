@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def posts_title(tag)
-    config[:title] + (tag ? " - #{tag.name}" : "")
+    [tag, config[:title]].compact.join(" - ") 
   end
 
   def open_id_delegation_link_tags(server, delegate)

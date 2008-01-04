@@ -1,5 +1,6 @@
 title:  Roboblog
 author: Don Alias
+url:    http://roboblog.com
 
 open_id_delegation:
   server: http://www.myopenid.com/server

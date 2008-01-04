@@ -6,10 +6,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-  <title><%= config[:title] %></title>
+  <title><%= yield(:page_title) || config[:title] %></title>
   <%= stylesheet_link_tag 'main' %>
   <%= open_id_delegation_link_tags(config[:open_id_delegation, :server], config[:open_id_delegation, :delegate]) %>
-  <%= auto_discovery_link_tag(:atom, :format => 'atom') %>
+  <%= yield(:head) %>
 </head>
 <body>
   <div id="page_container">
@@ -34,11 +34,12 @@
           <% end -%>
         </ul>
       <% end -%>
-      <form method="get" id="sform" action="/posts">
+      <form method="get" id="sform" action="http://www.google.com/search">
         <div>
           <h2><label for="q">Search</label></h2>
 
           <input type="text" id="q" value="" name="q" />
+          <input type="hidden" name="sitesearch" value="<%= config[:url] %>" />
         </div>
       </form>
     </div>    

@@ -2,8 +2,6 @@ class PostsController < ApplicationController
   def index
     if @tag = params[:tag]
       @posts = Post.find_recent_by_tag(@tag)
-    elsif @q = params[:q]
-      @posts = Post.find_by_search(@q)
     else
       @posts = Post.find_recent(:include => :tags)
     end
