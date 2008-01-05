@@ -1,7 +1,11 @@
 class Comment < ActiveRecord::Base
   acts_as_defensio_comment :fields => { :content => :body, :article => :post }
     
-  attr_accessible :author, :body
+  class << self  
+    def protected_attribute?(attribute)
+      [:author, :body].include?(attribute)
+    end
+  end
 
   attr_accessor :openid_error
   attr_accessor :openid_valid
