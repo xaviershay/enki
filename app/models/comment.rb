@@ -1,6 +1,8 @@
 class Comment < ActiveRecord::Base
   acts_as_defensio_comment :fields => { :content => :body, :article => :post }
     
+  attr_accessible :author, :body
+
   attr_accessor :openid_error
   attr_accessor :openid_valid
 
@@ -14,6 +16,7 @@ class Comment < ActiveRecord::Base
 
   validates_presence_of :post
 
+  # validate :open_id_thing
   def validate
     super 
     errors.add(:base, openid_error) unless openid_error.blank?
@@ -27,7 +30,7 @@ class Comment < ActiveRecord::Base
   end
 
   def requires_openid_authentication?
-    self.author.index(".")
+    !!self.author.index(".")
   end
 
   def trusted_user?
@@ -43,7 +46,7 @@ class Comment < ActiveRecord::Base
   end
  
   def denormalize
-    self.post.update_attribute(:approved_comments_count, self.post.approved_comments.count)
+    self.post.denormalize_comments_count!
   end
 
   # Delegates
