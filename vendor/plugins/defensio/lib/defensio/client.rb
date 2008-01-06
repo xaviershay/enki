@@ -2,6 +2,14 @@ require 'net/http'
 require 'yaml'
 
 module Defensio
+  module StubResponses
+    class Response
+      def success?
+        true
+      end
+    end
+  end
+
   class Error < RuntimeError; end
   class InvalidAPIKey < Error; end
   
@@ -83,10 +91,13 @@ module Defensio
     # Optional options:
     #     version: The version of the Defensio API you wanna use (default: 1.1)
     def initialize(options)
-      @api_key   = options.delete(:api_key)   || raise(InvalidAPIKey, 'api_key required')
-      @owner_url = options.delete(:owner_url) || raise(Error, 'owner_url required')
-      @version   = options.delete(:version)   || '1.1'
-      
+      @mode      = options.delete(:mode)      || 'production' 
+      unless test?
+        @api_key   = options.delete(:api_key)   || raise(InvalidAPIKey, 'api_key required')
+        @owner_url = options.delete(:owner_url) || raise(Error, 'owner_url required')
+        @version   = options.delete(:version)   || '1.1'
+      end
+
       @default_params = { :owner_url => @owner_url }
     end
     
@@ -216,11 +227,20 @@ module Defensio
     
       def call(action, response_class, params={})
         RAILS_DEFAULT_LOGGER.debug "[DEFENSIO] #{action} #{params.inspect}"
-        response_class.new post(convert_name(action), convert_params(@default_params.merge(params)))
+        if test?
+          Defensio::StubResponses.const_get(response_class.to_s.split('::').last).new
+        else  
+          response_class.new post(convert_name(action), convert_params(@default_params.merge(params)))
+        end
       end
     
       def post(action, params={})
+        raise("Unstubbed method called in test mode") if test?
         Net::HTTP.post_form(URI.parse("http://api.defensio.com/app/#{@version}/#{action}/#{@api_key}.yaml"), params).body
+      end
+
+      def test?
+        @mode == 'test'
       end
   end
 end
