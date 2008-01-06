@@ -49,7 +49,6 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post)
     else
-      puts @comment.errors.full_messages
       render :template => 'posts/show'
     end
   end
