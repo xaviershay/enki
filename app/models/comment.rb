@@ -3,7 +3,7 @@ class Comment < ActiveRecord::Base
     
   class << self  
     def protected_attribute?(attribute)
-      [:author, :body].include?(attribute)
+      [:author, :body].include?(attribute.to_sym)
     end
   end
 

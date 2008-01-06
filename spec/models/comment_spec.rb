@@ -80,6 +80,7 @@ describe Comment do
   # TODO: OpenID error model
 end
 
+# TODO: Activate these for comments_controller
 describe "A comment from a user", :shared => true do
   before(:each) do
     @comment = Comment.new

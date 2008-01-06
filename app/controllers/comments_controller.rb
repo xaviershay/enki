@@ -7,12 +7,14 @@ class CommentsController < ApplicationController
     if request.post? || openid_completion?(request)
       create
     else
-      raise "TODO: Comments#index"
+      #TODO: Comments#index
+      @comments = @post.approved_comments
     end
   end
 
   def create
     @comment = session[:pending_comment] || Comment.new((params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
+    @comment.post = @post
     @comment.env = request.env
 
     session[:pending_comment] = nil
@@ -47,6 +49,7 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to post_path(@post)
     else
+      puts @comment.errors.full_messages
       render :template => 'posts/show'
     end
   end
