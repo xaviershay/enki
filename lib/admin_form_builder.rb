@@ -40,7 +40,7 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
 
   protected
 
-  def field_with_label(attribute, options)
+  def field_with_label(attribute, options = {})
     extra = "<br /><span class='small gray'>#{extra}</span>" if extra = options.delete(:help)
     ret = <<-EOS
       <tr>

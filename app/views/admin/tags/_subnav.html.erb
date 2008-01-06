@@ -1,0 +1,10 @@
+<% form_tag('/admin/tags/search', :id => 'tag_search_form') do %>
+<div id="admin_sub_nav">
+    <div class="sn_left">
+        search tags:&nbsp;<%= text_field_tag('q', (params[:q] != '' ? params[:q] : ''), :id => 'sf') %>
+    </div>
+    <div class="sn_right">
+        Merge tags by renaming them to the same name.
+    </div><br/>
+</div>
+<% end -%>

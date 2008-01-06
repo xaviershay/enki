@@ -1,19 +1,23 @@
  - OpenID auth for comments
  - OpenID auth for admin
- * Live preview for comments
- * Live preview for composition
- * Humanized reading
  - XHTML 1.1 template
- * Default template that doesn't look like ass
  - Defensio comment checking
- * Offline comment checking
  - Filtered columns - textile/lesstile
  - Syntax highlighting with CodeRay
  - ATOM feed
  - Tags
  - Pages
+ - Search
+ - Paging for admin
+ - Default template that doesn't look like ass
+ - Tag admin
+
+ * Search for admin
+ * Live preview for comments
  * Tests
- * Search
+ * Future posting
+
+ * Live preview for composition
+ * Humanized reading
  * API
- * Tag admin
- * Paging for admin
+ * Offline comment checking
