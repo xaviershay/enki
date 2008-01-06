@@ -26,19 +26,5 @@
 	<% unless @posts.length > 0 -%>
 	<tr class="first_row"><td class="first_col" colspan="<% if comments_on == 'yes' %>5<% else %>4<% end %>"><span class="gray">There are no posts at this time.</span></td></tr>
 	<% end -%>
-	<% if @post_pages %>
-	<tr class="header">
-		<th colspan="<% if comments_on == 'yes' %>5<% else %>4<% end %>">
-			<div class="pagination">
-				<div class="prev">
-					<%= link_to '&laquo; Previous page', { :sort => params[:sort], :page => @post_pages.current.previous } if @post_pages.current.previous %>
-				&nbsp;</div>
-				<div class="next">&nbsp;
-					<%= link_to 'Next page &raquo;', { :sort => params[:sort], :page => @post_pages.current.next } if @post_pages.current.next %>
-				</div>
-			</div>
-		</th>
-	</tr>
-	<% end %>
 </table>
-<br/>
+<%= will_paginate(@posts) %>

@@ -28,19 +28,5 @@
 	<% if @pages.empty? -%>
     <tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no pages at this time.</span></td></tr>
 	<% end -%>
-	<% if @page_pages %>
-	<tr class="header">
-		<th colspan="5">
-			<div class="pagination">
-				<div class="prev">
-					<%= link_to '&laquo; Previous page', { :sort => params[:sort], :page => @page_pages.current.previous } if @page_pages.current.previous %>
-				&nbsp;</div>
-				<div class="next">&nbsp;
-					<%= link_to 'Next page &raquo;', { :sort => params[:sort], :page => @page_pages.current.next } if @page_pages.current.next %>
-				</div>
-			</div>
-		</th>
-	</tr>
-	<% end %>
 </table>
-<br/>
+<%= will_paginate(@pages) %>

@@ -25,6 +25,13 @@ class Admin::CommentsController < Admin::BaseController
 
   protected
 
+  def current_objects
+    @current_object ||= current_model.paginate(
+      :order => "created_at DESC", 
+      :page => params[:page] 
+    )
+  end
+
   def find_comment
     @comment = Comment.find(params[:id])
   end

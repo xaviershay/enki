@@ -18,4 +18,13 @@ class Admin::PostsController < Admin::BaseController
       redirect_to(:action => 'edit', :id => @post)
     end
   end
+
+  protected
+
+  def current_objects
+    @current_object ||= current_model.paginate(
+      :order => "created_at DESC", 
+      :page => params[:page] 
+    )
+  end
 end
