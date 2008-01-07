@@ -27,7 +27,7 @@
     <% form_tag('/admin/pages/search', :id => 'page_search_form') do %>
     <div id="admin_sub_nav">
         <div class="sn_left">
-            <%= link_to('<b>Create a new page</b>', new_admin_page_path) %> or search them:&nbsp;<%= text_field_tag('q', (params[:q] != '' ? params[:q] : ''), :id => 'sf') %>
+            <%= link_to('<b>Create a new page</b>', new_admin_page_path) %>
         </div>
         <div class="sn_right">
             Be sure to link to these pages on your site!

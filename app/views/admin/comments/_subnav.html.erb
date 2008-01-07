@@ -8,18 +8,5 @@
             <%= link_to '&larr; Return to the comments list', admin_comments_path %>
         </div><br/>
     </div>
-
-<% else %>
-    
-    <div id="admin_sub_nav">
-        <div class="sn_left wider">
-            <% form_tag('/admin/comments/search', :id => 'comment_search_form') do -%>
-            search comments:&nbsp;<%= text_field_tag('q', (params[:q] != '' ? params[:q] : ''), :id => 'sf') %>
-            <% end -%>
-        </div>
-        <div class="sn_right narrower">
-            <%= link_to 'Approve', '/admin/comments/approve/all', :confirm => "You are about to approve all unapproved comments.\n\nAre you ABSOLUTELY sure?" %> or <%= link_to 'delete', '/admin/comments/delete/unapproved', :confirm => "You are about to delete all unapproved comments. This is permanent.\n\nAre you ABSOLUTELY sure?" %> all unapproved comments?
-        </div><br/>
-    </div>
     
 <% end %>
