@@ -37,3 +37,7 @@ Spec::Runner.configure do |config|
   # config.mock_with :flexmock
   # config.mock_with :rr
 end
+
+describe "ATOM feed", :shared => true do
+  it "has an appropriate ContentType"
+end

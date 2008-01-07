@@ -1,10 +1,7 @@
 class PostsController < ApplicationController
   def index
-    if @tag = params[:tag]
-      @posts = Post.find_recent_by_tag(@tag)
-    else
-      @posts = Post.find_recent(:include => :tags)
-    end
+    @tag = params[:tag]
+    @posts = Post.find_recent(:tag => @tag)
 
     respond_to do |format|
       format.html

@@ -15,11 +15,15 @@ class Post < ActiveRecord::Base
     DEFAULT_LIMIT = 15
 
     def find_recent(options = {:limit => DEFAULT_LIMIT})
-      find(:all, {:order => 'posts.created_at DESC'}.merge(options))
+      tag = options.delete(:tag)
+      if tag
+        find_tagged_with(tag, {:order => 'posts.created_at DESC'}.merge(options))
+      else
+        find(:all, {:order => 'posts.created_at DESC'}.merge(options))
+      end
     end
 
     def find_recent_by_tag(tag, options = {:limit => DEFAULT_LIMIT})
-      find_tagged_with(tag, {:order => 'posts.created_at DESC'}.merge(options))
     end
 
     def find_by_permalink(year, month, day, slug)
