@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  DEFAULT_LIMIT = 15
+
   acts_as_defensio_article 
   acts_as_taggable
 
@@ -12,18 +14,18 @@ class Post < ActiveRecord::Base
   validates_presence_of :body
 
   class << self
-    DEFAULT_LIMIT = 15
-
-    def find_recent(options = {:limit => DEFAULT_LIMIT})
+    def find_recent(options = {})
       tag = options.delete(:tag)
+      options = {
+        :order      => 'posts.created_at DESC',
+        :conditions => ['published_at < ?', Time.now],
+        :limit      => DEFAULT_LIMIT
+      }.merge(options)
       if tag
-        find_tagged_with(tag, {:order => 'posts.created_at DESC'}.merge(options))
+        find_tagged_with(tag, options)
       else
-        find(:all, {:order => 'posts.created_at DESC'}.merge(options))
+        find(:all, options)
       end
-    end
-
-    def find_recent_by_tag(tag, options = {:limit => DEFAULT_LIMIT})
     end
 
     def find_by_permalink(year, month, day, slug)
@@ -40,6 +42,7 @@ class Post < ActiveRecord::Base
   end
 
   def apply_filter
+    self.published_at = Time.now # TODO: Remove this when published_at is exposed in admin interface
     self.body_html = Lesstile.format_as_xhtml(
       self.body,
       :text_formatter => lambda {|text| RedCloth.new(text).to_html},

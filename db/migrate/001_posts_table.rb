@@ -10,11 +10,12 @@ class PostsTable < ActiveRecord::Migration
 
         t.boolean :active, :default => true
 
-        t.integer :approved_comments_count
+        t.integer :approved_comments_count, :default => 0
       end
 
       table.string :cached_tag_list
 
+      table.datetime :published_at
       table.timestamps
     end
 

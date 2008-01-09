@@ -41,8 +41,9 @@ ActiveRecord::Schema.define(:version => 3) do
     t.text     "body",                    :default => "",   :null => false
     t.text     "body_html",               :default => "",   :null => false
     t.boolean  "active",                  :default => true, :null => false
-    t.integer  "approved_comments_count",                   :null => false
+    t.integer  "approved_comments_count", :default => 0,    :null => false
     t.string   "cached_tag_list"
+    t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
