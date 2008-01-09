@@ -2,11 +2,11 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "/posts/index.atom.builder" do
   before(:each) do
-    mock_tag = mock_model_with_stubs(Tag,
+    mock_tag = mock_model(Tag,
       :name => 'code'
     )
 
-    mock_post = mock_model_with_stubs(Post,
+    mock_post = mock_model(Post,
       :title             => "A post",
       :body_html         => "Posts contents!",
       :created_at        => 1.year.ago,
