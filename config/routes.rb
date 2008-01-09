@@ -14,6 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'pages/:id', :controller => 'pages', :action => 'show'
 
   map.connect ':year/:month/:day/:slug/comments', :controller => 'comments', :action => 'index'
+  map.connect ':year/:month/:day/:slug/comments/new', :controller => 'comments', :action => 'new'
   map.connect ':year/:month/:day/:slug/comments.:format', :controller => 'comments', :action => 'index'
   map.connect ':year/:month/:day/:slug', :controller => 'posts', :action => 'show'
   map.posts_with_tag ':tag', :controller => 'posts', :action => 'index'
