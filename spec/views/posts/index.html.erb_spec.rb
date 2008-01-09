@@ -18,6 +18,10 @@ describe "/posts/index.html.erb" do
     assigns[:posts] = [mock_post, mock_post]
   end
 
+  after(:each) do
+    response.should be_valid_xhtml_fragment
+  end
+
   it "should render list of posts" do
     render "/posts/index.html.erb"
   end

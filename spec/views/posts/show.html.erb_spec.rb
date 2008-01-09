@@ -28,7 +28,11 @@ describe "/posts/show.html.erb" do
     assigns[:comment] = Comment.new
   end
 
-  it "should render" do
+  after(:each) do
+    response.should be_valid_xhtml_fragment
+  end
+
+  it "should render a post" do
     render "/posts/show.html.erb"
   end
 end

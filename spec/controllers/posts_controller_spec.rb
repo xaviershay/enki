@@ -73,7 +73,7 @@ describe PostsController do
       do_get
     end
   end
-  
+
   describe 'handling GET to /posts.atom with tag'do
     before(:each) do
       @posts = [mock_model(Post)]
