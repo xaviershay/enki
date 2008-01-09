@@ -8,14 +8,14 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tags
   end
 
+  map.connect '', :controller => 'posts', :action => 'index'
   map.resources :posts
 
   map.connect 'pages/:id', :controller => 'pages', :action => 'show'
 
   map.connect ':year/:month/:day/:slug/comments', :controller => 'comments', :action => 'index'
-  map.connect ':year/:month/:day/:slug',         :controller => 'posts', :action => 'show'
-  map.connect ':year/:month/:day/:slug.:format', :controller => 'posts', :action => 'show'
+  map.connect ':year/:month/:day/:slug/comments.:format', :controller => 'comments', :action => 'index'
+  map.connect ':year/:month/:day/:slug', :controller => 'posts', :action => 'show'
   map.connect ':tag', :controller => 'posts', :action => 'index'
   map.connect ':tag.:format', :controller => 'posts', :action => 'index'
-  map.connect '', :controller => 'posts', :action => 'index'
 end
