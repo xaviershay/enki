@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include UrlHelper
 
-  before_filter :find_post
+  before_filter :find_post, :except => [:new]
 
   def index
     if request.post? || openid_completion?(request)
@@ -9,6 +9,16 @@ class CommentsController < ApplicationController
     else
       #TODO: Comments#index
       @comments = @post.approved_comments
+    end
+  end
+
+  def new
+    @comment = Comment.build_for_preview(params[:comment])
+
+    respond_to do |format|
+      format.js do
+        render :partial => 'comment.html.erb'
+      end
     end
   end
 

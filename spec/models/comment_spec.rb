@@ -80,63 +80,46 @@ describe Comment do
   # TODO: OpenID error model
 end
 
-# TODO: Activate these for comments_controller
-describe "A comment from a user", :shared => true do
+describe Comment, '.build_for_preview' do
   before(:each) do
-    @comment = Comment.new
+    @comment = Comment.build_for_preview(:author => 'Don Alias', :body => 'A Comment')
   end
 
-  it_should_behave_like('Comment')
+  it 'returns a new comment' do
+    @comment.should be_new_record
+  end
 
-  describe 'mass assignment' do
-    it "allows setting of author" do
-      @comment.update_attributes(:author => 'Don Alias')
-      @comment.author.should == 'Don Alias'
-    end
+  it 'sets created_at' do
+    @comment.created_at.should_not be_nil
+  end
 
-    it "allows setting of body" do
-      @comment.update_attributes(:body => 'This is a comment')
-      @comment.body.should == 'This is a comment'
-    end
+  it 'applies filter to body' do
+    @comment.body_html.should == 'A Comment'
+  end
+end
 
-    it "forbids setting of author_url" do
-      @comment.update_attributes(:author_url => 'http://roboblog.com')
-      @comment.author_url.should be_blank
-    end
+describe Comment, '.build_for_preview with OpenID author' do
+  before(:each) do
+    @comment = Comment.build_for_preview(:author => 'http://roboblog.com', :body => 'A Comment')
+  end
 
-    it "forbids setting of author_email" do
-      @comment.update_attributes(:author_email => 'donalias@roboblog.com')
-      @comment.author_email.should be_blank
-    end
+  it 'returns a new comment' do
+    @comment.should be_new_record
+  end
 
-    it "forbids setting of author_openid_authority" do
-      @comment.update_attributes(:author_openid_authority => 'http://roboblog.com/openid_server')
-      @comment.author_openid_authority.should be_blank
-    end
-    
-    it "forbids setting of created_at" do
-      @comment.update_attributes(:created_at => 1.year.ago)
-      @comment.created_at.should be_nil
-    end
+  it 'sets created_at' do
+    @comment.created_at.should_not be_nil
+  end
 
-    it "forbids setting of updated_at" do
-      @comment.update_attributes(:updated_at => 1.year.ago)
-      @comment.updated_at.should be_nil
-    end
+  it 'applies filter to body' do
+    @comment.body_html.should == 'A Comment'
+  end
 
-    it "forbids setting of spam" do
-      @comment.update_attributes(:spam => 1)
-      @comment.spam.should == false
-    end
+  it 'sets author_url to OpenID identity' do
+    @comment.author_url.should == 'http://roboblog.com'
+  end
 
-    it "forbids setting of spaminess" do
-      @comment.update_attributes(:spaminess => 0.3)
-      @comment.spaminess.should be_nil
-    end
-
-    it "forbids setting of signature" do
-      @comment.update_attributes(:signature => 'rt3ienrt823wontsriun3iunrst3rsitun3')
-      @comment.signature.should be_nil
-    end
+  it 'sets author to "Your OpenID Name"' do
+    @comment.author.should == "Your OpenID Name"
   end
 end

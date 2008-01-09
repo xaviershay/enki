@@ -1,8 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CommentsController, 'with an atom GET to #index' do
-  controller_name :comments
-
   before(:each) do
     @mock_post = mock_model(Post)
     @mock_post.stub!(:approved_comments).and_return(@mock_comments = [mock_model(Comment)])
@@ -135,5 +133,20 @@ describe CommentsController, "with a POST to #index" do
 
   it "forbids setting of signature" do
     assigns(:comment).signature.should be_nil
+  end
+end
+
+describe CommentsController, 'with an AJAX request to new' do
+  before(:each) do
+    Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
+
+    xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
+      :author => 'Don Alias',
+      :body   => 'A comment'
+    }
+  end
+
+  it "assigns a new comment for the view" do
+    assigns(:comment).should == @comment
   end
 end

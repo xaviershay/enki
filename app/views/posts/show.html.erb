@@ -1,3 +1,7 @@
+<% content_for(:head) do -%>
+  <%= javascript_include_tag 'common' %>
+  <%= javascript_include_tag 'live-comment-preview' %>
+<% end -%>
 <%= render :partial => 'posts/post', :locals => {:post => @post} %>
 <ol class="commentlist">
   <% @post.approved_comments.each do |comment| -%>

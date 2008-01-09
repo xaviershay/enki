@@ -8,6 +8,7 @@
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
   <title><%= yield(:page_title) || config[:title] %></title>
   <%= stylesheet_link_tag 'main' %>
+  <%= javascript_include_tag 'jquery-1.2.1.js' %>
   <%= open_id_delegation_link_tags(config[:open_id_delegation, :server], config[:open_id_delegation, :delegate]) %>
   <%= yield(:head) %>
 </head>
