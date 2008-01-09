@@ -1,6 +1,6 @@
 atom_feed(
-  :url         => url_for(:format => 'atom', :only_path => false), 
-  :root_url    => url_for(:only_path => false),
+  :url         => url_for(formatted_posts_path(:tag => @tag, :format => 'atom', :only_path => false)), 
+  :root_url    => url_for(posts_path(:tag => @tag, :only_path => false)),
   :schema_date => '2008'
 ) do |feed|
   feed.title     posts_title(@tag)

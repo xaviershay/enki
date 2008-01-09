@@ -41,3 +41,13 @@ end
 describe "ATOM feed", :shared => true do
   it "has an appropriate ContentType"
 end
+
+class Spec::Rails::Example::RailsExampleGroup
+  def mock_model_with_stubs(klass, data)
+    model = mock_model(klass)
+    data.each_pair do |attribute, value|
+      model.stub!(attribute).and_return(value)
+    end
+    model
+  end
+end
