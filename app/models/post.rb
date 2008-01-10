@@ -42,7 +42,6 @@ class Post < ActiveRecord::Base
   end
 
   def apply_filter
-    self.published_at = Time.now # TODO: Remove this when published_at is exposed in admin interface
     self.body_html = Lesstile.format_as_xhtml(
       self.body,
       :text_formatter => lambda {|text| RedCloth.new(text).to_html},

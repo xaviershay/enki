@@ -27,4 +27,10 @@ class Admin::PostsController < Admin::BaseController
       :page => params[:page] 
     )
   end
+
+  def build_object
+    @current_object = Post.new(object_parameters) do |post|
+      post.published_at = Time.now
+    end
+  end
 end
