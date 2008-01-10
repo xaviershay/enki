@@ -8,6 +8,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :tags
   end
 
+  map.connect '/admin', :controller => 'admin/posts', :action => 'index'
+
   map.connect '', :controller => 'posts', :action => 'index'
   map.resources :posts
 

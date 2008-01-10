@@ -1,0 +1,27 @@
+#page_container 
+{
+  border: solid 1px #aaaaaa;
+  margin-left: auto;
+  margin-right: auto;
+
+  position: relative;
+  text-align: center;
+
+  padding-top: 10em;
+}
+
+label, input 
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+
+input[type='text']
+{
+  font-size: 2em;
+  font-weight: bold;
+  width: 20em;
+  text-align: center;
+}

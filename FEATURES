@@ -11,10 +11,11 @@
  - Paging for admin
  - Default template that doesn't look like ass
  - Tag admin
+ - Live preview for comments
+ - Future posting - Admin
+ - Admin login screen
 
- * Live preview for comments
- * Tests
- * Future posting
+ * Admin Tests
 
  * Live preview for composition
  * Humanized reading

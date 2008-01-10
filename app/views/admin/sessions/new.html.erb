@@ -1,7 +1,8 @@
-<p><%= flash[:error] %></p>
+<h1>Stop! Who are you?</h1>
+<% if flash[:error] %><p><%= flash[:error] %></p><% end %>
 <% form_tag(admin_session_path) do -%>
   <div>
-    <label for="openid_url">OpenID Identity: </label><%= text_field_tag 'openid_url' %>
-    <%= submit_tag("Login") %>
+    <%= text_field_tag 'openid_url' %>
+    <%= submit_tag("Login with OpenID") %>
   </div>  
 <% end -%>

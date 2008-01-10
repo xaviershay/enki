@@ -1,7 +1,10 @@
-title:  Roboblog
-author: Don Alias
-url:    http://roboblog.com
+title: Roboblog
+url:   http://roboblog.com
+author: 
+  name:    Don Alias
+  email:   don@roboblog.com
+  open_id: http://roboblog.com
 
 open_id_delegation:
-  server: http://www.myopenid.com/server
+  server:   http://www.myopenid.com/server
   delegate: http://username.myopenid.com

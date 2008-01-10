@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def author
-    Struct.new(:name, :email).new(config[:author], config[:email])
+    Struct.new(:name, :email).new(config[:author][:name], config[:author][:email])
   end
 
   def posts_title(tag)
