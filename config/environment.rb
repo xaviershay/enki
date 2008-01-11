@@ -62,19 +62,8 @@ require 'lesstile'
 require 'coderay'
 require 'core_extensions/string'
 require 'core_extensions/object'
+
 $:.unshift("vendor/ruby-openid-2.0.2/lib")
 require 'openid'
 require 'openid/store/filesystem'
 require 'openid/extensions/sreg'
-
-class OpenID::AuthenticationFailure < OpenID::OpenIDError
-  attr_accessor :response
-
-  def initialize(response)
-    @response = response
-  end
-
-  def identity_url
-    @response.identity_url
-  end
-end

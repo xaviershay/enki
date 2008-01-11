@@ -1,38 +1,56 @@
-class ActionController::Base
-  protected
+require 'openid'
 
-  def open_id_authenticate(url, options = {})
-    consumer = OpenID::Consumer.new(session[:openid_session] ||= {}, OpenID::Store::Filesystem.new('tmp/openid'))
-    if openid_completion?(request)
-      openid_response = consumer.complete(params.reject{|k,v|request.path_parameters[k]}, request.protocol + request.host_with_port + request.request_uri)
+module HyperOpenID
+  module ControllerMethods
+    protected
 
-      if openid_response.is_a?(OpenID::Consumer::SuccessResponse)
-        yield(openid_response)
+    def open_id_authenticate(url, options = {})
+      consumer = OpenID::Consumer.new(session[:openid_session] ||= {}, OpenID::Store::Filesystem.new('tmp/openid'))
+      if openid_completion?(request)
+        openid_response = consumer.complete(params.reject{|k,v|request.path_parameters[k]}, request.protocol + request.host_with_port + request.request_uri)
+
+        if openid_response.is_a?(OpenID::Consumer::SuccessResponse)
+          yield(openid_response)
+        else
+          raise OpenID::AuthenticationFailure.new(openid_response)
+        end
+        return false
       else
-        raise OpenID::AuthenticationFailure.new(openid_response)
-      end
-      return false
-    else
-      openid_request = consumer.begin(url)
-      options[:extensions].to_a.each do |extension|
-        openid_request.add_extension(extension)
-      end
+        openid_request = consumer.begin(url)
+        options[:extensions].to_a.each do |extension|
+          openid_request.add_extension(extension)
+        end
 
-      options[:before_redirect].send_with_default(:call)
+        options[:before_redirect].send_with_default(:call)
 
-      return_path = request.protocol + request.host_with_port + request.request_uri
-      redirect(openid_request.redirect_url(request.protocol + request.host_with_port + '/', return_path))
-      return true
+        return_path = request.protocol + request.host_with_port + request.request_uri
+        redirect(openid_request.redirect_url(request.protocol + request.host_with_port + '/', return_path))
+        return true
+      end
+    end
+
+    def openid_completion?(request)
+      request.get? && params["openid.mode"]
+    end
+      
+    def redirect(where = {})
+      headers['Location'] = url_for(where)
+      render :nothing => true, :status => '302 Redirect'
+      return
     end
   end
+end
 
-  def openid_completion?(request)
-    request.get? && params["openid.mode"]
+class OpenID::AuthenticationFailure < OpenID::OpenIDError
+  attr_accessor :response
+
+  def initialize(response)
+    @response = response
   end
-    
-  def redirect(where = {})
-    headers['Location'] = url_for(where)
-    render :nothing => true, :status => '302 Redirect'
-    return
+
+  def identity_url
+    @response.identity_url
   end
 end
+
+ActionController::Base.send(:include, HyperOpenID::ControllerMethods)
