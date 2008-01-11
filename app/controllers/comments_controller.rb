@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
         end
       rescue OpenID::DiscoveryFailure
         @comment.openid_error = "Unable to find OpenID server for <q>#{@comment.author}</q>"
-      rescue OpenID::AuthenticationFailure
+      rescue HyperOpenID::AuthenticationFailure
         @comment.openid_error = "Could not authenticate <q>#{@comment.author}</q>"
       end
     end
