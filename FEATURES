@@ -15,14 +15,19 @@ DONE
  - Live preview for comments
  - Future posting - Admin
  - Admin login screen
+ - Archives
 
 TODO now
+ * Register domain name
+ * Setup webpage
+ * Intro documentation
  * Admin Tests
  * Fix N+1 queries
- * Archives
+ * Indexes
  * Release mephisto importer
  * 404 invalid tags (/arsrsts)
  * Make defensio optional
+ * Store timestamps in UTC, make timezone configurable
 
 TODO later
  * Live preview for composition
