@@ -27,11 +27,11 @@
           <li><%= link_to(link.name, link.url) %></li>
         <% end -%>
       </ul>
-      <% unless popular_tags.empty? -%>
+      <% unless category_links_for_navigation.empty? -%>
         <h2>Categories</h2>
         <ul>
-          <% popular_tags.each do |tag| -%>
-          <li><%= link_to(tag.name, posts_path(:tag => tag)) %></li>
+          <% category_links_for_navigation.each do |link| -%>
+            <li><%= link_to(link.name, link.url) %></li>
           <% end -%>
         </ul>
       <% end -%>
