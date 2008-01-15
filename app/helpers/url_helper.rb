@@ -2,7 +2,7 @@ module UrlHelper
   def posts_path(options = {})
     if options[:tag]
       options[:tag] = options[:tag].name if options[:tag].respond_to?(:name)
-      options[:tag].downcase!
+      options[:tag] = options[:tag].downcase
       posts_with_tag_path(options)
     else
       super
@@ -12,7 +12,7 @@ module UrlHelper
   def formatted_posts_path(options = {})
     if options[:tag]
       options[:tag] = options[:tag].name if options[:tag].respond_to?(:name)
-      options[:tag].downcase!
+      options[:tag] = options[:tag].downcase
       formatted_posts_with_tag_path(options)
     else
       super
