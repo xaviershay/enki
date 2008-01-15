@@ -1,4 +1,4 @@
-= Roboblog
+= Enki
 
 A ruby on rails blogging engine for the fashionable developer.
 
@@ -6,8 +6,13 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
 
 == Quick Start
 
-git clone
-git branch
+  git clone http://repo.or.cz/w/enki.git
+  cd enki
+  git checkout -b myblog # Create a new work branch
+  git cp config/database.example.yml config/database.yml
+  git cp config/defensio.example.yml config/defensio.yml # Will not be required in the future
+  # Edit config/enki.yml to taste
+  rake spec
 
 == More info
 
@@ -16,5 +21,6 @@ Roboblog is a compact, easily extendable base for your blog. It does this by bei
 - Public facing views should adhere to standards (XHTML, Atom)
 - /yyyy/mm/dd/post-title is a good URL for your posts
 - Live comment preview by should be provided by default
+- Google does search better than you or I
 - You don't need a plugin system when you've got decent source control
 - If you're not using OpenID you're a chump
