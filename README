@@ -8,7 +8,7 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
 
 == Quick Start
 
-  git clone http://repo.or.cz/w/enki.git
+  git clone git://repo.or.cz/enki.git
   cd enki
   git checkout -b myblog # Create a new work branch
   git cp config/database.example.yml config/database.yml
