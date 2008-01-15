@@ -5,7 +5,7 @@ describe Post, ".find_recent" do
     now = Time.now
     Time.stub!(:now).and_return(now)
     Post.should_receive(:find).with(:all, {
-      :order      => 'posts.created_at DESC',
+      :order      => 'posts.published_at DESC',
       :conditions => ['published_at < ?', now],
       :limit      => Post::DEFAULT_LIMIT
     })
@@ -16,7 +16,7 @@ describe Post, ".find_recent" do
     now = Time.now
     Time.stub!(:now).and_return(now)
     Post.should_receive(:find_tagged_with).with('code', {
-      :order      => 'posts.created_at DESC',
+      :order      => 'posts.published_at DESC',
       :conditions => ['published_at < ?', now],
       :limit      => Post::DEFAULT_LIMIT
     })

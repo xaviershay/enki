@@ -9,7 +9,7 @@ describe "/posts/index.atom.builder" do
     mock_post = mock_model(Post,
       :title             => "A post",
       :body_html         => "Posts contents!",
-      :created_at        => 1.year.ago,
+      :published_at      => 1.year.ago,
       :updated_at        => 1.year.ago,
       :slug              => 'a-post',
       :approved_comments => [mock_model(Comment)],

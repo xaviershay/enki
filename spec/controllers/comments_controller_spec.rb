@@ -66,13 +66,13 @@ describe CommentsController, "with a POST to #index" do
   before(:each) do
     @mock_post = mock_model(Post)
     {
-      :approved_comments => @mock_comments = [mock_model(Comment)],
-      :new_record? => false,
-      :created_at => 1.year.ago,
-      :created_at => 1.year.ago,
+      :approved_comments           => @mock_comments = [mock_model(Comment)],
+      :new_record?                 => false,
+      :published_at                => 1.year.ago,
+      :created_at                  => 1.year.ago,
       :denormalize_comments_count! => nil,
-      :slug => 'a-post',
-      :day => '01'
+      :slug                        => 'a-post',
+      :day                         => '01'
     }.each_pair do |attribute, value|
       @mock_post.stub!(attribute).and_return(value)
     end

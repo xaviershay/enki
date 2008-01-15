@@ -17,7 +17,7 @@ class Post < ActiveRecord::Base
     def find_recent(options = {})
       tag = options.delete(:tag)
       options = {
-        :order      => 'posts.created_at DESC',
+        :order      => 'posts.published_at DESC',
         :conditions => ['published_at < ?', Time.now],
         :limit      => DEFAULT_LIMIT
       }.merge(options)
@@ -32,7 +32,7 @@ class Post < ActiveRecord::Base
       begin
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
         post = find_all_by_slug(slug).detect do |post|
-          post.created_at.midnight == day
+          post.published_at.midnight == day
         end 
       rescue ArgumentError # Invalid time
         post = nil

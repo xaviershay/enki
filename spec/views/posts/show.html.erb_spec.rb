@@ -19,7 +19,7 @@ describe "/posts/show.html.erb" do
     @post = mock_model(Post,
       :title             => "A post",
       :body_html         => "Posts contents!",
-      :created_at        => 1.year.ago,
+      :published_at      => 1.year.ago,
       :slug              => 'a-post',
       :approved_comments => [mock_comment],
       :tags              => [mock_tag]
