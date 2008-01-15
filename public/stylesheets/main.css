@@ -193,8 +193,12 @@ div.meta
   color: #cccccc;
   font-size: 10pt;
 }
+.archive-month .tags
+{
+  color: #bbbbbb;
+}
 
-.meta a
+.meta a, .archive-month .tags a
 {
   color: #bbbbbb;
   border-bottom: dotted 1px #bbbbbb;
