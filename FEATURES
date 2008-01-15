@@ -1,3 +1,4 @@
+DONE
  - OpenID auth for comments
  - OpenID auth for admin
  - XHTML 1.1 template
@@ -15,8 +16,15 @@
  - Future posting - Admin
  - Admin login screen
 
+TODO now
  * Admin Tests
+ * Fix N+1 queries
+ * Archives
+ * Release mephisto importer
+ * 404 invalid tags (/arsrsts)
+ * Make defensio optional
 
+TODO later
  * Live preview for composition
  * Humanized reading
  * API
