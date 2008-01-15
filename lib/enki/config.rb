@@ -1,4 +1,4 @@
-module Roboblog
+module Enki
   class Config < SimpleDelegator
     def initialize(file_name)
       super(symbolize_keys(YAML::load(IO.read(file_name))))

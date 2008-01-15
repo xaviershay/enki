@@ -83,9 +83,9 @@ describe CommentsController, "with a POST to #index" do
       :body   => 'This is a comment',
 
       # Attributes you are not allowed to set
-      :author_url              => 'http://www.roboblog.com',
-      :author_email            => 'donalias@roboblog.com',
-      :author_openid_authority => 'http://roboblog.com/openid_server',
+      :author_url              => 'http://www.enkiblog.com',
+      :author_email            => 'donalias@enkiblog.com',
+      :author_openid_authority => 'http://enkiblog.com/openid_server',
       :created_at              => @created_at = 1.year.ago,
       :updated_at              => @updated_at = 1.year.ago,
       :spam                    => true,

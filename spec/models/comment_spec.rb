@@ -45,7 +45,7 @@ describe Comment do
   it "requires OpenID authentication when the author's name contains a period" do
     @comment.author = "Don Alias"
     @comment.requires_openid_authentication?.should == false
-    @comment.author = "roboblog.com"
+    @comment.author = "enkiblog.com"
     @comment.requires_openid_authentication?.should == true
   end
 
@@ -100,7 +100,7 @@ end
 
 describe Comment, '.build_for_preview with OpenID author' do
   before(:each) do
-    @comment = Comment.build_for_preview(:author => 'http://roboblog.com', :body => 'A Comment')
+    @comment = Comment.build_for_preview(:author => 'http://enkiblog.com', :body => 'A Comment')
   end
 
   it 'returns a new comment' do
@@ -116,7 +116,7 @@ describe Comment, '.build_for_preview with OpenID author' do
   end
 
   it 'sets author_url to OpenID identity' do
-    @comment.author_url.should == 'http://roboblog.com'
+    @comment.author_url.should == 'http://enkiblog.com'
   end
 
   it 'sets author to "Your OpenID Name"' do

@@ -1,9 +1,9 @@
-title: Roboblog
-url:   http://roboblog.com
+title: My Enki Blog
+url:   http://enkiblog.com
 author: 
   name:    Don Alias
-  email:   don@roboblog.com
-  open_id: http://roboblog.com
+  email:   don@enkiblog.com
+  open_id: http://enkiblog.com
 
 open_id_delegation:
   server:   http://www.myopenid.com/server

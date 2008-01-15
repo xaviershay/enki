@@ -11,8 +11,8 @@ describe "/posts/show.html.erb" do
     mock_comment = mock_model(Comment,
       :created_at              => 1.month.ago,
       :author                  => "Don Alias",
-      :author_url              => "http://roboblog.com",
-      :author_openid_authority => "http://roboblog.com/server",
+      :author_url              => "http://enkiblog.com",
+      :author_openid_authority => "http://enkiblog.com/server",
       :body_html               => "A comment"
     )
 

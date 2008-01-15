@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def config
-    @@config = Roboblog::Config.new("config/roboblog.yml")
+    @@config = Enki::Config.new("config/enki.yml")
   end
 
   def author
