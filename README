@@ -31,3 +31,9 @@ Roboblog is a compact, easily extendable base for your blog. It does this by bei
 
 Xavier Shay
 xavier@rhnh.net
+
+== License
+
+GPL - See LICENSE
+
+Includes code from http://simplelog.net/ (admin layout)
