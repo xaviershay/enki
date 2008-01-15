@@ -45,7 +45,7 @@
       </form>
     </div>    
     
-    <div id="footer">&#169; <%= config[:author] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a></div>
+    <div id="footer"><%= config[:title] %> &#169; <%= config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{config[:url]}/posts.atom" %></div>
   </div>
 </body>
 </html>
