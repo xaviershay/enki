@@ -16,6 +16,7 @@ DONE
  - Future posting - Admin
  - Admin login screen
  - Archives
+ - Unpack gems
 
 TODO now
  * Register domain name
@@ -26,8 +27,11 @@ TODO now
  * Indexes
  * Release mephisto importer
  * 404 invalid tags (/arsrsts)
- * Make defensio optional
+ * Move defensio to a branch
  * Store timestamps in UTC, make timezone configurable
+ * Investigate OpenID comments in session
+ * Move OpenID nonces to DB
+ * Investigate rails OpenID and add tests
 
 TODO later
  * Live preview for composition

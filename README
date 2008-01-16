@@ -11,8 +11,8 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
   git clone git://repo.or.cz/enki.git
   cd enki
   git checkout -b myblog # Create a new work branch
-  git cp config/database.example.yml config/database.yml
-  git cp config/defensio.example.yml config/defensio.yml # Will not be required in the future
+  cp config/database.example.yml config/database.yml
+  cp config/defensio.example.yml config/defensio.yml # Will not be required in the future
   # Edit config/enki.yml to taste
   rake spec
 
