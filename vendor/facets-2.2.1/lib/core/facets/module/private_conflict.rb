@@ -1,0 +1,1 @@
+require 'facets/module/traits.rb'

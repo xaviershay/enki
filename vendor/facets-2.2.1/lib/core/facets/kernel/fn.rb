@@ -1,0 +1,1 @@
+require 'facets/proc/fn.rb'

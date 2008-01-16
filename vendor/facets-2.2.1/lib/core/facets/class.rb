@@ -1,0 +1,6 @@
+require 'facets/class/cattr.rb'
+require 'facets/class/class_load.rb'
+require 'facets/class/class_require.rb'
+require 'facets/class/descendents.rb'
+require 'facets/class/initializer.rb'
+require 'facets/class/remove_descendents.rb'

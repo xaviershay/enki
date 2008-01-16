@@ -1,0 +1,10 @@
+#!/usr/bin/env ratch
+
+# Remove package products.
+
+main :clobber_packaging do
+  glob("pkg/*").each do |f|
+    rm_r(f)
+  end
+end
+
