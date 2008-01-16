@@ -23,7 +23,7 @@ class Admin::SessionsController < ApplicationController
           flash.now[:error] = "You are not authorized"
         end
       end
-    rescue OpenID::AuthenticationFailure => e
+    rescue HyperOpenID::AuthenticationFailure => e
       flash.now[:error] = "Authentication failed for #{e.identity_url}"
     rescue OpenID::DiscoveryFailure
       flash.now[:error] = "Discovery failed for #{params[:openid_url]}"
