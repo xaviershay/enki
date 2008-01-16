@@ -13,16 +13,6 @@ class Admin::CommentsController < Admin::BaseController
     end
   end
 
-  def mark_as_spam
-    @comment.report_as_spam
-    redirect_to :back 
-  end
-
-  def mark_as_ham
-    @comment.report_as_ham
-    redirect_to :back
-  end
-
   protected
 
   def current_objects

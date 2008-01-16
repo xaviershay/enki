@@ -12,23 +12,15 @@
 		<th>Commenter</th>
 		<th>Excerpt</th>
 		<th class="small_col">Post</th>
-		<th class="approved_col">Spam</th>
 		<th class="del_col">X</th>
 	</tr>
 	
 	<% @comments.each_with_index do |comment, index| -%>
-		<tr id="tca<%= comment.id %>" class="<% if comment.spam? %>spam <% end %><%= cycle('', 'alt_row') %><%= (index == 1 ? ' first_row' : '') %>">
+		<tr id="tca<%= comment.id %>" class="<%= cycle('', 'alt_row') %><%= (index == 1 ? ' first_row' : '') %>">
 			<td class="first_col"><%= comment.created_at.strftime('%d %b, %Y') %></td>
 			<td><%= link_to (comment.author, edit_admin_comment_path(comment)) %></td>
 			<td><%= truncate(comment.body, 40) %></td>
 			<td class="small_col"><%= link_to(comment.post_title, edit_admin_post_path(comment.post))%></td>
-			<td class="approved_col">
-        <% if comment.spam? -%>
-          <%= link_to("Mark as ham", mark_as_ham_admin_comment_path(comment), :method => :put) %>
-        <% else -%>  
-          <%= link_to("Mark as spam", mark_as_spam_admin_comment_path(comment), :method => :put) %>
-        <% end -%>  
-      </td>
 			<td class="del_col"><%= link_to('X', admin_comment_path(comment), :method => :delete, :confirm => "You are about to delete this comment. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
 		</tr>
 	<% end -%>

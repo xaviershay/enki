@@ -25,7 +25,6 @@ class CommentsController < ApplicationController
   def create
     @comment = session[:pending_comment] || Comment.new((params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
-    @comment.env = request.env
 
     session[:pending_comment] = nil
 

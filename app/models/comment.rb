@@ -1,6 +1,4 @@
 class Comment < ActiveRecord::Base
-  acts_as_defensio_comment :fields => { :content => :body, :article => :post }
-    
   class << self  
     def protected_attribute?(attribute)
       [:author, :body].include?(attribute.to_sym)

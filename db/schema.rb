@@ -9,21 +9,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 3) do
+ActiveRecord::Schema.define(:version => 2) do
 
   create_table "comments", :force => true do |t|
-    t.integer  "post_id",                                    :null => false
-    t.string   "author",                  :default => "",    :null => false
-    t.string   "author_url",              :default => "",    :null => false
-    t.string   "author_email",            :default => "",    :null => false
-    t.string   "author_openid_authority", :default => "",    :null => false
-    t.text     "body",                    :default => "",    :null => false
-    t.text     "body_html",               :default => "",    :null => false
+    t.integer  "post_id",                                 :null => false
+    t.string   "author",                  :default => "", :null => false
+    t.string   "author_url",              :default => "", :null => false
+    t.string   "author_email",            :default => "", :null => false
+    t.string   "author_openid_authority", :default => "", :null => false
+    t.text     "body",                    :default => "", :null => false
+    t.text     "body_html",               :default => "", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "spam",                    :default => false
-    t.float    "spaminess"
-    t.string   "signature"
   end
 
   create_table "pages", :force => true do |t|

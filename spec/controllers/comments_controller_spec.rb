@@ -88,9 +88,6 @@ describe CommentsController, "with a POST to #index" do
       :author_openid_authority => 'http://enkiblog.com/openid_server',
       :created_at              => @created_at = 1.year.ago,
       :updated_at              => @updated_at = 1.year.ago,
-      :spam                    => true,
-      :spaminess               => 0.3,
-      :signature               => 'rt3ienrt823wontsriun3iunrst3rsitun3'
     }
   end
 
@@ -121,18 +118,6 @@ describe CommentsController, "with a POST to #index" do
 
   it "forbids setting of updated_at" do
     assigns(:comment).updated_at.should_not == @updated_at
-  end
-
-  it "forbids setting of spam" do
-    assigns(:comment).spam.should == false
-  end
-
-  it "forbids setting of spaminess" do
-    assigns(:comment).spaminess.should be_nil
-  end
-
-  it "forbids setting of signature" do
-    assigns(:comment).signature.should be_nil
   end
 end
 
