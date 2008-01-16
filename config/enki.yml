@@ -5,6 +5,7 @@ author:
   email:   don@enkiblog.com
   open_id: http://enkiblog.com
 
+# Delete the following section if your site will not be acting as an OpenID delegate
 open_id_delegation:
   server:   http://www.myopenid.com/server
   delegate: http://username.myopenid.com
