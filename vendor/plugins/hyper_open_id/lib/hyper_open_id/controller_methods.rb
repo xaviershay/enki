@@ -10,7 +10,7 @@ module HyperOpenID
         if openid_response.is_a?(OpenID::Consumer::SuccessResponse)
           yield(openid_response)
         else
-          raise OpenID::AuthenticationFailure.new(openid_response)
+          raise HyperOpenID::AuthenticationFailure.new(openid_response)
         end
         return false
       else

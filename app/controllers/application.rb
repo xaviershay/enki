@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
   def set_content_type
     headers['Content-Type'] ||= 'application/xhtml+xml; charset=utf-8'
   end
+
+  def config
+    @@config = Enki::Config.new("config/enki.yml")
+  end
+  helper_method :config
 end
