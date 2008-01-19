@@ -24,7 +24,7 @@
 		</tr>
 	<% end -%>
 	<% unless @posts.length > 0 -%>
-	<tr class="first_row"><td class="first_col" colspan="<% if comments_on == 'yes' %>5<% else %>4<% end %>"><span class="gray">There are no posts at this time.</span></td></tr>
+	<tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no posts at this time.</span></td></tr>
 	<% end -%>
 </table>
 <%= will_paginate(@posts) %>
