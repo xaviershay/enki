@@ -4,11 +4,7 @@ class Page < ActiveRecord::Base
   before_save   :apply_filter
 
   def apply_filter
-    self.body_html = Lesstile.format_as_xhtml(
-      self.body,
-      :text_formatter => lambda {|text| RedCloth.new(text).to_html},
-      :code_formatter => Lesstile::CodeRayFormatter
-    )  
+    self.body_html = EnkiFormatter.format_as_xhtml(self.body)
   end
 
   def active?
