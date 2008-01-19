@@ -17,9 +17,9 @@ DONE
  - Admin login screen
  - Archives
  - Unpack gems
+ - Register domain name
 
 TODO now
- * Register domain name
  * Setup webpage
  * Intro documentation
  * Investigate OpenID comments in session

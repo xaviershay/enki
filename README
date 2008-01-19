@@ -8,17 +8,16 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
 
 == Quick Start
 
-  git clone git://repo.or.cz/enki.git
+  git clone git://gitorious.org/enki/mainline.git
   cd enki
   git checkout -b myblog # Create a new work branch
   cp config/database.example.yml config/database.yml
-  cp config/defensio.example.yml config/defensio.yml # Will not be required in the future
   # Edit config/enki.yml to taste
   rake spec
 
 == More info
 
-Roboblog is a compact, easily extendable base for your blog. It does this by being highly opinionated, for example:
+Enki is a compact, easily extendable base for your blog. It does this by being highly opinionated, for example:
 
 - Public facing views should adhere to standards (XHTML, Atom)
 - /yyyy/mm/dd/post-title is a good URL for your posts
