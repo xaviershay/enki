@@ -21,7 +21,7 @@ Enki is a compact, easily extendable base for your blog. It does this by being h
 
 - Public facing views should adhere to standards (XHTML, Atom)
 - /yyyy/mm/dd/post-title is a good URL for your posts
-- Live comment preview by should be provided by default
+- Live comment preview should be provided by default
 - Google does search better than you or I
 - You don't need a plugin system when you've got decent source control
 - If you're not using OpenID you're a chump
