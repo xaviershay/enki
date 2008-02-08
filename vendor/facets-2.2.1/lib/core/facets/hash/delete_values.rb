@@ -1,1 +1,0 @@
-require 'facets/hash/delete.rb'

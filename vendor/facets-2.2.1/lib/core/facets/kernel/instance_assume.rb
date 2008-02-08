@@ -1,1 +1,0 @@
-require 'facets/kernel/instance.rb'

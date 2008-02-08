@@ -1,1 +1,0 @@
-require 'facets/string/blank.rb'

@@ -1,1 +1,0 @@
-require 'facets/enumerable/split.rb'

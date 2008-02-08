@@ -1,1 +1,0 @@
-require 'facets/kernel/deepcopy.rb'

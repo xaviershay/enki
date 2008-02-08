@@ -1,1 +1,0 @@
-require 'facets/integer/of.rb'

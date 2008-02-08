@@ -1,7 +1,0 @@
-== 0.1 / 2007-12-24
-
-* Initial release. Hooray!
-
-== 0.1.1 / 2007-12-26
-
-* Minor fixes to make it actually work

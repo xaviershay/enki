@@ -1,7 +1,0 @@
-#!/usr/bin/env ratch
-
-# prepare package
-
-manifest 'update'
-box 'build'
-

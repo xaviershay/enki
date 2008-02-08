@@ -1,1 +1,0 @@
-require 'facets/module/require.rb'

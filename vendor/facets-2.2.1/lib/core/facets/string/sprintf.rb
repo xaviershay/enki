@@ -1,1 +1,0 @@
-require 'facets/string/interpolate.rb'

@@ -1,1 +1,0 @@
-require 'facets/dir/multiglob.rb'

@@ -1,1 +1,0 @@
-require 'facets/class/descendents.rb'

@@ -1,6 +1,0 @@
-require 'facets/file/null.rb'
-require 'facets/file/read.rb'
-require 'facets/file/rootname.rb'
-require 'facets/file/sanitize.rb'
-require 'facets/file/split_all.rb'
-require 'facets/file/write.rb'
