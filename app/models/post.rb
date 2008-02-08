@@ -63,10 +63,8 @@ class Post < ActiveRecord::Base
     self.save!
   end
 
-  protected
-
   def generate_slug
-    self.slug ||= self.title
+    self.slug = self.title if self.slug.blank?
     self.slug.slugorize!
   end
 end

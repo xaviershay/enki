@@ -35,3 +35,17 @@ describe Post, ".find_recent" do
     months.should == [[1, [posts[0], posts[1]]], [2, [posts[2]]]]
   end
 end
+
+describe Post, '#generate_slug' do
+  it 'makes a slug from the title if slug if blank' do
+    post = Post.new(:slug => '', :title => 'my title')
+    post.generate_slug
+    post.slug.should == 'my-title'
+  end
+end
+
+describe Post, 'before create' do
+  it 'calls #generate_slug' do
+    Post.before_create.include?(:generate_slug).should == true
+  end
+end
