@@ -1,8 +1,8 @@
 module CoreExtensions::String
   def slugorize
     result = self.downcase
-    result.sub!(/&(\d)+;/, '')  # Ditch Entities
-    result.sub!('&', 'and')     # Replace & with 'and'
+    result.gsub!(/&(\d)+;/, '')  # Ditch Entities
+    result.gsub!('&', 'and')     # Replace & with 'and'
     result.gsub!(/['"]/, '')    # replace quotes by nothing
     result.gsub!(/\W/, ' ')     # strip all non word chars
     result.gsub!(/\ +/, '-')    # replace all white space sections with a dash

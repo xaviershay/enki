@@ -42,6 +42,18 @@ describe Post, '#generate_slug' do
     post.generate_slug
     post.slug.should == 'my-title'
   end
+
+  it 'replaces & with and' do
+    post = Post.new(:slug => 'a & b & c')
+    post.generate_slug
+    post.slug.should == 'a-and-b-and-c'
+  end
+
+  it 'replaces non alphanumeric characters with -' do
+    post = Post.new(:slug => 'a@#^*(){}b')
+    post.generate_slug
+    post.slug.should == 'a-b'
+  end
 end
 
 describe Post, 'before create' do
