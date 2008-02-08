@@ -10,6 +10,7 @@ class Post < ActiveRecord::Base
   before_save   :apply_filter
 
   validates_presence_of :title
+  validates_presence_of :slug
   validates_presence_of :body
 
   class << self
