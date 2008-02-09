@@ -166,10 +166,10 @@ module ActiveRecord #:nodoc:
           return unless @tag_list
           
           new_tag_names = @tag_list - tags.map(&:name)
-          old_tags = tags.reject { |tag| @tag_list.include?(tag.name) }
+          old_taggings = taggings.reject { |tagging| @tag_list.include?(tagging.tag.name) }
           
           self.class.transaction do
-            tags.delete(*old_tags) if old_tags.any?
+            taggings.destroy(*old_taggings) if old_taggings.any?
             
             new_tag_names.each do |new_tag_name|
               tags << Tag.find_or_create_with_like_by_name(new_tag_name)
