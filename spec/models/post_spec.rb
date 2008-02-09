@@ -56,9 +56,9 @@ describe Post, '#generate_slug' do
   end
 end
 
-describe Post, 'before create' do
+describe Post, 'before validation' do
   it 'calls #generate_slug' do
-    Post.before_create.include?(:generate_slug).should == true
+    Post.before_validation.include?(:generate_slug).should == true
   end
 end
 
@@ -77,10 +77,6 @@ describe Post, 'validations' do
 
   it 'is invalid with no title' do
     Post.new(valid_post_attributes.merge(:title => '')).should_not be_valid
-  end
-
-  it 'is invalid with no slug' do
-    Post.new(valid_post_attributes.merge(:slug => '')).should_not be_valid
   end
 
   it 'is invalid with no body' do

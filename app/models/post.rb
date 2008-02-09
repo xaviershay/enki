@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   has_many :comments
   has_many :approved_comments, :class_name => 'Comment'
 
-  before_create :generate_slug
+  before_validation :generate_slug
   before_save   :apply_filter
 
   validates_presence_of :title
