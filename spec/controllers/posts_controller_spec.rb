@@ -53,6 +53,13 @@ describe PostsController do
       do_get
     end
   end
+  
+  describe 'handling GET to index with invalid tag'do
+    it "returns missing" do
+      Post.stub!(:find_recent).and_return([])
+      lambda { get :index, :tag => 'bogus' }.should raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 
   describe 'handling GET to /posts.atom'do
     before(:each) do
