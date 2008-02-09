@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = session[:pending_comment] || Comment.new((params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
+    @comment = Comment.new((session[:pending_comment] || params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
 
     session[:pending_comment] = nil
@@ -34,7 +34,7 @@ class CommentsController < ApplicationController
 
         return if open_id_authenticate(
           @comment.author, 
-          :before_redirect => lambda { session[:pending_comment] = @comment },
+          :before_redirect => lambda { session[:pending_comment] = params[:comment] },
           :extensions      => [sreg_extension]
         ) do |response|
           open_id_fields = response.extension_response(sreg_extension.ns_uri, false)
