@@ -124,7 +124,7 @@ describe PostsController do
     end
   
     it "should find the post requested" do
-      Post.should_receive(:find_by_permalink).with('2008', '01', '01', 'a-post').and_return(@post)
+      Post.should_receive(:find_by_permalink).with('2008', '01', '01', 'a-post', :include => [:approved_comments, :tags]).and_return(@post)
       do_get
     end
   

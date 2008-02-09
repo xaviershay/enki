@@ -17,7 +17,8 @@ class Admin::CommentsController < Admin::BaseController
 
   def current_objects
     @current_object ||= current_model.paginate(
-      :order => "created_at DESC", 
+      :include => "post",
+      :order => "comments.created_at DESC", 
       :page => params[:page] 
     )
   end

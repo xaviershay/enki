@@ -28,10 +28,10 @@ class Post < ActiveRecord::Base
       end
     end
 
-    def find_by_permalink(year, month, day, slug)
+    def find_by_permalink(year, month, day, slug, options)
       begin
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
-        post = find_all_by_slug(slug).detect do |post|
+        post = find_all_by_slug(slug, options).detect do |post|
           post.published_at.midnight == day
         end 
       rescue ArgumentError # Invalid time
