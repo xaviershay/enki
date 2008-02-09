@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   def index
     @tag = params[:tag]
-    @posts = Post.find_recent(:tag => @tag)
+    @posts = Post.find_recent(:tag => @tag, :include => :tags)
 
     raise(ActiveRecord::RecordNotFound) if @posts.empty?
 

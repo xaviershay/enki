@@ -7,7 +7,7 @@ module ActiveRecord #:nodoc:
       
       module ClassMethods
         def acts_as_taggable
-          has_many :taggings, :as => :taggable, :dependent => :destroy, :include => :tag
+          has_many :taggings, :dependent => :destroy, :include => :tag, :foreign_key => 'taggable_id' # :as => :taggable 
           has_many :tags, :through => :taggings
           
           before_save :save_cached_tag_list
@@ -56,15 +56,14 @@ module ActiveRecord #:nodoc:
               #{table_name}.id NOT IN
                 (SELECT #{Tagging.table_name}.taggable_id FROM #{Tagging.table_name}
                  INNER JOIN #{Tag.table_name} ON #{Tagging.table_name}.tag_id = #{Tag.table_name}.id
-                 WHERE #{tags_condition(tags)} AND #{Tagging.table_name}.taggable_type = #{quote_value(base_class.name)})
+                 WHERE #{tags_condition(tags)})
             END
           else
             if options.delete(:match_all)
               conditions << <<-END
                 (SELECT COUNT(*) FROM #{Tagging.table_name}
                  INNER JOIN #{Tag.table_name} ON #{Tagging.table_name}.tag_id = #{Tag.table_name}.id
-                 WHERE #{Tagging.table_name}.taggable_type = #{quote_value(base_class.name)} AND
-                 taggable_id = #{table_name}.id AND
+                 WHERE taggable_id = #{table_name}.id AND
                  #{tags_condition(tags)}) = #{tags.size}
               END
             else
@@ -73,7 +72,7 @@ module ActiveRecord #:nodoc:
           end
           
           { :select => "DISTINCT #{table_name}.*",
-            :joins => "INNER JOIN #{Tagging.table_name} #{taggings_alias} ON #{taggings_alias}.taggable_id = #{table_name}.#{primary_key} AND #{taggings_alias}.taggable_type = #{quote_value(base_class.name)} " +
+            :joins => "INNER JOIN #{Tagging.table_name} #{taggings_alias} ON #{taggings_alias}.taggable_id = #{table_name}.#{primary_key} " +
                       "INNER JOIN #{Tag.table_name} #{tags_alias} ON #{tags_alias}.id = #{taggings_alias}.tag_id",
             :conditions => conditions.join(" AND ")
           }.reverse_merge!(options)
@@ -102,7 +101,6 @@ module ActiveRecord #:nodoc:
           end_at = sanitize_sql(["#{Tagging.table_name}.created_at <= ?", options.delete(:end_at)]) if options[:end_at]
           
           conditions = [
-            "#{Tagging.table_name}.taggable_type = #{quote_value(base_class.name)}",
             options.delete(:conditions),
             scope && scope[:conditions],
             start_at,
