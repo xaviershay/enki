@@ -4,14 +4,6 @@ module ApplicationHelper
     Struct.new(:name, :email).new(config[:author][:name], config[:author][:email])
   end
 
-  def posts_title(tag)
-    [tag, config[:title]].compact.join(" - ") 
-  end
-
-  def archives_title
-    ["Archives", config[:title]].join(" - ")
-  end
-
   def open_id_delegation_link_tags(server, delegate)
     links = <<-EOS
       <link rel="openid.server" href="#{server}" />
