@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
       end
     end
 
-    def find_by_permalink(year, month, day, slug, options)
+    def find_by_permalink(year, month, day, slug, options = {})
       begin
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
         post = find_all_by_slug(slug, options).detect do |post|
