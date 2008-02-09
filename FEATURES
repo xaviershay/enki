@@ -19,26 +19,26 @@ DONE
  - Unpack gems
  - Register domain name
  - Setup website
+ - Add exception_notification plugin
+ - Investigate OpenID comments in session not working correctly
+ - Page titles for /pages/ID
+ - 404 invalid tags (/arsrsts)
+ - Fixup invalid images in admin
+ - Fix N+1 queries
+ - Indexes
 
 TODO now
- * Intro documentation
- * Investigate OpenID comments in session not working correctly
+ * Release mephisto importer
 
 TODO later (in rough order of priority)
- * Add exception_logger plugin
- * Page titles for /pages/ID
  * Admin Tests
  * Move OpenID nonces to DB
  * Investigate rails OpenID and add tests
- * Fix N+1 queries
- * Indexes
- * 404 invalid tags (/arsrsts)
- * Fixup invalid images in admin
  * Store timestamps in UTC, make timezone configurable
- * Release mephisto importer
  * Timestamped migrations
  * Consistent specs (no should)
  * Move defensio to a branch
  * Live preview for composition
  * Humanized reading
  * API
+ * Better documentation

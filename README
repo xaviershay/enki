@@ -2,8 +2,6 @@
 
 A ruby on rails blogging app for the fashionable developer.
 
-THIS PROJECT IS NOT READY FOR PRIME TIME YET
-
 Preferences are for the masses. Any real coder knows the easiest and best way to customize something is by hacking code. Because you want your blog to be you, not bog standard install #4958 with 20 posts per page instead of 15. For this you need a clean, simple, easy to understand code base that stays out of your way. No liquid drops and templates hindering your path, no ugly PHP stylings burning your eyeballs.
 
 == Quick Start
@@ -14,6 +12,8 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
   cp config/database.example.yml config/database.yml
   # Edit config/enki.yml to taste
   rake spec
+  ./script/server
+  # Load http://localhost:3000/admin in your browser
 
 == More info
 
@@ -25,6 +25,7 @@ Enki is a compact, easily extendable base for your blog. It does this by being h
 - Google does search better than you or I
 - You don't need a plugin system when you've got decent source control
 - If you're not using OpenID you're a chump
+- Hacking code is the easiest way to customize something
 
 == Author
 
