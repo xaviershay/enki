@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 4) do
+ActiveRecord::Schema.define(:version => 5) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id",                                 :null => false
@@ -23,6 +23,9 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "updated_at"
   end
 
+  add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
+  add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
+
   create_table "pages", :force => true do |t|
     t.string   "title",      :default => "", :null => false
     t.string   "slug",       :default => "", :null => false
@@ -31,6 +34,9 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "pages", ["created_at"], :name => "index_pages_on_created_at"
+  add_index "pages", ["title"], :name => "index_pages_on_title"
 
   create_table "posts", :force => true do |t|
     t.string   "title",                   :default => "",   :null => false
@@ -45,6 +51,8 @@ ActiveRecord::Schema.define(:version => 4) do
     t.datetime "updated_at"
   end
 
+  add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -58,5 +66,7 @@ ActiveRecord::Schema.define(:version => 4) do
     t.string  "name"
     t.integer "taggings_count", :default => 0, :null => false
   end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name"
 
 end
