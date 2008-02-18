@@ -3,10 +3,7 @@
   <%= stylesheet_link_tag 'admin' %>
 </head>
 <body>
-<%
-comments_sys_on = 'yes'
-cb = (comments_sys_on == 'yes')
-%>
+
 <div id="admin_nav">
 	<ul class="navlist">
     <% ["Posts", "Pages", "Comments", "Tags"].each_with_index do |tab_name, index| -%>
