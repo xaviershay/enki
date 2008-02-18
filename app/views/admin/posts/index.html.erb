@@ -22,7 +22,7 @@
 				<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, 30)), edit_admin_post_path(post) %></td>
 				<td><% tmpc = truncate(post.body, 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
 				<td class="small_col"><%= post.approved_comments.size %></td>
-				<td class="del_col"><%= link_to 'X', admin_post_url, :method => :delete, :confirm => "You are about to delete this post. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
+				<td class="del_col"><%= link_to 'X', admin_post_url(post), :method => :delete, :confirm => "You are about to delete this post. This cannot be undone. Are you sure?" %></td>
 			</tr>
 		<% end -%>
 	<% end -%>
