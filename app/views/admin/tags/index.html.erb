@@ -11,15 +11,16 @@
 		<th class="del_col">X</th>
 	</tr>
 	
-	<% @tags.each_with_index do |tag, index| -%>
-		<tr class="<% if tag.taggings.size < 1 %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
-			<td class="first_col"><%= link_to(tag.name, edit_admin_tag_path(tag)) %></td>
-			<td class="small_col"><%= tag.taggings.size %></td>
-			<td class="del_col"><%= link_to('X', admin_tag_path(tag), :method => :delete, :confirm => "You are about to delete this tag. It will be removed from all posts. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
-		</tr>
-	<% end -%>
-	<% unless @tags.length > 0 -%>
-	<tr class="first_row"><td class="first_col" colspan="<% if comments_on == 'yes' %>5<% else %>4<% end %>"><span class="gray">There are no posts at this time.</span></td></tr>
+	<% if @tags.empty? -%>
+	<tr class="first_row"><td class="first_col" colspan="3"><span class="gray">There are no tags at this time.</span></td></tr>
+	<% else -%>	
+		<% @tags.each_with_index do |tag, index| -%>
+			<tr class="<% if tag.taggings.size < 1 %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
+				<td class="first_col"><%= link_to(tag.name, edit_admin_tag_path(tag)) %></td>
+				<td class="small_col"><%= tag.taggings.size %></td>
+				<td class="del_col"><%= link_to('X', admin_tag_path(tag), :method => :delete, :confirm => "You are about to delete this tag. It will be removed from all posts. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
+			</tr>
+		<% end -%>
 	<% end -%>
 </table>
 <%= will_paginate(@tags) %>

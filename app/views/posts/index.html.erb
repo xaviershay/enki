@@ -1,7 +1,12 @@
 <% content_for(:page_title) do %><%= posts_title(@tag) %><% end -%>
-<% content_for(:head)       do %><%= auto_discovery_link_tag(:atom, formatted_posts_path(:tag => @tag, :format => 'atom')) %><% end -%> 
-<% @posts.each do |post| -%>
-<div class="post post-<%= post.id %>">
-  <%= render :partial => 'post', :locals => {:post => post} %>
-</div>
+<% content_for(:head)       do %><%= auto_discovery_link_tag(:atom, formatted_posts_path(:tag => @tag, :format => 'atom')) %><% end -%>
+
+<% if @posts.empty? -%>
+	<p>There are no posts yet.</p>
+<% else -%>
+	<% @posts.each do |post| -%>
+	<div class="post post-<%= post.id %>">
+	  <%= render :partial => 'post', :locals => {:post => post} %>
+	</div>
+	<% end -%>
 <% end -%>

@@ -14,7 +14,7 @@
 </head>
 <body>
   <div id="page_container">
-    <h1 id="page_heading"><%= config[:title] %></h1>
+    <h1 id="page_heading"><a href="<%= config[:url] %>"><%= config[:title] %></a></h1>
 
     <div id="main">
       <%= yield %>
@@ -45,7 +45,7 @@
       </form>
     </div>    
     
-    <div id="footer"><%= config[:title] %> &#169; <%= config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{config[:url]}/posts.atom" %></div>
+    <div id="footer"><%= config[:title] %> &#169; <%= config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="The Developers Blogging Engine">Enki</a>.</div>
   </div>
 </body>
 </html>

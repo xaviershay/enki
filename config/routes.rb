@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/admin', :controller => 'admin/posts', :action => 'index'
   map.archives '/archives', :controller => 'archives', :action => 'index'
 
-  map.connect '', :controller => 'posts', :action => 'index'
+  map.root :controller => 'posts', :action => 'index'
   map.resources :posts
 
   map.connect 'pages/:id', :controller => 'pages', :action => 'show'
