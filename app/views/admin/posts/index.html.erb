@@ -13,18 +13,19 @@
 		<th class="small_col">Comments</th>
 		<th class="del_col">X</th>
 	</tr>
+	<% if @posts.empty? -%>
+		<tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no posts at this time.</span></td></tr>
+	<% else -%>
+		<% @posts.each_with_index do |post, index| -%>
+			<tr class="<% if post.created_at > Time.now %>futurepost <% end %><% if !post.active? %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
+				<td class="first_col"><%= post.created_at.strftime('%d %b, %Y') %></td>
+				<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, 30)), edit_admin_post_path(post) %></td>
+				<td><% tmpc = truncate(post.body, 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
+				<td class="small_col"><%= post.approved_comments.size %></td>
+				<td class="del_col"><%= link_to 'X', '/admin/posts/destroy/' + post.id.to_s, :confirm => "You are about to delete this post. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
+			</tr>
+		<% end -%>
+	<% end -%>
 	
-	<% @posts.each_with_index do |post, index| -%>
-		<tr class="<% if post.created_at > Time.now %>futurepost <% end %><% if !post.active? %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
-			<td class="first_col"><%= post.created_at.strftime('%d %b, %Y') %></td>
-			<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, 30)), edit_admin_post_path(post) %></td>
-			<td><% tmpc = truncate(post.body, 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
-			<td class="small_col"><%= post.approved_comments.size %></td>
-			<td class="del_col"><%= link_to 'X', '/admin/posts/destroy/' + post.id.to_s, :confirm => "You are about to delete this post. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
-		</tr>
-	<% end -%>
-	<% unless @posts.length > 0 -%>
-	<tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no posts at this time.</span></td></tr>
-	<% end -%>
 </table>
 <%= will_paginate(@posts) %>
