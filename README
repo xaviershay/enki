@@ -10,7 +10,8 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
   cd enki
   git checkout -b myblog # Create a new work branch
   cp config/database.example.yml config/database.yml
-  # Edit config/enki.yml to taste
+  # Edit config/enki.yml and config/database.yml to taste
+  rake db:migrate
   rake spec
   ./script/server
   # Load http://localhost:3000/admin in your browser
