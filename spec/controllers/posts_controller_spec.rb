@@ -54,6 +54,18 @@ describe PostsController do
     end
   end
   
+  describe 'handling GET to index with no posts' do
+    before(:each) do
+      @posts = []
+    end
+
+    def do_get
+      get :index
+    end
+
+    it_should_behave_like('successful posts list')
+  end
+
   describe 'handling GET to index with invalid tag'do
     it "returns missing" do
       Post.stub!(:find_recent).and_return([])
