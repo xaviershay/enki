@@ -67,6 +67,12 @@ describe Post, '#generate_slug' do
     post.generate_slug
     post.slug.should == 'a-b'
   end
+
+  it 'does not modify title' do
+    post = Post.new(:title => 'My Post')
+    post.generate_slug
+    post.title.should == 'My Post'
+  end
 end
 
 describe Post, 'before validation' do
