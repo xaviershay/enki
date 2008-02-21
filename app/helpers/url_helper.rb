@@ -21,7 +21,9 @@ module UrlHelper
 
   def post_path(post, options = {})
     suffix = options[:anchor] ? "##{options[:anchor]}" : ""
-    post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix
+    path = post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix
+    path = URI.join(config[:url], path) if options[:only_path] == false
+    path
   end
 
   def post_comments_path(post)
