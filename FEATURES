@@ -26,9 +26,9 @@ DONE
  - Fixup invalid images in admin
  - Fix N+1 queries
  - Indexes
+ - Release mephisto importer (http://gitorious.org/projects/enki-translator)
 
 TODO now
- * Release mephisto importer
 
 TODO later (in rough order of priority)
  * Admin Tests
