@@ -96,3 +96,9 @@ describe Post, 'validations' do
     Post.new(valid_post_attributes.merge(:body => '')).should_not be_valid
   end
 end
+
+describe Post, 'being destroyed' do
+  it 'destroys all comments' do
+    Post.reflect_on_association(:comments).options[:dependent].should == :destroy
+  end
+end
