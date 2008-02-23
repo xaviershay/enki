@@ -1,12 +1,24 @@
 class Admin::BaseController < ApplicationController
   layout 'admin'
 
-  before_filter :require_login
+  before_filter :require_login_or_enki_hash
 
   protected
 
-  def require_login
-    redirect_to(admin_session_path) unless session[:logged_in]
+  def salt
+    @@salt ||= Digest::SHA1.hexdigest(File.open('config/database.yml').read + File.open('config/enki.yml').read + RAILS_ENV)
+  end
+
+  def hash_request(request)
+    Digest::SHA1.hexdigest(request.raw_post + salt)
+  end
+
+  def require_login_or_enki_hash
+    if params[:format] == 'yaml'
+      render(:text => false.to_yaml, :status => :forbidden) if request.headers['HTTP_X_ENKIHASH'] != hash_request(request)
+    else  
+      redirect_to(admin_session_path) unless session[:logged_in]
+    end
   end
 
   def set_content_type

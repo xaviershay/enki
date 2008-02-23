@@ -39,6 +39,10 @@ Spec::Runner.configure do |config|
   # config.mock_with :rr
 end
 
+def hash_request(request)
+  Digest::SHA1.hexdigest(request.raw_post + Digest::SHA1.hexdigest(File.open('config/database.yml').read + File.open('config/enki.yml').read + RAILS_ENV))
+end
+
 describe "ATOM feed", :shared => true do
   it "has an appropriate ContentType"
   it "renders with no layout" do 
