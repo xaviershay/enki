@@ -14,10 +14,9 @@ class Admin::BaseController < ApplicationController
   end
 
   def require_login_or_enki_hash
-    if params[:format] == 'yaml'
-      render(:text => false.to_yaml, :status => :forbidden) if request.headers['HTTP_X_ENKIHASH'] != hash_request(request)
-    else  
-      redirect_to(admin_session_path) unless session[:logged_in]
+    unless session[:logged_in] || request.headers['HTTP_X_ENKIHASH'] == hash_request(request)
+      return render(:text => false.to_yaml, :status => :forbidden) if params[:format] == 'yaml'
+      return redirect_to(admin_session_path)
     end
   end
 

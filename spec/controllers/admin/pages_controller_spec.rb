@@ -1,6 +1,41 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::PagesController do
+  describe 'handling GET to show' do
+    before(:each) do
+      @page = mock_model(Page)
+      Page.stub!(:find).and_return(@page)
+      session[:logged_in] = true
+      get :show, :id => 1
+    end
+
+    it "is successful" do
+      response.should be_success
+    end
+
+    it "renders show template" do
+      response.should render_template('show')
+    end
+
+    it "finds page for the view" do
+      assigns[:page].should == @page
+    end
+  end
+  
+  describe 'handling GET to show, YAML format' do
+    before(:each) do
+      @page = mock_model(Page)
+      Page.stub!(:find).and_return(@page)
+      session[:logged_in] = true
+      get :show, :id => 1, :format => 'yaml'
+    end
+
+    it "is successful" do
+      pending("Works IRL, test gets 406")
+      response.should be_success
+    end
+  end
+
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @page = mock_model(Page)
