@@ -68,4 +68,10 @@ class Post < ActiveRecord::Base
     self.slug = self.title.dup if self.slug.blank?
     self.slug.slugorize!
   end
+
+  # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
+  def tag_list=(value)
+    value = value.join(", ") if value.respond_to?(:join)
+    super(value)
+  end
 end

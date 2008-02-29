@@ -75,6 +75,14 @@ describe Post, '#generate_slug' do
   end
 end
 
+describe Post, '#tag_list=' do
+  it 'accept an array argument so it is symmetrical with the reader' do
+    p = Post.new
+    p.tag_list = ["a", "b"]
+    p.tag_list.should == ["a", "b"]
+  end
+end
+
 describe Post, 'before validation' do
   it 'calls #generate_slug' do
     Post.before_validation.include?(:generate_slug).should == true

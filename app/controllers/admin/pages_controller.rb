@@ -24,9 +24,9 @@ class Admin::PagesController < Admin::BaseController
       format.yaml { head(200) }
     end
 
-    response_for :update_fails do |format|
-      format.html { render :action => 'edit', :status => :unprocessable_entity }
-      format.yaml { render :yaml => false.to_yaml, :status => :unprocessable_entity }
+    response_for(:update_fails) do |format|
+      format.html { render :action => 'edit',        :status => :unprocessable_entity }
+      format.yaml { render :yaml   => false.to_yaml, :status => :unprocessable_entity }
     end
   end
 
@@ -37,11 +37,5 @@ class Admin::PagesController < Admin::BaseController
       :order => "created_at DESC", 
       :page => params[:page] 
     )
-  end
-
-  def translate_yaml(yaml)
-    ret = YAML.load(yaml)
-    raise("Invalid request: YAML must specify a hash") unless ret.is_a?(Hash)
-    ret
   end
 end

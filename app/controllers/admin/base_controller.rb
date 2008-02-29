@@ -23,4 +23,10 @@ class Admin::BaseController < ApplicationController
   def set_content_type
     headers['Content-Type'] ||= 'text/html; charset=utf-8'
   end
+
+  def translate_yaml(yaml)
+    ret = YAML.load(yaml)
+    raise("Invalid request: YAML must specify a hash") unless ret.is_a?(Hash)
+    ret
+  end
 end
