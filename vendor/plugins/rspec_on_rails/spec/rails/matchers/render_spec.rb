@@ -30,11 +30,10 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
     it "should match an rjs template" do
       xhr :post, 'some_action'
-      if ActionView::Base.const_defined?('DEFAULT_TEMPLATE_HANDLER_PREFERENCE') ||
-				 ActionView::Base.respond_to?(:handler_for_extension) then
-        response.should render_template('render_spec/some_action')
-      else
+      if Rails::VERSION::STRING < "2.0.0"
         response.should render_template('render_spec/some_action.rjs')
+      else
+        response.should render_template('render_spec/some_action')
       end
     end
 
@@ -83,50 +82,88 @@ require File.dirname(__FILE__) + '/../../spec_helper'
       end.should fail_with("expected \"some_action\", got nil")
     end
   end
-
-  describe "response.should have_text (in #{mode} mode)",
+  
+  describe "response.should_not render_template (in #{mode} mode)",
     :type => :controller do
     controller_name :render_spec
     if mode == 'integration'
       integrate_views
     end
-
-    it "should pass with exactly matching text" do
-      post 'text_action'
-      response.should have_text("this is the text for this action")
+    
+    it "should pass when the action renders nothing" do
+      post 'action_that_renders_nothing'
+      response.should_not render_template('action_that_renders_nothing')
     end
-
-    it "should pass with matching text (using Regexp)" do
-      post 'text_action'
-      response.should have_text(/is the text/)
+    
+    it "should pass when the action renders nothing (symbol)" do
+      post 'action_that_renders_nothing'
+      response.should_not render_template(:action_that_renders_nothing)
     end
-
-    it "should fail with matching text" do
-      post 'text_action'
-      lambda {
-        response.should have_text("this is NOT the text for this action")
-      }.should fail_with("expected \"this is NOT the text for this action\", got \"this is the text for this action\"")
-    end
-
-    it "should fail when a template is rendered" do
+    
+    it "should pass when the action does not render the template" do
       post 'some_action'
-      lambda {
-        response.should have_text("this is the text for this action")
-      }.should fail_with(/expected \"this is the text for this action\", got .*/)
+      response.should_not render_template('some_other_template')
     end
-  end
-
-  describe "response.should_not have_text (in #{mode} mode)",
-    :type => :controller do
-    controller_name :render_spec
-    if mode == 'integration'
-      integrate_views
+    
+    it "should pass when the action does not render the template (symbol)" do
+      post 'some_action'
+      response.should_not render_template(:some_other_template)
     end
-
-    it "should pass with exactly matching text" do
+    
+    it "should pass when the action does not render the template (named with controller)" do
+      post 'some_action'
+      response.should_not render_template('render_spec/some_other_template')
+    end
+    
+    it "should pass when the action renders the template with a different controller" do
+      post 'action_which_renders_template_from_other_controller'
+      response.should_not render_template('action_with_template')
+    end
+    
+    it "should pass when the action renders the template (named with controller) with a different controller" do
+      post 'action_which_renders_template_from_other_controller'
+      response.should_not render_template('render_spec/action_with_template')
+    end
+    
+    it "should pass when TEXT is rendered" do
       post 'text_action'
-      response.should_not have_text("the accordian guy")
+      response.should_not render_template('some_action')
     end
+    
+    it "should fail when the action renders the template" do
+      post 'some_action'
+      lambda do
+        response.should_not render_template('some_action')
+      end.should fail_with("expected not to render \"some_action\", but did")
+    end
+    
+    it "should fail when the action renders the template (symbol)" do
+      post 'some_action'
+      lambda do
+        response.should_not render_template(:some_action)
+      end.should fail_with("expected not to render \"some_action\", but did")
+    end
+    
+    it "should fail when the action renders the template (named with controller)" do
+      post 'some_action'
+      lambda do
+        response.should_not render_template('render_spec/some_action')
+      end.should fail_with("expected not to render \"render_spec/some_action\", but did")
+    end
+    
+    it "should fail when the action renders the partial" do
+      post 'action_with_partial'
+      lambda do
+        response.should_not render_template('_a_partial')
+      end.should fail_with("expected not to render \"_a_partial\", but did")
+    end
+    
+    it "should fail when the action renders the partial (named with controller)" do
+      post 'action_with_partial'
+      lambda do
+        response.should_not render_template('render_spec/_a_partial')
+      end.should fail_with("expected not to render \"render_spec/_a_partial\", but did")
+    end
+        
   end
-
 end
