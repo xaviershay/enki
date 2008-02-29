@@ -10,8 +10,10 @@ class Comment < ActiveRecord::Base
 
   belongs_to :post
 
-  before_save :apply_filter
-  after_save  :denormalize
+  before_create :blank_openid_fields_if_unused
+  before_save   :apply_filter
+
+  after_save    :denormalize
 
   validates_presence_of :author
   validates_presence_of :body
@@ -31,8 +33,7 @@ class Comment < ActiveRecord::Base
     )
   end
   
-  # Ensure that comments can be saved when not using open_id validation
-  def before_create
+  def blank_openid_fields_if_unused
     unless requires_openid_authentication?
       self.author_openid_authority = ""
       self.author_url = ""
