@@ -1,7 +1,8 @@
 class Admin::PostsController < Admin::BaseController
   make_resourceful do
     actions :all
-    publish :yaml, :attributes => [:title, :slug, :body, :tag_list, :created_at, :updated_at, :published_at]
+    publish :yaml, :attributes => [:id, :title], :only => :index
+    publish :yaml, :attributes => [:title, :slug, :body, :tag_list, :created_at, :updated_at, :published_at], :only => :show
 
     response_for(:create) do
       redirect_to(:action => 'edit', :id => @post)
@@ -33,10 +34,17 @@ class Admin::PostsController < Admin::BaseController
   protected
 
   def current_objects
-    @current_objects ||= current_model.paginate(
-      :order => "created_at DESC", 
-      :page => params[:page] 
-    )
+    if params[:format] == 'yaml'
+      @current_objects ||= current_model.find(:all, 
+        :select => 'id, title',
+        :order  => 'created_at DESC'
+      )
+    else
+      @current_objects ||= current_model.paginate(
+        :order => "created_at DESC",
+        :page  => params[:page]
+      )
+    end
   end
 
   def build_object

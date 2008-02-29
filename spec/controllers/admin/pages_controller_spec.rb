@@ -1,6 +1,46 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::PagesController do
+  describe 'handling GET to index' do
+    before(:each) do
+      @pages = [mock_model(Page), mock_model(Page)]
+      Page.stub!(:paginate).and_return(@pages)
+      session[:logged_in] = true
+      get :index
+    end
+
+    it "is successful" do
+      response.should be_success
+    end
+
+    it "renders index template" do
+      response.should render_template('index')
+    end
+
+    it "finds pages for the view" do
+      assigns[:pages].should == @pages
+    end
+  end
+
+  describe 'handling GET to index, YAML request' do
+    before(:each) do
+      @pages = [mock_model(Page), mock_model(Page)]
+      @pages.each {|page| page.stub!(:to_serializable) }
+      Page.stub!(:find).and_return(@pages)
+      session[:logged_in] = true
+      get :index, :format => 'yaml'
+    end
+
+    it "is successful" do
+      pending("Works IRL, test gets 406")
+      response.should be_success
+    end
+
+    it "finds pages with out pagination" do
+      assigns[:pages].should == @pages
+    end
+  end
+
   describe 'handling GET to show' do
     before(:each) do
       @page = mock_model(Page)

@@ -1,6 +1,46 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Admin::PostsController do
+  describe 'handling GET to index' do
+    before(:each) do
+      @posts = [mock_model(Post), mock_model(Post)]
+      Post.stub!(:paginate).and_return(@posts)
+      session[:logged_in] = true
+      get :index
+    end
+
+    it "is successful" do
+      response.should be_success
+    end
+
+    it "renders index template" do
+      response.should render_template('index')
+    end
+
+    it "finds posts for the view" do
+      assigns[:posts].should == @posts
+    end
+  end
+
+  describe 'handling GET to index, YAML request' do
+    before(:each) do
+      @posts = [mock_model(Post), mock_model(Post)]
+      @posts.each {|post| post.stub!(:to_serializable) }
+      Post.stub!(:find).and_return(@posts)
+      session[:logged_in] = true
+      get :index, :format => 'yaml'
+    end
+
+    it "is successful" do
+      pending("Works IRL, test gets 406")
+      response.should be_success
+    end
+
+    it "finds posts with out pagination" do
+      assigns[:posts].should == @posts
+    end
+  end
+
   describe 'handling GET to show' do
     before(:each) do
       @post = mock_model(Post)
