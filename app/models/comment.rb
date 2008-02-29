@@ -30,6 +30,15 @@ class Comment < ActiveRecord::Base
       :code_formatter => Lesstile::CodeRayFormatter
     )
   end
+  
+  # Ensure that comments can be saved when not using open_id validation
+  def before_create
+    unless requires_openid_authentication?
+      self.author_openid_authority = ""
+      self.author_url = ""
+      self.author_email = ""
+    end
+  end
 
   def requires_openid_authentication?
     !!self.author.index(".")
