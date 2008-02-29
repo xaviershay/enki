@@ -6,7 +6,7 @@
 
 <div id="admin_nav">
 	<ul class="navlist">
-    <% ["Posts", "Pages", "Comments", "Tags"].each_with_index do |tab_name, index| -%>
+    <% ["Posts", "Pages", "Comments", "Tags", "API"].each_with_index do |tab_name, index| -%>
       <li>
         <%= link_to(tab_name, send("admin_#{tab_name.downcase}_path"), :class => class_for_tab(tab_name, index), :accesskey => index + 1) %>
         <%= link_to(image_tag('admin/new_button.png', :alt => 'Create a new post', :id => 'new_post_button'), new_admin_post_path(), :accesskey => 'n') if tab_name == "Posts" %>
