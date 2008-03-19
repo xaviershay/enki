@@ -19,8 +19,8 @@
 		<% @posts.each_with_index do |post, index| -%>
 			<tr class="<% if post.created_at > Time.now %>futurepost <% end %><% if !post.active? %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
 				<td class="first_col"><%= post.created_at.strftime('%d %b, %Y') %></td>
-				<td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, 30)), edit_admin_post_path(post) %></td>
-				<td><% tmpc = truncate(post.body, 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
+				<td><%= link_to (post.title == '' ? '[Untitled]' : h(truncate(post.title, 30))), edit_admin_post_path(post) %></td>
+				<td><% tmpc = h(truncate(post.body, 55)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
 				<td class="small_col"><%= post.approved_comments.size %></td>
 				<td class="del_col"><%= link_to 'X', admin_post_url(post), :method => :delete, :confirm => "You are about to delete this post. This cannot be undone. Are you sure?" %></td>
 			</tr>

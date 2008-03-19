@@ -21,8 +21,8 @@
 		<% @comments.each_with_index do |comment, index| -%>
 			<tr id="tca<%= comment.id %>" class="<%= cycle('', 'alt_row') %><%= (index == 1 ? ' first_row' : '') %>">
 				<td class="first_col"><%= comment.created_at.strftime('%d %b, %Y') %></td>
-				<td><%= link_to (comment.author, edit_admin_comment_path(comment)) %></td>
-				<td><%= truncate(comment.body, 40) %></td>
+				<td><%= link_to (h(comment.author), edit_admin_comment_path(comment)) %></td>
+				<td><%=h truncate(comment.body, 40) %></td>
 				<td class="small_col"><%= link_to(comment.post_title, edit_admin_post_path(comment.post))%></td>
 				<td class="del_col"><%= link_to('X', admin_comment_path(comment), :method => :delete, :confirm => "You are about to delete this comment. This cannot be undone. Are you sure?") %></td>
 			</tr>

@@ -22,8 +22,8 @@
 		<% @pages.each_with_index do |page, index| -%>
 			<tr class="<%= cycle('', 'alt_row') %><%= (index == 0 ? ' first_row' : '') %>">
 				<td class="first_col"><%= page.created_at.strftime('%d %b, %Y') %></td>
-				<td><%= link_to(page.title, edit_admin_page_url(page)) %></td>
-				<td><%= truncate(page.body, 50) %></td>
+				<td><%= link_to(h(page.title), edit_admin_page_url(page)) %></td>
+				<td><%=h truncate(page.body, 50) %></td>
 				<td><%= page.slug %></td>
 				<td class="del_col"><%= link_to 'X', admin_page_url(page), :method => :delete, :confirm => "You are about to delete the page '#{page.title}'. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
 			</tr>
