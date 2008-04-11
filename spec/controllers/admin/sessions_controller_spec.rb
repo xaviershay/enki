@@ -35,7 +35,7 @@ describe Admin::SessionsController do
     end
 
     it 'logs out the current session' do
-      session[:logged_in].should == false
+      session[:author_id].should == nil
     end
 
     it 'redirects to /' do

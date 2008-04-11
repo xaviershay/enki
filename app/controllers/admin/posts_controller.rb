@@ -48,7 +48,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def build_object
-    @current_object = Post.new(object_parameters) do |post|
+    @current_object = logged_in_author.posts.build(object_parameters) do |post|
       post.published_at = Time.now
     end
   end

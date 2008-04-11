@@ -1,9 +1,6 @@
 title: My Enki Blog
 url:   http://enkiblog.com
-author: 
-  name:    Don Alias
-  email:   don@enkiblog.com
-  open_id: http://enkiblog.com
+exception_notifications: don@enkiblog.com
 
 # Delete the following section if your site will not be acting as an OpenID delegate
 open_id_delegation:

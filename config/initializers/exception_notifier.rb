@@ -1,1 +1,1 @@
-ExceptionNotifier.exception_recipients = [Enki::Config.new("config/enki.yml")[:author, :email]]
+ExceptionNotifier.exception_recipients = [Enki::Config.new("config/enki.yml")[:exception_notifications]]

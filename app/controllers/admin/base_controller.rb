@@ -14,7 +14,7 @@ class Admin::BaseController < ApplicationController
   end
 
   def require_login_or_enki_hash
-    unless session[:logged_in] || request.headers['HTTP_X_ENKIHASH'] == hash_request(request)
+    unless logged_in_author || request.headers['HTTP_X_ENKIHASH'] == hash_request(request)
       return render(:text => false.to_yaml, :status => :forbidden) if params[:format] == 'yaml'
       return redirect_to(admin_session_path)
     end
@@ -28,5 +28,9 @@ class Admin::BaseController < ApplicationController
     ret = YAML.load(yaml)
     raise("Invalid request: YAML must specify a hash") unless ret.is_a?(Hash)
     ret
+  end
+  
+  def logged_in_author
+    @current_author ||= session[:author_id] && Author.find(session[:author_id])
   end
 end

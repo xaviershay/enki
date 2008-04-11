@@ -15,8 +15,8 @@ class Admin::SessionsController < ApplicationController
   def create
     begin
       return if open_id_authenticate(params[:openid_url]) do |response|
-        if URI.parse(response.identity_url) == URI.parse(config[:author, :open_id])
-          session[:logged_in] = true
+        if author = Author.with_open_id(response.identity_url)
+          session[:author_id] = author.id
           redirect_to(admin_posts_path)
           return
         else
@@ -32,7 +32,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def destroy
-    session[:logged_in] = false
+    session[:author_id] = nil
     redirect_to('/')
   end
 end

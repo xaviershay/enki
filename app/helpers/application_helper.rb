@@ -1,7 +1,7 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def author
-    Struct.new(:name, :email).new(config[:author][:name], config[:author][:email])
+    Author.find(:first)
   end
 
   def open_id_delegation_link_tags(server, delegate)

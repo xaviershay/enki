@@ -84,10 +84,10 @@ end
 <%= check_box 'post', 'is_active', :checked => (@post.is_active ? 'checked' : ''), :onchange => "setPingCheck(this, this.form.elements['ping'], '#{(get_pref('PING_BY_DEFAULT') == 'yes' ? '1' : '0')}');" %><label for="post_is_active" class="left">&nbsp;<span class="small gray">If the box is checked, the post appears on your site</span></label></td></tr>
 
 <% if @authors.length < 2 %>
-<%= hidden_field 'post', 'author_id', :value => @authors[0].id.to_s %>
+<%= hidden_field 'post', 'author_id', :value => @post.author.id.to_s %>
 <% else %>
 <tr id="dt2" style="display: none;"><td><label for="post_author_id"><b>Author</b></label></td><td class="fields">
-<%= select_tag 'post[author_id]', create_author_select_options(@authors, (@post.author_id == 0 ? get_author_id(request.cookies[SL_CONFIG[:USER_EMAIL_COOKIE]]) : @post.author_id), false) %></td></tr>
+<%= select_tag 'post[author_id]', create_author_select_options(@authors, ((@post.author && @post.author.id) ? get_author_id(request.cookies[SL_CONFIG[:USER_EMAIL_COOKIE]]) : @post.author.id), false) %></td></tr>
 <% end %>
 
 <tr id="dt3" style="display: none;"><td><label for="post_created_at"><b>Created at</b></label></td><td>
