@@ -72,3 +72,4 @@ require 'core_extensions/object'
 require 'openid'
 require 'openid/store/filesystem'
 require 'openid/extensions/sreg'
+

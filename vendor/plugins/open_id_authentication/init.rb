@@ -12,6 +12,7 @@ else
   end
 end
 
-config.to_prepare do
+# TODO: RSpec doesn't seem to execute config.to_prepare, find out what the deal is
+#config.to_prepare do
   ActionController::Base.send :include, OpenIdAuthentication
-end
+#end

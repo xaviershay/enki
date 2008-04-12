@@ -4,14 +4,10 @@ describe Admin::SessionsController do
   # TODO: OpenID spec
 
   describe 'handling GET to show (default)' do
-    before(:each) do
-      get :show
-    end
-
     it 'redirects to new' do
-      pending("get :show doesn't seem to work")
+      get :show
       response.should be_redirect
-      response.should redirect_to(:action => 'new')
+      response.should redirect_to(new_admin_session_path)
     end
   end
 

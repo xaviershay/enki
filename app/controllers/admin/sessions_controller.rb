@@ -2,10 +2,10 @@ class Admin::SessionsController < ApplicationController
   layout 'login'
 
   def show
-    if openid_completion?(request)
+    if using_open_id?
       create
     else
-      redirect :action => 'new'
+      redirect_to :action => 'new'
     end
   end
 
@@ -13,20 +13,24 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    begin
-      return if open_id_authenticate(params[:openid_url]) do |response|
-        if URI.parse(response.identity_url) == URI.parse(config[:author, :open_id])
-          session[:logged_in] = true
-          redirect_to(admin_posts_path)
-          return
-        else
+    return if authenticate_with_open_id(params[:openid_url]) do |status, identity_url|
+      if URI.parse(response.identity_url) == URI.parse(config[:author, :open_id])
+        session[:logged_in] = true
+        redirect_to(admin_posts_path)
+        return
+      else
+        status.extend(ExposeCode)
+        case status.code
+        when :missing
+          flash.now[:error] = "Sorry, the OpenID server couldn't be found"
+        when :canceled
+          flash.now[:error] = "OpenID verification was canceled"
+        when :failed
+          flash.now[:error] = "Sorry, the OpenID verification failed"
+        when :successful
           flash.now[:error] = "You are not authorized"
         end
       end
-    rescue HyperOpenID::AuthenticationFailure => e
-      flash.now[:error] = "Authentication failed for #{e.identity_url}"
-    rescue OpenID::DiscoveryFailure
-      flash.now[:error] = "Discovery failed for #{params[:openid_url]}"
     end
     render :action => 'new'
   end
