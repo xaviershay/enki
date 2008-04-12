@@ -60,8 +60,7 @@ class Post < ActiveRecord::Base
   end
 
   def denormalize_comments_count!
-    self.approved_comments_count = self.approved_comments.count
-    self.save!
+    Post.update_all(["approved_comments_count = ?", self.approved_comments.count], ["id = ?", self.id])
   end
 
   def generate_slug
