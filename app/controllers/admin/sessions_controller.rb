@@ -14,7 +14,7 @@ class Admin::SessionsController < ApplicationController
 
   def create
     return if authenticate_with_open_id(params[:openid_url]) do |status, identity_url|
-      if URI.parse(response.identity_url) == URI.parse(config[:author, :open_id])
+      if URI.parse(identity_url) == URI.parse(config[:author, :open_id])
         session[:logged_in] = true
         redirect_to(admin_posts_path)
         return
