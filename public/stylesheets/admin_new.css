@@ -1,4 +1,50 @@
+#nav {
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #222222;
+}
+
+#nav ul {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+}
+
+#nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+#nav a {
+  color: #eeeeee;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  background-color: #cccccc;
+}
+
+#footer a {
+  color: #222222;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+#footer p {
+  float: right;
+  margin-right: 10px;
+}
+
 body {
+  padding-top: 30px;
   background-color: #dddddd;
   font-family: Helvetica, Sans-serif;
   font-size: 10pt;
