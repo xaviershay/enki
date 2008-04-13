@@ -4,7 +4,7 @@ body {
   font-size: 10pt;
 }
 
-#recent-comments {
+.panel {
   color: #222222;
   background-color: #ececec;
   padding: 1em;
@@ -13,26 +13,52 @@ body {
   width: 34em;
 }
 
-#recent-comments a {
+.panel a {
   color: #222222;
   font-weight: bold;
   text-decoration: none;
 }
 
-#recent-comments ul {
+.panel ul {
   margin-left: 0px;
   padding-left: 0px;
   list-style-type: none;
 }
 
-#recent-comments ul li.activity {
+.panel ul li.item {
   margin-top: 5px;
   padding-top: 5px;
   border-top: solid 1px #cccccc;
 }
 
-#recent-comments ul li.first {
+.panel ul li.first {
   border: none;
+}
+
+.panel h3 {
+  display: inline;
+  font-size: 10pt;
+  margin-right: 1em;
+}
+
+.panel .date {
+  font-size: 10pt;
+}
+
+.panel .count {
+  float: right;
+  margin-top: -12px;
+}
+
+.panel {
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.panel .count a {
+  font-weight: bold;
+  color: #888888;
 }
 
 #recent-comments ul ul li {
@@ -47,22 +73,8 @@ body {
 	content: "";
 }
 
-#recent-comments h3 {
-  display: inline;
-  font-size: 10pt;
-  margin-right: 1em;
-}
-
-#recent-comments .date {
-  font-size: 10pt;
-}
-
 #recent-comments .count {
-  float: right;
   font-size: 22pt;
-  font-weight: bold;
-  color: #888888;
-  margin-top: -15px;
 }
 
 #recent-comments .comment-body {
