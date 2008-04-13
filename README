@@ -6,7 +6,7 @@ Preferences are for the masses. Any real coder knows the easiest and best way to
 
 == Quick Start
 
-  git clone git://gitorious.org/enki/mainline.git
+  git clone git://github.com/xaviershay/enki.git enki
   cd enki
   git checkout -b myblog # Create a new work branch
   cp config/database.example.yml config/database.yml
@@ -32,6 +32,12 @@ Enki is a compact, easily extendable base for your blog. It does this by being h
 
 Xavier Shay
 xavier@rhnh.net
+
+== Contributors, these guys rock
+
+Chris Lloyd (bug fixes)
+Gareth Townsend (bug fixes)
+Tim Lucas (OpenID - specs and multiple ID support)
 
 == License
 

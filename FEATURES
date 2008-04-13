@@ -27,18 +27,18 @@ DONE
  - Fix N+1 queries
  - Indexes
  - Release mephisto importer (http://gitorious.org/projects/enki-translator)
+ - Investigate rails OpenID and add tests
+ - Move defensio to a branch (see rhnh repo)
+ - Move OpenID nonces to DB
 
-TODO now
+TODO now/half done
+ - API
+ - Admin Tests
 
 TODO later (in rough order of priority)
- * Admin Tests
- * Move OpenID nonces to DB
- * Investigate rails OpenID and add tests
  * Store timestamps in UTC, make timezone configurable
  * Timestamped migrations
  * Consistent specs (no should)
- * Move defensio to a branch
  * Live preview for composition
  * Humanized reading
- * API
  * Better documentation
