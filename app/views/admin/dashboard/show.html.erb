@@ -1,0 +1,30 @@
+<% content_for(:head) do -%>
+  <%= javascript_include_tag 'common' %>
+  <%= javascript_include_tag 'dashboard' %>
+<% end -%>
+<div id="recent-comments">
+<h2>Latest Comments</h2>
+<ul>
+  <% @comment_activity.each_with_index do |activity, i| -%>
+    <li class="<%= i == 0 ? 'first ' : '' %>activity">
+      <%= link_to("<h3>%s</h3>" % [h(truncate(activity.post.title, 50))], post_path(activity.post)) %>
+      <span class='date'><%=h activity.most_recent_comment.created_at.strftime("%b %e") %></span>
+      <span class='count'><%=h activity.post.approved_comments.size %></span>
+      <ul>
+        <% activity.comments.each_with_index do |comment, index| -%>
+          <% content_tag :li, :class => activity.comments.size == index + 1 ? 'last' : nil do -%>
+            <%= link_to(h(comment.author), edit_admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
+          <% end -%>
+        <% end -%>
+      </ul>
+      <% activity.comments.each do |comment| -%>
+        <div class='comment-body' id='comment-body-<%= comment.id %>'>
+          <%= comment.body_html %>
+          <p class='comment-actions'>
+            (<%= link_to("edit", edit_admin_comment_path(comment)) %>
+            | <%= link_to("delete", admin_comment_path(comment), :method => :delete, :confirm => "Sure?") %>)</p>
+        </div>
+      <% end -%>
+    </li>
+  <% end -%>
+</ul>  

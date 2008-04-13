@@ -1,4 +1,6 @@
 class Comment < ActiveRecord::Base
+  DEFAULT_LIMIT = 15
+
   class << self  
     def protected_attribute?(attribute)
       [:author, :body].include?(attribute.to_sym)
@@ -78,6 +80,14 @@ class Comment < ActiveRecord::Base
         comment.author = "Your OpenID Name"
       end
       comment
+    end
+
+    def find_recent(args = {})
+      options = { 
+        :limit => DEFAULT_LIMIT,
+        :order => 'created_at DESC'
+      }.merge(args)
+      find(:all, options)
     end
   end
 end
