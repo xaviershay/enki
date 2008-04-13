@@ -13,21 +13,21 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    return if authenticate_with_open_id(params[:openid_url]) do |status, identity_url|
-      if URI.parse(identity_url) == URI.parse(config[:author, :open_id])
-        session[:logged_in] = true
-        redirect_to(admin_posts_path)
-        return
-      else
-        status.extend(ExposeCode)
-        case status.code
-        when :missing
-          flash.now[:error] = "Sorry, the OpenID server couldn't be found"
-        when :canceled
-          flash.now[:error] = "OpenID verification was canceled"
-        when :failed
-          flash.now[:error] = "Sorry, the OpenID verification failed"
-        when :successful
+    authenticate_with_open_id(params[:openid_url]) do |status, identity_url|
+      status.extend(ExposeCode)
+      case status.code
+      when :missing
+        flash.now[:error] = "Sorry, the OpenID server couldn't be found"
+      when :canceled
+        flash.now[:error] = "OpenID verification was canceled"
+      when :failed
+        flash.now[:error] = "Sorry, the OpenID verification failed"
+      when :successful
+        if URI.parse(identity_url) == URI.parse(config[:author, :open_id])
+          session[:logged_in] = true
+          redirect_to(admin_posts_path)
+          return
+        else
           flash.now[:error] = "You are not authorized"
         end
       end
