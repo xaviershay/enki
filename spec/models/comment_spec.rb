@@ -56,6 +56,13 @@ describe Comment do
     @comment.denormalize
   end
 
+  it "asks post to update it's comment counter after destroy" do
+    @comment.class.after_destroy.include?(:denormalize).should == true
+    @comment.post = mock_model(Post)
+    @comment.post.should_receive(:denormalize_comments_count!)
+    @comment.denormalize
+  end
+
   it "applies a Lesstile filter to body and store it in body_html before save" do
     @comment.class.before_save.include?(:apply_filter).should == true
     Lesstile.should_receive(:format_as_xhtml).and_return("formatted")

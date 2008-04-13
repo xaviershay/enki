@@ -89,6 +89,16 @@ describe Post, 'before validation' do
   end
 end
 
+describe Post, '#denormalize_comments_count!' do
+  it 'updates approved_comments_count without triggering AR callbacks' do
+    p = Post.new
+    p.id = 999
+    p.stub!(:approved_comments).and_return(stub("approved_comments association", :count => 9))
+    Post.should_receive(:update_all).with(["approved_comments_count = ?", 9], ["id = ?", 999])
+    p.denormalize_comments_count!
+  end
+end
+
 describe Post, 'validations' do
   def valid_post_attributes
     {

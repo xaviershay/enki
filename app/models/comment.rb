@@ -14,6 +14,7 @@ class Comment < ActiveRecord::Base
   before_save   :apply_filter
 
   after_save    :denormalize
+  after_destroy :denormalize
 
   validates_presence_of :author
   validates_presence_of :body
