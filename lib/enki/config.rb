@@ -10,6 +10,10 @@ module Enki
       }
     end
 
+    def author_open_ids
+      [self[:author, :open_id]].flatten.map {|uri| URI.parse(uri)}
+    end
+
     private
 
     def symbolize_keys(hash)

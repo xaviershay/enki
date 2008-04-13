@@ -23,7 +23,7 @@ class Admin::SessionsController < ApplicationController
       when :failed
         flash.now[:error] = "Sorry, the OpenID verification failed"
       when :successful
-        if URI.parse(identity_url) == URI.parse(config[:author, :open_id])
+        if config.author_open_ids.include?(URI.parse(identity_url))
           session[:logged_in] = true
           redirect_to(admin_posts_path)
           return

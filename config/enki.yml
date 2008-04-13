@@ -3,7 +3,9 @@ url:   http://enkiblog.com
 author: 
   name:    Don Alias
   email:   don@enkiblog.com
-  open_id: http://enkiblog.com
+  open_id:
+    - http://enkiblog.com
+    - http://secondaryopenid.com
 
 # Delete the following section if your site will not be acting as an OpenID delegate
 open_id_delegation:

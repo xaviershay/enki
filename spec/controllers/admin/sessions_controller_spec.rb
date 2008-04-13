@@ -82,6 +82,13 @@ describe Admin::SessionsController, "handling CREATE with post" do
     end
     it_should_behave_like "logged in and redirected to /admin/posts"
   end
+  describe "with valid secondary URL http://secondaryopenid.com and OpenID authentication succeeding" do
+    before do
+      stub_open_id_authenticate("http://secondaryopenid.com", :successful, false)
+      post :create, :openid_url => "http://secondaryopenid.com"
+    end
+    it_should_behave_like "logged in and redirected to /admin/posts"
+  end
   describe "with valid URL http://enkiblog.com and OpenID authentication returning 'failed'" do
     before do
       stub_open_id_authenticate("http://enkiblog.com", :failed, true)
