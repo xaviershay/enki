@@ -2,12 +2,15 @@ ActionController::Routing::Routes.draw do |map|
   map.namespace :admin do |admin|
     admin.resource :session
 
+    admin.resource :dashboard, :controller => 'dashboard'
+
     admin.resources :posts
     admin.resources :pages
     admin.resources :comments, :member => {:mark_as_spam => :put, :mark_as_ham => :put}
     admin.resources :tags
     admin.resource :api, :controller => 'api'
   end
+
 
   map.connect '/admin', :controller => 'admin/posts', :action => 'index'
   map.connect '/admin/api', :controller => 'admin/api', :action => 'index'

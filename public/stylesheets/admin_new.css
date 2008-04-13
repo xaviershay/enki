@@ -1,0 +1,95 @@
+body {
+  background-color: #dddddd;
+  font-family: Helvetica, Sans-serif;
+  font-size: 10pt;
+}
+
+#recent-comments {
+  color: #222222;
+  background-color: #ececec;
+  padding: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  width: 34em;
+}
+
+#recent-comments a {
+  color: #222222;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#recent-comments ul {
+  margin-left: 0px;
+  padding-left: 0px;
+  list-style-type: none;
+}
+
+#recent-comments ul li.activity {
+  margin-top: 5px;
+  padding-top: 5px;
+  border-top: solid 1px #cccccc;
+}
+
+#recent-comments ul li.first {
+  border: none;
+}
+
+#recent-comments ul ul li {
+  display: inline;
+}
+
+#recent-comments ul ul li:after {
+	content: ", ";
+}
+		
+#recent-comments ul ul li.last:after {
+	content: "";
+}
+
+#recent-comments h3 {
+  display: inline;
+  font-size: 10pt;
+  margin-right: 1em;
+}
+
+#recent-comments .date {
+  font-size: 10pt;
+}
+
+#recent-comments .count {
+  float: right;
+  font-size: 22pt;
+  font-weight: bold;
+  color: #888888;
+  margin-top: -15px;
+}
+
+#recent-comments .comment-body {
+  background-color: #ffffff;
+  border: solid 1px #cccccc;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+#recent-comments .comment-body p {
+  margin: 0;
+}
+
+#recent-comments .comment-body table {
+  margin: 0;
+}
+
+#recent-comments .comment-link {
+  font-weight: normal;
+}
+
+#recent-comments .comment-body p.comment-actions {
+  margin-top: 10px;
+  color: #888888;
+}
+
+#recent-comments .comment-body a {
+  font-weight: normal;
+  color: #888888;
+}
