@@ -19,7 +19,7 @@ $(document).ready(function (){
   jQuery.getFeed({
     url: '/admin/proxy/http://gitorious.org/projects/enki/repos/mainline.atom', // github feed is invalid :(
     success: function(feed) {
-      $('#recent-posts').after("<div id='recent-commits' class='panel'><h2>Recent commits</h2><p>Keep a sharp eye out for security updates</p></div>")
+      $('#recent-comments').after("<div id='recent-commits' class='panel'><h2>Recent commits</h2><p>Keep a sharp eye out for security updates</p></div>")
          
       html = "<ul>";
       for(var i = 0; i < feed.items.length && i < 7; i++) {

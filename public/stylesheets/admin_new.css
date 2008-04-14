@@ -160,3 +160,22 @@ body {
   font-weight: normal;
   color: #888888;
 }
+#summary {
+  text-align: center;
+  max-width: 980;
+  width: 100%;
+  color: #222222;
+}
+#summary h1 {
+  margin-bottom: 0;
+}
+#summary a {
+  color: #222222;
+  text-decoration: none;
+}
+
+#summary p {
+  margin-top: 2px;
+  font-weight: bold;
+  font-size: 12px;
+}

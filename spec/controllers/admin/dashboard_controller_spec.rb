@@ -6,6 +6,8 @@ describe Admin::DashboardController do
       @posts    = [mock_model(Post), mock_model(Post)]
       @comment_activity = [mock("comment-1"), mock("comment-2")]
       Post.stub!(:find_recent).and_return(@posts)
+      Stats.stub!(:new).and_return(@stats = Struct.new(:post_count, :comment_count, :tag_count).new(3,2,1))
+
       CommentActivity.stub!(:find_recent).and_return(@comment_activity)
 
       session[:logged_in] = true
@@ -22,6 +24,10 @@ describe Admin::DashboardController do
 
     it "finds posts for the view" do
       assigns[:posts].should == @posts
+    end
+
+    it "assigns stats for the view" do
+      assigns[:stats].should == @stats
     end
 
     it "finds comment activity for the view" do

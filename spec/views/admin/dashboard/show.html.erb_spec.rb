@@ -22,6 +22,7 @@ describe "/admin/dashboard/show.html.erb" do
       :comments            => [mock_model(Comment, :author => 'Don', :body_html => 'Hello')],
       :most_recent_comment => mock_model(Comment, :created_at => Time.now, :author => 'Don')
     )]
+    assigns[:stats] = Struct.new(:post_count, :comment_count, :tag_count).new(3,2,1)
     render '/admin/dashboard/show.html.erb'
   end
 end

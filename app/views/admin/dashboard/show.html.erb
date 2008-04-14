@@ -4,6 +4,24 @@
   <%= javascript_include_tag 'dashboard' %>
 <% end -%>
 
+<div id="summary">
+<h1><%= link_to(config[:title], '/') %></h1>
+<p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
+</div>
+
+<div id="recent-posts" class="panel">
+<h2>Latest Posts</h2>
+<ul>
+  <% @posts.each_with_index do |post, i| -%>
+    <li class="<%= i == 0 ? 'first ' : '' %>item">
+      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, 50))], edit_admin_post_path(post)) %>
+      <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
+      <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
+    </li>  
+  <% end -%>
+</ul>  
+</div>
+
 <div id="recent-comments" class="panel">
 <h2>Latest Comments</h2>
 <ul>
@@ -32,15 +50,3 @@
 </ul>  
 </div>
 
-<div id="recent-posts" class="panel">
-<h2>Latest Posts</h2>
-<ul>
-  <% @posts.each_with_index do |post, i| -%>
-    <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, 50))], edit_admin_post_path(post)) %>
-      <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
-      <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
-    </li>  
-  <% end -%>
-</ul>  
-</div>
