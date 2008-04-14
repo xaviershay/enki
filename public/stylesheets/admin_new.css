@@ -57,6 +57,15 @@ body {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
   width: 34em;
+  min-height: 250px;
+}
+
+.panel h2 {
+  margin-bottom: 2px;
+}
+
+.panel p {
+  margin-top: 0;
 }
 
 .panel a {

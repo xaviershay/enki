@@ -8,11 +8,13 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :pages
     admin.resources :comments, :member => {:mark_as_spam => :put, :mark_as_ham => :put}
     admin.resources :tags
+
     admin.resource :api, :controller => 'api'
   end
 
+  map.connect '/admin/proxy/:id', :controller => 'admin/proxy', :requirements => { :id => /.*/ }
 
-  map.connect '/admin', :controller => 'admin/posts', :action => 'index'
+  map.connect '/admin', :controller => 'admin/dashboard', :action => 'show'
   map.connect '/admin/api', :controller => 'admin/api', :action => 'index'
   map.archives '/archives', :controller => 'archives', :action => 'index'
 
