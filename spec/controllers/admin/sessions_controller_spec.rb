@@ -110,4 +110,10 @@ describe Admin::SessionsController, "handling CREATE with post" do
     end
     it_should_behave_like "not logged in"
   end
+  describe "with no URL" do
+    before do
+      post :create, :openid_url => ""
+    end
+    it_should_behave_like "not logged in"
+  end
 end
