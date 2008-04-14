@@ -8,11 +8,11 @@
   <%= yield %>
   <div id="nav">
     <ul>
-      <li><%= link_to("Dashboard", admin_dashboard_path, :accesskey => '1') %></li>
-      <li><%= link_to("Posts",     admin_posts_path,     :accesskey => '2') %></li>
-      <li><%= link_to("Comments",  admin_comments_path,  :accesskey => '3') %></li>
-      <li><%= link_to("Tags",      admin_tags_path,      :accesskey => '4') %></li>
-      <li><%= link_to("Api",       admin_api_path,       :accesskey => '5') %></li>
+      <li><%= nav_link_to("Dashboard", admin_dashboard_path, :accesskey => '1') %></li>
+      <li><%= nav_link_to("Posts",     admin_posts_path,     :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :access_key => 'n') %></li>
+      <li><%= nav_link_to("Comments",  admin_comments_path,  :accesskey => '3') %></li>
+      <li><%= nav_link_to("Tags",      admin_tags_path,      :accesskey => '4') %></li>
+      <li><%= nav_link_to("Api",       admin_api_path,       :accesskey => '5') %></li>
       <li class="separator">&nbsp;</li>
       <li><%= link_to("Logout", admin_session_path, :accesskey => 'l', :method => :delete) %></li>
       <li><%= link_to("View Site", '/',             :accesskey => 'v', :title => 'View Site') %></li>

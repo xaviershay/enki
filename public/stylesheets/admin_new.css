@@ -22,6 +22,9 @@
   text-decoration: none;
   font-weight: bold;
 }
+#nav a.current {
+  border-bottom: solid 3px #eeeeee;
+}
 
 #footer {
   position: absolute;
