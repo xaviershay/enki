@@ -19,9 +19,6 @@ module OpenIdAuthentication
     OpenIdAuthentication.store
   end
 
-  class InvalidOpenId < StandardError
-  end
-
   class Result
     ERROR_MESSAGES = {
       :missing      => "Sorry, the OpenID server couldn't be found",
@@ -67,7 +64,7 @@ module OpenIdAuthentication
     uri.scheme = uri.scheme.downcase  # URI should do this
     uri.normalize.to_s
   rescue URI::InvalidURIError
-    raise InvalidOpenId.new("#{url} is not an OpenID URL")
+    return ''
   end
 
   protected
