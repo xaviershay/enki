@@ -20,10 +20,10 @@
       </ul>
       <% activity.comments.each do |comment| -%>
         <div class='comment-body' id='comment-body-<%= comment.id %>'>
-          <%= comment.body_html %>
           <p class='comment-actions'>
             (<%= link_to("edit", edit_admin_comment_path(comment)) %>
             | <%= link_to("delete", admin_comment_path(comment), :method => :delete, :confirm => "Sure?") %>)</p>
+          <%= comment.body_html %>
         </div>
       <% end -%>
     </li>
