@@ -77,6 +77,11 @@ end
 describe Admin::SessionsController, "handling CREATE with post" do
   def stub_open_id_authenticate(url, status_code, return_value)
     status = mock("Status", :code => status_code)
+    @controller.stub!(:config).and_return(mock("config", :author_open_ids => [
+        "http://enkiblog.com",
+        "http://secondaryopenid.com"
+      ].collect {|uri| URI.parse(uri)}
+    ))
     @controller.should_receive(:authenticate_with_open_id).with(url).and_yield(status,url).and_return(return_value)
   end
   describe "with invalid URL http://evilman.com and OpenID authentication succeeding" do
