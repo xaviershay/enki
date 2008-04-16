@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'posts', :action => 'index'
   map.resources :posts
 
-  map.connect 'pages/:id', :controller => 'pages', :action => 'show'
+  map.resources :pages
 
   map.connect ':year/:month/:day/:slug/comments', :controller => 'comments', :action => 'index'
   map.connect ':year/:month/:day/:slug/comments/new', :controller => 'comments', :action => 'new'
