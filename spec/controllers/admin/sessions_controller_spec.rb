@@ -37,6 +37,17 @@ describe Admin::SessionsController do
       response.should redirect_to('/')
     end
   end
+
+  describe '#allow_login_bypass? when RAILS_ENV == production' do
+    it 'returns false' do
+      silence_warnings { RAILS_ENV = 'production' }
+      @controller.send(:allow_login_bypass?).should == false
+    end
+
+    after do
+      silence_warnings { RAILS_ENV = 'test' }
+    end
+  end
 end
 
 describe "logged in and redirected to /admin/posts", :shared => true do
@@ -113,6 +124,19 @@ describe Admin::SessionsController, "handling CREATE with post" do
   describe "with no URL" do
     before do
       post :create, :openid_url => ""
+    end
+    it_should_behave_like "not logged in"
+  end
+  describe "with bypass login selected" do
+    before do
+      post :create, :openid_url => "", :bypass_login => "1"
+    end
+    it_should_behave_like "logged in and redirected to /admin/posts"
+  end
+  describe "with bypass login selected but login bypassing disabled" do
+    before do
+      @controller.stub!(:allow_login_bypass?).and_return(false)
+      post :create, :openid_url => "", :bypass_login => "1"
     end
     it_should_behave_like "not logged in"
   end
