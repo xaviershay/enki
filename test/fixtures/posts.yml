@@ -1,7 +1,0 @@
-first:
-  id: 1
-  title: First post
-  slug: first-post
-  body: HOORAY
-  created_at: <%= 1.week.ago.utc.to_s(:db) %>
-  updated_at: <%= 1.week.ago.utc.to_s(:db) %>
