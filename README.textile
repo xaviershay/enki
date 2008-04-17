@@ -32,16 +32,16 @@ Enki is a compact, easily extendable base for your blog. It does this by being h
 
 h2. Author
 
-Xavier Shay (xavier@rhnh.net)
+"Xavier Shay":http://rhnh.net
 
 h2. Contributors, these guys rock
 
-* Chris Lloyd (bug fixes)
-* Gareth Townsend (bug fixes)
-* Tim Lucas (OpenID - specs and multiple ID support)
+* "Chris Lloyd":http://www.chrislloyd.com.au (bug fixes)
+* "Gareth Townsend":http://www.garethtownsend.info (bug fixes)
+* "Tim Lucas":http://toolmantim.com (OpenID - specs and multiple ID support)
 
 h2. License
 
 GPL(General Public License) - See LICENSE
 
-Includes code from http://simplelog.net/ (admin layout)
+Includes code from "SimpleLog":http://simplelog.net (admin layout)
