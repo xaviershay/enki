@@ -1,3 +1,5 @@
+* An invalid identity url passed through authenticate_with_open_id will no longer raise an InvalidOpenId exception. Instead it will return Result[:missing] to the completion block.
+
 * Allow a return_to option to be used instead of the requested url [Josh Peek]
 
 * Updated plugin to use Ruby OpenID 2.x.x [Josh Peek]

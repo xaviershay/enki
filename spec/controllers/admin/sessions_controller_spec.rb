@@ -76,7 +76,7 @@ end
 
 describe Admin::SessionsController, "handling CREATE with post" do
   def stub_open_id_authenticate(url, status_code, return_value)
-    status = mock("Status", :code => status_code)
+    status = mock("Result", :status => status_code)
     @controller.stub!(:config).and_return(mock("config", :author_open_ids => [
         "http://enkiblog.com",
         "http://secondaryopenid.com"

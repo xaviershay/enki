@@ -32,10 +32,9 @@ class CommentsController < ApplicationController
       session[:pending_comment] = params[:comment]
       return if authenticate_with_open_id(@comment.author, 
           :optional => [:nickname, :fullname, :email]
-        ) do |status, identity_url, registration|
+        ) do |result, identity_url, registration|
 
-        status.extend(ExposeCode)
-        case status.code
+        case result.status
         when :missing
           @comment.openid_error = "Sorry, the OpenID server couldn't be found"
         when :canceled
@@ -48,7 +47,7 @@ class CommentsController < ApplicationController
           @comment.author_url              = @comment.author
           @comment.author                  = (registration["fullname"] || registration["nickname"] || @comment.author_url).to_s
           @comment.author_email            = registration["email"].to_s
-          @comment.author_openid_authority = ""
+          @comment.author_openid_authority = result.server_url 
 
           @comment.openid_error = ""
         end

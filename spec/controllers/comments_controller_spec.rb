@@ -67,7 +67,7 @@ describe CommentsController, 'handling commenting' do
   end
 
   def stub_open_id_authenticate(url, status_code, return_value)
-    status = mock("Status", :code => status_code, :server_url => 'http://example.com')
+    status = mock("Result", :status => status_code, :server_url => 'http://example.com')
     registration = {
       "fullname" => "Don Alias",
       "email" => "donalias@enkiblog.com"
@@ -172,7 +172,6 @@ describe CommentsController, 'handling commenting' do
     it_should_behave_like("creating new comment")
 
     it 'records OpenID authority ' do
-      pending("authority is blank until I patch open_id_authentication to provide it")
       assigns(:comment).author_openid_authority.should == 'http://example.com'
     end
 
