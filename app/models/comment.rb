@@ -10,7 +10,6 @@ class Comment < ActiveRecord::Base
 
   belongs_to :post
 
-  before_create :blank_openid_fields_if_unused
   before_save   :apply_filter
 
   after_save    :denormalize
@@ -34,12 +33,10 @@ class Comment < ActiveRecord::Base
     )
   end
   
-  def blank_openid_fields_if_unused
-    unless requires_openid_authentication?
-      self.author_openid_authority = ""
-      self.author_url = ""
-      self.author_email = ""
-    end
+  def blank_openid_fields
+    self.author_openid_authority = ""
+    self.author_url = ""
+    self.author_email = ""
   end
 
   def requires_openid_authentication?

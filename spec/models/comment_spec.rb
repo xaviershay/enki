@@ -88,23 +88,14 @@ describe Comment do
 end
 
 describe Comment, '#blank_openid_fields_if_unused' do
-  describe 'when author is not authenticated via OpenID' do
-    before(:each) do
-      @comment = Comment.new
-      @comment.stub!(:requires_openid_authentication).and_return(false)
-      @comment.blank_openid_fields_if_unused
-    end
-
-    it('blanks out author_openid_authority') { @comment.author_openid_authority.should == '' } 
-    it('blanks out author_url')              { @comment.author_url.should == '' } 
-    it('blanks out author_email')            { @comment.author_email.should == '' } 
+  before(:each) do
+    @comment = Comment.new
+    @comment.blank_openid_fields
   end
-end
 
-describe Comment, 'before_create' do
-  it 'calls blank_openid_fields_if_unused' do
-    Comment.before_create.include?(:blank_openid_fields_if_unused).should == true
-  end
+  it('blanks out author_openid_authority') { @comment.author_openid_authority.should == '' } 
+  it('blanks out author_url')              { @comment.author_url.should == '' } 
+  it('blanks out author_email')            { @comment.author_email.should == '' } 
 end
 
 describe Comment, '.build_for_preview' do
