@@ -1,25 +1,27 @@
 <html>
 <head>
   <%= stylesheet_link_tag 'admin_new' %>
+  <%= stylesheet_link_tag 'formtastic' %>
   <%= javascript_include_tag 'jquery-1.2.1.js' %>
   <%= yield(:head) %>
 </head>
 <body>
-  <%= yield %>
-  <div id="nav">
-    <ul>
-      <li><%= nav_link_to("Dashboard", admin_dashboard_path, :accesskey => '1') %></li>
-      <li><%= nav_link_to("Posts",     admin_posts_path,     :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :access_key => 'n') %></li>
-      <li><%= nav_link_to("Comments",  admin_comments_path,  :accesskey => '3') %></li>
-      <li><%= nav_link_to("Tags",      admin_tags_path,      :accesskey => '4') %></li>
-      <li><%= nav_link_to("API",       admin_api_path,       :accesskey => '5') %></li>
-      <li class="separator">&nbsp;</li>
-      <li><%= link_to("Logout", admin_session_path, :accesskey => 'l', :method => :delete) %></li>
-      <li><%= link_to("View Site", '/',             :accesskey => 'v', :title => 'View Site') %></li>
-    </ul>
-  </div>
-  <div id="footer">
-    <p>powered by <a href="http://www.enkiblog.com">Enki</a></p>
-  </div>
+  <div id="page">
+    <div id="content">
+      <%= yield %>
+    </div>
+    <div id="nav">
+      <ul>
+        <li><%= nav_link_to("Dashboard", admin_dashboard_path, :accesskey => '1') %></li>
+        <li><%= nav_link_to("Posts",     admin_posts_path,     :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :access_key => 'n') %></li>
+        <li><%= nav_link_to("Comments",  admin_comments_path,  :accesskey => '3') %></li>
+        <li><%= nav_link_to("Tags",      admin_tags_path,      :accesskey => '4') %></li>
+        <li><%= nav_link_to("API",       admin_api_path,       :accesskey => '5') %></li>
+        <li class="separator">&nbsp;</li>
+        <li><%= link_to("Logout", admin_session_path, :accesskey => 'l', :method => :delete) %></li>
+        <li><%= link_to("View Site", '/',             :accesskey => 'v', :title => 'View Site') %></li>
+      </ul>
+    </div>
+  </div>  
 </body>
 </html>

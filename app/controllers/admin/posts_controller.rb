@@ -1,4 +1,6 @@
 class Admin::PostsController < Admin::BaseController
+  layout 'admin_new'
+
   make_resourceful do
     actions :all
     publish :yaml, :attributes => [:id, :title], :only => :index

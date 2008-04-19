@@ -1,20 +1,15 @@
-<%= render :partial => 'admin/posts/subnav', :locals => {:np => true, :ep => false} %>
-
-<div id="header">
-	<h1>New post</h1>
-	<h2>Required fields in <b>bold</b>.</h2><br/>
-</div>
-
-<table class="super" cellspacing="0" cellpadding="0">
-	<tr>
-		<td class="super_left" valign="top" class="no_pad">
-      <% admin_form_for([:admin, @post]) do |form| -%>
-        <% form.wrap do %>
-          <%= render :partial => 'form', :locals => {:form => form} %>
-          <%= form.submit_with_cancel(admin_posts_path) %>
-        <% end -%>
-      <% end -%>
-		</td>
-	</tr>
-</table>
-<br/>
+<h2>New Post</h2>
+<% semantic_form_for([:admin, @post]) do |form| -%>
+  <% form.input_field_set do -%>
+    <%= form.input :title -%>
+    <%= form.input :body -%>
+    <%= form.input :tag_list, :as => 'string' -%>
+  <% end -%>
+  <% form.input_field_set do -%>
+    <%= form.input :published_at -%>
+    <%= form.input :slug -%>
+  <% end -%>
+  <% form.button_field_set do %>                                    
+    <%= form.commit_button("save") -%>                             
+  <% end %>
+<% end -%>
