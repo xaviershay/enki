@@ -83,9 +83,60 @@ describe Post, '#tag_list=' do
   end
 end
 
+describe Post, "#set_edited_at" do
+  describe 'when minor_edit is false' do
+    it 'sets edited_at to current time' do
+      now = Time.now
+      Time.stub!(:now).and_return(now)
+
+      post = Post.new(:edited_at => 1.day.ago)
+      post.stub!(:minor_edit?).and_return(false)
+      post.set_edited_at
+      post.edited_at.should == now
+    end
+  end
+  
+  describe 'when edited_at is nil' do
+    it 'sets edited_at to current time' do
+      now = Time.now
+      Time.stub!(:now).and_return(now)
+
+      post = Post.new
+      post.stub!(:minor_edit?).and_return(true)
+      post.set_edited_at
+      post.edited_at.should == now
+    end
+  end
+
+  describe 'when minor_edit is true' do
+    it 'does not changed edited_at' do
+      post = Post.new(:edited_at => now = 1.day.ago)
+      post.stub!(:minor_edit?).and_return(true)
+      post.set_edited_at
+      post.edited_at.should == now
+    end
+  end
+end
+
+describe Post, "#minor_edit" do
+  it('returns "1" by default') { Post.new.minor_edit.should == "1" }
+end
+
+describe Post, "#minor_edit?" do
+  it('returns true when minor_edit is 1')  { Post.new(:minor_edit => "1").minor_edit?.should == true }
+  it('returns false when minor_edit is 0') { Post.new(:minor_edit => "0").minor_edit?.should == false }
+  it('returns true by default')            { Post.new.minor_edit?.should == true }
+end
+
 describe Post, 'before validation' do
   it 'calls #generate_slug' do
     Post.before_validation.include?(:generate_slug).should == true
+  end
+end
+
+describe Post, 'before save' do
+  it 'calls #set_edited_at' do
+    Post.before_save.include?(:set_edited_at).should == true
   end
 end
 

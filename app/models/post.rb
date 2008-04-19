@@ -8,10 +8,20 @@ class Post < ActiveRecord::Base
 
   before_validation :generate_slug
   before_save   :apply_filter
+  before_save   :set_edited_at
 
   validates_presence_of :title
   validates_presence_of :slug
   validates_presence_of :body
+
+  attr_accessor :minor_edit
+  def minor_edit
+    @minor_edit ||= "1"
+  end
+
+  def minor_edit?
+    self.minor_edit == "1"
+  end
 
   class << self
     def find_recent(options = {})
@@ -57,6 +67,10 @@ class Post < ActiveRecord::Base
 
   def apply_filter
     self.body_html = EnkiFormatter.format_as_xhtml(self.body)
+  end
+
+  def set_edited_at
+    self.edited_at = Time.now if self.edited_at.nil? || !minor_edit?
   end
 
   def denormalize_comments_count!

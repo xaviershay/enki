@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id",                                    :null => false
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(:version => 7) do
     t.datetime "published_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "edited_at",                                 :null => false
   end
 
   add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
