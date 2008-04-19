@@ -68,13 +68,15 @@ describe "not logged in", :shared => true do
     response.should render_template("new")
   end
   it "should set flash.now[:error]" do
-    pending "Figure out why RSpec is teh weak sauce when it comes to flash.now"
-    # For some reason unknown flash.now contains nothing according to RSpec
-    # flash.now[:error].should_not be_nil
+    flash.now[:error].should_not be_nil
   end
 end
 
 describe Admin::SessionsController, "handling CREATE with post" do
+  before do
+    @controller.instance_eval { flash.extend(DisableFlashSweeping) }
+  end
+
   def stub_open_id_authenticate(url, status_code, return_value)
     status = mock("Result", :status => status_code)
     @controller.stub!(:config).and_return(mock("config", :author_open_ids => [

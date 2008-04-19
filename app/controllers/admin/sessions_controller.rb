@@ -22,6 +22,8 @@ class Admin::SessionsController < ApplicationController
         flash.now[:error] = "OpenID verification was canceled"
       when :failed
         flash.now[:error] = "Sorry, the OpenID verification failed"
+      when :invalid
+        flash.now[:error] = "Sorry, the OpenID you entered was not a valid URL"
       when :successful
         if config.author_open_ids.include?(URI.parse(identity_url))
           return successful_login

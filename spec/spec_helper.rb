@@ -49,3 +49,8 @@ describe "ATOM feed", :shared => true do
     response.layout.should be_nil 
   end
 end
+
+module DisableFlashSweeping
+  def sweep
+  end
+end
