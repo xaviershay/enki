@@ -5,3 +5,7 @@
 == 0.2 / 2008-02-08
 
 * Remove dependency on facets
+
+== 0.3 / 2008-04-17
+
+* Allow textile style links in text - "link":http://rhnh.net
