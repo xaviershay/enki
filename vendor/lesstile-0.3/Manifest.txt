@@ -2,6 +2,5 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/lesstile
 lib/lesstile.rb
 spec/spec_lesstile.rb

@@ -12,6 +12,7 @@ class AdminFormBuilder < ActionView::Helpers::FormBuilder
   decorate_method :text_field, :field_with_label
   decorate_method :text_area,  :field_with_label
   decorate_method :datetime_select, :field_with_label
+  decorate_method :check_box,  :field_with_label
 
   def wrap(&proc)
     @template.concat(<<-EOS, @proc.binding)

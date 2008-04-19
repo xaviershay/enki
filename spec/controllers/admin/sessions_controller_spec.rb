@@ -37,6 +37,17 @@ describe Admin::SessionsController do
       response.should redirect_to('/')
     end
   end
+
+  describe '#allow_login_bypass? when RAILS_ENV == production' do
+    it 'returns false' do
+      silence_warnings { RAILS_ENV = 'production' }
+      @controller.send(:allow_login_bypass?).should == false
+    end
+
+    after do
+      silence_warnings { RAILS_ENV = 'test' }
+    end
+  end
 end
 
 describe "logged in and redirected to /admin/posts", :shared => true do
@@ -57,15 +68,22 @@ describe "not logged in", :shared => true do
     response.should render_template("new")
   end
   it "should set flash.now[:error]" do
-    pending "Figure out why RSpec is teh weak sauce when it comes to flash.now"
-    # For some reason unknown flash.now contains nothing according to RSpec
-    # flash.now[:error].should_not be_nil
+    flash.now[:error].should_not be_nil
   end
 end
 
 describe Admin::SessionsController, "handling CREATE with post" do
+  before do
+    @controller.instance_eval { flash.extend(DisableFlashSweeping) }
+  end
+
   def stub_open_id_authenticate(url, status_code, return_value)
-    status = mock("Status", :code => status_code)
+    status = mock("Result", :status => status_code)
+    @controller.stub!(:config).and_return(mock("config", :author_open_ids => [
+        "http://enkiblog.com",
+        "http://secondaryopenid.com"
+      ].collect {|uri| URI.parse(uri)}
+    ))
     @controller.should_receive(:authenticate_with_open_id).with(url).and_yield(status,url).and_return(return_value)
   end
   describe "with invalid URL http://evilman.com and OpenID authentication succeeding" do
@@ -113,6 +131,19 @@ describe Admin::SessionsController, "handling CREATE with post" do
   describe "with no URL" do
     before do
       post :create, :openid_url => ""
+    end
+    it_should_behave_like "not logged in"
+  end
+  describe "with bypass login selected" do
+    before do
+      post :create, :openid_url => "", :bypass_login => "1"
+    end
+    it_should_behave_like "logged in and redirected to /admin/posts"
+  end
+  describe "with bypass login selected but login bypassing disabled" do
+    before do
+      @controller.stub!(:allow_login_bypass?).and_return(false)
+      post :create, :openid_url => "", :bypass_login => "1"
     end
     it_should_behave_like "not logged in"
   end

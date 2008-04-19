@@ -177,8 +177,9 @@ describe Admin::PostsController do
 
   def valid_post_attributes
     {
-      'title' => "My Post",
-      'body' => "hello this is my post"
+      'title'      => "My Post",
+      'body'       => "hello this is my post",
+      'minor_edit' => "0"
     }
   end
 end

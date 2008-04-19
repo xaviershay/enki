@@ -9,10 +9,11 @@
 	<tr>
 		<td class="super_left" valign="top" class="no_pad">
       <% admin_form_for([:admin, @post]) do |form| -%>
-        <%= render :partial => 'form', :locals => {:form => form} %>
+        <% form.wrap do %>
+          <%= render :partial => 'form', :locals => {:form => form} %>
+          <%= form.submit_with_cancel(admin_posts_path) %>
+        <% end -%>
       <% end -%>
-			
-			
 		</td>
 	</tr>
 </table>

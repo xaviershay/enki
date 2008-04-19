@@ -19,28 +19,33 @@ module OpenIdAuthentication
     OpenIdAuthentication.store
   end
 
+  class InvalidOpenId < StandardError
+  end
+
   class Result
     ERROR_MESSAGES = {
       :missing      => "Sorry, the OpenID server couldn't be found",
+      :invalid      => "Sorry, but this does not appear to be a valid OpenID",
       :canceled     => "OpenID verification was canceled",
       :failed       => "OpenID verification failed",
       :setup_needed => "OpenID verification needs setup"
     }
 
-    def self.[](code)
-      new(code)
+    def self.[](code, server_url = nil)
+      new(code, server_url)
     end
 
-    def initialize(code)
+    def initialize(code, server_url)
       @code = code
+      @server_url = server_url
     end
 
-    def ===(code)
-      if code == :unsuccessful && unsuccessful?
-        true
-      else
-        @code == code
-      end
+    def status
+      @code
+    end
+
+    def server_url
+      @server_url
     end
 
     ERROR_MESSAGES.keys.each { |state| define_method("#{state}?") { @code == state } }
@@ -64,7 +69,7 @@ module OpenIdAuthentication
     uri.scheme = uri.scheme.downcase  # URI should do this
     uri.normalize.to_s
   rescue URI::InvalidURIError
-    return ''
+    raise InvalidOpenId.new("#{url} is not an OpenID URL")
   end
 
   protected
@@ -80,7 +85,7 @@ module OpenIdAuthentication
 
     def authenticate_with_open_id(identity_url = params[:openid_url], options = {}, &block) #:doc:
       if params[:open_id_complete].nil?
-        begin_open_id_authentication(normalize_url(identity_url), options, &block)
+        begin_open_id_authentication(identity_url, options, &block)
       else
         complete_open_id_authentication(&block)
       end
@@ -88,10 +93,13 @@ module OpenIdAuthentication
 
   private
     def begin_open_id_authentication(identity_url, options = {})
+      identity_url = normalize_url(identity_url)
       return_to = options.delete(:return_to)
       open_id_request = open_id_consumer.begin(identity_url)
       add_simple_registration_fields(open_id_request, options)
       redirect_to(open_id_redirect_url(open_id_request, return_to))
+    rescue OpenIdAuthentication::InvalidOpenId => e
+      yield Result[:invalid], identity_url, nil
     rescue OpenID::OpenIDError, Timeout::Error => e
       logger.error("[OPENID] #{e}")
       yield Result[:missing], identity_url, nil
@@ -102,16 +110,17 @@ module OpenIdAuthentication
       params_with_path.delete(:format)
       open_id_response = timeout_protection_from_identity_server { open_id_consumer.complete(params_with_path, requested_url) }
       identity_url     = normalize_url(open_id_response.endpoint.claimed_id) if open_id_response.endpoint.claimed_id
+      server_url       = normalize_url(open_id_response.endpoint.server_url) if open_id_response.endpoint.server_url
 
       case open_id_response.status
       when OpenID::Consumer::SUCCESS
-        yield Result[:successful], identity_url, OpenID::SReg::Response.from_success_response(open_id_response)
+        yield Result[:successful, server_url], identity_url, OpenID::SReg::Response.from_success_response(open_id_response)
       when OpenID::Consumer::CANCEL
-        yield Result[:canceled], identity_url, nil
+        yield Result[:canceled, server_url], identity_url, nil
       when OpenID::Consumer::FAILURE
-        yield Result[:failed], identity_url, nil
+        yield Result[:failed, server_url], identity_url, nil
       when OpenID::Consumer::SETUP_NEEDED
-        yield Result[:setup_needed], open_id_response.setup_url, nil
+        yield Result[:setup_needed, server_url], open_id_response.setup_url, nil
       end
     end
 

@@ -44,8 +44,12 @@ def hash_request(request)
 end
 
 describe "ATOM feed", :shared => true do
-  it "has an appropriate ContentType"
   it "renders with no layout" do 
     response.layout.should be_nil 
+  end
+end
+
+module DisableFlashSweeping
+  def sweep
   end
 end

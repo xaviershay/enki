@@ -1,9 +1,5 @@
-<% form.wrap do %>
-  <%= form.break "Content" %>
-  <%= form.text_field 'title', :size => '58', :class => 'normal_i_width' %>
-  <%= form.text_area  'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %>
-  <%= form.text_field 'tag_list', :size => '58', :class => 'normal_i_width' %>
-  <%= form.datetime_select :published_at, :start_year => (@post.published_at || Time.now.utc).year - 1, :order => [:month, :day, :year] %>
-
-  <%= form.submit_with_cancel(admin_posts_path) %>
-<% end -%>
+<%= form.break "Content" %>
+<%= form.text_field 'title', :size => '58', :class => 'normal_i_width' %>
+<%= form.text_area  'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %>
+<%= form.text_field 'tag_list', :size => '58', :class => 'normal_i_width' %>
+<%= form.datetime_select :published_at, :start_year => (@post.published_at || Time.now.utc).year - 1, :order => [:month, :day, :year] %>

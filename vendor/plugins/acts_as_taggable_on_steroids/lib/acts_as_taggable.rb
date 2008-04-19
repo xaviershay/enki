@@ -167,7 +167,7 @@ module ActiveRecord #:nodoc:
           old_taggings = taggings.reject { |tagging| @tag_list.include?(tagging.tag.name) }
           
           self.class.transaction do
-            taggings.destroy(*old_taggings) if old_taggings.any?
+            old_taggings.each {|tag| taggings.destroy(tag)}
             
             new_tag_names.each do |new_tag_name|
               tags << Tag.find_or_create_with_like_by_name(new_tag_name)

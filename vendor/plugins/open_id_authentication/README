@@ -144,10 +144,12 @@ You can support it in your app by changing #open_id_authentication
         # Be sure to yield registration, a third argument in the #authenticate_with_open_id block.
         authenticate_with_open_id(identity_url, 
             :required => [ :nickname, :email ],
-            :optional => :fullname) do |status, identity_url, registration|
-          case status
+            :optional => :fullname) do |result, identity_url, registration|
+          case result.status
           when :missing
             failed_login "Sorry, the OpenID server couldn't be found"
+          when :invalid
+            failed_login "Sorry, but this does not appear to be a valid OpenID"
           when :canceled
             failed_login "OpenID verification was canceled"
           when :failed

@@ -1,7 +1,8 @@
 require 'cgi'
+require 'uri'
 
 class Lesstile
-  VERSION = '0.2'
+  VERSION = '0.3'
 
   class << self
     # Returns lesstile formatted text as valid XHTML
@@ -35,7 +36,26 @@ class Lesstile
     def default_options
       {
         :code_formatter => lambda {|code, lang| "<pre><code>#{code}</code></pre>" },
-        :text_formatter => lambda {|text| text.gsub(/\n/, "<br />\n") }
+        :text_formatter => lambda {|text| 
+          text = text.gsub(/\n/, "<br />\n")
+          uris = URI.extract(text)
+
+          buffer = ""
+          uris.each do |uri|
+            pivot = text.index(uri)
+            pre = text[0..pivot-1]
+            m = pre.match(/&quot;(.*)&quot;:$/)
+            link = m ? m.captures.first : nil
+            if link
+              buffer += m.pre_match + "<a href='#{uri.to_s}'>#{link}</a>"
+            else
+              buffer += pre + uri
+            end  
+            text = text[pivot+uri.length..-1]
+          end
+          buffer += text
+          buffer
+        }
       }
     end
 

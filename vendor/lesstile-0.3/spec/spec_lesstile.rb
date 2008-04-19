@@ -44,6 +44,21 @@ describe "Lesstile#format_as_xhtml" do
   it 'escapes html' do
     @format["<a>&---\nyo<---"].should == "&lt;a&gt;&amp;|yo&lt;|"
   end
+
+  it 'escapes quotes' do 
+    @format['"'].should == "&quot;"
+  end
+end
+
+describe 'Lesstile default text formatter' do
+  before(:all) do
+    @format = lambda {|text| Lesstile.default_options[:text_formatter][text] }
+  end
+
+  it 'recognises links in text' do
+    @format['&quot;a link&quot;:http://example.com &quot;&lt;link&quot;:http://example.com linkage'].should == 
+      "<a href='http://example.com'>a link</a> <a href='http://example.com'>&lt;link</a> linkage"
+  end
 end
 
 describe "Lesstile#format_with_xhtml with default formatters" do
