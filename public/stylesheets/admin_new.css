@@ -212,3 +212,33 @@ form fieldset ol li p.inline-hints {
 form fieldset ol li.boolean label {
   padding-left: 100px;
 }
+
+/* ---------- TABLES */
+table {
+  font-size: 12px;
+  color: #222222;
+  background-color: #ececec;
+}
+
+table td {
+  padding: 5px;
+}
+
+table tr.alt td {
+  background-color: #dddddd;
+}
+
+table th, 
+table tr.pagination td {
+  background-color: #222222;
+  color: #eeeeee;
+  padding: 5px;
+}
+
+div.pagination {
+  text-align: center;
+}
+
+div.pagination a {
+  color: #eeeeee;
+}

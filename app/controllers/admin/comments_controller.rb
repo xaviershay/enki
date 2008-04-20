@@ -1,4 +1,6 @@
 class Admin::CommentsController < Admin::BaseController
+  layout 'admin_new'
+
   before_filter :find_comment, :only => [:mark_as_spam, :mark_as_ham]
 
   make_resourceful do
