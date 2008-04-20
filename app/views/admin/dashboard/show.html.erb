@@ -33,7 +33,7 @@
       <ul>
         <% activity.comments.each_with_index do |comment, index| -%>
           <% content_tag :li, :class => activity.comments.size == index + 1 ? 'last' : nil do -%>
-            <%= link_to(h(comment.author), edit_admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
+            <%= link_to(h(comment.author), admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
           <% end -%>
         <% end -%>
       </ul>

@@ -1,10 +1,4 @@
-<%= render :partial => 'subnav' %>
-
-<div id="header">
-	<h1>Editing comment</h1>
-	<h2>Required fields in <b>bold</b>.</h2><br/>
-	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
-</div>
+<h2>Editing comment by <%=h @comment.author %></h2>
 
 <table class="super" cellspacing="0" cellpadding="0">
 	<tr>

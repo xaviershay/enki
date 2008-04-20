@@ -235,10 +235,21 @@ table tr.pagination td {
   padding: 5px;
 }
 
+table form {
+  display: inline;
+}
+
 div.pagination {
   text-align: center;
 }
 
 div.pagination a {
   color: #eeeeee;
+}
+
+table img,
+table img {
+  float: left;
+  border: none;
+  display: inline;
 }

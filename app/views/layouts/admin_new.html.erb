@@ -11,7 +11,7 @@
   <% if flash[:notice] -%>
   <script>
     jQuery(document).ready(function() {
-      humanMsg.displayMsg('<%= escape_javascript(flash[:notice]) %>');
+      humanMsg.displayMsg('<%= escape_javascript(h(flash[:notice])) %>');
     })  
   </script>
   <% end -%>
