@@ -1,15 +1,7 @@
 <h2>New Post</h2>
 <% semantic_form_for([:admin, @post]) do |form| -%>
-  <% form.input_field_set do -%>
-    <%= form.input :title -%>
-    <%= form.input :body -%>
-    <%= form.input :tag_list, :as => 'string' -%>
-  <% end -%>
-  <% form.input_field_set do -%>
-    <%= form.input :published_at -%>
-    <%= form.input :slug -%>
-  <% end -%>
-  <% form.button_field_set do %>                                    
+  <%= render :partial => 'form', :locals => {:form => form} -%>
+  <% form.button_field_set do -%>                                    
     <%= form.commit_button("save") -%>                             
-  <% end %>
+  <% end -%>
 <% end -%>

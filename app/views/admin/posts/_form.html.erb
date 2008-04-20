@@ -1,5 +1,10 @@
-<%= form.break "Content" %>
-<%= form.text_field 'title', :size => '58', :class => 'normal_i_width' %>
-<%= form.text_area  'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %>
-<%= form.text_field 'tag_list', :size => '58', :class => 'normal_i_width' %>
-<%= form.datetime_select :published_at, :start_year => (@post.published_at || Time.now.utc).year - 1, :order => [:month, :day, :year] %>
+<% form.input_field_set do -%>
+  <%= form.input :title -%>
+  <%= form.input :body -%>
+  <%= form.input :tag_list, :as => 'string' -%>
+<% end -%>
+<% form.input_field_set do -%>
+  <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'example: now, yesterday, 1 hour from now, ' + link_to("more&hellip;", "http://chronic.rubyforge.org/") -%>
+  <%= form.input :slug -%>
+  <%= form.input :minor_edit, :as => 'boolean', :hint => 'minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like.' -%>
+<% end -%>

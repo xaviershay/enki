@@ -7,12 +7,18 @@ class Post < ActiveRecord::Base
   has_many :approved_comments, :class_name => 'Comment'
 
   before_validation :generate_slug
-  before_save   :apply_filter
-  before_save   :set_edited_at
+  before_validation :set_dates
+  before_save :apply_filter
 
   validates_presence_of :title
   validates_presence_of :slug
   validates_presence_of :body
+
+  validate :validate_published_at_natural
+
+  def validate_published_at_natural
+    errors.add("published_at_natural", "Unable to parse time") if published_at.nil?
+  end
 
   attr_accessor :minor_edit
   def minor_edit
@@ -21,6 +27,11 @@ class Post < ActiveRecord::Base
 
   def minor_edit?
     self.minor_edit == "1"
+  end
+
+  attr_accessor :published_at_natural
+  def published_at_natural
+    @published_at_natural ||= published_at.send_with_default(:strftime, 'now', "%Y-%m-%d %H:%M")
   end
 
   class << self
@@ -69,8 +80,9 @@ class Post < ActiveRecord::Base
     self.body_html = EnkiFormatter.format_as_xhtml(self.body)
   end
 
-  def set_edited_at
+  def set_dates
     self.edited_at = Time.now if self.edited_at.nil? || !minor_edit?
+    self.published_at = Chronic.parse(self.published_at_natural)
   end
 
   def denormalize_comments_count!

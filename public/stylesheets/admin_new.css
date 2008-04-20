@@ -173,7 +173,6 @@ body {
   margin-bottom: 0;
 }
 #summary a {
-  color: #222222;
   text-decoration: none;
 }
 
@@ -181,4 +180,35 @@ body {
   margin-top: 2px;
   font-weight: bold;
   font-size: 12px;
+}
+
+a {
+  color: #222222;
+}
+/* -------- FORMS */
+
+#post_body {
+  width: 600px;
+  height: 450px;
+}
+
+form fieldset ol li {
+  border: none;
+}
+
+form fieldset ol {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+form fieldset ol li label {
+  width: 100px;
+}
+
+form fieldset ol li p.inline-hints {
+  margin-left: 100px;
+}
+form fieldset ol li.boolean label {
+  padding-left: 100px;
 }

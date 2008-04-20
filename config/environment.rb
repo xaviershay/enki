@@ -73,3 +73,4 @@ require 'openid'
 require 'openid/store/filesystem'
 require 'openid/extensions/sreg'
 
+require 'chronic'

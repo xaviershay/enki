@@ -83,7 +83,7 @@ describe Post, '#tag_list=' do
   end
 end
 
-describe Post, "#set_edited_at" do
+describe Post, "#set_dates" do
   describe 'when minor_edit is false' do
     it 'sets edited_at to current time' do
       now = Time.now
@@ -91,7 +91,7 @@ describe Post, "#set_edited_at" do
 
       post = Post.new(:edited_at => 1.day.ago)
       post.stub!(:minor_edit?).and_return(false)
-      post.set_edited_at
+      post.set_dates
       post.edited_at.should == now
     end
   end
@@ -103,7 +103,7 @@ describe Post, "#set_edited_at" do
 
       post = Post.new
       post.stub!(:minor_edit?).and_return(true)
-      post.set_edited_at
+      post.set_dates
       post.edited_at.should == now
     end
   end
@@ -112,9 +112,17 @@ describe Post, "#set_edited_at" do
     it 'does not changed edited_at' do
       post = Post.new(:edited_at => now = 1.day.ago)
       post.stub!(:minor_edit?).and_return(true)
-      post.set_edited_at
+      post.set_dates
       post.edited_at.should == now
     end
+  end
+
+  it 'sets published_at by parsing published_at_natural with chronic' do
+    now = Time.now
+    post = Post.new(:published_at_natural => 'now')
+    Chronic.should_receive(:parse).with('now').and_return(now)
+    post.set_dates
+    post.published_at.should == now
   end
 end
 
@@ -129,15 +137,8 @@ describe Post, "#minor_edit?" do
 end
 
 describe Post, 'before validation' do
-  it 'calls #generate_slug' do
-    Post.before_validation.include?(:generate_slug).should == true
-  end
-end
-
-describe Post, 'before save' do
-  it 'calls #set_edited_at' do
-    Post.before_save.include?(:set_edited_at).should == true
-  end
+  it('calls #generate_slug') { Post.before_validation.include?(:generate_slug).should == true }
+  it('calls #set_dates')     { Post.before_validation.include?(:set_dates).should == true }
 end
 
 describe Post, '#denormalize_comments_count!' do
@@ -153,9 +154,10 @@ end
 describe Post, 'validations' do
   def valid_post_attributes
     {
-      :title => "My Post",
-      :slug  => "my-post",
-      :body  => "hello this is my post"
+      :title                => "My Post",
+      :slug                 => "my-post",
+      :body                 => "hello this is my post",
+      :published_at_natural => 'now'
     }
   end
 
@@ -169,6 +171,10 @@ describe Post, 'validations' do
 
   it 'is invalid with no body' do
     Post.new(valid_post_attributes.merge(:body => '')).should_not be_valid
+  end
+
+  it 'is invalid with bogus published_at_natural' do
+    Post.new(valid_post_attributes.merge(:published_at_natural => 'bogus')).should_not be_valid
   end
 end
 
