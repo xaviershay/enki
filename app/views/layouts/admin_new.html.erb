@@ -1,9 +1,21 @@
 <html>
 <head>
-  <%= stylesheet_link_tag 'formtastic' %>
   <%= javascript_include_tag 'jquery-1.2.1.js' %>
+  <%= javascript_include_tag 'jquery.easing.1.3.js' %>
+  <%= javascript_include_tag 'humanmsg' %>
+  <%= stylesheet_link_tag 'formtastic' %>
+  <%= stylesheet_link_tag 'humanmsg' %>
   <%= stylesheet_link_tag 'admin_new' %>
   <%= yield(:head) %>
+
+  <% if flash[:notice] -%>
+  <script>
+    jQuery(document).ready(function() {
+      humanMsg.displayMsg('<%= escape_javascript(flash[:notice]) %>');
+    })  
+  </script>
+  <% end -%>
+
 </head>
 <body>
   <div id="page">
