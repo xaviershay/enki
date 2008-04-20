@@ -1,30 +1,26 @@
-<%= render :partial => 'subnav' -%>
-<div id="header">
-	<h1 class="skinny">Your posts</h1>
-	<h2 class="fat">Gray denotes inactive posts, rows with <span class="future_key">lined background</span> are future posts.</h2><br/>
-	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
-</div>
-<table class="list" cellspacing="0" cellpadding="0">
+<h1>Your posts</h1>
+<table cellspacing="0" cellpadding="0">
 	<tr>
-		<th class="first_col">Published At</th>
+		<th>Published At</th>
 		<th>Title</th>
 		<th>Excerpt</th>
-		<th class="small_col">Comments</th>
-		<th class="del_col">X</th>
+		<th>Comments</th>
+		<th>X</th>
 	</tr>
 	<% if @posts.empty? -%>
-		<tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no posts at this time.</span></td></tr>
+		<tr><td colspan="5">There are no posts at this time.</td></tr>
 	<% else -%>
 		<% @posts.each_with_index do |post, index| -%>
-			<tr class="<% if post.published_at > Time.now %>futurepost <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
-				<td class="first_col"><%= post.published_at.strftime('%d %b, %Y') %></td>
+			<tr class="<% if post.published_at > Time.now %>futurepost <% end %><%= cycle('', 'alt') %>">
+				<td><%= post.published_at.strftime('%d %b, %Y') %></td>
 				<td><%= link_to (post.title == '' ? '[Untitled]' : h(truncate(post.title, 30))), edit_admin_post_path(post) %></td>
 				<td><% tmpc = h(truncate(post.body, 55)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
-				<td class="small_col"><%= post.approved_comments.size %></td>
-				<td class="del_col"><%= link_to 'X', admin_post_url(post), :method => :delete, :confirm => "You are about to delete this post. This cannot be undone. Are you sure?" %></td>
+				<td><%= post.approved_comments.size %></td>
+				<td><%= link_to 'X', admin_post_url(post), :method => :delete, :confirm => "You are about to delete this post. This cannot be undone. Are you sure?" %></td>
 			</tr>
 		<% end -%>
 	<% end -%>
+
   <% if @posts.page_count > 1 -%>
     <tr class="pagination">
       <td colspan="5">
