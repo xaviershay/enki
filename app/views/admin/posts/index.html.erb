@@ -7,7 +7,7 @@
 <table class="list" cellspacing="0" cellpadding="0">
 	
 	<tr>
-		<th class="first_col">Created At</th>
+		<th class="first_col">Published At</th>
 		<th>Title</th>
 		<th>Excerpt</th>
 		<th class="small_col">Comments</th>
@@ -17,8 +17,8 @@
 		<tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no posts at this time.</span></td></tr>
 	<% else -%>
 		<% @posts.each_with_index do |post, index| -%>
-			<tr class="<% if post.created_at > Time.now %>futurepost <% end %><% if !post.active? %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
-				<td class="first_col"><%= post.created_at.strftime('%d %b, %Y') %></td>
+			<tr class="<% if post.published_at > Time.now %>futurepost <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
+				<td class="first_col"><%= post.published_at.strftime('%d %b, %Y') %></td>
 				<td><%= link_to (post.title == '' ? '[Untitled]' : h(truncate(post.title, 30))), edit_admin_post_path(post) %></td>
 				<td><% tmpc = h(truncate(post.body, 55)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
 				<td class="small_col"><%= post.approved_comments.size %></td>
