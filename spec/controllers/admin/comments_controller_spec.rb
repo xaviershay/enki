@@ -111,7 +111,7 @@ describe Admin::CommentsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @comment = Comment.new(:author => 'xavier')
-      @comment.stub!(:destroy)
+      @comment.stub!(:destroy_with_undo)
       Comment.stub!(:find).and_return(@comment)
     end
 
@@ -121,13 +121,13 @@ describe Admin::CommentsController do
     end
 
     it("deletes comment") do
-      @comment.should_receive(:destroy)
+      @comment.should_receive(:destroy_with_undo)
       do_delete
     end
 
     it("renders comment as json") do
       do_delete
-      response.should have_text(@comment.to_json)
+      response.should have_text(/#{Regexp.escape(@comment.to_json)}/)
     end
   end
 end

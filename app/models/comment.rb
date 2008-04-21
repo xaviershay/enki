@@ -61,6 +61,15 @@ class Comment < ActiveRecord::Base
     self.post.denormalize_comments_count!
   end
 
+  def destroy_with_undo
+    undo_item = nil
+    transaction do
+      self.destroy
+      undo_item = DeleteCommentUndo.create_undo(self)
+    end
+    undo_item
+  end
+
   # Delegates
   def post_title
     post.title

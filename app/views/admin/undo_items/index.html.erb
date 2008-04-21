@@ -1,0 +1,22 @@
+<h2>Recent Actions</h2>
+<table cellspacing="0" cellpadding="0">
+  <thead>
+    <th>Date</th>
+    <th>Action</th>
+    <th></th>
+  </thead>
+
+  <tbody>
+  <% @undo_items.each do |undo_item| -%>
+    <tr class="<%= cycle('', 'alt') %>">
+      <td><%=h undo_item.created_at.strftime('%d %b, %Y') %></td>
+      <td><%=h undo_item.description %></td>
+      <td>
+        <% form_for(:undo_item, undo_item, :url => undo_admin_undo_item_path(undo_item), :html => {:class => 'undo', :method => :post}) do |form| -%>
+          <%= image_submit_tag("silk/arrow_undo.png", :alt => 'Undo') %>
+        <% end -%>
+      </td>
+    </tr>  
+  <% end -%>
+  </tbody>
+</table>  

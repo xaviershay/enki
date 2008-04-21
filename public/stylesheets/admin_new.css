@@ -253,3 +253,8 @@ table img {
   border: none;
   display: inline;
 }
+
+/* --------- MESSAGING */
+.humanMsg .undo-link {
+  display: none;
+}

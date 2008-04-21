@@ -5,38 +5,31 @@
 
 <h1>Comments</h1>
 <table cellspacing="0" cellpadding="0">
-	<tr>
-		<th>Created At</th>
-		<th>Commenter</th>
-		<th>Excerpt</th>
-		<th>Post</th>
-		<th>Actions</th>
-	</tr>
+  <thead>
+    <tr>
+      <th>Created At</th>
+      <th>Commenter</th>
+      <th>Excerpt</th>
+      <th>Post</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 	
-	<% if @comments.empty? -%>
-		<tr><td colspan="5">There are no comments at this time.</td></tr>
-	<% else -%>
-		<% @comments.each_with_index do |comment, index| -%>
-			<tr id="comment-<%= comment.id %>" class="<%= cycle('', 'alt') %>">
-				<td><%= comment.created_at.strftime('%d %b, %Y') %></td>
-				<td><%= link_to(h(comment.author), admin_comment_path(comment)) %></td>
-				<td><%=h truncate(comment.body, 40) %></td>
-				<td><%= link_to(comment.post_title, edit_admin_post_path(comment.post))%></td>
-				<td>
-          <%# link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_comment_path(comment)) %>
-          <% form_for(:comment, comment, :url => admin_comment_path(comment), :html => {:class => 'delete-comment', :method => :delete}) do |form| -%>
-            <%= image_submit_tag("silk/delete.png") %>
-          <% end -%>
-        </td>
-			</tr>
-		<% end -%>
-	<% end -%>
+  <tbody> 
+    <% if @comments.empty? -%>
+      <tr><td colspan="5">There are no comments at this time.</td></tr>
+    <% else -%>
+      <%= render :partial => 'comment', :collection => @comments %>
+    <% end -%>
+  </tbody>
 
-  <% if @comments.page_count > 1 -%>
-    <tr class="pagination">
-      <td colspan='5'>
-        <%= will_paginate(@comments, :prev_label => '« Newer', :next_label => 'Older »') %>
-      </td>  
-    </tr>  
-  <% end -%>  
+  <tfoot>
+    <% if @comments.page_count > 1 -%>
+      <tr class="pagination">
+        <td colspan='5'>
+          <%= will_paginate(@comments, :prev_label => '« Newer', :next_label => 'Older »') %>
+        </td>  
+      </tr>  
+    <% end -%>  
+  </tfoot>
 </table>

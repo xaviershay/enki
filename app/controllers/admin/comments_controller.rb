@@ -12,6 +12,11 @@ class Admin::CommentsController < Admin::BaseController
   end
   
   def show
+    respond_to do |format|
+      format.html {
+        render :partial => 'comment', :locals => {:comment => @comment} if request.xhr?
+      }
+    end
   end
 
   def update
@@ -24,14 +29,19 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def destroy
-    @comment.destroy
+    undo_item = @comment.destroy_with_undo
 
     respond_to do |format|
       format.html do
         flash[:notice] = "Deleted comment by #{@comment.author}"
         redirect_to :action => 'index' 
       end
-      format.json { render :json => @comment.to_json }
+      format.json { 
+        render :json => {
+          :undo_path => undo_admin_undo_item_path(undo_item),
+          :comment   => @comment
+        }.to_json
+      }
     end
   end
 
