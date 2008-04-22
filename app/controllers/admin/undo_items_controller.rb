@@ -1,6 +1,4 @@
 class Admin::UndoItemsController < Admin::BaseController
-  layout 'admin_new'
-
   def index
     @undo_items = UndoItem.find(:all,
       :order => 'created_at DESC',

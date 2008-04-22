@@ -1,6 +1,4 @@
 class Admin::TagsController < Admin::BaseController
-  layout 'admin_new'
-
   make_resourceful do
     actions :all
 

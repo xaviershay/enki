@@ -1,6 +1,4 @@
 class Admin::CommentsController < Admin::BaseController
-  layout 'admin_new'
-
   before_filter :find_comment, :only => [:show, :update, :destroy]
 
   def index
