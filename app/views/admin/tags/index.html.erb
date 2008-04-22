@@ -1,26 +1,35 @@
-<%= render :partial => 'subnav' -%>
-<div id="header">
-	<h1 class="skinny">Your tags</h1>
-	<h2 class="fat">Gray denotes tags not in use</h2><br/>
-	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
-</div>
-<table class="list" cellspacing="0" cellpadding="0">
-	<tr>
-		<th class="first_col">Name</th>
-		<th>Posts Tagged</th>
-		<th class="del_col">X</th>
-	</tr>
+<h1>Your tags</h1>
+
+<table cellspacing="0" cellpadding="0">
+  <thead>  
+    <tr>
+      <th>Name</th>
+      <th>Posts Tagged</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
 	
-	<% if @tags.empty? -%>
-	<tr class="first_row"><td class="first_col" colspan="3"><span class="gray">There are no tags at this time.</span></td></tr>
-	<% else -%>	
-		<% @tags.each_with_index do |tag, index| -%>
-			<tr class="<% if tag.taggings.size < 1 %>inactive <% end %><%= cycle('', 'alt_row ') %><%= (index == 1 ? 'first_row' : '') %>">
-				<td class="first_col"><%= link_to(tag.name, edit_admin_tag_path(tag)) %></td>
-				<td class="small_col"><%= tag.taggings.size %></td>
-				<td class="del_col"><%= link_to('X', admin_tag_path(tag), :method => :delete, :confirm => "You are about to delete this tag. It will be removed from all posts. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
-			</tr>
-		<% end -%>
-	<% end -%>
+  <tbody>
+    <% if @tags.empty? -%>
+      <tr><td colspan="3">There are no tags at this time.</td></tr>
+    <% else -%>	
+      <% @tags.each do |tag| -%>
+        <tr class="<%= cycle('', 'alt') %>">
+          <td><%= link_to(tag.name, edit_admin_tag_path(tag)) %></td>
+          <td><%= tag.taggings.size %></td>
+          <td><%= link_to('X', admin_tag_path(tag), :method => :delete, :confirm => "You are about to delete this tag. It will be removed from all posts. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
+        </tr>
+      <% end -%>
+    <% end -%>
+  </tbody>
+
+  <tfoot>
+    <% if @tags.page_count > 1 -%>
+      <tr class="pagination">
+        <td colspan='3'>
+          <%= will_paginate(@tags, :prev_label => '« newer', :next_label => 'older »') %>
+        </td>  
+      </tr>  
+    <% end -%>  
+  </tfoot>
 </table>
-<%= will_paginate(@tags) %>
