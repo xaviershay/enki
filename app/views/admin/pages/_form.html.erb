@@ -1,13 +1,5 @@
-<% form.wrap do -%>
-  <%= form.break "Linking" %>
-
-<tr><td class="labels"><label for="page_the_link">URL for this page</label></td><td class="fields">
-/pages/<span id="the_link" style="display: inline"><%= @page.slug %></span></td></tr>
-
-  <%= form.text_field :slug, :help => "Value will be converted to lowercase and sanitized" %>
-  <%= form.break "Content" %>
-
-  <%= form.text_field 'title', :class => 'normal_i_width' %>
-  <%= form.text_area 'body', :rows => '28', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width' %>
-  <%= form.submit_with_cancel(admin_pages_path) %>
+<% form.input_field_set do -%>
+  <%= form.input :title %>
+  <%= form.input :slug, :hint => "Value will be converted to lowercase and sanitized" %>
+  <%= form.input :body %>
 <% end -%>

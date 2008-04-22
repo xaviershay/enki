@@ -1,43 +1,12 @@
 <h2>Editing comment by <%=h @comment.author %></h2>
-
-<table class="super" cellspacing="0" cellpadding="0">
-	<tr>
-		<td class="super_left" valign="top" class="no_pad">
-      <% admin_form_for([:admin, @comment]) do |form| -%>  
-        <% form.wrap do -%>
-          <%= form.break "Commenter" %>
-          <%= form.text_field 'author', :size => '58', :class => 'normal_ic_width' %>
-          <%= form.text_field 'author_url', :size => '58', :class => 'normal_ic_width' %>
-          <%= form.text_field 'author_openid_authority', :size => '58', :class => 'normal_ic_width' %>
-          <%= form.text_field 'author_email', :size => '58', :class => 'normal_ic_width' %>
-
-          <%= form.break "Content" %>
-
-          <%= form.text_area 'body', :rows => '22', :cols => '59', :wrap => 'virtual', :class => 'normal_i_width', :help => "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>" %>
-          <%= form.submit_with_cancel(admin_comments_path) %>
-        <% end -%>
-			<% end -%>
-    </td>
-		<td class="super_right" valign="top">
-			
-			<div id="showing_prev" style="display: none;">
-			    <table id="preview_tbl" cellpadding="0" cellspacing="0">
-    				<tr class="breaker btop">
-    				    <td class="t_left">Content preview</td>
-    				    <td class="t_right"><span class="small gray"><a id="previewToggle_one" href="javascript://" onclick="togglePreview('showing_prev', 'hiding_prev');" class="create_bg">&larr; Hide preview</a></span></td>
-    				</tr>
-    				<tr><td colspan="2" class="nobo super_full"><div id="preview"><%= @preview %></div></td></tr>
-    			</table>
-			</div>
-			<div id="hiding_prev">
-			    <table id="show_preview" cellpadding="0" cellspacing="0">
-    				<tr>
-    					<td><span class="small"><a id="previewToggle_two" href="javascript://" onclick="togglePreview('showing_prev', 'hiding_prev');">Show content preview &rarr;</a></span></td>
-    				</tr>
-    			</table>
-			</div>
-			
-		</td>
-	</tr>
-</table>
-<br/>
+<% semantic_form_for([:admin, @comment]) do |form| -%>
+  <% form.input_field_set do -%>
+    <%= form.input :author %>
+    <%= form.input :author_url %>
+    <%= form.input :author_email %>
+    <%= form.input :body, :hint => "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>" %>
+  <% end %>
+  <% form.button_field_set do -%>
+    <%= form.commit_button("save") %>
+  <% end -%>
+<% end -%>

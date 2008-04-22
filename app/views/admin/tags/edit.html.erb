@@ -1,42 +1,10 @@
-<%= render :partial => 'admin/tags/subnav' %>
+<h1>Editing tag - <%= link_to(h(@tag.name), posts_path(:tag => @tag)) %></h1>
 
-<div id="header">
-	<h1>Editing tag</h1>
-	<h2>Required fields in <b>bold</b>.</h2><br/>
-	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
-</div>
-
-<table class="super" cellspacing="0" cellpadding="0">
-	<tr>
-		<td class="super_left" valign="top" class="no_pad">
-			<% admin_form_for([:admin, @tag]) do |form| -%>
-        <% form.wrap do -%>
-          <%= form.break "Tag Details" -%>
-          <%= form.text_field :name -%>
-          <%= form.submit_with_cancel(admin_tags_path) -%>
-        <% end -%>  
-			<% end -%>
-		</td>
-		<td class="super_right" valign="top">
-			
-			<div id="showing_prev" style="display: none;">
-			    <table id="preview_tbl" cellpadding="0" cellspacing="0">
-    				<tr class="breaker btop">
-    				    <td class="t_left">Content preview</td>
-    				    <td class="t_right"><span class="small gray"><a id="previewToggle_one" href="javascript://" onclick="togglePreview('showing_prev', 'hiding_prev');" class="create_bg">&larr; Hide preview</a></span></td>
-    				</tr>
-    				<tr><td colspan="2" class="nobo super_full"><div id="preview"><%= @preview %></div></td></tr>
-    			</table>
-			</div>
-			<div id="hiding_prev">
-			    <table id="show_preview" cellpadding="0" cellspacing="0">
-    				<tr>
-    					<td><span class="small"><a id="previewToggle_two" href="javascript://" onclick="togglePreview('showing_prev', 'hiding_prev');">Show content preview &rarr;</a></span></td>
-    				</tr>
-    			</table>
-			</div>
-			
-		</td>
-	</tr>
-</table>
-<br/>
+<% semantic_form_for([:admin, @tag]) do |form| -%>
+  <% form.input_field_set do -%>  
+    <%= form.input :name %>
+  <% end -%>  
+  <% form.button_field_set do -%>
+    <%= form.commit_button("save") -%>                             
+  <% end -%>  
+<% end -%>

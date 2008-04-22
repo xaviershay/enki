@@ -192,6 +192,11 @@ a {
   height: 450px;
 }
 
+#page_body {
+  width: 600px;
+  height: 450px;
+}
+
 form fieldset ol li {
   border: none;
 }
