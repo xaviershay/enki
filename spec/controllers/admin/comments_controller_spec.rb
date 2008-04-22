@@ -33,7 +33,7 @@ describe Admin::CommentsController do
       @comment.stub!(:update_attributes).and_return(true)
       Comment.stub!(:find).and_return(@comment)
 
-      @attributes = {:body => 'a comment'}
+      @attributes = {'body' => 'a comment'}
     end
 
     def do_put
@@ -48,7 +48,6 @@ describe Admin::CommentsController do
     end
 
     it("updates comment") do
-      pending("works IRL, figure it out when I'm not asleep")
       @comment.should_receive(:update_attributes).with(@attributes).and_return(true)
       do_put
     end
