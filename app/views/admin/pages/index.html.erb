@@ -1,34 +1,39 @@
-<%= render :partial => 'admin/pages/subnav', :locals => {:np => false, :ep => false} %>
+<h1>Your pages</h1>
 
-<div id="header">
-	<h1>Your pages</h1>
-	<h2>Gray denotes inactive pages.</h2><br/>
-	<% if flash[:notice] %><div class="green flash"><%= flash[:notice] %></div><% end %>
-</div>
+<table cellspacing="0" cellpadding="0">
+  <thead>
+    <tr>
+      <th>Created At</th>
+      <th>Title</th>
+      <th>Excerpt</th>
+      <th>Link</th>
+      <th>X</th>
+    </tr>
+  </thead>
+	
+  <tbody>
+    <% if @pages.empty? -%>
+      <tr><td colspan="5">There are no pages at this time.</td></tr>
+    <% else -%>
+      <% @pages.each do |page| -%>
+        <tr class="<%= cycle('', 'alt') %>">
+          <td><%= page.created_at.strftime('%d %b, %Y') %></td>
+          <td><%= link_to(h(page.title), edit_admin_page_url(page)) %></td>
+          <td><%=h truncate(page.body, 50) %></td>
+          <td><%= page.slug %></td>
+          <td><%= link_to 'X', admin_page_url(page), :method => :delete, :confirm => "You are about to delete the page '#{page.title}'. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
+        </tr>
+      <% end -%>
+    <% end -%>
+  </tbody>
 
-<table class="list" cellspacing="0" cellpadding="0">
-	
-	<tr>
-		<th class="first_col">Created At</th>
-		<th>Title</th>
-		<th>Excerpt</th>
-		<th>Link</th>
-		<th class="del_col">X</th>
-	</tr>
-	
-	<% if @pages.empty? -%>
-		<tr class="first_row"><td class="first_col" colspan="5"><span class="gray">There are no pages at this time.</span></td></tr>
-	<% else -%>
-		<% @pages.each_with_index do |page, index| -%>
-			<tr class="<%= cycle('', 'alt_row') %><%= (index == 0 ? ' first_row' : '') %>">
-				<td class="first_col"><%= page.created_at.strftime('%d %b, %Y') %></td>
-				<td><%= link_to(h(page.title), edit_admin_page_url(page)) %></td>
-				<td><%=h truncate(page.body, 50) %></td>
-				<td><%= page.slug %></td>
-				<td class="del_col"><%= link_to 'X', admin_page_url(page), :method => :delete, :confirm => "You are about to delete the page '#{page.title}'. This is permanent.\n\nAre you ABSOLUTELY sure?" %></td>
-			</tr>
-		<% end -%>
-	<% end -%>
-	
+  <tfoot>
+    <% if @pages.page_count > 1 -%>
+      <tr class="pagination">
+        <td colspan='5'>
+          <%= will_paginate(@pages, :prev_label => '« Newer', :next_label => 'Older »') %>
+        </td>  
+      </tr>  
+    <% end -%>  
+  </tfoot>
 </table>
-<%= will_paginate(@pages) %>

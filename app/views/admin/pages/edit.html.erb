@@ -1,12 +1,6 @@
-<%= render :partial => 'admin/pages/subnav', :locals => {:np => false, :ep => true} %>
+<h1>Editing page - <%=h @page.title %></h1>
 
-<div id="header">
-	<h1>Editing page</h1>
-	<h2>Required fields in <b>bold</b>.</h2><br/>
-	<% if flash[:notice] %><div class="green flash"><b>Success:</b> <%= flash[:notice] %></div><% end -%>
-</div>
-
-<table class="super" cellspacing="0" cellpadding="0">
+<table cellspacing="0" cellpadding="0">
 	<tr>
 		<td class="super_left" valign="top" class="no_pad">
 			<% admin_form_for([:admin, @page]) do |form| -%>
