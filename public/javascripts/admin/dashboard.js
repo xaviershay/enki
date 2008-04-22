@@ -16,6 +16,9 @@ $(document).ready(function (){
   })
 
   // Load recent commits
+  // Disable this by default because the server side proxy ties up too many resources
+  // TODO: Find a way to do this without hitting the server
+  /*
   jQuery.getFeed({
     url: '/admin/proxy/http://gitorious.org/projects/enki/repos/mainline.atom', // github feed is invalid :(
     success: function(feed) {
@@ -39,4 +42,5 @@ $(document).ready(function (){
       $('#recent-commits').append(html);
     }
   });
+  */
 })
