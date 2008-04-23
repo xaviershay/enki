@@ -32,12 +32,11 @@ describe Admin::PostsController do
     end
 
     it "is successful" do
-      pending("Works IRL, test gets 406")
       response.should be_success
     end
 
-    it "finds posts with out pagination" do
-      assigns[:posts].should == @posts
+    it "renders posts with out pagination as YAML" do
+      pending("Figure out how to test this")
     end
   end
 
@@ -71,14 +70,17 @@ describe Admin::PostsController do
     end
 
     it "is successful" do
-      pending("Works IRL, test gets 406")
       response.should be_success
+    end
+
+    it "renders post as YAML" do
+      pending("Figure out how test this")
     end
   end
 
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
-      @post = mock_model(Post)
+      @post = mock_model(Post, :title => 'A post')
       @post.stub!(:update_attributes).and_return(true)
       Post.stub!(:find).and_return(@post)
     end
@@ -96,9 +98,10 @@ describe Admin::PostsController do
       do_put
     end
 
-    it 'it redirects to edit' do
+    it 'it redirects to show' do
       do_put
       response.should be_redirect
+      response.should redirect_to(admin_post_path(@post))
     end
   end
 
@@ -114,9 +117,9 @@ describe Admin::PostsController do
       put :update, :id => 1, :post => {}
     end
 
-    it 'renders edit' do
+    it 'renders show' do
       do_put
-      response.should render_template('edit')
+      response.should render_template('show')
     end
 
     it 'is unprocessable' do
@@ -181,5 +184,52 @@ describe Admin::PostsController do
       'body'       => "hello this is my post",
       'minor_edit' => "0"
     }
+  end
+
+  describe 'handling DELETE to destroy' do
+    before(:each) do
+      @post = Post.new
+      @post.stub!(:destroy_with_undo)
+      Post.stub!(:find).and_return(@post)
+    end
+
+    def do_delete
+      session[:logged_in] = true
+      delete :destroy, :id => 1
+    end
+
+    it("redirects to index") do
+      do_delete
+      response.should be_redirect
+      response.should redirect_to(admin_posts_path)
+    end
+
+    it("deletes post") do
+      @post.should_receive(:destroy_with_undo)
+      do_delete
+    end
+  end
+
+  describe 'handling DELETE to destroy, JSON request' do
+    before(:each) do
+      @post = Post.new(:title => 'A post')
+      @post.stub!(:destroy_with_undo).and_return(mock("undo_item", :description => 'hello'))
+      Post.stub!(:find).and_return(@post)
+    end
+
+    def do_delete
+      session[:logged_in] = true
+      delete :destroy, :id => 1, :format => 'json'
+    end
+
+    it("deletes post") do
+      @post.should_receive(:destroy_with_undo).and_return(mock("undo_item", :description => 'hello'))
+      do_delete
+    end
+
+    it("renders post as json") do
+      do_delete
+      response.should have_text(/#{Regexp.escape(@post.to_json)}/)
+    end
   end
 end

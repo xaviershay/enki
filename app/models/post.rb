@@ -72,6 +72,13 @@ class Post < ActiveRecord::Base
     end
   end
 
+  def destroy_with_undo
+    transaction do
+      self.destroy
+      return DeletePostUndo.create_undo(self)
+    end
+  end
+
   def month
     published_at.beginning_of_month
   end

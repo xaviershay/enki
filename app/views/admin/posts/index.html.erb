@@ -1,31 +1,35 @@
+<% content_for(:head) do -%>
+  <%= javascript_include_tag('jquery.form.js') %>
+  <%= javascript_include_tag('admin/posts.js') %>
+<% end -%>
+
 <h1>Your posts</h1>
 <table cellspacing="0" cellpadding="0">
-	<tr>
-		<th>Published At</th>
-		<th>Title</th>
-		<th>Excerpt</th>
-		<th>Comments</th>
-		<th>X</th>
-	</tr>
-	<% if @posts.empty? -%>
-		<tr><td colspan="5">There are no posts at this time.</td></tr>
-	<% else -%>
-		<% @posts.each_with_index do |post, index| -%>
-			<tr class="<% if post.published_at > Time.now %>futurepost <% end %><%= cycle('', 'alt') %>">
-				<td><%= post.published_at.strftime('%d %b, %Y') %></td>
-				<td><%= link_to (post.title == '' ? '[Untitled]' : h(truncate(post.title, 30))), edit_admin_post_path(post) %></td>
-				<td><% tmpc = h(truncate(post.body, 55)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
-				<td><%= post.approved_comments.size %></td>
-				<td><%= link_to 'X', admin_post_url(post), :method => :delete, :confirm => "You are about to delete this post. This cannot be undone. Are you sure?" %></td>
-			</tr>
-		<% end -%>
-	<% end -%>
-
-  <% if @posts.page_count > 1 -%>
-    <tr class="pagination">
-      <td colspan="5">
-        <%= will_paginate(@posts, :prev_label => '« Newer', :next_label => 'Older »') %>
-      </td>  
+  <thead>
+    <tr>
+      <th>Published At</th>
+      <th>Title</th>
+      <th>Excerpt</th>
+      <th>Comments</th>
+      <th>Actions</th>
     </tr>
-  <% end -%>
+  </thead>
+
+  <tbody>
+    <% if @posts.empty? -%>
+      <tr><td colspan="5">There are no posts at this time.</td></tr>
+    <% else -%>
+      <%= render :partial => 'post', :collection => @posts %>
+    <% end -%>
+  </tbody>  
+
+  <tfoot>
+    <% if @posts.page_count > 1 -%>
+      <tr class="pagination">
+        <td colspan="5">
+          <%= will_paginate(@posts, :prev_label => '« Newer', :next_label => 'Older »') %>
+        </td>  
+      </tr>
+    <% end -%>
+  </tfoot>  
 </table>

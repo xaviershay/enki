@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin/posts/edit.html.erb" do
+describe "/admin/posts/show.html.erb" do
   after(:each) do
     response.should be_valid_xhtml_fragment
   end
@@ -11,6 +11,6 @@ describe "/admin/posts/edit.html.erb" do
       :published_at => Time.now,
       :slug         => 'a-post'
     )
-    render '/admin/posts/edit.html.erb'
+    render '/admin/posts/show.html.erb'
   end
 end
