@@ -14,7 +14,7 @@
 <ul>
   <% @posts.each_with_index do |post, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, 50))], edit_admin_post_path(post)) %>
+      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, 50))], admin_post_path(post)) %>
       <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
       <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
     </li>  
@@ -40,7 +40,7 @@
       <% activity.comments.each do |comment| -%>
         <div class='comment-body' id='comment-body-<%= comment.id %>'>
           <p class='comment-actions'>
-            (<%= link_to("edit", edit_admin_comment_path(comment)) %>
+            (<%= link_to("edit", admin_comment_path(comment)) %>
             | <%= link_to("delete", admin_comment_path(comment), :method => :delete, :confirm => "Sure?") %>)</p>
           <%= comment.body_html %>
         </div>
