@@ -44,7 +44,7 @@ protected
 
   def successful_login
     session[:logged_in] = true
-    redirect_to(admin_posts_path)
+    redirect_to(admin_dashboard_path)
   end
 
   def allow_login_bypass?

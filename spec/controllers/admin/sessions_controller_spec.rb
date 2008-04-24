@@ -50,13 +50,13 @@ describe Admin::SessionsController do
   end
 end
 
-describe "logged in and redirected to /admin/posts", :shared => true do
+describe "logged in and redirected to /admin", :shared => true do
   it "should set session[:logged_in]" do
     session[:logged_in].should be_true
   end
   it "should redirect to admin posts" do
     response.should be_redirect
-    response.should redirect_to('/admin/posts')
+    response.should redirect_to('/admin/dashboard')
   end
 end
 describe "not logged in", :shared => true do
@@ -98,14 +98,14 @@ describe Admin::SessionsController, "handling CREATE with post" do
       stub_open_id_authenticate("http://enkiblog.com", :successful, false)
       post :create, :openid_url => "http://enkiblog.com"
     end
-    it_should_behave_like "logged in and redirected to /admin/posts"
+    it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with valid secondary URL http://secondaryopenid.com and OpenID authentication succeeding" do
     before do
       stub_open_id_authenticate("http://secondaryopenid.com", :successful, false)
       post :create, :openid_url => "http://secondaryopenid.com"
     end
-    it_should_behave_like "logged in and redirected to /admin/posts"
+    it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with valid URL http://enkiblog.com and OpenID authentication returning 'failed'" do
     before do
@@ -138,7 +138,7 @@ describe Admin::SessionsController, "handling CREATE with post" do
     before do
       post :create, :openid_url => "", :bypass_login => "1"
     end
-    it_should_behave_like "logged in and redirected to /admin/posts"
+    it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with bypass login selected but login bypassing disabled" do
     before do
