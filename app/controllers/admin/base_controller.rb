@@ -29,4 +29,8 @@ class Admin::BaseController < ApplicationController
     raise("Invalid request: YAML must specify a hash") unless ret.is_a?(Hash)
     ret
   end
+
+  def translate_params  
+    params.update(translate_yaml(request.raw_post)) if params[:format] == 'yaml'
+  end
 end

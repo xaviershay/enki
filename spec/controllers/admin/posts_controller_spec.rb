@@ -78,6 +78,18 @@ describe Admin::PostsController do
     end
   end
 
+  describe 'handling GET to new' do
+    before(:each) do
+      @post = mock_model(Post)
+      Post.stub!(:new).and_return(@post)
+      session[:logged_in] = true
+      get :new
+    end
+
+    it('is successful') { response.should be_success}
+    it('assigns post for the view') { assigns[:post] == @post }
+  end
+
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @post = mock_model(Post, :title => 'A post')

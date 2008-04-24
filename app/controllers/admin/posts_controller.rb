@@ -65,8 +65,11 @@ class Admin::PostsController < Admin::BaseController
     end
   end
 
+  def new
+    @post = Post.new
+  end
+
   def destroy
-    @post = Post.find(params[:id])
     undo_item = @post.destroy_with_undo
 
     respond_to do |format|
@@ -88,15 +91,5 @@ class Admin::PostsController < Admin::BaseController
 
   def find_post
     @post = Post.find(params[:id])
-  end
-
-  def translate_params  
-    params.update(translate_yaml(request.raw_post)) if params[:format] == 'yaml'
-  end
-
-  def build_object
-    @current_object = Post.new(object_parameters) do |post|
-      post.published_at = Time.now
-    end
   end
 end

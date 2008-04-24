@@ -10,4 +10,11 @@ class Page < ActiveRecord::Base
   def active?
     true
   end
+
+  def destroy_with_undo
+    transaction do
+      self.destroy
+      return DeletePageUndo.create_undo(self)
+    end
+  end
 end
