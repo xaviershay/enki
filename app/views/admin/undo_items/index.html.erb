@@ -1,3 +1,7 @@
+<% content_for(:head) do -%>
+  <%= javascript_include_tag('admin/actions.js') %>
+<% end -%>
+
 <h2>Recent Actions</h2>
 <table cellspacing="0" cellpadding="0">
   <thead>
@@ -12,7 +16,7 @@
       <td><%=h undo_item.created_at.strftime('%d %b, %Y') %></td>
       <td><%=h undo_item.description %></td>
       <td>
-        <% form_for(:undo_item, undo_item, :url => undo_admin_undo_item_path(undo_item), :html => {:class => 'undo', :method => :post}) do |form| -%>
+        <% form_for(:undo_item, undo_item, :url => undo_admin_undo_item_path(undo_item), :html => {:class => 'undo-item', :method => :post}) do |form| -%>
           <%= image_submit_tag("silk/arrow_undo.png", :alt => 'Undo') %>
         <% end -%>
       </td>
