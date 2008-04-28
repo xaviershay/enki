@@ -22,4 +22,9 @@ namespace :enki do
       EOS
     end
   end
+
+  desc "Cleans out actions older than 7 days"
+  task :clean_actions => :environment do
+    UndoItem.delete_all(["created_at < ?", 7.days.ago])
+  end
 end
