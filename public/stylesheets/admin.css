@@ -252,7 +252,7 @@ div.pagination a {
   color: #eeeeee;
 }
 
-table img,
+.comment-actions img,
 table img {
   float: left;
   border: none;

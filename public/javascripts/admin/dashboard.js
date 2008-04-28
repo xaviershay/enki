@@ -4,7 +4,7 @@ function extractId(obj) {
 }
 
 $(document).ready(function (){
-  $('.comment-body').hide();
+//  $('.comment-body').hide();
 
   $('.comment-link').click (function() {
     comment_body_id = '#comment-body-' + extractId($(this));
@@ -14,6 +14,55 @@ $(document).ready(function (){
 
     return false;
   })
+
+  $('#humanMsgLog').click($.delegate({
+    'a.undo-link': function(e) { 
+      link = jQuery(e.target);
+      $.ajax({
+        type: "POST",
+        url: link.attr('href'),
+         beforeSend: function(xhr) {
+           xhr.setRequestHeader("Accept", "application/json");
+         },
+         dataType: 'json',
+         success: function(msg){
+           humanMsg.displayMsg( msg.message );
+         },
+         error: function (XMLHttpRequest, textStatus, errorThrown) {
+           humanMsg.displayMsg( 'Could not undo' );
+         }
+       });  
+
+       // Assume success and remove undo link
+       link.parent('span').hide();
+       return false;
+    }
+  }));
+
+  $('form.delete-item').submit(function () {
+     $.ajax({
+       type: "DELETE",
+       url: $(this).attr('action'),
+       beforeSend: function(xhr) {
+         xhr.setRequestHeader("Accept", "application/json");
+       },
+       dataType: 'json',
+       success: function(msg){
+         humanMsg.displayMsg( msg.undo_message + '<span class="undo-link"> (<a class="undo-link" href="' + msg.undo_path + '">undo</a>)</span>');
+       },
+       error: function (XMLHttpRequest, textStatus, errorThrown) {
+         humanMsg.displayMsg( 'Could not delete item, or maybe it has already been deleted' );
+       }
+     });
+
+     // Assume success and remove comment
+     comment_link_id = '#comment-link-' + extractId($(this));
+     $(comment_link_id).remove();
+     $(this).parent('div').parent('div').remove();
+
+     // Redo zebra striping
+     return false;
+  });
 
   // Load recent commits
   // Disable this by default because the server side proxy ties up too many resources
