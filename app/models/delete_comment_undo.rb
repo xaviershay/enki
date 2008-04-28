@@ -1,10 +1,11 @@
 class DeleteCommentUndo < UndoItem
   def process!
-    raise('Comment already exists') if Comment.find_by_id(loaded_data.delete('id').to_i)
+    raise(UndoFailed) if Comment.find_by_id(loaded_data.delete('id').to_i)
 
     comment = nil
     transaction do
-      comment = Comment.create!(loaded_data)
+      comment = Comment.create(loaded_data)
+      raise UndoFailed if comment.new_record?
       self.destroy
     end
     comment

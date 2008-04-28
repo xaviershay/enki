@@ -1,0 +1,2 @@
+class UndoFailed < RuntimeError
+end

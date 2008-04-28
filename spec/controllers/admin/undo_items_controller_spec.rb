@@ -48,4 +48,37 @@ describe Admin::UndoItemsController do
     it("renders json")       { do_post; response.should have_text(/hello/) }
     it("processes the item") { @item.should_receive(:process!); do_post } 
   end
+
+  describe 'handling POST to undo with invalid undo item' do
+    before do
+      @item = mock_model(UndoItem)
+      @item.stub!(:process!).and_raise(UndoFailed)
+      UndoItem.stub!(:find).and_return(@item)
+    end
+
+    def do_post
+      request.env["HTTP_REFERER"] = "/bogus"
+      session[:logged_in] = true
+      post :undo, :id => 1
+    end
+    
+    it("redirects back")             { do_post; response.should redirect_to("/bogus") }
+    it("stores notice in the flash") { do_post; flash[:notice].should_not be_nil }
+  end
+
+  describe 'handling POST to undo with invalid undo item accepting JSON' do
+    before do
+      @item = mock_model(UndoItem)
+      @item.stub!(:process!).and_raise(UndoFailed)
+      UndoItem.stub!(:find).and_return(@item)
+    end
+
+    def do_post
+      request.env["HTTP_REFERER"] = "/bogus"
+      session[:logged_in] = true
+      post :undo, :id => 1, :format => 'json'
+    end
+    
+    it("renders json") { do_post; response.should have_text(/message/) }
+  end
 end
