@@ -11,56 +11,69 @@ function restripe() {
   $('table tr:even').addClass('alt'); 
 }
 
-function destroyAndUndoBehaviour(type) {
-  return function (){
-    $('#humanMsgLog').click($.delegate({
-      'a.undo-link': function(e) { 
-        link = jQuery(e.target);
-        $.ajax({
-          type: "POST",
-          url: link.attr('href'),
-           beforeSend: function(xhr) {
-             xhr.setRequestHeader("Accept", "application/json");
-           },
-           dataType: 'json',
-           success: function(msg){
-             humanMsg.displayMsg( msg.message );
-             $.get('/admin/' + type + '/' + msg.obj.id, function(data) {
-               $('table tbody').append(data);
-               restripe();
-             });
-           },
-           error: function (XMLHttpRequest, textStatus, errorThrown) {
-             humanMsg.displayMsg( 'Could not undo' );
-           }
-         });  
+function asyncDeleteForm(obj, options) {
+  $.ajax($.extend({
+    type: "DELETE",
+    url: obj.attr('action'),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "application/json");
+    },
+    dataType: 'json',
+    success: function(msg){
+      display = msg.undo_message
+      if (msg.undo_path)
+        display += '<span class="undo-link"> (<a class="undo-link" href="' + msg.undo_path + '">undo</a>)</span>';
+      humanMsg.displayMsg(display);
+    },
+    error: function (XMLHttpRequest, textStatus, errorThrown) {
+      humanMsg.displayMsg( 'Could not delete item, or maybe it has already been deleted' );
+    }
+  }, options || {}));
+}
 
-         // Assume success and remove undo link
-         link.parent('span').hide();
-         return false;
-      }
-    }));
-
-    $('form.delete-item').submit(function () {
-       $.ajax({
-         type: "DELETE",
-         url: $(this).attr('action'),
+function asyncUndoBehaviour(options) {
+  $('#humanMsgLog').click($.delegate({
+    'a.undo-link': function(e) { 
+      link = jQuery(e.target);
+      $.ajax($.extend({
+        type: "POST",
+        url: link.attr('href'),
          beforeSend: function(xhr) {
            xhr.setRequestHeader("Accept", "application/json");
          },
          dataType: 'json',
          success: function(msg){
-           humanMsg.displayMsg( msg.undo_message + '<span class="undo-link"> (<a class="undo-link" href="' + msg.undo_path + '">undo</a>)</span>');
+           humanMsg.displayMsg( msg.message );
          },
          error: function (XMLHttpRequest, textStatus, errorThrown) {
-           humanMsg.displayMsg( 'Could not delete item, or maybe it has already been deleted' );
+           humanMsg.displayMsg( 'Could not undo' );
          }
-       });
+       }, options || {}));  
 
-       // Assume success and remove comment
+       // Assume success and remove undo link
+       link.parent('span').hide();
+       return false;
+    }
+  }));
+}
+
+function destroyAndUndoBehaviour(type) {
+  return function (){
+    asyncUndoBehaviour({
+      success: function(msg){
+        humanMsg.displayMsg( msg.message );
+        $.get('/admin/' + type + '/' + msg.obj.id, function(data) {
+          $('table tbody').append(data);
+          restripe();
+        });
+      },
+    });
+
+    $('form.delete-item').submit(function () {
+       asyncDeleteForm($(this));
+
+       // Assume success and remove item
        $(this).parent('td').parent('tr').remove();
-
-       // Redo zebra striping
        restripe();
        return false;
     });
