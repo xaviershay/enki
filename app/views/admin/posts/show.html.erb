@@ -1,4 +1,5 @@
-<h2>Edit Post - <%= link_to(h(@post.title), post_path(@post)) %></h2>
+<h1>Edit Post - <%= link_to(h(@post.title), post_path(@post)) %></h1>
+
 <% semantic_form_for([:admin, @post]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>
   <% form.button_field_set do -%>

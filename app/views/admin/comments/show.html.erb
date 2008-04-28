@@ -1,4 +1,5 @@
-<h2>Editing comment by <%=h @comment.author %></h2>
+<h1>Editing comment by <%=h @comment.author %></h1>
+
 <% semantic_form_for([:admin, @comment]) do |form| -%>
   <% form.input_field_set do -%>
     <%= form.input :author %>
