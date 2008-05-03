@@ -52,6 +52,7 @@ function processUndo(path, options) {
 
   // Assume success and remove undo link
   $('a.undo-link[href=' + path + ']').parent('span').hide();
+  undo_stack = jQuery.grep(undo_stack, function(e) { return e != path });
 }
 
 function asyncUndoBehaviour(options) {
@@ -74,6 +75,15 @@ function asyncUndoBehaviour(options) {
 
 var undo_stack = new Array();
 
+function onDeleteFormClick() {
+  asyncDeleteForm($(this));
+
+  // Assume success and remove item
+  $(this).parent('td').parent('tr').remove();
+  restripe();
+  return false;
+}
+
 function destroyAndUndoBehaviour(type) {
   return function (){
     asyncUndoBehaviour({
@@ -81,19 +91,15 @@ function destroyAndUndoBehaviour(type) {
         humanMsg.displayMsg( msg.message );
         $.get('/admin/' + type + '/' + msg.obj.id, function(data) {
           $('table tbody').append(data);
+
+          $('form.delete-item').unbind('submit', onDeleteFormClick);
+          $('form.delete-item').submit(onDeleteFormClick);
           restripe();
         });
       },
     });
 
-    $('form.delete-item').submit(function () {
-       asyncDeleteForm($(this));
-
-       // Assume success and remove item
-       $(this).parent('td').parent('tr').remove();
-       restripe();
-       return false;
-    });
+    $('form.delete-item').submit(onDeleteFormClick);
   }
 }  
 
