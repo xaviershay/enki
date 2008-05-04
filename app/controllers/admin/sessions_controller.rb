@@ -32,7 +32,7 @@ class Admin::SessionsController < ApplicationController
         end
       end
     end
-    render :action => 'new'
+    render :action => 'new' unless flash.now[:error].nil?
   end
 
   def destroy
