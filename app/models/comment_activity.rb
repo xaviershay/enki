@@ -16,13 +16,15 @@ class CommentActivity
   class << self
     def find_recent
       Post.find(:all,
-        :select => 'distinct posts.*, comments.created_at',
+        :select => 'distinct posts.*',
         :joins  => 'INNER JOIN comments ON comments.post_id = posts.id',
         :order  => 'comments.created_at DESC',
         :limit  => 5
       ).collect {|post|
         CommentActivity.new(post)
-      }
+      }.sort_by {|activity|
+        activity.most_recent_comment.created_at
+      }.reverse
     end
   end
 end
