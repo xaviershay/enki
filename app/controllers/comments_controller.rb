@@ -7,8 +7,10 @@ class CommentsController < ApplicationController
     if request.post? || using_open_id?
       create
     else
-      #TODO: Comments#index
-      @comments = @post.approved_comments
+      respond_to do |format|
+        format.html { redirect_to(post_path(@post)) }
+        format.atom { @comments = @post.approved_comments }
+      end
     end
   end
 

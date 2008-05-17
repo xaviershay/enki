@@ -1,5 +1,18 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+describe CommentsController, 'with GET to #index' do
+  it 'redirects to the parent post URL' do
+    @mock_post = mock_model(Post,
+      :published_at => 1.year.ago,
+      :slug         => 'a-post'
+    )
+    Post.stub!(:find_by_permalink).and_return(@mock_post)
+    get :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post'
+    response.should be_redirect
+    response.should redirect_to(post_path(@mock_post))
+  end
+end
+
 describe CommentsController, 'with an atom GET to #index' do
   before(:each) do
     @mock_post = mock_model(Post)
