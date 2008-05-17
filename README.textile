@@ -45,4 +45,4 @@ h2. License
 
 GPL(General Public License) - See LICENSE
 
-Includes code from "SimpleLog":http://simplelog.net (admin layout)
+Admin design heavily inspired by "Habari":http://www.habariproject.org/en/
