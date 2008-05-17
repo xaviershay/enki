@@ -39,6 +39,7 @@ h2. Contributors, these guys rock
 * "Chris Lloyd":http://www.chrislloyd.com.au (bug fixes)
 * "Gareth Townsend":http://www.garethtownsend.info (bug fixes)
 * "Tim Lucas":http://toolmantim.com (OpenID - specs and multiple ID support)
+* "Rob Caporetto":http://github.com/robc (Keeping things real on PostgreSQL)
 
 h2. License
 
