@@ -1,6 +1,6 @@
 <tr class="<%= cycle('', 'alt') %>">
   <td><%= page.created_at.strftime('%d %b, %Y') %></td>
-  <td><%= link_to(h(page.title), edit_admin_page_url(page)) %></td>
+  <td><%= link_to(h(page.title), admin_page_url(page)) %></td>
   <td><%=h truncate(page.body, 50) %></td>
   <td><%= page.slug %></td>
   <td>  
