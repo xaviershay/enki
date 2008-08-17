@@ -17,13 +17,13 @@ module ActionController
         reset!
       end
 
-      def benchmark(n)
+      def benchmark(n, profiling = false)
         @quiet = true
         print '  '
 
         result = Benchmark.realtime do
           n.times do |i|
-            run
+            run(profiling)
             print_progress(i)
           end
         end
@@ -41,7 +41,23 @@ module ActionController
       private
         def define_run_method(script_path)
           script = File.read(script_path)
-          source = "def run\n#{script}\nreset!\nend"
+
+          source = <<-end_source
+            def run(profiling = false)
+              if profiling
+                RubyProf.resume do
+                  #{script}
+                end
+              else
+                #{script}
+              end
+
+              old_request_count = request_count
+              reset!
+              self.request_count = old_request_count
+            end
+          end_source
+
           instance_eval source, script_path, 1
         end
 
@@ -82,21 +98,22 @@ module ActionController
     def profile(sandbox)
       load_ruby_prof
 
-      results = RubyProf.profile { benchmark(sandbox) }
+      benchmark(sandbox, true)
+      results = RubyProf.stop
 
       show_profile_results results
       results
     end
 
-    def benchmark(sandbox)
+    def benchmark(sandbox, profiling = false)
       sandbox.request_count = 0
-      elapsed = sandbox.benchmark(options[:n]).to_f
+      elapsed = sandbox.benchmark(options[:n], profiling).to_f
       count = sandbox.request_count.to_i
       puts '%.2f sec, %d requests, %d req/sec' % [elapsed, count, count / elapsed]
     end
 
     def warmup(sandbox)
-      Benchmark.realtime { sandbox.run }
+      Benchmark.realtime { sandbox.run(false) }
     end
 
     def default_options
@@ -110,6 +127,7 @@ module ActionController
 
         opt.on('-n', '--times [100]', 'How many requests to process. Defaults to 100.') { |v| options[:n] = v.to_i if v }
         opt.on('-b', '--benchmark', 'Benchmark instead of profiling') { |v| options[:benchmark] = v }
+        opt.on('-m', '--measure [mode]', 'Which ruby-prof measure mode to use: process_time, wall_time, cpu_time, allocations, or memory. Defaults to process_time.') { |v| options[:measure] = v }
         opt.on('--open [CMD]', 'Command to open profile results. Defaults to "open %s &"') { |v| options[:open] = v }
         opt.on('-h', '--help', 'Show this help') { puts opt; exit }
 
@@ -126,8 +144,11 @@ module ActionController
     protected
       def load_ruby_prof
         begin
+          gem 'ruby-prof', '>= 0.6.1'
           require 'ruby-prof'
-          #RubyProf.measure_mode = RubyProf::ALLOCATED_OBJECTS
+          if mode = options[:measure]
+            RubyProf.measure_mode = RubyProf.const_get(mode.upcase)
+          end
         rescue LoadError
           abort '`gem install ruby-prof` to use the profiler'
         end

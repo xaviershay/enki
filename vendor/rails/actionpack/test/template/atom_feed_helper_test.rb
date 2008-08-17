@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../abstract_unit"
+require 'abstract_unit'
 
 Scroll = Struct.new(:id, :to_param, :title, :body, :updated_at, :created_at)
 
@@ -51,6 +51,25 @@ class ScrollsController < ActionController::Base
             feed.entry(scroll, :url => "/otherstuff/" + scroll.to_param, :updated => Time.utc(2007, 1, scroll.id)) do |entry|
               entry.title(scroll.title)
               entry.content(scroll.body, :type => 'html')
+            end
+          end
+        end
+    EOT
+    FEEDS["feed_with_atomPub_namespace"] = <<-EOT
+        atom_feed({'xmlns:app' => 'http://www.w3.org/2007/app',
+                 'xmlns:openSearch' => 'http://a9.com/-/spec/opensearch/1.1/'}) do |feed|
+          feed.title("My great blog!")
+          feed.updated((@scrolls.first.created_at))
+
+          for scroll in @scrolls
+            feed.entry(scroll) do |entry|
+              entry.title(scroll.title)
+              entry.content(scroll.body, :type => 'html')
+              entry.tag!('app:edited', Time.now)
+
+              entry.author do |author|
+                author.name("DHH")
+              end
             end
           end
         end
@@ -136,6 +155,15 @@ class AtomFeedTest < Test::Unit::TestCase
     with_restful_routing(:scrolls) do
       get :index, :id => "xml_block"
       assert_select "author name", :text => "DHH"
+    end
+  end
+
+  def test_feed_should_include_atomPub_namespace
+    with_restful_routing(:scrolls) do
+      get :index, :id => "feed_with_atomPub_namespace"
+      assert_match %r{xml:lang="en-US"}, @response.body
+      assert_match %r{xmlns="http://www.w3.org/2005/Atom"}, @response.body
+      assert_match %r{xmlns:app="http://www.w3.org/2007/app"}, @response.body
     end
   end
 

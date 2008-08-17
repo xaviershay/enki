@@ -26,7 +26,7 @@ module ActionView
       #     end
       #
       #   app/views/posts/index.atom.builder:
-      #     atom_feed(:tag_uri => "2008") do |feed|
+      #     atom_feed do |feed|
       #       feed.title("My great blog!")
       #       feed.updated((@posts.first.created_at))
       #     
@@ -42,25 +42,53 @@ module ActionView
       #       end
       #     end
       #
-      # The options are for atom_feed are:
+      # The options for atom_feed are:
       #
-      # * <tt>:schema_date</tt>: Required. The date at which the tag scheme for the feed was first used. A good default is the year you created the feed. See http://feedvalidator.org/docs/error/InvalidTAG.html for more information.
       # * <tt>:language</tt>: Defaults to "en-US".
       # * <tt>:root_url</tt>: The HTML alternative that this feed is doubling for. Defaults to / on the current host.
       # * <tt>:url</tt>: The URL for this feed. Defaults to the current URL.
+      # * <tt>:schema_date</tt>: The date at which the tag scheme for the feed was first used. A good default is the year you 
+      #   created the feed. See http://feedvalidator.org/docs/error/InvalidTAG.html for more information. If not specified, 
+      #   2005 is used (as an "I don't care" value).
       #
-      # atom_feed yields a AtomFeedBuilder instance.
+      # Other namespaces can be added to the root element:
+      #
+      #   app/views/posts/index.atom.builder:
+      #     atom_feed({'xmlns:app' => 'http://www.w3.org/2007/app',
+      #         'xmlns:openSearch' => 'http://a9.com/-/spec/opensearch/1.1/'}) do |feed|
+      #       feed.title("My great blog!")
+      #       feed.updated((@posts.first.created_at))
+      #       feed.tag!(openSearch:totalResults, 10)
+      #
+      #       for post in @posts
+      #         feed.entry(post) do |entry|
+      #           entry.title(post.title)
+      #           entry.content(post.body, :type => 'html')
+      #           entry.tag!('app:edited', Time.now)
+      #
+      #           entry.author do |author|
+      #             author.name("DHH")
+      #           end
+      #         end
+      #       end
+      #     end
+      #
+      #
+      # atom_feed yields an AtomFeedBuilder instance.
       def atom_feed(options = {}, &block)
-        if options[:schema_date].blank?
-          logger.warn("You must provide the :schema_date option to atom_feed for your feed to be valid. A good default is the year you first created this feed.") unless logger.nil?
-        else
+        if options[:schema_date]
           options[:schema_date] = options[:schema_date].strftime("%Y-%m-%d") if options[:schema_date].respond_to?(:strftime)
+        else
+          options[:schema_date] = "2005" # The Atom spec copyright date
         end
         
         xml = options[:xml] || eval("xml", block.binding)
         xml.instruct!
 
-        xml.feed "xml:lang" => options[:language] || "en-US", "xmlns" => 'http://www.w3.org/2005/Atom' do
+        feed_opts = {"xml:lang" => options[:language] || "en-US", "xmlns" => 'http://www.w3.org/2005/Atom'}
+        feed_opts.merge!(options).reject!{|k,v| !k.to_s.match(/^xml/)}
+
+        xml.feed(feed_opts) do
           xml.id("tag:#{request.host},#{options[:schema_date]}:#{request.request_uri.split(".")[0]}")      
           xml.link(:rel => 'alternate', :type => 'text/html', :href => options[:root_url] || (request.protocol + request.host_with_port))
           xml.link(:rel => 'self', :type => 'application/atom+xml', :href => options[:url] || request.url)
@@ -84,8 +112,8 @@ module ActionView
         #
         # Options:
         #
-        # * <tt>:updated</tt>: Time of update. Defaults to the created_at attribute on the record if one such exists.
-        # * <tt>:published</tt>: Time first published. Defaults to the updated_at attribute on the record if one such exists.
+        # * <tt>:published</tt>: Time first published. Defaults to the created_at attribute on the record if one such exists.
+        # * <tt>:updated</tt>: Time of update. Defaults to the updated_at attribute on the record if one such exists.
         # * <tt>:url</tt>: The URL for this entry. Defaults to the polymorphic_url for the record.
         def entry(record, options = {})
           @xml.entry do 

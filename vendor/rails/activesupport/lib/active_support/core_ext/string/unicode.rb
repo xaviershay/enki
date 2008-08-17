@@ -1,33 +1,40 @@
 module ActiveSupport #:nodoc:
   module CoreExtensions #:nodoc:
     module String #:nodoc:
-      if RUBY_VERSION < '1.9'
+      unless '1.9'.respond_to?(:force_encoding)
         # Define methods for handling unicode data.
         module Unicode
+          def self.append_features(base)
+            if '1.8.7'.respond_to?(:chars)
+              base.class_eval { remove_method :chars }
+            end
+            super
+          end
+
           # +chars+ is a Unicode safe proxy for string methods. It creates and returns an instance of the
           # ActiveSupport::Multibyte::Chars class which encapsulates the original string. A Unicode safe version of all
           # the String methods are defined on this proxy class. Undefined methods are forwarded to String, so all of the
           # string overrides can also be called through the +chars+ proxy.
           #
           #   name = 'Claus Müller'
-          #   name.reverse #=> "rell??M sualC"
-          #   name.length #=> 13
+          #   name.reverse              # => "rell??M sualC"
+          #   name.length               # => 13
           #
-          #   name.chars.reverse.to_s #=> "rellüM sualC"
-          #   name.chars.length #=> 12
+          #   name.chars.reverse.to_s   # => "rellüM sualC"
+          #   name.chars.length         # => 12
           #   
           #
           # All the methods on the chars proxy which normally return a string will return a Chars object. This allows
           # method chaining on the result of any of these methods.
           #
-          #   name.chars.reverse.length #=> 12
+          #   name.chars.reverse.length # => 12
           #
           # The Char object tries to be as interchangeable with String objects as possible: sorting and comparing between
           # String and Char work like expected. The bang! methods change the internal string representation in the Chars
           # object. Interoperability problems can be resolved easily with a +to_s+ call.
           #
           # For more information about the methods defined on the Chars proxy see ActiveSupport::Multibyte::Chars and
-          # ActiveSupport::Multibyte::Handlers::UTF8Handler
+          # ActiveSupport::Multibyte::Handlers::UTF8Handler.
           def chars
             ActiveSupport::Multibyte::Chars.new(self)
           end
