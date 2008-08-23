@@ -6,7 +6,7 @@ class Admin::BaseController < ApplicationController
   protected
 
   def salt
-    @@salt ||= Digest::SHA1.hexdigest(File.open('config/database.yml').read + File.open('config/enki.yml').read + RAILS_ENV)
+    @@salt ||= Digest::SHA1.hexdigest(File.open('config/database.yml').read + File.open("#{RAILS_ROOT}/config/enki.yml").read + RAILS_ENV)
   end
 
   def hash_request(request)
