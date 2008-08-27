@@ -14,6 +14,14 @@ module Enki
       [self[:author, :open_id]].flatten.map {|uri| URI.parse(uri)}
     end
 
+    def self.default
+      Enki::Config.new(default_location)
+    end
+
+    def self.default_location
+      "#{RAILS_ROOT}/config/enki.yml"
+    end
+
     private
 
     def symbolize_keys(hash)
