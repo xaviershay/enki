@@ -10,7 +10,7 @@ class Admin::BaseController < ApplicationController
   end
 
   def hash_request(request)
-    Digest::SHA1.hexdigest(request.raw_post + salt)
+    Digest::SHA1.hexdigest(request.raw_post.to_s + salt)
   end
 
   def require_login_or_enki_hash
