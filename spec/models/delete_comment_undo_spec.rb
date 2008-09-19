@@ -16,19 +16,17 @@ describe DeleteCommentUndo do
 
   describe '#process! with existing comment' do
     it 'raises' do
-      pending("figure out why should_raise doesn't work")
       Comment.stub!(:find_by_id).and_return(Object.new)
-      lambda { DeleteCommentUndo.process! }.should_raise(UndoFailed)
+      lambda { DeleteCommentUndo.new(:data => "---\nid: 1").process! }.should raise_error(UndoFailed)
     end
   end
 
   describe '#process! with invalid comment' do
     it 'raises' do
-      pending("figure out why should_raise doesn't work")
       Comment.stub!(:find_by_id).and_return(nil)
 
-      Comment.should_receive(:create).with('a' => 'b').and_return(mock("comment", :new_record? => true))
-      lambda { DeleteCommentUndo.process! }.should_raise(UndoFailed)
+      Comment.stub!(:create).and_return(mock("comment", :new_record? => true))
+      lambda { DeleteCommentUndo.new(:data => "---\nid: 1").process! }.should raise_error(UndoFailed)
     end
   end
 
