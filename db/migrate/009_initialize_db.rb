@@ -1,6 +1,6 @@
 class InitializeDb < ActiveRecord::Migration
   def self.up
-    create_table "comments", :force => true do |t|
+    create_table "comments" do |t|
       t.integer  "post_id",                 :null => false
       t.string   "author",                  :null => false
       t.string   "author_url",              :null => false
@@ -15,7 +15,7 @@ class InitializeDb < ActiveRecord::Migration
     add_index "comments", ["post_id"], :name => "index_comments_on_post_id"
     add_index "comments", ["created_at"], :name => "index_comments_on_created_at"
 
-    create_table "open_id_authentication_associations", :force => true do |t|
+    create_table "open_id_authentication_associations" do |t|
       t.integer "issued"
       t.integer "lifetime"
       t.string  "handle"
@@ -24,13 +24,13 @@ class InitializeDb < ActiveRecord::Migration
       t.binary  "secret"
     end
 
-    create_table "open_id_authentication_nonces", :force => true do |t|
+    create_table "open_id_authentication_nonces" do |t|
       t.integer "timestamp",  :null => false
       t.string  "server_url"
       t.string  "salt",       :null => false
     end
 
-    create_table "pages", :force => true do |t|
+    create_table "pages" do |t|
       t.string   "title",      :null => false
       t.string   "slug",       :null => false
       t.text     "body",       :null => false
@@ -42,7 +42,7 @@ class InitializeDb < ActiveRecord::Migration
     add_index "pages", ["title"], :name => "index_pages_on_title"
     add_index "pages", ["created_at"], :name => "index_pages_on_created_at"
 
-    create_table "posts", :force => true do |t|
+    create_table "posts" do |t|
       t.string   "title",                                                      :null => false
       t.string   "slug",                                                       :null => false
       t.text     "body",                                                       :null => false
@@ -58,7 +58,7 @@ class InitializeDb < ActiveRecord::Migration
 
     add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
 
-    create_table "sessions", :force => true do |t|
+    create_table "sessions" do |t|
       t.string   "session_id", :null => false
       t.text     "data"
       t.datetime "created_at"
@@ -68,7 +68,7 @@ class InitializeDb < ActiveRecord::Migration
     add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
     add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
 
-    create_table "taggings", :force => true do |t|
+    create_table "taggings" do |t|
       t.integer  "tag_id"
       t.integer  "taggable_id"
       t.datetime "created_at"
@@ -77,14 +77,14 @@ class InitializeDb < ActiveRecord::Migration
     add_index "taggings", ["taggable_id"], :name => "index_taggings_on_taggable_id_and_taggable_type"
     add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
 
-    create_table "tags", :force => true do |t|
+    create_table "tags" do |t|
       t.string  "name"
       t.integer "taggings_count", :default => 0, :null => false
     end
 
     add_index "tags", ["name"], :name => "index_tags_on_name"
 
-    create_table "undo_items", :force => true do |t|
+    create_table "undo_items" do |t|
       t.string   "type",       :null => false
       t.datetime "created_at", :null => false
       t.text     "data"
