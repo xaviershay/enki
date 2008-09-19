@@ -1,6 +1,5 @@
 class Admin::PagesController < Admin::BaseController
   before_filter :find_page, :only => [:show, :update, :destroy]
-  before_filter :translate_params, :only => [:create, :update]
 
   def index
     respond_to do |format|
@@ -9,12 +8,6 @@ class Admin::PagesController < Admin::BaseController
           :order => "created_at DESC",
           :page  => params[:page]
         )
-      }
-      format.yaml {
-        render :yaml => Page.find(:all, 
-          :select => 'id, title',
-          :order  => 'created_at DESC'
-        ).to_yaml
       }
     end
   end
@@ -27,12 +20,10 @@ class Admin::PagesController < Admin::BaseController
           flash[:notice] = "Created page '#{@page.title}'"
           redirect_to(:action => 'show', :id => @page)
         }
-        format.yaml { head(200) }
       end
     else
       respond_to do |format|
         format.html { render :action => 'new',         :status => :unprocessable_entity }
-        format.yaml { render :yaml   => false.to_yaml, :status => :unprocessable_entity }
       end
     end
   end
@@ -44,12 +35,10 @@ class Admin::PagesController < Admin::BaseController
           flash[:notice] = "Updated page '#{@page.title}'"
           redirect_to(:action => 'show', :id => @page)
         }
-        format.yaml { head(200) }
       end
     else
       respond_to do |format|
         format.html { render :action => 'show',        :status => :unprocessable_entity }
-        format.yaml { render :yaml   => false.to_yaml, :status => :unprocessable_entity }
       end
     end
   end
@@ -58,9 +47,6 @@ class Admin::PagesController < Admin::BaseController
     respond_to do |format|
       format.html {
         render :partial => 'page', :locals => {:page => @page} if request.xhr?
-      }
-      format.yaml {
-        render :yaml => @page.to_yaml(:attributes => [:title, :slug, :body, :created_at, :updated_at])
       }
     end
   end
