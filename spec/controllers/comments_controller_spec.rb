@@ -252,6 +252,7 @@ end
 describe CommentsController, 'with an AJAX request to new' do
   before(:each) do
     Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
+    controller.expect_render(:partial => 'comment.html.erb')
 
     xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
       :author => 'Don Alias',

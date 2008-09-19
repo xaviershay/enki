@@ -6,13 +6,14 @@ describe "/admin/pages/index.html.erb" do
   end
 
   it 'should render' do
-    assigns[:pages] = [mock_model(Page,
+    pages = [mock_model(Page,
       :title      => 'A page',
       :body       => 'Hello I am a page',
       :slug       => 'a-page',
       :created_at => Time.now
     )]
-    assigns[:pages].stub!(:page_count).and_return(1)
+    pages.stub!(:page_count).and_return(1)
+    assigns[:pages] = pages
     render '/admin/pages/index.html.erb'
   end
 end

@@ -6,7 +6,7 @@ describe "/admin/comments/index.html.erb" do
   end
 
   it 'should render' do
-    assigns[:comments] = [mock_model(Comment,
+    comments = [mock_model(Comment,
       :author     => 'Don Alias',
       :body       => 'Hello I am a post',
       :created_at => Time.now,
@@ -16,7 +16,8 @@ describe "/admin/comments/index.html.erb" do
         :published_at => Time.now
       )
     )]
-    assigns[:comments].stub!(:page_count).and_return(1)
+    comments.stub!(:page_count).and_return(1)
+    assigns[:comments] = comments
     render '/admin/comments/index.html.erb'
   end
 end
