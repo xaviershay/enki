@@ -1,7 +1,7 @@
 <% form.input_field_set do -%>
   <%= form.input :title -%>
   <%= form.input :body -%>
-  <%= form.input :tag_list, :as => 'string' -%>
+  <%= form.input :tag_list, :as => 'string', :hint => 'comma separated: ruby, rails' -%>
 <% end -%>
 <% form.input_field_set do -%>
   <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'example: now, yesterday, 1 hour from now, ' + link_to("more&hellip;", "http://chronic.rubyforge.org/") -%>
