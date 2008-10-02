@@ -2,7 +2,7 @@ h1. Enki
 
 A ruby on rails blogging app for the fashionable developer.
 
-Preferences are for the masses. Any real coder knows the easiest and best way to customize something is by hacking code. Because you want your blog to be you, not bog standard install #4958 with 20 posts per page instead of 15. For this you need a clean, simple, easy to understand code base that stays out of your way. No liquid drops and templates hindering your path, no ugly PHP(Hypertext Preprocessor) stylings burning your eyeballs.
+Preferences are for the masses. Any real coder knows the easiest and best way to customize something is by *hacking code*. Because you want your blog to be you, not bog standard install #4958 with 20 posts per page instead of 15. For this you need a *clean, simple, easy to understand code base* that stays out of your way. No liquid drops and templates hindering your path, no ugly PHP(Hypertext Preprocessor) stylings burning your eyeballs.
 
 h2. Quick Start
 
@@ -18,6 +18,8 @@ h2. Quick Start
   # Load http://localhost:3000/admin in your browser
 </code></pre>
 
+Or for bonus points, fork "enki at github":http://github.com/xaviershay/enki/tree/master and clone that instead.
+
 h2. More info
 
 Enki is a compact, easily extendable base for your blog. It does this by being highly opinionated, for example:
@@ -29,6 +31,16 @@ Enki is a compact, easily extendable base for your blog. It does this by being h
 * You don't need a plugin system when you've got decent source control
 * If you're not using OpenID you're a chump
 * Hacking code is the easiest way to customize something
+
+h2. How it differs from Mephisto
+
+Mephisto is feature packed and quite customizable. It can however be daunting trying to find your way around the code, which isn’t so good if you’re trying to hack in your own features. Enki strips out a lot of the features that you probably don’t need (multiple authors and liquid templates, for example), and focuses on keeping a tight code base that is easy to comprehend and extend.
+
+*If you’re converting from Mephisto,* be sure to have a look at "enki-translator":http://github.com/xaviershay/enki-translator/tree/master
+
+h2. How it differs from SimpleLog
+
+Enki embodies much of the philosophy of SimpleLog, but does so in a style that is much more consistent with Rails best practices, making it easier to understand and hack the code.
 
 h2. Author
 
