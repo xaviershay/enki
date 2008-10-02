@@ -177,6 +177,11 @@ a {
   height: 450px;
 }
 
+form fieldset { margin-right: 100%; margin-bottom: 10px; width: 620px;}
+form fieldset.buttons { text-align: center; }
+form fieldset.buttons input { width: 300px; }
+
+p.inline-hints { clear: both; }
 form fieldset ol li {
   border: none;
 }
