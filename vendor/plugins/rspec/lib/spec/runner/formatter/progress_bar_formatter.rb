@@ -14,15 +14,19 @@ module Spec
           @output.flush
         end
       
-        def example_pending(example_group_description, example, message)
+        def example_pending(example, message, pending_caller)
           super
-          @output.print yellow('P')
+          @output.print yellow('*')
           @output.flush
         end
         
         def start_dump
           @output.puts
           @output.flush
+        end
+        
+        def method_missing(sym, *args)
+          # ignore
         end
       end
     end

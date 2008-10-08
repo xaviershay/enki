@@ -9,8 +9,12 @@ module Spec
         __mock_proxy.add_negative_message_expectation(caller(1)[0], sym.to_sym, &block)
       end
       
-      def stub!(sym, opts={})
-        __mock_proxy.add_stub(caller(1)[0], sym.to_sym, opts)
+      def stub!(sym_or_hash, opts={})
+        if Hash === sym_or_hash
+          sym_or_hash.each {|method, value| stub!(method).and_return value }
+        else
+          __mock_proxy.add_stub(caller(1)[0], sym_or_hash.to_sym, opts)
+        end
       end
       
       def received_message?(sym, *args, &block) #:nodoc:
@@ -23,6 +27,14 @@ module Spec
 
       def rspec_reset #:nodoc:
         __mock_proxy.reset
+      end
+      
+      def as_null_object
+        __mock_proxy.act_as_null_object
+      end
+      
+      def null_object?
+        __mock_proxy.null_object?
       end
 
     private

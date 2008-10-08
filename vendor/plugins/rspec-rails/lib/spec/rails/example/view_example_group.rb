@@ -32,7 +32,7 @@ module Spec
           ensure_that_base_view_path_is_not_set_across_example_groups
         end
 
-        def initialize(defined_description, &implementation) #:nodoc:
+        def initialize(defined_description, options={}, &implementation) #:nodoc:
           super
           @controller_class_name = "Spec::Rails::Example::ViewExampleGroupController"
         end

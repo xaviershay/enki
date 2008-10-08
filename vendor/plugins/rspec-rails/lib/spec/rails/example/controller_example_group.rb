@@ -125,7 +125,7 @@ module Spec
 
         attr_reader :response, :request, :controller
 
-        def initialize(defined_description, &implementation) #:nodoc:
+        def initialize(defined_description, options={}, &implementation) #:nodoc:
           super
           controller_class_name = self.class.controller_class_name
           if controller_class_name
@@ -207,7 +207,7 @@ module Spec
             end
 
             if matching_message_expectation_exists(options)
-              expect_render_mock_proxy.render(options, &block)
+              render_proxy.render(options, &block)
               @performed_render = true
             else
               if matching_stub_exists(options)
@@ -218,32 +218,6 @@ module Spec
             end
           end
           
-          def raise_with_disable_message(old_method, new_method)
-            raise %Q|
-      controller.#{old_method}(:render) has been disabled because it
-      can often produce unexpected results. Instead, you should
-      use the following (before the action):
-
-      controller.#{new_method}(*args)
-
-      See the rdoc for #{new_method} for more information.
-            |
-          end
-          def should_receive(*args)
-            if args[0] == :render
-              raise_with_disable_message("should_receive", "expect_render")
-            else
-              super
-            end
-          end
-          def stub!(*args)
-            if args[0] == :render
-              raise_with_disable_message("stub!", "stub_render")
-            else
-              super
-            end
-          end
-
           def response(&block)
             # NOTE - we're setting @update for the assert_select_spec - kinda weird, huh?
             @update = block
@@ -261,11 +235,11 @@ module Spec
           end
 
           def matching_message_expectation_exists(options)
-            expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
+            render_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
           end
         
           def matching_stub_exists(options)
-            expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
+            render_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
           end
         
         end

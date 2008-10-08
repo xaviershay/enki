@@ -8,6 +8,8 @@ module Spec
       EXAMPLE_FORMATTERS = { # Load these lazily for better speed
                'specdoc' => ['spec/runner/formatter/specdoc_formatter',                'Formatter::SpecdocFormatter'],
                      's' => ['spec/runner/formatter/specdoc_formatter',                'Formatter::SpecdocFormatter'],
+                'nested' => ['spec/runner/formatter/nested_text_formatter',          'Formatter::NestedTextFormatter'],
+                     'n' => ['spec/runner/formatter/nested_text_formatter',            'Formatter::NestedTextFormatter'],
                   'html' => ['spec/runner/formatter/html_formatter',                   'Formatter::HtmlFormatter'],
                      'h' => ['spec/runner/formatter/html_formatter',                   'Formatter::HtmlFormatter'],
               'progress' => ['spec/runner/formatter/progress_bar_formatter',           'Formatter::ProgressBarFormatter'],
@@ -22,10 +24,13 @@ module Spec
       }
 
       STORY_FORMATTERS = {
-        'plain' => ['spec/runner/formatter/story/plain_text_formatter', 'Formatter::Story::PlainTextFormatter'],
-            'p' => ['spec/runner/formatter/story/plain_text_formatter', 'Formatter::Story::PlainTextFormatter'],
-         'html' => ['spec/runner/formatter/story/html_formatter',       'Formatter::Story::HtmlFormatter'],
-            'h' => ['spec/runner/formatter/story/html_formatter',       'Formatter::Story::HtmlFormatter']
+        'plain' => ['spec/runner/formatter/story/plain_text_formatter',   'Formatter::Story::PlainTextFormatter'],
+            'p' => ['spec/runner/formatter/story/plain_text_formatter',   'Formatter::Story::PlainTextFormatter'],
+         'html' => ['spec/runner/formatter/story/html_formatter',         'Formatter::Story::HtmlFormatter'],
+            'h' => ['spec/runner/formatter/story/html_formatter',         'Formatter::Story::HtmlFormatter'],
+     'progress' => ['spec/runner/formatter/story/progress_bar_formatter', 'Formatter::Story::ProgressBarFormatter'],
+            'r' => ['spec/runner/formatter/story/progress_bar_formatter', 'Formatter::Story::ProgressBarFormatter']
+            
       }
 
       attr_accessor(
@@ -46,11 +51,13 @@ module Spec
         :user_input_for_runner,
         :error_stream,
         :output_stream,
+        :before_suite_parts,
+        :after_suite_parts,
         # TODO: BT - Figure out a better name
         :argv
       )
       attr_reader :colour, :differ_class, :files, :example_groups
-
+      
       def initialize(error_stream, output_stream)
         @error_stream = error_stream
         @output_stream = output_stream
@@ -65,9 +72,12 @@ module Spec
         @diff_format  = :unified
         @files = []
         @example_groups = []
+        @result = nil
         @examples_run = false
         @examples_should_be_run = nil
         @user_input_for_runner = nil
+        @before_suite_parts = []
+        @after_suite_parts = []
       end
 
       def add_example_group(example_group)
@@ -80,17 +90,37 @@ module Spec
 
       def run_examples
         return true unless examples_should_be_run?
-        runner = custom_runner || ExampleGroupRunner.new(self)
+        success = true
+        begin
+          runner = custom_runner || ExampleGroupRunner.new(self)
 
-        runner.load_files(files_to_load)
-        if example_groups.empty?
-          true
-        else
-          set_spec_from_line_number if line_number
-          success = runner.run
-          @examples_run = true
-          heckle if heckle_runner
-          success
+          unless @files_loaded
+            runner.load_files(files_to_load)
+            @files_loaded = true
+          end
+
+          # TODO - this has to happen after the files get loaded,
+          # otherwise the before_suite_parts are not populated
+          # from the configuration. There is no spec for this
+          # directly, but stories/configuration/before_blocks.story
+          # will fail if this happens before the files are loaded.
+          before_suite_parts.each do |part|
+            part.call
+          end
+
+          if example_groups.empty?
+            true
+          else
+            set_spec_from_line_number if line_number
+            success = runner.run
+            @examples_run = true
+            heckle if heckle_runner
+            success
+          end
+        ensure
+          after_suite_parts.each do |part|
+            part.call(success)
+          end
         end
       end
 
@@ -104,10 +134,12 @@ module Spec
 
       def colour=(colour)
         @colour = colour
-        if @colour && RUBY_PLATFORM =~ /win32/ ;\
+        if @colour && RUBY_PLATFORM =~ /mswin|mingw/ ;\
           begin ;\
+            replace_output = @output_stream.equal?($stdout) ;\
             require 'rubygems' ;\
             require 'Win32/Console/ANSI' ;\
+            @output_stream = $stdout if replace_output ;\
           rescue LoadError ;\
             warn "You must 'gem install win32console' to use colour on Windows" ;\
             @colour = false ;\
@@ -177,9 +209,11 @@ module Spec
       end
 
       def number_of_examples
-        @example_groups.inject(0) do |sum, example_group|
-          sum + example_group.number_of_examples
+        total = 0
+        @example_groups.each do |example_group|
+          total += example_group.number_of_examples
         end
+        total
       end
 
       def files_to_load
@@ -240,9 +274,9 @@ module Spec
       end
       
       def heckle
-        returns = self.heckle_runner.heckle_with
+        heckle_runner = self.heckle_runner
         self.heckle_runner = nil
-        returns
+        heckle_runner.heckle_with
       end
       
       def sorted_files

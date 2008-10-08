@@ -65,10 +65,11 @@ module Spec
     end
 
     describe ExampleGroup, "#run" do
-      it_should_behave_like "sandboxed rspec_options"
+      include SandboxedOptions
       attr_reader :example_group, :formatter, :reporter
       before :each do
-        @formatter = mock("formatter", :null_object => true)
+        method_with_three_args = lambda { |arg1, arg2, arg3| }
+        @formatter = mock("formatter", :null_object => true, :example_pending => method_with_three_args)
         options.formatters << formatter
         options.backtrace_tweaker = mock("backtrace_tweaker", :null_object => true)
         @reporter = FakeReporter.new(options)
@@ -233,7 +234,7 @@ module Spec
             options.examples = ["should be run"]
           end
 
-          it "should run only the example, when there in only one" do
+          it "should run only the example, when there is only one" do
             example_group.run
             examples_that_were_run.should == ["should be run"]
           end
@@ -673,6 +674,10 @@ module Spec
     end
 
     describe Enumerable do
+      before(:each) do
+        Kernel.stub!(:warn)
+      end
+      
       def each(&block)
         ["4", "2", "1"].each(&block)
       end
@@ -683,6 +688,10 @@ module Spec
     end
 
     describe "An", Enumerable, "as a second argument" do
+      before(:each) do
+        Kernel.stub!(:warn)
+      end
+      
       def each(&block)
         ["4", "2", "1"].each(&block)
       end
@@ -694,6 +703,10 @@ module Spec
 
     describe Enumerable do
       describe "as the parent of nested example groups" do
+        before(:each) do
+          Kernel.stub!(:warn)
+        end
+        
         it "should be included in examples because it is a module" do
           pending("need to make sure nested groups know the described type") do
             map{|e| e.to_i}.should == [4,2,1]
@@ -703,7 +716,7 @@ module Spec
     end
 
     describe String do
-      it"should not be included in examples because it is not a module" do
+      it "should not be included in examples because it is not a module" do
         lambda{self.map}.should raise_error(NoMethodError, /undefined method `map' for/)
       end
     end

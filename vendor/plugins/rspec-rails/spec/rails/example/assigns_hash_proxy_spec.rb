@@ -27,7 +27,7 @@ describe "AssignsHashProxy" do
   
   it "should access object's assigns with a string" do
     @object.assigns['foo'] = 'bar'
-    @proxy[:foo].should == 'bar'
+    @proxy['foo'].should == 'bar'
   end
   
   it "should access object's assigns with a symbol" do
@@ -35,7 +35,17 @@ describe "AssignsHashProxy" do
     @proxy[:foo].should == 'bar'
   end
 
-  it "iterates through each element like a Hash" do
+  it "should access object's ivars with a string" do
+    @object.instance_variable_set('@foo', 'bar')
+    @proxy['foo'].should == 'bar'
+  end
+  
+  it "should access object's ivars with a symbol" do
+    @object.instance_variable_set('@foo', 'bar')
+    @proxy[:foo].should == 'bar'
+  end
+
+  it "should iterate through each element like a Hash" do
     values = {
       'foo' => 1,
       'bar' => 2,
@@ -51,15 +61,36 @@ describe "AssignsHashProxy" do
     end
   end
   
-  it "deletes the element of passed in key" do
-    @object.assigns['foo'] = 'bar'
-    @proxy.delete('foo').should == 'bar'
+  it "should delete the ivar of passed in key" do
+    @object.instance_variable_set('@foo', 'bar')
+    @proxy.delete('foo')
     @proxy['foo'].should be_nil
   end
   
-  it "detects the presence of a key" do
+  it "should delete the assigned element of passed in key" do
+    @object.assigns['foo'] = 'bar'
+    @proxy.delete('foo')
+    @proxy['foo'].should be_nil
+  end
+  
+  it "should detect the presence of a key in assigns" do
     @object.assigns['foo'] = 'bar'
     @proxy.has_key?('foo').should == true
     @proxy.has_key?('bar').should == false
+  end
+  
+  it "should expose values set in example back to the example" do
+    @proxy[:foo] = 'bar'
+    @proxy[:foo].should == 'bar'
+  end
+  
+  it "should allow assignment of false via proxy" do
+    @proxy['foo'] = false
+    @proxy['foo'].should be_false
+  end
+  
+  it "should allow assignment of false" do
+    @object.instance_variable_set('@foo',false)
+    @proxy['foo'].should be_false
   end
 end

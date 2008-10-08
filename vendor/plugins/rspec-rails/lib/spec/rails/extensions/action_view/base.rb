@@ -19,10 +19,10 @@ module ActionView #:nodoc:
 
     alias_method :orig_render, :render
     def render(options = {}, old_local_assigns = {}, &block)
-      if expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
-        expect_render_mock_proxy.render(options)
+      if render_proxy.send(:__mock_proxy).send(:find_matching_expectation, :render, options)
+        render_proxy.render(options)
       else
-        unless expect_render_mock_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
+        unless render_proxy.send(:__mock_proxy).send(:find_matching_method_stub, :render, options)
           orig_render(options, old_local_assigns, &block)
         end
       end

@@ -82,14 +82,14 @@ describe "A template that includes a partial", :type => :view do
     response.should have_tag('div', "This is text from a method in the ApplicationHelper")
   end
   
-  it "should pass expect_render with the right partial" do
-    template.expect_render(:partial => 'partial')
+  it "should pass should_receive(:render) with the right partial" do
+    template.should_receive(:render).with(:partial => 'partial')
     render!
     template.verify_rendered
   end
   
-  it "should fail expect_render with the wrong partial" do
-    template.expect_render(:partial => 'non_existent')
+  it "should fail should_receive(:render) with the wrong partial" do
+    template.should_receive(:render).with(:partial => 'non_existent')
     render!
     begin
       template.verify_rendered
@@ -99,14 +99,14 @@ describe "A template that includes a partial", :type => :view do
     end
   end
   
-  it "should pass expect_render when a partial is expected twice and happens twice" do
-    template.expect_render(:partial => 'partial_used_twice').twice
+  it "should pass should_receive(:render) when a partial is expected twice and happens twice" do
+    template.should_receive(:render).with(:partial => 'partial_used_twice').twice
     render!
     template.verify_rendered
   end
   
-  it "should pass expect_render when a partial is expected once and happens twice" do
-    template.expect_render(:partial => 'partial_used_twice')
+  it "should pass should_receive(:render) when a partial is expected once and happens twice" do
+    template.should_receive(:render).with(:partial => 'partial_used_twice')
     render!
     begin
       template.verify_rendered
@@ -116,17 +116,17 @@ describe "A template that includes a partial", :type => :view do
     end
   end
   
-  it "should fail expect_render with the right partial but wrong options" do
-    template.expect_render(:partial => 'partial', :locals => {:thing => Object.new})
+  it "should fail should_receive(:render) with the right partial but wrong options" do
+    template.should_receive(:render).with(:partial => 'partial', :locals => {:thing => Object.new})
     render!
     lambda {template.verify_rendered}.should raise_error(Spec::Mocks::MockExpectationError)
   end
 end
 
 describe "A partial that includes a partial", :type => :view do
-  it "should support expect_render with nested partial" do
+  it "should support should_receive(:render) with nested partial" do
     obj = Object.new
-    template.expect_render(:partial => 'partial', :object => obj)
+    template.should_receive(:render).with(:partial => 'partial', :object => obj)
     render :partial => "view_spec/partial_with_sub_partial", :locals => { :partial => obj }
   end
 end
@@ -141,7 +141,7 @@ describe "A view that includes a partial using :collection and :spacer_template"
   end
 
   it "should render the partial" do
-    template.expect_render(:partial => 'partial',
+    template.should_receive(:render).with(:partial => 'partial',
                :collection => ['Alice', 'Bob'],
                :spacer_template => 'spacer')
     render "view_spec/template_with_partial_using_collection"
@@ -263,6 +263,18 @@ module Spec
           group.run_after_each(example)
         end
       end
+    end
+  end
+end
+
+describe "bug http://rspec.lighthouseapp.com/projects/5645/tickets/510", :type => :view do
+  describe "a view example with should_not_receive" do
+    it "should render the view" do
+      obj = mock('model')
+      obj.should_receive(:render_partial?).and_return false
+      assigns[:obj] = obj
+      template.should_not_receive(:render).with(:partial => 'some_partial')
+      render "view_spec/should_not_receive"
     end
   end
 end

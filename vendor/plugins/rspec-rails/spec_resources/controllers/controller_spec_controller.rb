@@ -85,6 +85,11 @@ class ControllerSpecController < ActionController::Base
   def action_with_skipped_before_filter
     render :text => ""
   end
+  
+  def action_that_assigns_false_to_a_variable
+    @a_variable = false
+    render :text => ""
+  end
 end
 
 class ControllerInheritingFromApplicationControllerController < ApplicationController
