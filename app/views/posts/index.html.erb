@@ -9,4 +9,7 @@
 	  <%= render :partial => 'post', :locals => {:post => post} %>
 	</div>
 	<% end -%>
+  <% if more_content? -%>
+    <div class="related">Looking for more? Head on over to the <%= link_to("archives", archives_path) %>.</div>
+  <% end -%>
 <% end -%>
