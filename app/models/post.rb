@@ -38,14 +38,15 @@ class Post < ActiveRecord::Base
     def find_recent(options = {})
       tag = options.delete(:tag)
       options = {
+        :page       => options[:page],
         :order      => 'posts.published_at DESC',
         :conditions => ['published_at < ?', Time.now],
-        :limit      => DEFAULT_LIMIT
+        :per_page   => DEFAULT_LIMIT
       }.merge(options)
       if tag
-        find_tagged_with(tag, options)
+        paginate_tagged_with(tag, options)
       else
-        find(:all, options)
+        paginate(options)
       end
     end
 
