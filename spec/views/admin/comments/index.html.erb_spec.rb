@@ -16,7 +16,7 @@ describe "/admin/comments/index.html.erb" do
         :published_at => Time.now
       )
     )]
-    comments.stub!(:page_count).and_return(1)
+    comments.stub!(:total_pages).and_return(1)
     assigns[:comments] = comments
     render '/admin/comments/index.html.erb'
   end

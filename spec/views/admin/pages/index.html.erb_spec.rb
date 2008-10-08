@@ -12,7 +12,7 @@ describe "/admin/pages/index.html.erb" do
       :slug       => 'a-page',
       :created_at => Time.now
     )]
-    pages.stub!(:page_count).and_return(1)
+    pages.stub!(:total_pages).and_return(1)
     assigns[:pages] = pages
     render '/admin/pages/index.html.erb'
   end

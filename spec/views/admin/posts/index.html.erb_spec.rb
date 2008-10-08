@@ -13,7 +13,7 @@ describe "/admin/posts/index.html.erb" do
       :slug              => 'a-post',
       :approved_comments => []
     )]
-    posts.stub!(:page_count).and_return(1)
+    posts.stub!(:total_pages).and_return(1)
     assigns[:posts] = posts
     render '/admin/posts/index.html.erb'
   end
