@@ -13,7 +13,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    return successful_login if allow_login_bypass? && params[:bypass_login]
+    return successful_login(Author.find(:first)) if allow_login_bypass? && params[:bypass_login]
     authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
       case result.status
       when :missing
@@ -25,8 +25,8 @@ class Admin::SessionsController < ApplicationController
       when :invalid
         flash.now[:error] = "Sorry, the OpenID you entered was not a valid URL"
       when :successful
-        if config.author_open_ids.include?(URI.parse(identity_url))
-          return successful_login
+        if author = Author.with_open_id(identity_url)
+          return successful_login(author)
         else
           flash.now[:error] = "You are not authorized"
         end
@@ -36,14 +36,15 @@ class Admin::SessionsController < ApplicationController
   end
 
   def destroy
-    session[:logged_in] = false
+    session[:author_id] = nil
     redirect_to('/')
   end
 
 protected
 
-  def successful_login
+  def successful_login(author)
     session[:logged_in] = true
+    session[:author_id] = author.id
     redirect_to(admin_dashboard_path)
   end
 

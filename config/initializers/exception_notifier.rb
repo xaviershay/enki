@@ -1,1 +1,1 @@
-ExceptionNotifier.exception_recipients = [Enki::Config.default[:author, :email]]
+ExceptionNotifier.exception_recipients = [Enki::Config.default[:exception_notifications]]

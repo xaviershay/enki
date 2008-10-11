@@ -12,4 +12,8 @@ class Admin::BaseController < ApplicationController
   def set_content_type
     headers['Content-Type'] ||= 'text/html; charset=utf-8'
   end
+  
+  def logged_in_author
+    @current_author ||= session[:author_id] && Author.find(session[:author_id])
+  end
 end
