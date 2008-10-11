@@ -9,7 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 20081011234410) do
+
+  create_table "authors", :force => true do |t|
+    t.string "name",    :null => false
+    t.string "email",   :null => false
+    t.string "open_id", :null => false
+  end
 
   create_table "comments", :force => true do |t|
     t.integer  "post_id",                 :null => false
