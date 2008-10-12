@@ -13,7 +13,11 @@ describe "/posts/index.atom.builder" do
       :edited_at         => 1.year.ago,
       :slug              => 'a-post',
       :approved_comments => [mock_model(Comment)],
-      :tags              => [mock_tag]
+      :tags              => [mock_tag],
+      :author => mock_model(Author,
+        :name  => "Don Alias",
+        :email => "don@example.com"
+      )
     )
 
     assigns[:posts] = [mock_post, mock_post]
