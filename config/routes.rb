@@ -9,8 +9,6 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :comments, :member => {:mark_as_spam => :put, :mark_as_ham => :put}
     admin.resources :tags
     admin.resources :undo_items, :member => {:undo => :post}
-
-    admin.resource :api, :controller => 'api'
   end
 
   map.connect '/admin/proxy/:id', :controller => 'admin/proxy', :requirements => { :id => /.*/ }
