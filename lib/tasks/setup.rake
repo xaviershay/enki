@@ -1,3 +1,4 @@
+desc "Setup the app by loading the schema and creating an author"
 task :setup => "db:schema:load" do
   begin
     require 'highline'
