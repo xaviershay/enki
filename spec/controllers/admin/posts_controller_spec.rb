@@ -108,6 +108,7 @@ describe Admin::PostsController do
   describe 'handling POST to create with valid attributes' do
     it 'creates a post' do
       session[:logged_in] = true
+      @controller.stub!(:logged_in_author).and_return(Author.create!(:name => 'Don', :email => 'don@example.com', :open_id => 'http://enkiblog.com'))
       lambda { post :create, :post => valid_post_attributes }.should change(Post, :count).by(1)
     end
   end

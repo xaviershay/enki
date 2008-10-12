@@ -1,4 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+:A
+
 
 describe Admin::SessionsController do
   describe 'handling GET to show (default)' do
@@ -79,11 +81,7 @@ describe Admin::SessionsController, "handling CREATE with post" do
 
   def stub_open_id_authenticate(url, status_code, return_value)
     status = mock("Result", :status => status_code)
-    @controller.stub!(:config).and_return(mock("config", :author_open_ids => [
-        "http://enkiblog.com",
-        "http://secondaryopenid.com"
-      ].collect {|uri| URI.parse(uri)}
-    ))
+    Author.stub!(:with_open_id).and_return(nil)
     @controller.should_receive(:authenticate_with_open_id).with(url).and_yield(status,url).and_return(return_value)
   end
   describe "with invalid URL http://evilman.com and OpenID authentication succeeding" do
@@ -96,14 +94,8 @@ describe Admin::SessionsController, "handling CREATE with post" do
   describe "with valid URL http://enkiblog.com and OpenID authentication succeeding" do
     before do
       stub_open_id_authenticate("http://enkiblog.com", :successful, false)
+      Author.stub!(:with_open_id).and_return(Author.new)
       post :create, :openid_url => "http://enkiblog.com"
-    end
-    it_should_behave_like "logged in and redirected to /admin"
-  end
-  describe "with valid secondary URL http://secondaryopenid.com and OpenID authentication succeeding" do
-    before do
-      stub_open_id_authenticate("http://secondaryopenid.com", :successful, false)
-      post :create, :openid_url => "http://secondaryopenid.com"
     end
     it_should_behave_like "logged in and redirected to /admin"
   end
@@ -136,12 +128,14 @@ describe Admin::SessionsController, "handling CREATE with post" do
   end
   describe "with bypass login selected" do
     before do
+      Author.stub!(:find).and_return(Author.new)
       post :create, :openid_url => "", :bypass_login => "1"
     end
     it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with bypass login selected but login bypassing disabled" do
     before do
+      Author.stub!(:find).and_return(Author.new)
       @controller.stub!(:allow_login_bypass?).and_return(false)
       post :create, :openid_url => "", :bypass_login => "1"
     end

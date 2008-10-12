@@ -13,7 +13,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def create
-    @post = logged_in_author.posts.new(params[:post])
+    @post = logged_in_author.posts.build(params[:post])
     if @post.save
       respond_to do |format|
         format.html {

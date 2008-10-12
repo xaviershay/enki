@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Author, 'validations' do
   def valid_author_attributes
     {
-      :name => "Don Alias",
-      :email  => "don@enkiblog.com",
-      :open_id  => "http://enkiblog.com"
+      :name    => "Don Alias",
+      :email   => "don@enkiblog.com",
+      :open_id => "http://enkiblog.com"
     }
   end
 
@@ -34,7 +34,7 @@ describe Author, 'validations' do
 end
 
 describe 'Author', 'open_id' do
-  setup do
+  before(:each) do
     @author = Author.new
   end
   it 'can be set with a URI string representation' do
@@ -48,7 +48,7 @@ describe 'Author', 'open_id' do
 end
 
 describe 'Author', 'with_open_id' do
-  setup do
+  before(:each) do
     @author = Author.create! :name => "Don Alias",
                              :email  => "don@enkiblog.com",
                              :open_id  => "http://enkiblog.com"
