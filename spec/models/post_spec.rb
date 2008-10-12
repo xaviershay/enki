@@ -4,8 +4,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Post, "integration" do
   describe 'setting tag_list' do
     it 'increments tag counter cache' do
-      post1 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
-      post2 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+      author = Author.create!(:name => "Don", :email => "str", :open_id => "http://enkiblog.com")
+      post1 = Post.create!(:author => author, :title => 'My Post', :body => "body", :tag_list => "ruby")
+      post2 = Post.create!(:author => author, :title => 'My Post', :body => "body", :tag_list => "ruby")
       Tag.find_by_name('ruby').taggings_count.should == 2
       post2.destroy
       Tag.find_by_name('ruby').taggings_count.should == 1
@@ -154,6 +155,7 @@ end
 describe Post, 'validations' do
   def valid_post_attributes
     {
+      :author               => Author.new,
       :title                => "My Post",
       :slug                 => "my-post",
       :body                 => "hello this is my post",
@@ -171,6 +173,10 @@ describe Post, 'validations' do
 
   it 'is invalid with no body' do
     Post.new(valid_post_attributes.merge(:body => '')).should_not be_valid
+  end
+
+  it 'is invalid with no author' do
+    Post.new(valid_post_attributes.merge(:author => nil)).should_not be_valid
   end
 
   it 'is invalid with bogus published_at_natural' do
