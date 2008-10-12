@@ -1,5 +1,11 @@
 class InitializeDb < ActiveRecord::Migration
   def self.up
+    create_table :authors do |t|
+      t.string :name,    :null => false
+      t.string :email,   :null => false
+      t.string :open_id, :null => false
+    end
+
     create_table "comments" do |t|
       t.integer  "post_id",                 :null => false
       t.string   "author",                  :null => false
@@ -54,6 +60,7 @@ class InitializeDb < ActiveRecord::Migration
       t.datetime "created_at"
       t.datetime "updated_at"
       t.datetime "edited_at",                                                  :null => false
+      t.integer  "author_id",                                                  :null => false
     end
 
     add_index "posts", ["published_at"], :name => "index_posts_on_published_at"
