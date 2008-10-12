@@ -5,6 +5,6 @@
 <% end -%>
 <% form.input_field_set do -%>
   <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'example: now, yesterday, 1 hour from now, ' + link_to("more&hellip;", "http://chronic.rubyforge.org/") -%>
-  <%= form.input :slug -%>
+  <%= form.input :slug, :hint => "leave blank for an auto-generated slug based on the title" -%>
   <%= form.input :minor_edit, :as => 'boolean', :hint => 'minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like.' unless @post.new_record? -%>
 <% end -%>
