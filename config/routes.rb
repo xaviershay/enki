@@ -11,6 +11,8 @@ ActionController::Routing::Routes.draw do |map|
     admin.resources :undo_items, :member => {:undo => :post}
   end
 
+  map.admin_health '/admin/health/:action', :controller => 'admin/health', :action => 'index'
+
   map.connect '/admin', :controller => 'admin/dashboard', :action => 'show'
   map.connect '/admin/api', :controller => 'admin/api', :action => 'index'
   map.archives '/archives', :controller => 'archives', :action => 'index'

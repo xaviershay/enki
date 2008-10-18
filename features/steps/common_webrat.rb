@@ -22,7 +22,8 @@ When /^I go to (.*)$/ do |page|
   when "the home page"
     "/"
   else
-    raise "Can't find mapping from \"#{page}\" to a path"
+    page
+    #raise "Can't find mapping from \"#{page}\" to a path"
   end
 end
 
