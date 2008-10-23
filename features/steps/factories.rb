@@ -1,3 +1,5 @@
+require 'factory_girl'
+
 Factory.define(:tag) do |a|
   a.name 'Tag'
 end
