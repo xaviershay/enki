@@ -6,15 +6,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-  <title><%= yield(:page_title) || config[:title] %></title>
+  <title><%= yield(:page_title) || h(config[:title]) %></title>
   <%= stylesheet_link_tag 'main' %>
   <%= javascript_include_tag 'jquery-1.2.1.js' %>
-  <%= open_id_delegation_link_tags(config[:open_id_delegation, :server], config[:open_id_delegation, :delegate]) if config[:open_id_delegation] %>
+  <%= open_id_delegation_link_tags(h(config[:open_id_delegation, :server]), h(config[:open_id_delegation, :delegate])) if config[:open_id_delegation] %>
   <%= yield(:head) %>
 </head>
 <body>
   <div id="page_container">
-    <h1 id="page_heading"><a href="<%= config[:url] %>"><%= config[:title] %></a></h1>
+    <h1 id="page_heading"><a href="<%=h config[:url] %>"><%=h config[:title] %></a></h1>
 
     <div id="main">
       <%= yield %>
@@ -40,12 +40,12 @@
           <h2><label for="q">Search</label></h2>
 
           <input type="text" id="q" value="" name="q" />
-          <input type="hidden" name="sitesearch" value="<%= config[:url] %>" />
+          <input type="hidden" name="sitesearch" value="<%=h config[:url] %>" />
         </div>
       </form>
     </div>    
     
-    <div id="footer"><%= config[:title] %> &#169; <%= config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A ruby on rails blogging app for the fashionable developer">Enki</a>.</div>
+    <div id="footer"><%=h config[:title] %> &#169; <%=h config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{h(config[:url])}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A ruby on rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
 </body>
 </html>

@@ -3,7 +3,7 @@
   <%= javascript_include_tag 'live-comment-preview' %>
 <% end -%>
 <% content_for(:page_title) do -%>
-<%= post_title(@post) -%>
+<%=h post_title(@post) -%>
 <% end -%>
 <%= render :partial => 'posts/post', :locals => {:post => @post} %>
 <ol class="commentlist">
