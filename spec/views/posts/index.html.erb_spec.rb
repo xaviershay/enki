@@ -10,7 +10,7 @@ describe "/posts/index.html.erb" do
       :title             => "A post",
       :body_html         => "Posts contents!",
       :published_at      => 1.year.ago,
-      :slug              => 'a-post',
+      :slug              => 'a-post'.taint,
       :approved_comments => [mock_model(Comment)],
       :tags              => [mock_tag]
     )
