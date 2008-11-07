@@ -12,6 +12,4 @@ Factory.define(:post) do |a|
   a.published_at Time.now
   a.created_at   Time.now
   a.updated_at   Time.now
-
-  a.tags {|t| t.association(:tags) }
 end
