@@ -1,6 +1,6 @@
-<h2><%= link_to(post.title, post_path(post)) %></h2> 
+<h2><%= link_to(h(post.title), post_path(post)) %></h2> 
 <div class="entrybody">
-  <%= post.body_html %>
+  <%= post.body_html.untaint %>
 </div>
 <div class="meta">
   <ul>
