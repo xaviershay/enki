@@ -17,7 +17,10 @@
         <tr class="<%= cycle('', 'alt') %>">
           <td><%= link_to(tag.name, edit_admin_tag_path(tag)) %></td>
           <td><%= tag.taggings.size %></td>
-          <td><%= link_to('X', admin_tag_path(tag), :method => :delete, :confirm => "You are about to delete this tag. It will be removed from all posts. This is permanent.\n\nAre you ABSOLUTELY sure?") %></td>
+          <td>
+            <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), edit_admin_tag_path(tag)) %>
+            <%= link_to(image_tag("silk/delete.png"), admin_tag_path(tag), :method => :delete, :confirm => "You are about to delete this tag. It will be removed from all posts. This is permanent.\n\nAre you ABSOLUTELY sure?") %>
+          </td>
         </tr>
       <% end -%>
     <% end -%>
