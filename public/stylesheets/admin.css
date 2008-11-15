@@ -165,7 +165,25 @@ body {
 a {
   color: #222222;
 }
+
+/* --------- LIVE EDIT PREVIEW */
+#preview {
+  margin-left: 660px;
+  padding-bottom: 10px;
+}
+
+#preview h3 {
+  margin-top: 0;
+}
+
 /* -------- FORMS */
+form.new_post,
+form.edit_post,
+form.new_page,
+form.edit_page { 
+  width: 660px;
+  float: left;
+}
 
 #post_body {
   width: 600px;
@@ -177,7 +195,7 @@ a {
   height: 450px;
 }
 
-form fieldset { margin-right: 100%; margin-bottom: 10px; width: 620px;}
+form fieldset { margin-bottom: 10px; width: 620px;}
 form fieldset.buttons { text-align: center; }
 form fieldset.buttons input { width: 300px; }
 

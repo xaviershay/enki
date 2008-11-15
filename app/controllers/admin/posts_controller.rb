@@ -52,7 +52,15 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def new
-    @post = Post.new
+    respond_to do |format|
+      format.html {
+        @post = Post.new
+      }
+      format.js {
+        @post = Post.build_for_preview(params[:post])
+        render :partial => 'posts/post.html.erb'
+      }
+    end
   end
 
   def destroy

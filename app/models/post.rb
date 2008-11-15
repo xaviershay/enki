@@ -35,6 +35,17 @@ class Post < ActiveRecord::Base
   end
 
   class << self
+    def build_for_preview(params)
+      post = Post.new(params)
+      post.generate_slug
+      post.set_dates
+      post.apply_filter
+      TagList.from(params[:tag_list]).each do |tag|
+        post.tags << Tag.new(:name => tag)
+      end
+      post
+    end
+
     def find_recent(options = {})
       tag = options.delete(:tag)
       options = {

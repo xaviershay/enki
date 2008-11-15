@@ -183,3 +183,30 @@ describe Post, 'being destroyed' do
     Post.reflect_on_association(:comments).options[:dependent].should == :destroy
   end
 end
+
+describe Post, '.build_for_preview' do
+  before(:each) do
+    @post = Post.build_for_preview(:title => 'My Post', :body => "body", :tag_list => "ruby")
+  end
+
+  it 'returns a new post' do
+    @post.should be_new_record
+  end
+  
+  it 'generates slug' do
+    @post.slug.should_not be_nil
+  end
+
+  it 'sets date' do
+    @post.edited_at.should_not be_nil
+    @post.published_at.should_not be_nil
+  end
+  
+  it 'applies filter to body' do
+    @post.body_html.should == '<p>body</p>'
+  end
+
+  it 'generates tags from tag_list' do
+    @post.tags.collect {|tag| tag.name}.should == ['ruby']
+  end
+end
