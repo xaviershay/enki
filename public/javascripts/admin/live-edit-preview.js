@@ -4,8 +4,10 @@ $(document).ready(function() {
   var fetch_preview = function() {
     var dest = window.location.href;
 
-    if (!dest.endsWith('new'))
-      dest = dest.replace(/\/\d$/, '/new');
+    if (!dest.endsWith('new')) {
+      if (dest.match(/\/\d$/)) { dest = dest.replace(/\/\d$/, '/new') }
+      else { dest = dest + '/new' }
+    }
 
     jQuery.ajax({
       data: form.serialize(),
