@@ -176,6 +176,15 @@ a {
   margin-top: 0;
 }
 
+#preview h3 span {
+  font-size: 70%;
+  text-decoration: underline;
+}
+
+#preview h3 span:hover {
+  cursor: pointer;
+}
+
 /* -------- FORMS */
 form.new_post,
 form.edit_post,
