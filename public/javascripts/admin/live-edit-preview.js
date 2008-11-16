@@ -6,16 +6,14 @@ $(document).ready(function() {
     var dest = window.location.href;
 
     if (!dest.endsWith('new')) {
-      if (dest.match(/\/\d$/)) { 
-        dest = dest.replace(/\/\d$/, '/new')
-      }
-      else { 
-        dest = dest + '/new'
-      }
+      dest = dest.replace(/\/\d$/, '');
+      dest = dest + '/new';
     }
+    dest = dest + '/preview'
 
     jQuery.ajax({
-      data: form.serialize(),
+      type: 'POST',
+      data: form.serialize().replace(/&*_method=\w+&*/, ''),
       url:  dest,
       timeout: 2000,
       error: function() {
@@ -23,7 +21,7 @@ $(document).ready(function() {
       },
       success: function(r) { 
         if ($('#preview').length == 0) {
-          form.after('<div id="preview"><h3>Your entry will be formatted like this: <span>(pause live preview)</span></h3><div class="content"></div></div>');
+          form.after('<div id="preview"><h3>Your entry will be formatted like this:</h3><p><span>pause live preview</span></p><div class="content"></div></div>');
         }
         $('#preview .content').html(r);
         
@@ -36,7 +34,7 @@ $(document).ready(function() {
     });
   };
 
-  $('#preview h3 span').livequery('click', function() {
+  $('#preview > p span').livequery('click', function() {
     var text = $(this).html();
     if (text.match(/pause/)) {
       $(this).html(text.replace(/pause/, 'start'));
@@ -50,7 +48,7 @@ $(document).ready(function() {
   });
 
   input_elements.keyup(function() {
-    if ($('#preview h3 span').html().match(/pause/)) {
+    if ($('#preview > p span').html().match(/pause/)) {
       fetch_preview.only_every(1000);
     }
   });

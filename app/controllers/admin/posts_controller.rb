@@ -52,12 +52,14 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def new
+    @post = Post.new
+  end
+  
+  def preview
+    @post = Post.build_for_preview(params[:post])
+
     respond_to do |format|
-      format.html {
-        @post = Post.new
-      }
       format.js {
-        @post = Post.build_for_preview(params[:post])
         render :partial => 'posts/post.html.erb'
       }
     end

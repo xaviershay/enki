@@ -172,17 +172,22 @@ a {
   padding-bottom: 10px;
 }
 
-#preview h3 {
-  margin-top: 0;
+#preview > h3 {
+  margin: 0;
 }
 
-#preview h3 span {
-  font-size: 70%;
-  text-decoration: underline;
+#preview > p {
+  margin-top: 3px;
+  font-size: 9pt;
 }
 
-#preview h3 span:hover {
+#preview > p span {
+  border-bottom: 1px dotted;
   cursor: pointer;
+}
+
+#preview .content {
+  margin-top: 30px;
 }
 
 /* -------- FORMS */

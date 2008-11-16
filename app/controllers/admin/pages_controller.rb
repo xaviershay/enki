@@ -52,12 +52,14 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def new
+    @page = Page.new
+  end
+
+  def preview
+    @page = Page.build_for_preview(params[:page])
+
     respond_to do |format|
-      format.html {
-        @page = Page.new
-      }
       format.js {
-        @page = Page.build_for_preview(params[:page])
         render :partial => 'pages/page.html.erb'
       }
     end

@@ -168,12 +168,12 @@ describe Admin::PostsController do
   end
 end
 
-describe Admin::PostsController, 'with an AJAX request to new' do
+describe Admin::PostsController, 'with an AJAX request to preview' do
   before(:each) do
     Post.should_receive(:build_for_preview).and_return(@post = mock_model(Post))
     controller.should_receive(:render).with(:partial => 'posts/post.html.erb')
     session[:logged_in] = true
-    xhr :get, :new, :post => {
+    xhr :post, :preview, :post => {
       :title        => 'My Post',
       :body         => 'body',
       :tag_list     => 'ruby',

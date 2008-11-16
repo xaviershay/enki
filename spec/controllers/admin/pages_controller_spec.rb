@@ -112,12 +112,12 @@ describe Admin::PagesController do
   end
 end
 
-describe Admin::PagesController, 'with an AJAX request to new' do
+describe Admin::PagesController, 'with an AJAX request to preview' do
   before(:each) do
     Page.should_receive(:build_for_preview).and_return(@page = mock_model(Page))
     controller.should_receive(:render).with(:partial => 'pages/page.html.erb')
     session[:logged_in] = true
-    xhr :get, :new, :page => {
+    xhr :post, :preview, :page => {
       :title        => 'My Page',
       :body         => 'body'
     }
