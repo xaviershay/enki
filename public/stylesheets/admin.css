@@ -168,7 +168,7 @@ a {
 
 /* --------- LIVE EDIT PREVIEW */
 #preview {
-  margin-left: 660px;
+  margin-left: 617px;
   padding-bottom: 10px;
 }
 
@@ -186,25 +186,27 @@ a {
 }
 
 /* -------- FORMS */
+form input,
+form select,
+form textarea,
+form button {
+  font: 8pt "lucida grande", "lucida sans unicode", "lucida", sans-serif;
+}
+
 form.new_post,
 form.edit_post,
 form.new_page,
 form.edit_page { 
-  width: 660px;
   float: left;
 }
 
-#post_body {
-  width: 600px;
-  height: 450px;
-}
-
+#post_body,
 #page_body {
-  width: 600px;
+  width: 550px;
   height: 450px;
 }
 
-form fieldset { margin-bottom: 10px; width: 620px;}
+form fieldset { margin-bottom: 10px; width: 572px; padding: 10px; }
 form fieldset.buttons { text-align: center; }
 form fieldset.buttons input { width: 300px; }
 
