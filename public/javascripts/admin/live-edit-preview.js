@@ -1,6 +1,7 @@
 $(document).ready(function() {
   var form = $('.new_post, .edit_post, .new_page, .edit_page');
   var input_elements = form.find(':text, textarea');
+  var textarea = $('#post_body, #page_body');
   var fetch_preview = function() {
     var dest = window.location.href;
 
@@ -25,6 +26,12 @@ $(document).ready(function() {
           form.after('<div id="preview"><h3>Your entry will be formatted like this: <span>(pause live preview)</span></h3><div class="content"></div></div>');
         }
         $('#preview .content').html(r);
+        
+        var target_textarea_height = $('#preview').height() - 50;
+        if (target_textarea_height <= 450) {
+          target_textarea_height = 450;
+        }
+        textarea.height(target_textarea_height);
       }
     });
   };
