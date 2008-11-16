@@ -182,7 +182,8 @@ a {
 }
 
 #preview > p span {
-  border-bottom: 1px dotted;
+  color: #222222;
+  border-bottom: 1px dotted #222222;
   cursor: pointer;
 }
 
