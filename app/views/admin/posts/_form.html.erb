@@ -1,6 +1,6 @@
 <% form.input_field_set do -%>
   <%= form.input :title -%>
-  <%= form.input :body -%>
+  <%= form.input :body, :hint => "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>" -%>
   <%= form.input :tag_list, :as => 'string', :required => false, :hint => 'comma separated: ruby, rails' -%>
 <% end -%>
 <% form.input_field_set do -%>
