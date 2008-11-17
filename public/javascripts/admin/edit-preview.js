@@ -34,10 +34,10 @@ $(document).ready(function() {
 
     var ctrl_down = false;
     $(document).keydown(function(e) {
-      if (e.which == 224 || e.which == 17) { ctrl_down = true; console.log('ctrl down'); } // Cmd || Ctrl
+      if (e.which == 224 || e.which == 17) { ctrl_down = true; } // Cmd || Ctrl
     });
     $(document).keyup(function(e) {
-      if (e.which == 224 || e.which == 17) { ctrl_down = false; console.log('ctrl up'); }
+      if (e.which == 224 || e.which == 17) { ctrl_down = false; }
     });
     $(document).keypress(function(e) {
       if (ctrl_down && e.which == 101) { toggle_preview(); } // 'E'
