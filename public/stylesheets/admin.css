@@ -166,31 +166,6 @@ a {
   color: #222222;
 }
 
-/* --------- LIVE EDIT PREVIEW */
-#preview {
-  margin-left: 617px;
-  padding-bottom: 10px;
-}
-
-#preview > h3 {
-  margin: 0;
-}
-
-#preview > p {
-  margin-top: 3px;
-  font-size: 9pt;
-}
-
-#preview > p span {
-  color: #222222;
-  border-bottom: 1px dotted #222222;
-  cursor: pointer;
-}
-
-#preview .content {
-  margin-top: 30px;
-}
-
 /* -------- FORMS */
 form input,
 form select,
@@ -208,11 +183,11 @@ form.edit_page {
 
 #post_body,
 #page_body {
-  width: 550px;
+  width: 600px;
   height: 450px;
 }
 
-form fieldset { margin-bottom: 10px; width: 572px; padding: 10px; }
+form fieldset { margin-bottom: 10px; width: 622px; padding: 10px; }
 form fieldset.buttons { text-align: center; }
 form fieldset.buttons input { width: 300px; }
 
@@ -283,4 +258,31 @@ table img {
 /* --------- MESSAGING */
 .humanMsg .undo-link {
   display: none;
+}
+
+/* --------- EDIT PREVIEW */
+#preview {
+  padding-bottom: 10px;
+}
+
+#preview > h3 {
+  margin: 0; 
+}
+
+#preview > p {
+  color: #666666;
+  margin-top: 0.3em; 
+}
+
+#preview .content {
+  color: #222222;
+  background-color: #ececec;
+  padding: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.5em;
+}
+
+#preview .content table {
+  margin-bottom: 0;
 }
