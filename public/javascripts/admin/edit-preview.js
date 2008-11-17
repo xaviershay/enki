@@ -12,7 +12,7 @@ $(document).ready(function() {
     var toggle_preview = function() {
       if ($('#preview').length == 0) {
         form.hide();
-        form.after('<div id="preview"><h3>Your entry will be formatted like this:</h3><p>Use Ctrl-E to return to edit mode.</p><div class="content"><p>Please wait...</p></div></div>');
+        form.after('<div id="preview"><h3>Your entry will be formatted like this:</h3><p>Use Ctrl+E to return to edit mode.</p><div class="content"><p>Please wait...</p></div></div>');
 
         jQuery.ajax({
           type: 'POST',
@@ -32,15 +32,11 @@ $(document).ready(function() {
       }
     }
 
-    var ctrl_down = false;
-    $(document).keydown(function(e) {
-      if (e.which == 224 || e.which == 17) { ctrl_down = true; } // Cmd || Ctrl
-    });
-    $(document).keyup(function(e) {
-      if (e.which == 224 || e.which == 17) { ctrl_down = false; }
-    });
     $(document).keypress(function(e) {
-      if (ctrl_down && e.which == 101) { toggle_preview(); } // 'E'
+      if (e.metaKey && (e.which == 101 || e.which == 5)) { 
+        toggle_preview();
+        e.preventDefault();
+      }
     });
   }
 });

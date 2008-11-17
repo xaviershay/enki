@@ -174,13 +174,6 @@ form button {
   font: 8pt "lucida grande", "lucida sans unicode", "lucida", sans-serif;
 }
 
-form.new_post,
-form.edit_post,
-form.new_page,
-form.edit_page { 
-  float: left;
-}
-
 #post_body,
 #page_body {
   width: 600px;
