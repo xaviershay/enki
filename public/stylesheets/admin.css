@@ -44,7 +44,7 @@ body {
   padding-top: 0.2em;
   padding-bottom: 0.2em;
   width: 34em;
-  min-height: 250px;
+  min-height: 270px;
 }
 
 .panel h2 {
@@ -68,8 +68,9 @@ body {
 }
 
 .panel ul li.item {
-  margin-top: 5px;
-  padding-top: 5px;
+  overflow: hidden;
+  margin-top: 4px;
+  padding-top: 6px;
   border-top: solid 1px #cccccc;
 }
 
@@ -78,23 +79,28 @@ body {
 }
 
 .panel h3 {
-  display: inline;
+  float: left;
   font-size: 10pt;
+  margin: 0;
   margin-right: 1em;
 }
 
 .panel .date {
+  float: left;
   font-size: 10pt;
 }
 
 .panel .count {
   float: right;
-  margin-top: -12px;
 }
 
 .panel .count a {
   font-weight: bold;
   color: #888888;
+}
+
+#recent-comments ul ul {
+  clear: left;
 }
 
 #recent-comments ul ul li {
@@ -111,6 +117,7 @@ body {
 
 #recent-comments .count {
   font-size: 22pt;
+  line-height: 1;
 }
 
 #recent-comments .comment-body {
@@ -132,7 +139,7 @@ body {
   font-weight: normal;
 }
 
-#recent-comments .comment-body p.comment-actions {
+#recent-comments .comment-body div.comment-actions {
   margin-bottom: 10px;
   color: #888888;
 }
