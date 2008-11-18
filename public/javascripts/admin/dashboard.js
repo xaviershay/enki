@@ -14,6 +14,10 @@ $(document).ready(function (){
 
     return false;
   })
+  
+  $(document).click(function() {
+    $('.comment-body').hide();
+  });
 
   asyncUndoBehaviour();
 

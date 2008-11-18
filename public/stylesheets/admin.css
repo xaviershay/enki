@@ -121,10 +121,12 @@ body {
 }
 
 #recent-comments .comment-body {
+  position: absolute;
+  width: 33.1em;
   background-color: #ffffff;
   border: solid 1px #cccccc;
   padding: 5px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 #recent-comments .comment-body p {
