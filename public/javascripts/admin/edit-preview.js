@@ -4,7 +4,7 @@ $(document).ready(function() {
   if (form.length > 0) {
     var dest = window.location.href;
     if (!dest.match(/\/new$/)) {
-      dest = dest.replace(/\/\d$/, '');
+      dest = dest.replace(/\/\d+$/, '');
       dest = dest + '/new';
     }
     dest = dest + '/preview'
