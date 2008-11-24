@@ -1,8 +1,14 @@
+# encoding: utf-8
+
 require 'test/unit'
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 $:.unshift File.dirname(__FILE__)
 require 'active_support'
+
+if RUBY_VERSION < '1.9'
+  $KCODE = 'UTF8'
+end
 
 def uses_gem(gem_name, test_name, version = '> 0')
   require 'rubygems'
@@ -20,5 +26,28 @@ unless defined? uses_mocha
   end
 end
 
+unless defined? uses_memcached
+  def uses_memcached(test_name)
+    require 'memcache'
+    MemCache.new('localhost').stats
+    yield
+  rescue MemCache::MemCacheError
+    $stderr.puts "Skipping #{test_name} tests. Start memcached and try again."
+  end
+end
+
 # Show backtraces for deprecated behavior for quicker cleanup.
 ActiveSupport::Deprecation.debug = true
+
+def with_kcode(code)
+  if RUBY_VERSION < '1.9'
+    begin
+      old_kcode, $KCODE = $KCODE, code
+      yield
+    ensure
+      $KCODE = old_kcode
+    end
+  else
+    yield
+  end
+end

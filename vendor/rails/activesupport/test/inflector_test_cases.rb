@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module InflectorTestCases
   SingularToPlural = {
     "search"      => "searches",
@@ -140,6 +142,17 @@ module InflectorTestCases
   ClassNameToTableName = {
     "PrimarySpokesman" => "primary_spokesmen",
     "NodeChild"        => "node_children"
+  }
+
+  StringToParameterized = {
+    "Donald E. Knuth"                     => "donald-e-knuth",
+    "Random text with *(bad)* characters" => "random-text-with-bad-characters",
+    "Malmö"                               => "malmo",
+    "Garçons"                             => "garcons",
+    "Allow_Under_Scores"                  => "allow_under_scores",
+    "Trailing bad characters!@#"          => "trailing-bad-characters",
+    "!@#Leading bad characters"           => "leading-bad-characters",
+    "Squeeze   separators"                => "squeeze-separators"
   }
 
   UnderscoreToHuman = {

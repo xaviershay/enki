@@ -4,7 +4,7 @@ class StringInquirerTest < Test::Unit::TestCase
   def test_match
     assert ActiveSupport::StringInquirer.new("production").production?
   end
-  
+
   def test_miss
     assert !ActiveSupport::StringInquirer.new("production").development?
   end

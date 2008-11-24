@@ -62,7 +62,7 @@ class HashExtTest < Test::Unit::TestCase
     @symbols = @symbols.with_indifferent_access
     @mixed   = @mixed.with_indifferent_access
 
-    assert_equal 'a', @strings.send!(:convert_key, :a)
+    assert_equal 'a', @strings.__send__(:convert_key, :a)
 
     assert_equal 1, @strings.fetch('a')
     assert_equal 1, @strings.fetch(:a.to_s)
@@ -75,9 +75,9 @@ class HashExtTest < Test::Unit::TestCase
 
     hashes.each do |name, hash|
       method_map.sort_by { |m| m.to_s }.each do |meth, expected|
-        assert_equal(expected, hash.send!(meth, 'a'),
+        assert_equal(expected, hash.__send__(meth, 'a'),
                      "Calling #{name}.#{meth} 'a'")
-        assert_equal(expected, hash.send!(meth, :a),
+        assert_equal(expected, hash.__send__(meth, :a),
                      "Calling #{name}.#{meth} :a")
       end
     end
@@ -245,6 +245,16 @@ class HashExtTest < Test::Unit::TestCase
     assert(!indiff.keys.any? {|k| k.kind_of? String}, "A key was converted to a string!")
   end
 
+  def test_deep_merge
+    hash_1 = { :a => "a", :b => "b", :c => { :c1 => "c1", :c2 => "c2", :c3 => { :d1 => "d1" } } }
+    hash_2 = { :a => 1, :c => { :c1 => 2, :c3 => { :d2 => "d2" } } }
+    expected = { :a => 1, :b => "b", :c => { :c1 => 2, :c2 => "c2", :c3 => { :d1 => "d1", :d2 => "d2" } } }
+    assert_equal expected, hash_1.deep_merge(hash_2)
+
+    hash_1.deep_merge!(hash_2)
+    assert_equal expected, hash_1
+  end
+
   def test_reverse_merge
     defaults = { :a => "x", :b => "y", :c => 10 }.freeze
     options  = { :a => 1, :b => 2 }
@@ -282,6 +292,27 @@ class HashExtTest < Test::Unit::TestCase
     assert_equal expected, original
   end
 
+  def test_slice_with_an_array_key
+    original = { :a => 'x', :b => 'y', :c => 10, [:a, :b] => "an array key" }
+    expected = { [:a, :b] => "an array key", :c => 10 }
+
+    # Should return a new hash with only the given keys when given an array key.
+    assert_equal expected, original.slice([:a, :b], :c)
+    assert_not_equal expected, original
+
+    # Should replace the hash with only the given keys when given an array key.
+    assert_equal expected, original.slice!([:a, :b], :c)
+    assert_equal expected, original
+  end
+
+  def test_slice_with_splatted_keys
+    original = { :a => 'x', :b => 'y', :c => 10, [:a, :b] => "an array key" }
+    expected = { :a => 'x', :b => "y" }
+
+    # Should grab each of the splatted keys.
+    assert_equal expected, original.slice(*[:a, :b])
+  end
+
   def test_indifferent_slice
     original = { :a => 'x', :b => 'y', :c => 10 }.with_indifferent_access
     expected = { :a => 'x', :b => 'y' }.with_indifferent_access
@@ -298,6 +329,16 @@ class HashExtTest < Test::Unit::TestCase
     end
   end
 
+  def test_indifferent_slice_access_with_symbols
+    original = {'login' => 'bender', 'password' => 'shiny', 'stuff' => 'foo'}
+    original = original.with_indifferent_access
+
+    slice = original.slice(:login, :password)
+
+    assert_equal 'bender', slice[:login]
+    assert_equal 'bender', slice['login']
+  end
+
   def test_except
     original = { :a => 'x', :b => 'y', :c => 10 }
     expected = { :a => 'x', :b => 'y' }
@@ -309,6 +350,20 @@ class HashExtTest < Test::Unit::TestCase
     # Should replace the hash with only the given keys.
     assert_equal expected, original.except!(:c)
     assert_equal expected, original
+  end
+
+  def test_except_with_original_frozen
+    original = { :a => 'x', :b => 'y' }
+    original.freeze
+    assert_nothing_raised { original.except(:a) }
+  end
+
+  uses_mocha 'except with expectation' do
+    def test_except_with_mocha_expectation_on_original
+      original = { :a => 'x', :b => 'y' }
+      original.expects(:delete).never
+      original.except(:a)
+    end
   end
 end
 
@@ -702,7 +757,7 @@ class HashToXmlTest < Test::Unit::TestCase
   
   def test_empty_string_works_for_typecast_xml_value    
     assert_nothing_raised do
-      Hash.send!(:typecast_xml_value, "")
+      Hash.__send__(:typecast_xml_value, "")
     end
   end
   
