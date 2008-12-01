@@ -48,6 +48,7 @@ h2. Author
 
 h2. Contributors, these guys rock
 
+* "Jason Cheow":http://github.com/jasoncheow (Live preview in admin, rails upgrade, slew of other fixes)
 * "Chris Lloyd":http://www.chrislloyd.com.au (bug fixes)
 * "Gareth Townsend":http://www.garethtownsend.info (bug fixes)
 * "Tim Lucas":http://toolmantim.com (OpenID - specs and multiple ID support)
