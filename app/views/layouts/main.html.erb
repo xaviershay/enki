@@ -24,14 +24,14 @@
       <h2>Pages</h2>
       <ul>
         <% page_links_for_navigation.each do |link| -%>
-          <li><%= link_to(link.name, link.url) %></li>
+          <li><%= link_to(h(link.name), link.url) %></li>
         <% end -%>
       </ul>
       <% unless category_links_for_navigation.empty? -%>
         <h2>Categories</h2>
         <ul>
           <% category_links_for_navigation.each do |link| -%>
-            <li><%= link_to(link.name, link.url) %></li>
+            <li><%= link_to(h(link.name), link.url) %></li>
           <% end -%>
         </ul>
       <% end -%>
