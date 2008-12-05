@@ -1,21 +1,20 @@
 class Comment < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
-  class << self  
+  class << self
     def protected_attribute?(attribute)
       [:author, :body].include?(attribute.to_sym)
     end
   end
 
-  attr_accessor :openid_error
-  attr_accessor :openid_valid
+  attr_accessor         :openid_error
+  attr_accessor         :openid_valid
 
-  belongs_to :post
+  belongs_to            :post
 
-  before_save   :apply_filter
-
-  after_save    :denormalize
-  after_destroy :denormalize
+  before_save           :apply_filter
+  after_save            :denormalize
+  after_destroy         :denormalize
 
   validates_presence_of :author, :body, :post
 

@@ -3,16 +3,16 @@ class Post < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_many :comments, :dependent => :destroy
-  has_many :approved_comments, :class_name => 'Comment'
+  has_many                :comments, :dependent => :destroy
+  has_many                :approved_comments, :class_name => 'Comment'
 
-  before_validation :generate_slug
-  before_validation :set_dates
-  before_save :apply_filter
+  before_validation       :generate_slug
+  before_validation       :set_dates
+  before_save             :apply_filter
 
-  validates_presence_of :title, :slug, :body
+  validates_presence_of   :title, :slug, :body
 
-  validate :validate_published_at_natural
+  validate                :validate_published_at_natural
 
   def validate_published_at_natural
     errors.add("published_at_natural", "Unable to parse time") if published_at.nil?
