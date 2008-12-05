@@ -1,12 +1,6 @@
 class Comment < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
-  class << self
-    def protected_attribute?(attribute)
-      [:author, :body].include?(attribute.to_sym)
-    end
-  end
-
   attr_accessor         :openid_error
   attr_accessor         :openid_valid
 
@@ -72,6 +66,10 @@ class Comment < ActiveRecord::Base
   end
 
   class << self
+    def protected_attribute?(attribute)
+      [:author, :body].include?(attribute.to_sym)
+    end
+
     def build_for_preview(params)
       comment = Comment.new(params)
       comment.created_at = Time.now
