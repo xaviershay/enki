@@ -10,9 +10,7 @@ class Post < ActiveRecord::Base
   before_validation :set_dates
   before_save :apply_filter
 
-  validates_presence_of :title
-  validates_presence_of :slug
-  validates_presence_of :body
+  validates_presence_of :title, :slug, :body
 
   validate :validate_published_at_natural
 

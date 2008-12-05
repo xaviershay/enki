@@ -17,10 +17,7 @@ class Comment < ActiveRecord::Base
   after_save    :denormalize
   after_destroy :denormalize
 
-  validates_presence_of :author
-  validates_presence_of :body
-
-  validates_presence_of :post
+  validates_presence_of :author, :body, :post
 
   # validate :open_id_thing
   def validate
