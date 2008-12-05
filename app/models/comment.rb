@@ -19,10 +19,7 @@ class Comment < ActiveRecord::Base
   end
 
   def apply_filter
-    self.body_html = Lesstile.format_as_xhtml(
-      self.body,
-      :code_formatter => Lesstile::CodeRayFormatter
-    )
+    self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
   end
   
   def blank_openid_fields
@@ -69,15 +66,18 @@ class Comment < ActiveRecord::Base
     def protected_attribute?(attribute)
       [:author, :body].include?(attribute.to_sym)
     end
-
-    def build_for_preview(params)
+    
+    def new_with_filter(params)
       comment = Comment.new(params)
       comment.created_at = Time.now
       comment.apply_filter
+    end
 
+    def build_for_preview(params)
+      comment = Comment.new_with_filter(params)
       if comment.requires_openid_authentication?
         comment.author_url = comment.author
-        comment.author = "Your OpenID Name"
+        comment.author     = "Your OpenID Name"
       end
       comment
     end
