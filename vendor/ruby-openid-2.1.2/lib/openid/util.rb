@@ -71,7 +71,7 @@ module OpenID
       url << Util.urlencode(args)
     end
 
-    @@logger = Logger.new(STDERR)
+    @@logger = Logger.new($stderr)
     @@logger.progname = "OpenID"
 
     def Util.logger=(logger)
