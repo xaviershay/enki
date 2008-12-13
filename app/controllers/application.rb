@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
 
   helper :all # include all helpers, all the time
-  layout 'main'
 
   after_filter :set_content_type
 
