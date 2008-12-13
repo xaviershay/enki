@@ -71,6 +71,7 @@ class Comment < ActiveRecord::Base
       comment = Comment.new(params)
       comment.created_at = Time.now
       comment.apply_filter
+      comment
     end
 
     def build_for_preview(params)
