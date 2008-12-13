@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   validate                :validate_published_at_natural
 
   def validate_published_at_natural
-    errors.add("published_at_natural", "Unable to parse time") if published_at.nil?
+    errors.add("published_at_natural", "Unable to parse time") unless published?
   end
 
   attr_accessor :minor_edit
@@ -25,6 +25,10 @@ class Post < ActiveRecord::Base
 
   def minor_edit?
     self.minor_edit == "1"
+  end
+  
+  def published?
+    published_at?
   end
 
   attr_accessor :published_at_natural

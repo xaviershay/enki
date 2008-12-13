@@ -130,6 +130,21 @@ describe Post, "#minor_edit" do
   it('returns "1" by default') { Post.new.minor_edit.should == "1" }
 end
 
+describe Post, '#published?' do
+  before(:each) do
+    @post = Post.new
+  end
+  
+  it "should return false if published_at is not filled" do
+    @post.should_not be_published
+  end  
+
+  it "should return true if published_at is filled" do
+    @post.published_at = Time.now
+    @post.should be_published
+  end
+end
+
 describe Post, "#minor_edit?" do
   it('returns true when minor_edit is 1')  { Post.new(:minor_edit => "1").minor_edit?.should == true }
   it('returns false when minor_edit is 0') { Post.new(:minor_edit => "0").minor_edit?.should == false }
