@@ -2,7 +2,9 @@ $(function() { // onload
   var comment_form = $('#new_comment')
   var input_elements = comment_form.find(':text, textarea')
   var fetch_comment_preview = function() {
-    var dest = window.location.href
+    var dest = window.location.href;
+    dest = dest.split('#')[0];
+    dest = dest.split('?')[0];
 
     if (!dest.endsWith('comments'))
       dest += '/comments';
