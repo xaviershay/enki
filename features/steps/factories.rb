@@ -13,3 +13,9 @@ Factory.define(:post) do |a|
   a.created_at   Time.now
   a.updated_at   Time.now
 end
+
+Factory.define(:comment) do |a|
+  a.author   'Don Alias'
+  a.body     'I find this article thought provoking'
+  a.association :post
+end
