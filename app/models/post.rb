@@ -4,22 +4,20 @@ class Post < ActiveRecord::Base
   acts_as_taggable
 
   belongs_to :author
-  has_many :comments, :dependent => :destroy
-  has_many :approved_comments, :class_name => 'Comment'
 
-  before_validation :generate_slug
-  before_validation :set_dates
-  before_save :apply_filter
+  has_many                :comments, :dependent => :destroy
+  has_many                :approved_comments, :class_name => 'Comment'
 
-  validates_presence_of :author
-  validates_presence_of :title
-  validates_presence_of :slug
-  validates_presence_of :body
+  before_validation       :generate_slug
+  before_validation       :set_dates
+  before_save             :apply_filter
 
-  validate :validate_published_at_natural
+  validates_presence_of   :author, :title, :slug, :body
+
+  validate                :validate_published_at_natural
 
   def validate_published_at_natural
-    errors.add("published_at_natural", "Unable to parse time") if published_at.nil?
+    errors.add("published_at_natural", "Unable to parse time") unless published?
   end
 
   attr_accessor :minor_edit
@@ -29,6 +27,10 @@ class Post < ActiveRecord::Base
 
   def minor_edit?
     self.minor_edit == "1"
+  end
+  
+  def published?
+    published_at?
   end
 
   attr_accessor :published_at_natural

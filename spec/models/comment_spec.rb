@@ -98,6 +98,23 @@ describe Comment, '#blank_openid_fields_if_unused' do
   it('blanks out author_email')            { @comment.author_email.should == '' } 
 end
 
+describe Comment, '.find_recent' do
+  it 'finds the most recent comments that were posted before now' do
+    now = Time.now
+    Time.stub!(:now).and_return(now)
+    Comment.should_receive(:find).with(:all, {
+      :order      => 'created_at DESC',
+      :limit      => Comment::DEFAULT_LIMIT
+    }).and_return(comments = [mock_model(Comment)])
+    Comment.find_recent.should == comments
+  end
+
+  it 'allows and override of the default limit' do
+    Comment.should_receive(:find).with(:all, hash_including(:limit => 999))
+    Comment.find_recent(:limit => 999)
+  end
+end
+
 describe Comment, '.build_for_preview' do
   before(:each) do
     @comment = Comment.build_for_preview(:author => 'Don Alias', :body => 'A Comment')

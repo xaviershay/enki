@@ -1,26 +1,16 @@
 class Comment < ActiveRecord::Base
   DEFAULT_LIMIT = 15
 
-  class << self  
-    def protected_attribute?(attribute)
-      [:author, :body].include?(attribute.to_sym)
-    end
-  end
+  attr_accessor         :openid_error
+  attr_accessor         :openid_valid
 
-  attr_accessor :openid_error
-  attr_accessor :openid_valid
+  belongs_to            :post
 
-  belongs_to :post
+  before_save           :apply_filter
+  after_save            :denormalize
+  after_destroy         :denormalize
 
-  before_save   :apply_filter
-
-  after_save    :denormalize
-  after_destroy :denormalize
-
-  validates_presence_of :author
-  validates_presence_of :body
-
-  validates_presence_of :post
+  validates_presence_of :author, :body, :post
 
   # validate :open_id_thing
   def validate
@@ -29,10 +19,7 @@ class Comment < ActiveRecord::Base
   end
 
   def apply_filter
-    self.body_html = Lesstile.format_as_xhtml(
-      self.body,
-      :code_formatter => Lesstile::CodeRayFormatter
-    )
+    self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
   end
   
   def blank_openid_fields
@@ -76,24 +63,31 @@ class Comment < ActiveRecord::Base
   end
 
   class << self
-    def build_for_preview(params)
+    def protected_attribute?(attribute)
+      [:author, :body].include?(attribute.to_sym)
+    end
+    
+    def new_with_filter(params)
       comment = Comment.new(params)
       comment.created_at = Time.now
       comment.apply_filter
+      comment
+    end
 
+    def build_for_preview(params)
+      comment = Comment.new_with_filter(params)
       if comment.requires_openid_authentication?
         comment.author_url = comment.author
-        comment.author = "Your OpenID Name"
+        comment.author     = "Your OpenID Name"
       end
       comment
     end
 
-    def find_recent(args = {})
-      options = { 
+    def find_recent(options = {})
+      find(:all, {
         :limit => DEFAULT_LIMIT,
         :order => 'created_at DESC'
-      }.merge(args)
-      find(:all, options)
+      }.merge(options))
     end
   end
 end

@@ -6,7 +6,7 @@ class CommentActivity
   end
 
   def comments
-    @comments ||= post.approved_comments.find(:all, :order => 'created_at DESC', :limit => 5)
+    @comments ||= post.approved_comments.find_recent(:limit => 5)
   end
 
   def most_recent_comment

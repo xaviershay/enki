@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "/layouts/main.html.erb" do
+describe "/layouts/application.html.erb" do
   before(:each) do
     mock_tag = mock_model(Tag,
       :name     => 'code'.taint,
@@ -16,6 +16,6 @@ describe "/layouts/main.html.erb" do
   end
 
   it 'renders' do
-    render '/layouts/main.html.erb'
+    render '/layouts/application.html.erb'
   end
 end
