@@ -23,7 +23,7 @@ module UrlHelper
     suffix = options[:anchor] ? "##{options[:anchor]}" : ""
     path = post.published_at.strftime("/%Y/%m/%d/") + post.slug + suffix
     path = URI.join(config[:url], path) if options[:only_path] == false
-    path
+    path.untaint
   end
 
   def post_comments_path(post)
@@ -36,9 +36,9 @@ module UrlHelper
 
   def author_link(comment)
     if comment.author_url.blank?
-      comment.author
+      h(comment.author)
     else
-      link_to(comment.author, comment.author_url, :title => "Authenticated by #{comment.author_openid_authority}", :class => 'openid')
+      link_to(h(comment.author), h(comment.author_url), :title => h("Authenticated by #{comment.author_openid_authority}"), :class => 'openid')
     end
   end
 

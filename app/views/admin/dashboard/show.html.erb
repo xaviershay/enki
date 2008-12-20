@@ -5,7 +5,7 @@
 <% end -%>
 
 <div id="summary">
-<h1><%= link_to(config[:title], '/') %></h1>
+<h1><%= link_to(h(config[:title]), '/') %></h1>
 <p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
 </div>
 
@@ -14,7 +14,7 @@
 <ul>
   <% @posts.each_with_index do |post, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, 50))], admin_post_path(post)) %>
+      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, :length => 50))], admin_post_path(post)) %>
       <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
       <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
     </li>  
@@ -27,7 +27,7 @@
 <ul>
   <% @comment_activity.each_with_index do |activity, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <%= link_to("<h3>%s</h3>" % [h(truncate(activity.post.title, 50))], post_path(activity.post)) %>
+      <%= link_to("<h3>%s</h3>" % [h(truncate(activity.post.title, :length => 50))], post_path(activity.post)) %>
       <span class='date'><%=h activity.most_recent_comment.created_at.strftime("%b %e") %></span>
       <span class='count'><%=h activity.post.approved_comments.size %></span>
       <ul>

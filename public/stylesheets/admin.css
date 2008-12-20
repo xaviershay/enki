@@ -31,16 +31,20 @@ body {
   background-color: #dddddd;
   font-family: Helvetica, Sans-serif;
   font-size: 10pt;
+  margin: 10px;
 }
 
 .panel {
+  float: left;
+  margin-top: 10px;
+  margin-right: 10px;
   color: #222222;
   background-color: #ececec;
   padding: 1em;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
   width: 34em;
-  min-height: 250px;
+  min-height: 270px;
 }
 
 .panel h2 {
@@ -64,8 +68,9 @@ body {
 }
 
 .panel ul li.item {
-  margin-top: 5px;
-  padding-top: 5px;
+  overflow: hidden;
+  margin-top: 4px;
+  padding-top: 6px;
   border-top: solid 1px #cccccc;
 }
 
@@ -74,29 +79,28 @@ body {
 }
 
 .panel h3 {
-  display: inline;
+  float: left;
   font-size: 10pt;
+  margin: 0;
   margin-right: 1em;
 }
 
 .panel .date {
+  float: left;
   font-size: 10pt;
 }
 
 .panel .count {
   float: right;
-  margin-top: -12px;
-}
-
-.panel {
-  float: left;
-  margin-top: 10px;
-  margin-left: 10px;
 }
 
 .panel .count a {
   font-weight: bold;
   color: #888888;
+}
+
+#recent-comments ul ul {
+  clear: left;
 }
 
 #recent-comments ul ul li {
@@ -113,13 +117,16 @@ body {
 
 #recent-comments .count {
   font-size: 22pt;
+  line-height: 1;
 }
 
 #recent-comments .comment-body {
+  position: absolute;
+  width: 33.1em;
   background-color: #ffffff;
   border: solid 1px #cccccc;
   padding: 5px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 #recent-comments .comment-body p {
@@ -134,7 +141,7 @@ body {
   font-weight: normal;
 }
 
-#recent-comments .comment-body p.comment-actions {
+#recent-comments .comment-body div.comment-actions {
   margin-bottom: 10px;
   color: #888888;
 }
@@ -145,7 +152,7 @@ body {
 }
 #summary {
   text-align: center;
-  max-width: 980;
+  max-width: 970px;
   width: 100%;
   color: #222222;
 }
@@ -165,19 +172,22 @@ body {
 a {
   color: #222222;
 }
-/* -------- FORMS */
 
-#post_body {
-  width: 600px;
-  height: 450px;
+/* -------- FORMS */
+form input,
+form select,
+form textarea,
+form button {
+  font: 8pt "lucida grande", "lucida sans unicode", "lucida", sans-serif;
 }
 
+#post_body,
 #page_body {
   width: 600px;
   height: 450px;
 }
 
-form fieldset { margin-right: 100%; margin-bottom: 10px; width: 620px;}
+form fieldset { margin-bottom: 10px; width: 622px; padding: 10px; }
 form fieldset.buttons { text-align: center; }
 form fieldset.buttons input { width: 300px; }
 
@@ -248,4 +258,31 @@ table img {
 /* --------- MESSAGING */
 .humanMsg .undo-link {
   display: none;
+}
+
+/* --------- EDIT PREVIEW */
+#preview {
+  padding-bottom: 10px;
+}
+
+#preview > h3 {
+  margin: 0; 
+}
+
+#preview > p {
+  color: #666666;
+  margin-top: 0.3em; 
+}
+
+#preview .content {
+  color: #222222;
+  background-color: #ececec;
+  padding: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  margin-top: 1.7em;
+}
+
+#preview .content table {
+  margin-bottom: 0;
 }

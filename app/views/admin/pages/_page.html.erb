@@ -1,7 +1,7 @@
 <tr class="<%= cycle('', 'alt') %>">
   <td><%= page.created_at.strftime('%d %b, %Y') %></td>
-  <td><%= link_to(h(page.title), admin_page_url(page)) %></td>
-  <td><%=h truncate(page.body, 50) %></td>
+  <td><%= link_to(h(page.title), admin_page_path(page)) %></td>
+  <td><%=h truncate(page.body, :length => 50) %></td>
   <td><%= page.slug %></td>
   <td>  
     <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_page_path(page)) %>

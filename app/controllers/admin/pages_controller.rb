@@ -55,6 +55,16 @@ class Admin::PagesController < Admin::BaseController
     @page = Page.new
   end
 
+  def preview
+    @page = Page.build_for_preview(params[:page])
+
+    respond_to do |format|
+      format.js {
+        render :partial => 'pages/page.html.erb'
+      }
+    end
+  end
+
   def destroy
     undo_item = @page.destroy_with_undo
 

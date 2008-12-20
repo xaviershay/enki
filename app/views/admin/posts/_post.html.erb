@@ -1,7 +1,7 @@
 <tr class="<%= cycle('', 'alt') %>">
   <td><%= post.published_at.strftime('%d %b, %Y') %></td>
-  <td><%= link_to (post.title == '' ? '[Untitled]' : h(truncate(post.title, 30))), admin_post_path(post) %></td>
-  <td><% tmpc = h(truncate(post.body, 55)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
+  <td><%= link_to (post.title == '' ? '[Untitled]' : h(truncate(post.title, :length => 30))), admin_post_path(post) %></td>
+  <td><% tmpc = h(truncate(post.body, :length => 55)) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
   <td><%= post.approved_comments.size %></td>
   <td>
     <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_post_path(post)) %>

@@ -175,3 +175,21 @@ describe Admin::PostsController do
     end
   end
 end
+
+describe Admin::PostsController, 'with an AJAX request to preview' do
+  before(:each) do
+    Post.should_receive(:build_for_preview).and_return(@post = mock_model(Post))
+    controller.should_receive(:render).with(:partial => 'posts/post.html.erb')
+    session[:logged_in] = true
+    xhr :post, :preview, :post => {
+      :title        => 'My Post',
+      :body         => 'body',
+      :tag_list     => 'ruby',
+      :published_at => 'now'
+    }
+  end
+
+  it "assigns a new post for the view" do
+    assigns(:post).should == @post
+  end
+end

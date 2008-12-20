@@ -58,9 +58,25 @@ class EnumerableTests < Test::Unit::TestCase
     assert_equal Payment.new(0), [].sum(Payment.new(0))
   end
 
+  def test_each_with_object
+    result = %w(foo bar).each_with_object({}) { |str, hsh| hsh[str] = str.upcase }
+    assert_equal({'foo' => 'FOO', 'bar' => 'BAR'}, result)
+  end
+
   def test_index_by
     payments = [ Payment.new(5), Payment.new(15), Payment.new(10) ]
     assert_equal({ 5 => payments[0], 15 => payments[1], 10 => payments[2] },
                  payments.index_by { |p| p.price })
+  end
+
+  def test_many
+    assert ![].many?
+    assert ![ 1 ].many?
+    assert [ 1, 2 ].many?
+
+    assert ![].many? {|x| x > 1 }
+    assert ![ 2 ].many? {|x| x > 1 }
+    assert ![ 1, 2 ].many? {|x| x > 1 }
+    assert [ 1, 2, 2 ].many? {|x| x > 1 }
   end
 end

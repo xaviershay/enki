@@ -100,19 +100,19 @@ class TestJSONEncoding < Test::Unit::TestCase
     ActiveSupport.use_standard_json_time_format = false
   end
 
-  protected
-    def with_kcode(code)
-      if RUBY_VERSION < '1.9'
-        begin
-          old_kcode, $KCODE = $KCODE, 'UTF8'
-          yield
-        ensure
-          $KCODE = old_kcode
-        end
-      else
-        yield
-      end
+  def test_nested_hash_with_float
+    assert_nothing_raised do
+      hash = {
+        "CHI" => {
+          :dislay_name => "chicago",
+          :latitude => 123.234
+        }
+      }
+      result = hash.to_json
     end
+  end
+
+  protected
 
     def object_keys(json_object)
       json_object[1..-2].scan(/([^{}:,\s]+):/).flatten.sort

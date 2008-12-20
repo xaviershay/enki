@@ -34,6 +34,13 @@ class InflectorTest < Test::Unit::TestCase
     end
   end
 
+  def test_overwrite_previous_inflectors
+    assert_equal("series", ActiveSupport::Inflector.singularize("series"))
+    ActiveSupport::Inflector.inflections.singular "series", "serie"
+    assert_equal("serie", ActiveSupport::Inflector.singularize("series"))
+    ActiveSupport::Inflector.inflections.uncountable "series" # Return to normal
+  end
+
   MixtureToTitleCase.each do |before, titleized|
     define_method "test_titleize_#{before}" do
       assert_equal(titleized, ActiveSupport::Inflector.titleize(before))
@@ -44,6 +51,10 @@ class InflectorTest < Test::Unit::TestCase
     CamelToUnderscore.each do |camel, underscore|
       assert_equal(camel, ActiveSupport::Inflector.camelize(underscore))
     end
+  end
+
+  def test_camelize_with_lower_downcases_the_first_letter
+    assert_equal('capital', ActiveSupport::Inflector.camelize('Capital', false))
   end
 
   def test_underscore
@@ -87,6 +98,18 @@ class InflectorTest < Test::Unit::TestCase
     end
   end
 
+  def test_parameterize
+    StringToParameterized.each do |some_string, parameterized_string|
+      assert_equal(parameterized_string, ActiveSupport::Inflector.parameterize(some_string))
+    end
+  end
+
+  def test_parameterize_with_custom_separator
+    StringToParameterized.each do |some_string, parameterized_string|
+      assert_equal(parameterized_string.gsub('-', '_'), ActiveSupport::Inflector.parameterize(some_string, '_'))
+    end
+  end
+
   def test_classify
     ClassNameToTableName.each do |class_name, table_name|
       assert_equal(class_name, ActiveSupport::Inflector.classify(table_name))
@@ -108,6 +131,23 @@ class InflectorTest < Test::Unit::TestCase
     UnderscoreToHuman.each do |underscore, human|
       assert_equal(human, ActiveSupport::Inflector.humanize(underscore))
     end
+  end
+
+  def test_humanize_by_rule
+    ActiveSupport::Inflector.inflections do |inflect|
+      inflect.human(/_cnt$/i, '\1_count')
+      inflect.human(/^prefx_/i, '\1')
+    end
+    assert_equal("Jargon count", ActiveSupport::Inflector.humanize("jargon_cnt"))
+    assert_equal("Request", ActiveSupport::Inflector.humanize("prefx_request"))
+  end
+
+  def test_humanize_by_string
+    ActiveSupport::Inflector.inflections do |inflect|
+      inflect.human("col_rpted_bugs", "Reported bugs")
+    end
+    assert_equal("Reported bugs", ActiveSupport::Inflector.humanize("col_rpted_bugs"))
+    assert_equal("Col rpted bugs", ActiveSupport::Inflector.humanize("COL_rpted_bugs"))
   end
 
   def test_constantize
@@ -148,7 +188,7 @@ class InflectorTest < Test::Unit::TestCase
     end
   end
 
-  %w{plurals singulars uncountables}.each do |inflection_type|
+  %w{plurals singulars uncountables humans}.each do |inflection_type|
     class_eval "
       def test_clear_#{inflection_type}
         cached_values = ActiveSupport::Inflector.inflections.#{inflection_type}
@@ -160,25 +200,29 @@ class InflectorTest < Test::Unit::TestCase
   end
 
   def test_clear_all
-    cached_values = ActiveSupport::Inflector.inflections.plurals, ActiveSupport::Inflector.inflections.singulars, ActiveSupport::Inflector.inflections.uncountables
+    cached_values = ActiveSupport::Inflector.inflections.plurals, ActiveSupport::Inflector.inflections.singulars, ActiveSupport::Inflector.inflections.uncountables, ActiveSupport::Inflector.inflections.humans
     ActiveSupport::Inflector.inflections.clear :all
     assert ActiveSupport::Inflector.inflections.plurals.empty?
     assert ActiveSupport::Inflector.inflections.singulars.empty?
     assert ActiveSupport::Inflector.inflections.uncountables.empty?
+    assert ActiveSupport::Inflector.inflections.humans.empty?
     ActiveSupport::Inflector.inflections.instance_variable_set :@plurals, cached_values[0]
     ActiveSupport::Inflector.inflections.instance_variable_set :@singulars, cached_values[1]
     ActiveSupport::Inflector.inflections.instance_variable_set :@uncountables, cached_values[2]
+    ActiveSupport::Inflector.inflections.instance_variable_set :@humans, cached_values[3]
   end
 
   def test_clear_with_default
-    cached_values = ActiveSupport::Inflector.inflections.plurals, ActiveSupport::Inflector.inflections.singulars, ActiveSupport::Inflector.inflections.uncountables
+    cached_values = ActiveSupport::Inflector.inflections.plurals, ActiveSupport::Inflector.inflections.singulars, ActiveSupport::Inflector.inflections.uncountables, ActiveSupport::Inflector.inflections.humans
     ActiveSupport::Inflector.inflections.clear
     assert ActiveSupport::Inflector.inflections.plurals.empty?
     assert ActiveSupport::Inflector.inflections.singulars.empty?
     assert ActiveSupport::Inflector.inflections.uncountables.empty?
+    assert ActiveSupport::Inflector.inflections.humans.empty?
     ActiveSupport::Inflector.inflections.instance_variable_set :@plurals, cached_values[0]
     ActiveSupport::Inflector.inflections.instance_variable_set :@singulars, cached_values[1]
     ActiveSupport::Inflector.inflections.instance_variable_set :@uncountables, cached_values[2]
+    ActiveSupport::Inflector.inflections.instance_variable_set :@humans, cached_values[3]
   end
 
   Irregularities.each do |irregularity|
@@ -217,7 +261,7 @@ class InflectorTest < Test::Unit::TestCase
     end
   end
 
-  { :singulars => :singular, :plurals => :plural, :uncountables => :uncountable }.each do |scope, method|
+  { :singulars => :singular, :plurals => :plural, :uncountables => :uncountable, :humans => :human }.each do |scope, method|
     ActiveSupport::Inflector.inflections do |inflect|
       define_method("test_clear_inflections_with_#{scope}") do
         # save the inflections

@@ -1,0 +1,6 @@
+== 0.1.5 (in Git)
+
+First release where changes are tracked properly
+
+* 1 major enhancement:
+  * GivenScenario is implemented

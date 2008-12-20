@@ -4,16 +4,14 @@ ActionController::Routing::Routes.draw do |map|
 
     admin.resource :dashboard, :controller => 'dashboard'
 
-    admin.resources :posts
-    admin.resources :pages
+    admin.resources :posts, :new => {:preview => :post}
+    admin.resources :pages, :new => {:preview => :post}
     admin.resources :comments, :member => {:mark_as_spam => :put, :mark_as_ham => :put}
     admin.resources :tags
     admin.resources :undo_items, :member => {:undo => :post}
-
-    admin.resource :api, :controller => 'api'
   end
 
-  map.connect '/admin/proxy/:id', :controller => 'admin/proxy', :requirements => { :id => /.*/ }
+  map.admin_health '/admin/health/:action', :controller => 'admin/health', :action => 'index'
 
   map.connect '/admin', :controller => 'admin/dashboard', :action => 'show'
   map.connect '/admin/api', :controller => 'admin/api', :action => 'index'

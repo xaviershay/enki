@@ -1,6 +1,16 @@
-<html>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC
+    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
+    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg-flat.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-  <%= javascript_include_tag 'jquery-1.2.1.js' %>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+  
+  <title><%=h config[:title] %> - Admin</title>
+
+  <%= javascript_include_tag 'jquery.js' %>
+  <%= javascript_include_tag 'jquery.livequery.js' %>
   <%= javascript_include_tag 'jquery.form.js' %>
   <%= javascript_include_tag 'jquery.easing.1.3.js' %>
   <%= javascript_include_tag 'humanmsg' %>
@@ -34,7 +44,7 @@
         <li><%= nav_link_to("Comments",  admin_comments_path,   :accesskey => '4') %></li>
         <li><%= nav_link_to("Tags",      admin_tags_path,       :accesskey => '5') %></li>
         <li><%= nav_link_to("Actions",   admin_undo_items_path, :accesskey => '6') %></li>
-        <li><%= nav_link_to("API",       admin_api_path,        :accesskey => '7') %></li>
+        <li><%= nav_link_to("Health",    admin_health_path, :accesskey => '6') %></li>
         <li class="separator">&nbsp;</li>
         <li><%= link_to("Logout", admin_session_path, :accesskey => 'l', :method => :delete) %></li>
         <li><%= link_to("View Site", '/',             :accesskey => 'v', :title => 'View Site') %></li>

@@ -16,6 +16,11 @@ String.prototype.endsWith = function(t, i) {
   }
 }
 
+// http://ozmm.org/posts/jquery_and_respond_to.html
+jQuery.ajaxSetup({ 
+  beforeSend: function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); } 
+});
+
 // jQuery extensions
 jQuery.prototype.any = function(callback) { 
   return (this.filter(callback).length > 0)

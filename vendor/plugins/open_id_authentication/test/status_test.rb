@@ -11,8 +11,4 @@ class StatusTest < Test::Unit::TestCase
     assert Result[:successful].successful?
     assert !Result[:successful].unsuccessful?
   end
-
-  def test_server_url
-    assert_equal 'http://example.com', Result[:successful, 'http://example.com'].server_url
-  end
 end
