@@ -2,11 +2,11 @@
 # http://github.com/brynary/webrat
 
 When /^I press "(.*)"$/ do |button|
-  clicks_button(button)
+  click_button(button)
 end
 
 When /^I follow "(.*)"$/ do |link|
-  clicks_link(link)
+  click_link(link)
 end
 
 When /^I fill in "(.*)" with "(.*)"$/ do |field, value|
@@ -18,7 +18,7 @@ When /^I check "(.*)"$/ do |field|
 end
 
 When /^I go to (.*)$/ do |page|
-  visits case page
+  visit case page
   when "the home page"
     "/"
   else

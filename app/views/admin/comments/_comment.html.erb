@@ -6,7 +6,7 @@
   <td>
     <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_comment_path(comment)) %>
     <% form_for(:comment, comment, :url => admin_comment_path(comment), :html => {:class => 'delete-item', :method => :delete}) do |form| -%>
-      <%= image_submit_tag("silk/delete.png") %>
+      <%= image_submit_tag("silk/delete.png", :alt => "Delete Comment") %>
     <% end -%>
   </td>
 </tr>
