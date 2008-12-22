@@ -40,10 +40,6 @@ h2. How it differs from SimpleLog
 
 Enki embodies much of the philosophy of SimpleLog, but does so in a style that is much more consistent with Rails best practices, making it easier to understand and hack the code.
 
-h2. Author
-
-"Xavier Shay":http://rhnh.net
-
 h2. Contributors, these guys rock
 
 <pre><code>git log | grep Author | sort | uniq</code></pre>
