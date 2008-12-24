@@ -49,7 +49,6 @@ class CommentsController < ApplicationController
           @comment.author_url              = @comment.author
           @comment.author                  = (registration["fullname"] || registration["nickname"] || @comment.author_url).to_s
           @comment.author_email            = registration["email"].to_s
-          @comment.author_openid_authority = result.server_url 
 
           @comment.openid_error = ""
         end

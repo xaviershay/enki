@@ -9,7 +9,6 @@ describe "/admin/comments/show.html.erb" do
     assigns[:comment] = Comment.new(
       :author                  => 'Don Alias',
       :author_url              => 'http://enkiblog.com',
-      :author_openid_authority => 'http://example.com',
       :author_email            => 'donalias@enkiblog.com',
       :body                    => 'Hello I am a post',
       :created_at              => Time.now

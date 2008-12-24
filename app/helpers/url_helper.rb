@@ -38,7 +38,7 @@ module UrlHelper
     if comment.author_url.blank?
       h(comment.author)
     else
-      link_to(h(comment.author), h(comment.author_url), :title => h("Authenticated by #{comment.author_openid_authority}"), :class => 'openid')
+      link_to(h(comment.author), h(comment.author_url), :class => 'openid')
     end
   end
 

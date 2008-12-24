@@ -184,10 +184,6 @@ describe CommentsController, 'handling commenting' do
 
     it_should_behave_like("creating new comment")
 
-    it 'records OpenID authority ' do
-      assigns(:comment).author_openid_authority.should == 'http://example.com'
-    end
-
     it 'records OpenID identity url' do
       assigns(:comment).author_url.should == 'http://enkiblog.com'
     end
@@ -212,7 +208,6 @@ describe CommentsController, 'handling commenting' do
         # Attributes you are not allowed to set
         :author_url              => 'http://www.enkiblog.com',
         :author_email            => 'donalias@enkiblog.com',
-        :author_openid_authority => 'http://enkiblog.com/openid_server',
         :created_at              => @created_at = 1.year.ago,
         :updated_at              => @updated_at = 1.year.ago,
       }
@@ -235,10 +230,6 @@ describe CommentsController, 'handling commenting' do
       assigns(:comment).author_email.should be_blank
     end
 
-    it "forbids setting of author_openid_authority" do
-      assigns(:comment).author_openid_authority.should be_blank
-    end
-    
     it "forbids setting of created_at" do
       assigns(:comment).created_at.should_not == @created_at 
     end
