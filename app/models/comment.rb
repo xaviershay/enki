@@ -23,7 +23,6 @@ class Comment < ActiveRecord::Base
   end
   
   def blank_openid_fields
-    self.author_openid_authority = ""
     self.author_url = ""
     self.author_email = ""
   end

@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(:version => 9) do
     t.string   "author",                  :null => false
     t.string   "author_url",              :null => false
     t.string   "author_email",            :null => false
-    t.string   "author_openid_authority", :null => false
     t.text     "body",                    :null => false
     t.text     "body_html",               :null => false
     t.datetime "created_at"
