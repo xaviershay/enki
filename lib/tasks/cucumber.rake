@@ -1,4 +1,4 @@
-$:.unshift(RAILS_ROOT + '/vendor/cucumber-0.1.6/lib')
+$:.unshift(RAILS_ROOT + '/vendor/cucumber-0.1.13/lib')
 require 'cucumber/rake/task'
 
 Cucumber::Rake::Task.new(:features) do |t|
