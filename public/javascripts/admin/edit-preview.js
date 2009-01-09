@@ -1,7 +1,7 @@
 $(document).ready(function() {
-  var form = $('form.new_post, form.edit_post, form.new_page, form.edit_page');
+  var form = $('form.formtastic');
   
-  if (form.length > 0) {
+  if (form.length > 0 && form.attr('id').match(/^(new_post|edit_post|new_page|edit_page)/)) {
     var dest = window.location.href;
     if (!dest.match(/\/new$/)) {
       dest = dest.replace(/\/\d+$/, '');
