@@ -7,7 +7,7 @@
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
   <title><%= yield(:page_title) || h(config[:title]) %></title>
-  <%= stylesheet_link_tag 'main' %>
+  <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'jquery.js' %>
   <%= open_id_delegation_link_tags(h(config[:open_id_delegation, :server]), h(config[:open_id_delegation, :delegate])) if config[:open_id_delegation] %>
   <%= yield(:head) %>
