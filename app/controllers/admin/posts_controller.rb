@@ -5,7 +5,7 @@ class Admin::PostsController < Admin::BaseController
     respond_to do |format|
       format.html {
         @posts = Post.paginate(
-          :order => "created_at DESC",
+          :order => "published_at DESC",
           :page  => params[:page]
         )
       }
