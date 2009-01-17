@@ -39,18 +39,23 @@ body {
   color: #222222;
 }
 
-form {
+#content a {
+  color: #222222;
+  text-decoration: none;
+}
+
+#content form {
   margin: 10px auto;
   background-color: #ececec;
   padding: 0.2em 1em;
   width: 34em;
 }
 
-input[type="checkbox"] {
+#content input[type="checkbox"] {
   vertical-align: bottom;
 }
 
-input[type="text"] {
+#content input[type="text"] {
   padding: 0.2em;
   font-size: 1.3em;
   font-family: "lucida grande", "lucida sans unicode", "lucida", sans-serif;
