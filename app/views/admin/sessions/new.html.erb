@@ -1,11 +1,10 @@
-<h1>Stop! Who are you?</h1>
+<h1><%= link_to(h(config[:title]), '/') %></h1>
 <% if flash[:error] %><p><%= flash[:error] %></p><% end %>
 <% form_tag(admin_session_path) do -%>
-  <div>
-    <%= text_field_tag 'openid_url' %>
-    <% if allow_login_bypass? -%>
-      <p><label for="bypass_login">Bypass credentials check</label><%= check_box_tag 'bypass_login' %></p>
-    <% end -%>
-    <%= submit_tag("Login with OpenID") %>
-  </div>  
+  <h2>Stop! Who are you?</h2>
+  <p><%= text_field_tag 'openid_url' %></p>
+  <% if allow_login_bypass? -%>
+    <p><%= check_box_tag 'bypass_login' %> <label for="bypass_login">Bypass credentials check</label></p>
+  <% end -%>
+  <p><%= submit_tag("Login with OpenID") %></p>
 <% end -%>

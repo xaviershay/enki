@@ -5,13 +5,22 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-<title><%=h config[:title] %> - Admin Login</title>
-<%= stylesheet_link_tag 'login' %>
+  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+
+  <title><%=h config[:title] %> - Admin Login</title>
+
+  <%= stylesheet_link_tag 'login' %>
 </head>
 <body>
-  <div id="page_container">
-    <%= yield %>
+  <div id="page">
+    <div id="content">
+      <%= yield %>
+    </div>
+    <div id="nav">
+      <ul>
+        <li><%= link_to("View Site", '/', :title => 'View Site') %></li>
+      </ul>
+    </div>
   </div>  
 </body>
 </html>

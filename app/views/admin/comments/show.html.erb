@@ -3,8 +3,8 @@
 <% semantic_form_for([:admin, @comment]) do |form| -%>
   <% form.input_field_set do -%>
     <%= form.input :author %>
-    <%= form.input :author_url %>
-    <%= form.input :author_email %>
+    <%= form.input :author_url, :required => false %>
+    <%= form.input :author_email, :required => false %>
     <%= form.input :body, :hint => "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>." %>
   <% end %>
   <% form.button_field_set do -%>

@@ -1,41 +1,65 @@
-body 
-{ 
-  color: black;
-  
-  font: normal 12px verdana, arial, helvetica, sans-serif;
-  line-height: 1.5;
-  padding: 0px;
-  margin: 0px;
+body {
+  padding-top: 30px;
+  background-color: #dddddd;
+  font-family: Helvetica, Sans-serif;
+  font-size: 10pt;
+  margin: 10px;
 }
 
-#page_container 
-{
-  width: 70em; 
-  min-height: 400px;
-  
-  border: solid 1px #aaaaaa;
-  margin-top: 5px;
-  margin-left: auto;
-  margin-right: auto;
-
-  position: relative;
-  text-align: center;
-
-  padding-top: 10em;
+#nav {
+  position: absolute;
+  width: 100%;
+  top: 0px;
+  left: 0px;
+  background-color: #222222;
 }
 
-label, input 
-{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
+#nav ul {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
 }
 
-input[type='text']
-{
-  font-size: 2em;
+#nav ul li {
+  display: inline;
+  margin-right: 10px;
+}
+
+#nav a {
+  color: #eeeeee;
+  text-decoration: none;
   font-weight: bold;
-  width: 20em;
+}
+#nav a.current {
+  border-bottom: solid 3px #eeeeee;
+}
+
+#content {
+  text-align: center;
+  color: #222222;
+}
+
+#content a {
+  color: #222222;
+  text-decoration: none;
+}
+
+#content form {
+  margin: 10px auto;
+  background-color: #ececec;
+  padding: 0.2em 1em;
+  width: 34em;
+}
+
+#content input[type="checkbox"] {
+  vertical-align: bottom;
+}
+
+#content input[type="text"] {
+  padding: 0.2em;
+  font-size: 1.3em;
+  font-family: "lucida grande", "lucida sans unicode", "lucida", sans-serif;
+  width: 24em;
+  color: #222222;
   text-align: center;
 }

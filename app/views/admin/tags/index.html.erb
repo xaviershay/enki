@@ -30,7 +30,7 @@
     <% if @tags.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan='3'>
-          <%= will_paginate(@tags, :prev_label => '« newer', :next_label => 'older »') %>
+          <%= will_paginate(@tags, :previous_label => '« newer', :next_label => 'older »') %>
         </td>  
       </tr>  
     <% end -%>  

@@ -7,8 +7,8 @@
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
   <title><%= yield(:page_title) || h(config[:title]) %></title>
-  <%= stylesheet_link_tag 'main' %>
-  <%= javascript_include_tag 'jquery.js' %>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag 'jquery' %>
   <%= open_id_delegation_link_tags(h(config[:open_id_delegation, :server]), h(config[:open_id_delegation, :delegate])) if config[:open_id_delegation] %>
   <%= yield(:head) %>
 </head>
@@ -45,7 +45,7 @@
       </form>
     </div>    
     
-    <div id="footer"><%=h config[:title] %> Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{h(config[:url])}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A ruby on rails blogging app for the fashionable developer">Enki</a>.</div>
+    <div id="footer"><%=h config[:title] %> Valid <a href="http://validator.w3.org/check?uri=referer">XHTML</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{h(config[:url])}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
 </body>
 </html>
