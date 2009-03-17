@@ -14,7 +14,7 @@ describe CommentActivity, '#comments' do
     post = mock_model(Post)
     activity = CommentActivity.new(post)
 
-    post.should_receive(:approved_comments).once.and_return(stub_everything)
+    post.should_receive(:approved_comments).once.and_return(mock('stub', :null_object => true))
     2.times { activity.comments }
   end
 end

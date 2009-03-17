@@ -15,7 +15,7 @@ module UrlHelper
       options[:tag] = options[:tag].downcase
       formatted_posts_with_tag_path(options)
     else
-      super
+      posts_path(options)
     end
   end
 

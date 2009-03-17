@@ -13,28 +13,6 @@ describe CommentsController, 'with GET to #index' do
   end
 end
 
-describe CommentsController, 'with an atom GET to #index' do
-  before(:each) do
-    @mock_post = mock_model(Post)
-    @mock_post.stub!(:approved_comments).and_return(@mock_comments = [mock_model(Comment)])
-    Post.stub!(:find_by_permalink).and_return(@mock_post)
-
-    get :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :format => 'atom'
-  end
-  
-  it 'assigns a post' do
-    assigns(:post).should_not be_nil
-  end
-
-  it 'assigns comments' do
-    assigns(:comments).should == @mock_comments
-  end
-  
-  it 'render the index template' do
-    response.should render_template('comments/index')
-  end
-end
-
 describe 'creating new comment', :shared => true do
   it 'assigns comment' do
     assigns(:comment).should_not be_nil
@@ -97,7 +75,7 @@ describe CommentsController, 'handling commenting' do
         'body'   => 'This is a comment'
       }
 
-      @controller.stub!(:authenticate_with_open_id).and_return(true)
+      @controller.stub!(:authenticate_with_open_id).and_return(nil)
     end
     
     def do_post
@@ -110,7 +88,7 @@ describe CommentsController, 'handling commenting' do
     end
 
     it 'redirects to OpenID authority' do
-      @controller.should_receive(:authenticate_with_open_id).and_return(true)
+      @controller.should_receive(:authenticate_with_open_id).and_return(nil)
       do_post
     end
   end

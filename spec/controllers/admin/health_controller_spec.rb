@@ -39,7 +39,7 @@ describe Admin::HealthController do
     it '405s' do
       session[:logged_in] = true
       get :exception
-      response.headers['Status'].should == '405 Method Not Allowed'
+      response.status.should == '405 Method Not Allowed'
       response.headers['Allow'].should == 'POST'
     end
   end

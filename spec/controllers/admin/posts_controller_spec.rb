@@ -101,7 +101,7 @@ describe Admin::PostsController do
 
     it 'is unprocessable' do
       do_put
-      response.headers['Status'].should == '422 Unprocessable Entity'
+      response.status.should == '422 Unprocessable Entity'
     end
   end
 

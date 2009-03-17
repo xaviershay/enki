@@ -1,5 +1,9 @@
 class CommentsController < ApplicationController
   include UrlHelper
+  OPEN_ID_ERRORS = { 
+    :missing  => "Sorry, the OpenID server couldn't be found", 
+    :canceled => "OpenID verification was canceled",
+    :failed   => "Sorry, the OpenID verification failed" }
 
   before_filter :find_post, :except => [:new]
 
@@ -7,10 +11,7 @@ class CommentsController < ApplicationController
     if request.post? || using_open_id?
       create
     else
-      respond_to do |format|
-        format.html { redirect_to(post_path(@post)) }
-        format.atom { @comments = @post.approved_comments }
-      end
+      redirect_to(post_path(@post))
     end
   end
 
@@ -30,36 +31,27 @@ class CommentsController < ApplicationController
 
     session[:pending_comment] = nil
 
-    if @comment.requires_openid_authentication?
+    unless @comment.requires_openid_authentication?
+      @comment.blank_openid_fields
+    else
       session[:pending_comment] = params[:comment]
-      return if authenticate_with_open_id(@comment.author, 
-          :optional => [:nickname, :fullname, :email]
-        ) do |result, identity_url, registration|
-
-        case result.status
-        when :missing
-          @comment.openid_error = "Sorry, the OpenID server couldn't be found"
-        when :canceled
-          @comment.openid_error = "OpenID verification was canceled"
-        when :failed
-          @comment.openid_error = "Sorry, the OpenID verification failed"
-        when :successful
+      return if authenticate_with_open_id(@comment.author, :optional => [:nickname, :fullname, :email]) do |result, identity_url, registration|
+        if result.status == :successful
           @comment.post = @post
 
-          @comment.author_url              = @comment.author
-          @comment.author                  = (registration["fullname"] || registration["nickname"] || @comment.author_url).to_s
-          @comment.author_email            = registration["email"].to_s
+          @comment.author_url   = @comment.author
+          @comment.author       = (registration["fullname"] || registration["nickname"] || @comment.author_url).to_s
+          @comment.author_email = (registration["email"] || @comment.author_url).to_s
 
           @comment.openid_error = ""
+          session[:pending_comment] = nil
+        else
+          @comment.openid_error = OPEN_ID_ERRORS[ result.status ]
         end
-
-        session[:pending_comment] = nil
       end
-    else
-      @comment.blank_openid_fields
     end
 
-    if @comment.save
+    if session[:pending_comment].nil? && @comment.save
       redirect_to post_path(@post)
     else
       render :template => 'posts/show'

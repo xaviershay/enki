@@ -41,7 +41,7 @@ class BeValidXhtml
   
   
   def matches?(response)
-    fn = response.rendered_template.to_s
+    fn = response.rendered.to_s
     fragment = response.body
     fragment = wrap_with_xhtml_header(fragment) if @fragment
     return true if validity_checks_disabled?
