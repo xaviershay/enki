@@ -24,6 +24,6 @@ config.action_mailer.delivery_method = :test
 # defining test gems
 config.gem "cucumber"
 config.gem "aslakhellesoy-webrat", :lib => "webrat", :version => "~> 0.3", :source => "http://gems.github.com"
-config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :version => "~> 1.2.0", :source => "http://gems.github.com"
+config.gem "thoughtbot-factory_girl", :lib => false, :version => "~> 1.2.0", :source => "http://gems.github.com"
 config.gem "rspec", :lib => false, :version => ">= 1.2.0" 
 config.gem "rspec-rails", :lib => false, :version => ">= 1.2.0"
