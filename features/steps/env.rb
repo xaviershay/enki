@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 Webrat.configure do |config|
   config.mode = :rails
+  config.open_error_files = false
 end
 require 'cucumber/rails/world'
 Cucumber::Rails.use_transactional_fixtures
