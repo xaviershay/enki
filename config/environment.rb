@@ -15,7 +15,7 @@ Rails::Initializer.run do |config|
   # config.load_paths += %W( #{RAILS_ROOT}/extras )
 
   # Specify gems that this application depends on and have them installed with rake gems:install
-  config.gem "RedCloth", :lib => "redcloth", :version => "~> 4.1.0"
+  config.gem "RedCloth", :lib => "redcloth", :version => "~> 4.0"
   config.gem "ruby-openid", :lib => "openid", :version => "~> 2.1.0"
   config.gem "chronic", :version => "~> 0.2.0"
   config.gem "coderay", :version => "~> 0.8.0"

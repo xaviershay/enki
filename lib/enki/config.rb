@@ -1,3 +1,5 @@
+require 'delegate'
+
 module Enki
   class Config < SimpleDelegator
     def initialize(file_name)

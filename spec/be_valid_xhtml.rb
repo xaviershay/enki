@@ -1,11 +1,8 @@
 # Paste me into spec_helper.rb, or save me somewhere else and require me in.
 
 class BeValidXhtml
-  # require 'action_controller/test_process'
-  # require 'test/unit'
   require 'net/http'
-  require 'md5'
-  require 'ftools'
+  require 'digest/md5'
   
   def initialize(options)
     @fragment = options[:fragment]
@@ -122,7 +119,7 @@ class BeValidXhtml
       filename = base_filename + extension
 
       parent_dir = File.dirname(filename) 
-      File.makedirs(parent_dir) unless File.exists?(parent_dir)
+      FileUtils.mkdir_p(parent_dir) unless File.exists?(parent_dir)
 
       File.open(filename, 'r') do |f| 
         file_md5 = MD5.md5(f.read(f.stat.size)).to_s
