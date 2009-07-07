@@ -1,0 +1,18 @@
+en:
+  pages:
+    archives:
+      title: "Archives"
+      no_posts: "Once posts are added they will start to appear in this archive."
+    posts:
+      comments:
+        one: "1 comment"
+        other: "{{count}} comments"
+      comment_error_title: "Comment not added!"
+      comment_name: "Name or <a href=\"{{openid}}\">OpenID</a> (required)"
+      comment_lesstile: "(<a href=\"{{lesstile}}\">lesstile enabled</a> - surround code blocks with ---)"
+      comment_button: "Add Comment"
+      comment_says: "says:"
+      no_posts: "There are no posts yet."
+      post_comment_title: "Post a comment"
+      posted_on: "Posted on {{date}}"
+      see_archive: "Looking for more? Head on over to the {{archives_link}}."

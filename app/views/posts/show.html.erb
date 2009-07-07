@@ -13,11 +13,11 @@
   </li>
   <% end -%>
 </ol>    
-<div class="related">Looking for more? Head on over to the <%= link_to("archives", archives_path) %>.</div>
-<h2>Post a comment</h2>
+<div class="related"><%= t 'pages.posts.see_archive', :archives_link => link_to("archives", archives_path) %></div>
+<h2><%= t 'pages.posts.post_comment_title' %></h2>
   <% unless @comment.errors.empty? -%>
   <div class="errors">
-    <h3>Comment not added!</h3>
+    <h3><%= t 'pages.posts.comment_error_title' %></h3>
     <ul>
       <% @comment.errors.sort_by(&:first).each do |error| -%>
         <li><%= format_comment_error(error) %></li>
@@ -27,8 +27,8 @@
   <% end -%>  
 <% form_for([@post, @comment]) do |form| -%>
   <div>
-    <p><%= form.text_field 'author' %><label for="comment_author"><small>Name or <a href="http://openidexplained.com/">OpenID</a> (required)</small></label></p>
-    <p><%= form.text_area 'body' %><br /><small>(<a href="http://lesstile.rubyforge.org">lesstile enabled</a> - surround code blocks with ---)</small></p>
-    <p><%= submit_tag "Add Comment" %></p>
+    <p><%= form.text_field 'author' %><label for="comment_author"><small><%= t "pages.posts.comment_name", :openid => 'http://openidexplained.com/' %></small></label></p>
+    <p><%= form.text_area 'body' %><br /><small><%= t 'pages.posts.comment_lesstile', :lesstile => "http://lesstile.rubyforge.org" %></small></p>
+    <p><%= submit_tag t 'pages.posts.comment_button' %></p>
   </div>
 <% end -%>
