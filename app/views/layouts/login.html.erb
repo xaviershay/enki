@@ -7,7 +7,7 @@
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
 
-  <title><%=h config[:title] %> - Admin Login</title>
+  <title><%=h config[:title] %> - <%= t 'pages.login.title' %></title>
 
   <%= stylesheet_link_tag 'login' %>
 </head>
@@ -18,7 +18,7 @@
     </div>
     <div id="nav">
       <ul>
-        <li><%= link_to("View Site", '/', :title => 'View Site') %></li>
+        <li><%= link_to(t('pages.login.view_site'), '/', :title => t('pages.login.view_site')) %></li>
       </ul>
     </div>
   </div>  

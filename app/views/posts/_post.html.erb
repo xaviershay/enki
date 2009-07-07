@@ -7,7 +7,7 @@
     <li class="date"><%= t 'pages.posts.posted_on', :date => format_post_date(post.published_at) %></li>
     <li class="comments"><%= link_to(translate('pages.posts.comments', :count => post.approved_comments.size), post_path(post, :anchor => 'comments')) %></li>
     <% unless post.tags.empty? -%>
-    <li class="tags">Tagged <%= linked_tag_list(post.tags) %></li>
+    <li class="tags"><%= t 'pages.posts.tagged', :tags_link => linked_tag_list(post.tags) %></li>
     <% end -%>
   </ul>
 </div>

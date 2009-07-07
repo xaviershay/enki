@@ -16,3 +16,11 @@ en:
       post_comment_title: "Post a comment"
       posted_on: "Posted on {{date}}"
       see_archive: "Looking for more? Head on over to the {{archives_link}}."
+      tagged: "Tagged {{tags_link}}"
+    menu:
+      pages_title: "Pages"
+      categories_title: "Categories"
+      search_title: "Search"
+    login:
+      title: "Admin Login"
+      view_site: "View Site"
