@@ -24,3 +24,15 @@ en:
     login:
       title: "Admin Login"
       view_site: "View Site"
+  admin:
+    title: "Admin"
+    navigation:
+      dashboard: "Dashboard"
+      posts: "Posts"
+      pages: "Pages"
+      comments: "Comments"
+      tags: "Tags"
+      actions: "Actions"
+      health: "Health"
+      logout: "Logout"
+      view_site: "View Site"
