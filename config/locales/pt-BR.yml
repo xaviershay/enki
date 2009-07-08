@@ -1,0 +1,38 @@
+pt-BR:
+  pages:
+    archives:
+      title: "Arquivos"
+      no_posts: "Quando as postagens forem adicionadas elas aparecerão neste arquivo."
+    posts:
+      comments:
+        one: "1 comentário"
+        other: "{{count}} comentários"
+      comment_error_title: "O comentário não foi adicionado!"
+      comment_name: "Nome ou <a href=\"{{openid}}\">OpenID</a> (obrigatório)"
+      comment_lesstile: "(<a href=\"{{lesstile}}\">lesstile enabled</a> - envolver bloco de código com ---)"
+      comment_button: "Adicionar comentário"
+      comment_says: "diz:"
+      no_posts: "Ainda não há comentarios."
+      post_comment_title: "Poste um comentario"
+      posted_on: "Postado em {{date}}"
+      see_archive: "Procurando mais? Vá para {{archives_link}}."
+      tagged: "Marcado {{tags_link}}"
+    menu:
+      pages_title: "Páginas"
+      categories_title: "Categorias"
+      search_title: "Busca"
+    login:
+      title: "Login de Administrador"
+      view_site: "Ver o Site"
+  admin:
+    title: "Administrador"
+    navigation:
+      dashboard: "Painel"
+      posts: "Postagens"
+      pages: "Páginas"
+      comments: "Comentários"
+      tags: "Tags"
+      actions: "Ações"
+      health: "Saúde"
+      logout: "Sair"
+      view_site: "Ver o Site"
