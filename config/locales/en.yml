@@ -27,6 +27,12 @@ en:
       title: "Admin Login"
       view_site: "View Site"
   admin:
+    actions:
+      index:
+        action: "Action"
+        date: "Date"
+        title: "Recent actions"
+
     title: "Admin"
     navigation:
       dashboard: "Dashboard"
@@ -50,8 +56,8 @@ en:
         actions: "Actions"
         created_at: "Created At"
         excerpt: "Excerpt"
-        no_pages: "There are no pages at this time."
         link: "Link"
+        no_pages: "There are no pages at this time."
         title: "Your pages"
         title_header: "Title"
       new:
@@ -85,6 +91,19 @@ en:
         title: "New post"
       show:
         title: "Editing post - {{permalink}}"
+    tags:
+      form:
+        name: "Name"
+        save: "Save"
+      index:
+        actions: "Actions"
+        name: "Name"
+        no_tags: "There are no tags at this time."
+        posts_tagged: "Posts Tagged"
+        title: "Your tags"
+      edit:
+        title: "Editing tag - {{permalink}}"
+
   plugins:
     will_paginate:
       previous_label: "« Newer"
