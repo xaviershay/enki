@@ -3,12 +3,12 @@
 <% end -%>
 
 <% form.input_field_set do -%>
-  <%= form.input :title -%>
-  <%= form.input :body, :hint => "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode." -%>
-  <%= form.input :tag_list, :as => 'string', :required => false, :hint => 'Comma separated: ruby, rails&hellip;' -%>
+  <%= form.input :title, :label => t('admin.posts.form.title') -%>
+  <%= form.input :body, :label => t('admin.posts.form.body'), :hint => t('admin.posts.form.body_hint') -%>
+  <%= form.input :tag_list, :as => 'string', :required => false, :label => t('admin.posts.form.tag_list'), :hint => t('admin.posts.form.tag_list_hint') -%>
 <% end -%>
 <% form.input_field_set do -%>
-  <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'Example: now, yesterday, 1 hour from now, ' + link_to("more&hellip;", "http://chronic.rubyforge.org/") -%>
-  <%= form.input :slug, :hint => "Leave blank for an auto-generated slug based on the title." -%>
-  <%= form.input :minor_edit, :as => 'boolean', :hint => 'Minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like.' unless @post.new_record? -%>
+  <%= form.input :published_at_natural, :label => t('admin.posts.form.published_at'), :as => 'string', :hint => t('admin.posts.form.published_at_hint', :more => "http://chronic.rubyforge.org/") -%>
+  <%= form.input :slug, :label => "Slug", :hint => t('admin.posts.form.slug_hint') -%>
+  <%= form.input :minor_edit, :as => 'boolean', :label => t('admin.posts.form.minor_edit'), :hint => t('admin.posts.form.minor_edit_hint') unless @post.new_record? -%>
 <% end -%>

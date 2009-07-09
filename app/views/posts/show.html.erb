@@ -13,7 +13,7 @@
   </li>
   <% end -%>
 </ol>    
-<div class="related"><%= t 'pages.posts.see_archive', :archives_link => link_to("archives", archives_path) %></div>
+<div class="related"><%= t 'pages.posts.see_archive', :archives_link => link_to(t('pages.archives.title'), archives_path) %></div>
 <h2><%= t 'pages.posts.post_comment_title' %></h2>
   <% unless @comment.errors.empty? -%>
   <div class="errors">
