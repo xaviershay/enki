@@ -1,26 +1,28 @@
 pt-BR:
   pages:
     archives:
-      title: "Arquivos"
-      no_posts: "Quando as postagens forem adicionadas elas aparecerão neste arquivo."
+      title: "Histórico"
+      no_posts: "Quando os artigos forem adicionados elas aparecerão neste histórico."
     posts:
       comments:
         one: "1 comentário"
         other: "{{count}} comentários"
       comment_error_title: "O comentário não foi adicionado!"
       comment_name: "Nome ou <a href=\"{{openid}}\">OpenID</a> (obrigatório)"
-      comment_lesstile: "(<a href=\"{{lesstile}}\">lesstile enabled</a> - envolver bloco de código com ---)"
+      comment_lesstile: "(<a href=\"{{lesstile}}\">lesstile habilitado</a> - envolver bloco de código com ---)"
       comment_button: "Adicionar comentário"
       comment_says: "diz:"
-      no_posts: "Ainda não há comentarios."
-      post_comment_title: "Poste um comentario"
-      posted_on: "Postado em {{date}}"
-      see_archive: "Procurando mais? Vá para {{archives_link}}."
-      tagged: "Marcado {{tags_link}}"
+      no_posts: "Ainda não há comentários."
+      post_comment_title: "Envie um comentário"
+      posted_on: "Publicado em {{date}}"
+      see_archive: "Procurando por mais alguma coisa? Veja se encontra no {{archives_link}}."
+      tagged: "Etiquetas {{tags_link}}"
     menu:
       pages_title: "Páginas"
       categories_title: "Categorias"
       search_title: "Busca"
+      home: "Principal"
+      archives: "Histórico"
     login:
       title: "Login de Administrador"
       view_site: "Ver o Site"
@@ -28,11 +30,27 @@ pt-BR:
     title: "Administrador"
     navigation:
       dashboard: "Painel"
-      posts: "Postagens"
+      posts: "Artigos"
       pages: "Páginas"
       comments: "Comentários"
-      tags: "Tags"
+      tags: "Etiquetas"
       actions: "Ações"
-      health: "Saúde"
+      health: "Monitoramento"
       logout: "Sair"
       view_site: "Ver o Site"
+  activerecord:
+    models:
+      post: "Artigo"
+      page: "Página"
+      tag: "Etiqueta"
+      tagging: "Etiquetamento"
+      comment: "Comentário"
+    attributes:
+      _all:
+        created_at: "Data de criação"
+        updated_at: "Data da última atualização"
+      post:
+        title: "Título"
+        body: "Texto"
+      page:
+        

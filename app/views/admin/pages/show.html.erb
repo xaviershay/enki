@@ -1,4 +1,4 @@
-<h1>Editing page - <%= link_to(h(@page.title), page_path(@page)) %></h1>
+<h1><%= t('admin.pages.show.title', :link => link_to(h(@page.title), page_path(@page)) ) %></h1>
 
 <% semantic_form_for([:admin, @page]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>

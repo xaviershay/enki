@@ -21,6 +21,8 @@ en:
       pages_title: "Pages"
       categories_title: "Categories"
       search_title: "Search"
+      home: "Home"
+      archives: "Archives"
     login:
       title: "Admin Login"
       view_site: "View Site"
@@ -36,3 +38,54 @@ en:
       health: "Health"
       logout: "Logout"
       view_site: "View Site"
+    pages:
+      form:
+        body: "Body"
+        body_hint: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
+        slug: "Slug"
+        slug_hint: "Leave blank for an auto-generated slug based on the title."
+        save: "Save"
+        title: "Title"
+      index:
+        actions: "Actions"
+        created_at: "Created At"
+        excerpt: "Excerpt"
+        no_pages: "There are no pages at this time."
+        link: "Link"
+        title: "Your pages"
+        title_header: "Title"
+      new:
+        title: "New page"
+      show:
+        title: "Editing page - {{link}}"
+    posts:
+      form:
+        body: "Body"
+        body_hint: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
+        minor_edit: "Minor edit"
+        minor_edit_hint: "Minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like."
+        published_at: "Published at"
+        published_at_hint: "Example: now, yesterday, 1 hour from now, <a href=\"{{more}}\">more&hellip;</a>"
+        slug: "Slug"
+        slug_hint: "Leave blank for an auto-generated slug based on the title."
+        tag_list: "Tag list"
+        tag_list_hint: "Comma separated: ruby, rails&hellip;"
+        title: "Title"
+        save: "Save"
+      index:
+        no_posts: "There are no posts at this time."
+        published_at: "Published At"
+        title: "Your Posts"
+        title_header: "Title"
+        excerpt: "Excerpt"
+        comments: "Comments"
+        actions: "Actions"
+        untitled: "[Untitled]"
+      new:
+        title: "New post"
+      show:
+        title: "Editing post - {{permalink}}"
+  plugins:
+    will_paginate:
+      previous_label: "« Newer"
+      next_label: "Older »"

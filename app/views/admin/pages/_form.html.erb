@@ -3,7 +3,7 @@
 <% end -%>
 
 <% form.input_field_set do -%>
-  <%= form.input :title %>
-  <%= form.input :slug, :hint => "Leave blank for an auto-generated slug based on the title." %>
-  <%= form.input :body, :hint => "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode." %>
+  <%= form.input :title, :label => t('admin.pages.form.title') %>
+  <%= form.input :slug, :label => t('admin.pages.form.slug'), :hint => t('admin.pages.form.slug_hint') %>
+    <%= form.input :body, :label => t('admin.pages.form.body'), :hint => t('admin.pages.form.body_hint') %>
 <% end -%>
