@@ -10,7 +10,7 @@
 </div>
 
 <div id="recent-posts" class="panel">
-<h2>Latest Posts</h2>
+<h2><%= t('admin.dashboard.latest_posts') %></h2>
 <ul>
   <% @posts.each_with_index do |post, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
@@ -23,7 +23,7 @@
 </div>
 
 <div id="recent-comments" class="panel">
-<h2>Latest Comments</h2>
+<h2><%= t('admin.dashboard.latest_comments') %></h2>
 <ul>
   <% @comment_activity.each_with_index do |activity, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">

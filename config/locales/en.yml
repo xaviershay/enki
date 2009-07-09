@@ -32,8 +32,29 @@ en:
         action: "Action"
         date: "Date"
         title: "Recent actions"
-
-    title: "Admin"
+    comments:
+      form:
+        author: "Author"
+        author_url: "Author url"
+        author_email: "Author email"
+        body: "Body"
+        body_hint: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
+        save: "Save"
+      index:
+        actions: "Actions"
+        created_at: "Created At"
+        commenter: "Commenter"
+        excerpt: "Excerpt"
+        no_comments: "There are no comments at this time."
+        post: "Post"
+        title: "Comments"
+      show:
+        title: "Editing comment by {{author}}"
+    dashboard:
+      latest_comments: "Latest Comments"
+      latest_posts: "Latest Posts"
+    health:
+      title: "Health"
     navigation:
       dashboard: "Dashboard"
       posts: "Posts"
@@ -91,6 +112,10 @@ en:
         title: "New post"
       show:
         title: "Editing post - {{permalink}}"
+    sessions:
+      bypass_login: "Bypass credentials check"
+      login_greeting: "Stop! Who are you?"
+      openid_button: "Login with OpenID"
     tags:
       form:
         name: "Name"
@@ -103,7 +128,7 @@ en:
         title: "Your tags"
       edit:
         title: "Editing tag - {{permalink}}"
-
+    title: "Admin"
   plugins:
     will_paginate:
       previous_label: "« Newer"
