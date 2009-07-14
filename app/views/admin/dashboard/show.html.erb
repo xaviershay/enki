@@ -6,7 +6,7 @@
 
 <div id="summary">
 <h1><%= link_to(h(config[:title]), '/') %></h1>
-<p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
+<p class="stats"><%= t 'admin.dashboard.post', :count => @stats.post_count %>, <%= t 'admin.dashboard.comment', :count => @stats.comment_count %>, <%= t 'admin.dashboard.tag', :count => @stats.tag_count %></p>
 </div>
 
 <div id="recent-posts" class="panel">

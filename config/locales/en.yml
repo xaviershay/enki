@@ -51,8 +51,17 @@ en:
       show:
         title: "Editing comment by {{author}}"
     dashboard:
+      comment:
+        one: "1 comment"
+        other: "{{count}} comments"
       latest_comments: "Latest Comments"
       latest_posts: "Latest Posts"
+      post:
+        one: "1 post"
+        other: "{{count}} posts"
+      tag:
+        one: "1 tag"
+        other: "{{count}} tags"
     health:
       title: "Health"
     navigation:
