@@ -15,7 +15,7 @@
   <% @posts.each_with_index do |post, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
       <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, :length => 50))], admin_post_path(post)) %>
-      <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
+      <span class='date'><%=h l(post.published_at.to_date, :format => :short) %></span>
       <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
     </li>  
   <% end -%>
@@ -28,7 +28,7 @@
   <% @comment_activity.each_with_index do |activity, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
       <%= link_to("<h3>%s</h3>" % [h(truncate(activity.post.title, :length => 50))], post_path(activity.post)) %>
-      <span class='date'><%=h activity.most_recent_comment.created_at.strftime("%b %e") %></span>
+      <span class='date'><%=h l(activity.most_recent_comment.created_at.to_date, :format => :short) %></span>
       <span class='count'><%=h activity.post.approved_comments.size %></span>
       <ul>
         <% activity.comments.each_with_index do |comment, index| -%>
