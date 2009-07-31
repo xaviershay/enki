@@ -11,6 +11,11 @@ h2. Quick Start
   git checkout -b myblog # Create a new work branch
   cp config/database.example.yml config/database.yml
   # Edit config/enki.yml and config/database.yml to taste
+
+  # Next step needs libxml2 and libxslt1 and their headers
+  # On Debian-based systems: apt-get install libxml2-dev libxslt1-dev
+  # On Mac OS X: no action required
+
   rake db:migrate
   rake spec
   ./script/server
