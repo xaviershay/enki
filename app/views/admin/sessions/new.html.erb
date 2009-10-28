@@ -3,7 +3,7 @@
 <% form_tag(admin_session_path) do -%>
   <h2>Stop! Who are you?</h2>
   <p><%= text_field_tag 'openid_url' %></p>
-  <% if allow_login_bypass? -%>
+  <% if allow_login_bypass?(Rails.env) -%>
     <p><%= check_box_tag 'bypass_login' %> <label for="bypass_login">Bypass credentials check</label></p>
   <% end -%>
   <p><%= submit_tag("Login with OpenID") %></p>
