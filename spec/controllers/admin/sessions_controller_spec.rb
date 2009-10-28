@@ -40,7 +40,12 @@ describe Admin::SessionsController do
 
   describe '#allow_login_bypass? when RAILS_ENV == production' do
     it 'returns false' do
-      @controller.send(:allow_login_bypass?, 'production').should == false
+      silence_warnings { RAILS_ENV = 'production' }
+      @controller.send(:allow_login_bypass?).should == false
+    end
+
+    after do
+      silence_warnings { RAILS_ENV = 'test' }
     end
   end
 end

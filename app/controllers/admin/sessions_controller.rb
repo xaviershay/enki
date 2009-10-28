@@ -13,7 +13,7 @@ class Admin::SessionsController < ApplicationController
   end
 
   def create
-    return successful_login if allow_login_bypass?(Rails.env) && params[:bypass_login]
+    return successful_login if allow_login_bypass? && params[:bypass_login]
     authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
       if result.successful?
         if config.author_open_ids.include?(URI.parse(identity_url))
@@ -40,8 +40,8 @@ protected
     redirect_to(admin_dashboard_path)
   end
 
-  def allow_login_bypass?(env)
-    %w(development test).include?(env)
+  def allow_login_bypass?
+    ["development", "test"].include?(RAILS_ENV)
   end
   helper_method :allow_login_bypass?
 end
