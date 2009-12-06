@@ -171,7 +171,7 @@ end
 describe Admin::PostsController, 'with an AJAX request to preview' do
   before(:each) do
     Post.should_receive(:build_for_preview).and_return(@post = mock_model(Post))
-    controller.should_receive(:render).with(:partial => 'posts/post.html.erb')
+    controller.should_receive(:render).with(:partial => 'posts/post.html.erb', :locals => {:post => @post})
     session[:logged_in] = true
     xhr :post, :preview, :post => {
       :title        => 'My Post',
