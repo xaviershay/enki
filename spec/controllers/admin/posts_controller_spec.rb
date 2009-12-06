@@ -42,7 +42,7 @@ describe Admin::PostsController do
       assigns[:post].should == @post
     end
   end
-  
+
   describe 'handling GET to new' do
     before(:each) do
       @post = mock_model(Post)
@@ -64,7 +64,7 @@ describe Admin::PostsController do
 
     def do_put
       session[:logged_in] = true
-      put :update, :id => 1, :post => valid_post_attributes      
+      put :update, :id => 1, :post => valid_post_attributes
     end
 
     it 'updates the post' do

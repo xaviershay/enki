@@ -26,10 +26,10 @@ describe Admin::UndoItemsController do
       session[:logged_in] = true
       post :undo, :id => 1
     end
-    
+
     it("redirects back")                           { do_post; response.should redirect_to("/bogus") }
     it("stores complete_description in the flash") { do_post; flash[:notice].should == "hello" }
-    it("processes the item")                       { @item.should_receive(:process!); do_post } 
+    it("processes the item")                       { @item.should_receive(:process!); do_post }
   end
 
   describe 'handling POST to undo accepting JSON' do
@@ -46,7 +46,7 @@ describe Admin::UndoItemsController do
     end
 
     it("renders json")       { do_post; response.should have_text(/hello/) }
-    it("processes the item") { @item.should_receive(:process!); do_post } 
+    it("processes the item") { @item.should_receive(:process!); do_post }
   end
 
   describe 'handling POST to undo with invalid undo item' do
@@ -61,7 +61,7 @@ describe Admin::UndoItemsController do
       session[:logged_in] = true
       post :undo, :id => 1
     end
-    
+
     it("redirects back")             { do_post; response.should redirect_to("/bogus") }
     it("stores notice in the flash") { do_post; flash[:notice].should_not be_nil }
   end
@@ -78,7 +78,7 @@ describe Admin::UndoItemsController do
       session[:logged_in] = true
       post :undo, :id => 1, :format => 'json'
     end
-    
+
     it("renders json") { do_post; response.should have_text(/message/) }
   end
 end

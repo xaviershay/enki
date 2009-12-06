@@ -17,9 +17,9 @@
       <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, :length => 50))], admin_post_path(post)) %>
       <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
       <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
-    </li>  
+    </li>
   <% end -%>
-</ul>  
+</ul>
 </div>
 
 <div id="recent-comments" class="panel">
@@ -50,6 +50,6 @@
       <% end -%>
     </li>
   <% end -%>
-</ul>  
+</ul>
 </div>
 

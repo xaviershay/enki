@@ -31,7 +31,7 @@ namespace :spec do
       IO.readlines("#{RAILS_ROOT}/spec/rcov.opts").map {|l| l.chomp.split " "}.flatten
     end
   end
-  
+
   desc "Print Specdoc for all specs (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:doc) do |t|
     t.spec_opts = ["--format", "specdoc", "--dry-run"]
@@ -51,13 +51,13 @@ namespace :spec do
       t.spec_files = FileList["spec/#{sub}/**/*_spec.rb"]
     end
   end
-  
+
   desc "Run the specs under vendor/plugins (except RSpec's own)"
   Spec::Rake::SpecTask.new(:plugins => spec_prereq) do |t|
     t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]
     t.spec_files = FileList['vendor/plugins/**/spec/**/*_spec.rb'].exclude('vendor/plugins/rspec/*').exclude("vendor/plugins/rspec-rails/*")
   end
-  
+
   namespace :plugins do
     desc "Runs the examples for rspec_on_rails"
     Spec::Rake::SpecTask.new(:rspec_on_rails) do |t|
@@ -114,7 +114,7 @@ namespace :spec do
         $stderr.puts "No server running."
       else
         $stderr.puts "Shutting down spec_server."
-        system("kill", "-s", "TERM", File.read(daemonized_server_pid).strip) && 
+        system("kill", "-s", "TERM", File.read(daemonized_server_pid).strip) &&
         File.delete(daemonized_server_pid)
       end
     end

@@ -27,7 +27,7 @@ class Admin::PagesController < Admin::BaseController
       end
     end
   end
-  
+
   def update
     if @page.update_attributes(params[:page])
       respond_to do |format|
@@ -71,9 +71,9 @@ class Admin::PagesController < Admin::BaseController
     respond_to do |format|
       format.html do
         flash[:notice] = "Deleted page '#{@page.title}'"
-        redirect_to :action => 'index' 
+        redirect_to :action => 'index'
       end
-      format.json { 
+      format.json {
         render :json => {
           :undo_path    => undo_admin_undo_item_path(undo_item),
           :undo_message => undo_item.description,

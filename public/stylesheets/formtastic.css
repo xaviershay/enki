@@ -32,11 +32,11 @@ html[xmlns] form fieldset ol li { display: block; }
 form fieldset ol li.required { /*background:#99ccff;*/ }
 form fieldset ol li.optional {  }
 form fieldset ol li.error { background:pink; }
-  
+
 
 /* LABELS
 --------------------------------------------------------------------------------------------------*/
-  
+
 form fieldset ol li label { display:block; width:150px; float:left; }
 
 

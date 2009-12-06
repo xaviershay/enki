@@ -1,10 +1,10 @@
 <h1>Editing tag - <%= link_to(h(@tag.name), posts_path(:tag => @tag)) %></h1>
 
 <% semantic_form_for([:admin, @tag]) do |form| -%>
-  <% form.input_field_set do -%>  
+  <% form.input_field_set do -%>
     <%= form.input :name %>
-  <% end -%>  
+  <% end -%>
   <% form.button_field_set do -%>
-    <%= form.commit_button("save") -%>                             
-  <% end -%>  
+    <%= form.commit_button("save") -%>
+  <% end -%>
 <% end -%>

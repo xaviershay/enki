@@ -42,7 +42,7 @@ describe Admin::PagesController do
       assigns[:page].should == @page
     end
   end
-  
+
   describe 'handling GET to new' do
     before(:each) do
       @page = mock_model(Page)

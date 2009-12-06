@@ -31,7 +31,7 @@ module Webrat
         { name => escaped_value }
       end
     end
-    
+
     protected
 
     def parse_rails_request_params(params)

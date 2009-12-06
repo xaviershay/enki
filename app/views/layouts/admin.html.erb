@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
   <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-  
+
   <title><%=h config[:title] %> - Admin</title>
 
   <%= javascript_include_tag 'jquery.js' %>
@@ -26,7 +26,7 @@
   <script>
     jQuery(document).ready(function() {
       humanMsg.displayMsg('<%= escape_javascript(h(flash[:notice])) %>');
-    })  
+    })
   </script>
   <% end -%>
 
@@ -50,6 +50,6 @@
         <li><%= link_to("View Site", '/',             :accesskey => 'v', :title => 'View Site') %></li>
       </ul>
     </div>
-  </div>  
+  </div>
 </body>
 </html>

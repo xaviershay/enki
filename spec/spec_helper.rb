@@ -44,13 +44,13 @@ Spec::Runner.configure do |config|
   # config.mock_with :rr
   #
   # == Notes
-  # 
+  #
   # For more information take a look at Spec::Example::Configuration and Spec::Runner
 end
 
 describe "ATOM feed", :shared => true do
-  it "renders with no layout" do 
-    response.layout.should be_nil 
+  it "renders with no layout" do
+    response.layout.should be_nil
   end
 end
 

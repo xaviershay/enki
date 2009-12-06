@@ -1,5 +1,5 @@
 atom_feed(
-  :url         => formatted_posts_path(:tag => @tag, :format => 'atom', :only_path => false), 
+  :url         => formatted_posts_path(:tag => @tag, :format => 'atom', :only_path => false),
   :root_url    => posts_path(:tag => @tag, :only_path => false),
   :schema_date => '2008'
 ) do |feed|

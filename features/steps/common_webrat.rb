@@ -10,11 +10,11 @@ When /^I follow "(.*)"$/ do |link|
 end
 
 When /^I fill in "(.*)" with "(.*)"$/ do |field, value|
-  fills_in(field, :with => value) 
+  fills_in(field, :with => value)
 end
 
 When /^I check "(.*)"$/ do |field|
-  checks(field) 
+  checks(field)
 end
 
 When /^I go to (.*)$/ do |page|

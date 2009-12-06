@@ -95,7 +95,7 @@ describe Post, "#set_dates" do
       post.edited_at.should == now
     end
   end
-  
+
   describe 'when edited_at is nil' do
     it 'sets edited_at to current time' do
       now = Time.now
@@ -134,10 +134,10 @@ describe Post, '#published?' do
   before(:each) do
     @post = Post.new
   end
-  
+
   it "should return false if published_at is not filled" do
     @post.should_not be_published
-  end  
+  end
 
   it "should return true if published_at is filled" do
     @post.published_at = Time.now
@@ -207,7 +207,7 @@ describe Post, '.build_for_preview' do
   it 'returns a new post' do
     @post.should be_new_record
   end
-  
+
   it 'generates slug' do
     @post.slug.should_not be_nil
   end
@@ -216,7 +216,7 @@ describe Post, '.build_for_preview' do
     @post.edited_at.should_not be_nil
     @post.published_at.should_not be_nil
   end
-  
+
   it 'applies filter to body' do
     @post.body_html.should == '<p>body</p>'
   end

@@ -6,14 +6,14 @@ describe "/admin/dashboard/show.html.erb" do
   end
 
   it 'should render' do
-    assigns[:posts] = [mock_model(Post, 
+    assigns[:posts] = [mock_model(Post,
       :title             => 'A Post',
       :published_at      => Time.now,
       :slug              => 'a-post',
       :approved_comments => []
     )]
     assigns[:comment_activity] = [mock("comment-activity-1",
-      :post                => mock_model(Post, 
+      :post                => mock_model(Post,
         :published_at      => Time.now,
         :title             => "A Post",
         :slug              => 'a-post',

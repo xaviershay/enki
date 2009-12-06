@@ -12,7 +12,7 @@
     <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
   </li>
   <% end -%>
-</ol>    
+</ol>
 <div class="related">Looking for more? Head on over to the <%= link_to("archives", archives_path) %>.</div>
 <h2>Post a comment</h2>
   <% unless @comment.errors.empty? -%>
@@ -21,10 +21,10 @@
     <ul>
       <% @comment.errors.sort_by(&:first).each do |error| -%>
         <li><%= format_comment_error(error) %></li>
-      <% end -%>  
+      <% end -%>
     </ul>
-  </div>  
-  <% end -%>  
+  </div>
+  <% end -%>
 <% form_for([@post, @comment]) do |form| -%>
   <div>
     <p><%= form.text_field 'author' %><label for="comment_author"><small>Name or <a href="http://openidexplained.com/">OpenID</a> (required)</small></label></p>

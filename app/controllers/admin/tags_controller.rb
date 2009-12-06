@@ -15,8 +15,8 @@ class Admin::TagsController < Admin::BaseController
 
   def current_objects
     @current_object ||= current_model.paginate(
-      :order => "name", 
-      :page => params[:page] 
+      :order => "name",
+      :page => params[:page]
     )
   end
 end

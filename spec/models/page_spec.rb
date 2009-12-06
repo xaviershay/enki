@@ -60,7 +60,7 @@ describe Page, '.build_for_preview' do
   it 'returns a new page' do
     @page.should be_new_record
   end
-  
+
   it 'applies filter to body' do
     @page.body_html.should == '<p>body</p>'
   end

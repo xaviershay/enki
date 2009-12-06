@@ -3,7 +3,7 @@ namespace :enki do
   task :generate_yadis => :environment do
     file = "public/yadis.xrdf"
     raise "#{file} already exists, please remove it before running this task" if File.exists?(file)
-    config = Enki::Config.default 
+    config = Enki::Config.default
     raise "open_id_delegation section not provided in config/enki.yml" unless config[:open_id_delegation]
     File.open("public/yadis.xrdf", "w") do |f|
       f.write <<-EOS

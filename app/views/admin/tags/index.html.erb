@@ -1,18 +1,18 @@
 <h1>Your tags</h1>
 
 <table cellspacing="0" cellpadding="0">
-  <thead>  
+  <thead>
     <tr>
       <th>Name</th>
       <th>Posts Tagged</th>
       <th>Actions</th>
     </tr>
   </thead>
-	
+
   <tbody>
     <% if @tags.empty? -%>
       <tr><td colspan="3">There are no tags at this time.</td></tr>
-    <% else -%>	
+    <% else -%>
       <% @tags.each do |tag| -%>
         <tr class="<%= cycle('', 'alt') %>">
           <td><%= link_to(tag.name, edit_admin_tag_path(tag)) %></td>
@@ -31,8 +31,8 @@
       <tr class="pagination">
         <td colspan='3'>
           <%= will_paginate(@tags, :previous_label => '« newer', :next_label => 'older »') %>
-        </td>  
-      </tr>  
-    <% end -%>  
+        </td>
+      </tr>
+    <% end -%>
   </tfoot>
 </table>

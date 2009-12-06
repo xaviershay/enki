@@ -93,8 +93,8 @@ describe Comment, '#blank_openid_fields_if_unused' do
     @comment.blank_openid_fields
   end
 
-  it('blanks out author_url')              { @comment.author_url.should == '' } 
-  it('blanks out author_email')            { @comment.author_email.should == '' } 
+  it('blanks out author_url')              { @comment.author_url.should == '' }
+  it('blanks out author_email')            { @comment.author_email.should == '' }
 end
 
 describe Comment, '.find_recent' do
