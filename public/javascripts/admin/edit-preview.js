@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var form = $('form.formtastic');
-  
+
   if (form.length > 0 && form.attr('id').match(/^(new_post|edit_post|new_page|edit_page)/)) {
     var dest = window.location.href;
     if (!dest.match(/\/new$/)) {
@@ -21,7 +21,7 @@ $(document).ready(function() {
           error: function() {
             $('#preview .content').html('<p>Failed to generate preview. Toggle back to edit mode and check that all required fields are filled in and valid.</p>');
           },
-          success: function(r) { 
+          success: function(r) {
             $('#preview .content').html(r);
           }
         });
@@ -32,8 +32,8 @@ $(document).ready(function() {
       }
     }
 
-    $(document).keypress(function(e) {
-      if (e.metaKey && (e.which == 101 || e.which == 5)) { 
+    $(document).keyup(function(e) {
+      if (e.metaKey && (e.which == 69)) { // Works in recent Safari and FF, unsure about IE
         toggle_preview();
         e.preventDefault();
       }
