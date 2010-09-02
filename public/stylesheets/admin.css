@@ -219,6 +219,8 @@ table {
   color: #222222;
   background-color: #ececec;
   margin-bottom: 20px;
+  border-collapse: collapse;
+  padding: 0;
 }
 
 table td {
