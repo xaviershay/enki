@@ -2,7 +2,7 @@
 
 <% semantic_form_for([:admin, @page]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>
-  <% form.button_field_set do -%>
+  <% field_set_tag nil, :class => 'buttons' do %>
     <%= form.commit_button("Save") -%>
   <% end -%>
 <% end -%>
