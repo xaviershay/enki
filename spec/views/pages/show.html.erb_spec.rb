@@ -13,7 +13,7 @@ describe "/pages/show.html.erb" do
   end
 
   after(:each) do
-    response.should be_valid_xhtml_fragment
+    response.should be_valid_html5_fragment
   end
 
   it "should render a page" do

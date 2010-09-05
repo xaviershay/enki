@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/undo_items/index.html.erb" do
   after(:each) do
-    response.should be_valid_xhtml_fragment
+    response.should be_valid_html5_fragment
   end
 
   it 'should render' do
