@@ -60,7 +60,7 @@ class Admin::PagesController < Admin::BaseController
 
     respond_to do |format|
       format.js {
-        render :partial => 'pages/page.html.erb'
+        render :partial => 'pages/page.html.erb', :locals => {:page => @page}
       }
     end
   end

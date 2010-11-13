@@ -3,10 +3,7 @@ $(document).ready(function() {
 
   if (form.length > 0 && form.attr('id').match(/^(new_post|edit_post|new_page|edit_page)/)) {
     var dest = window.location.href;
-    if (!dest.match(/\/new$/)) {
-      dest = dest.replace(/\/\d+$/, '');
-      dest = dest + '/new';
-    }
+    dest = dest.replace(/\/(new|\d+)$/, '')
     dest = dest + '/preview'
 
     var toggle_preview = function() {

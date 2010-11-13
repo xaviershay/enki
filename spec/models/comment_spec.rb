@@ -22,19 +22,19 @@ describe Comment do
   it "is invalid with no post" do
     set_comment_attributes(@comment, :post => nil)
     @comment.should_not be_valid
-    @comment.errors.on(:post).should_not be_blank
+    @comment.errors.should_not be_empty
   end
 
   it "is invalid with no body" do
     set_comment_attributes(@comment, :body => '')
     @comment.should_not be_valid
-    @comment.errors.on(:body).should_not be_blank
+    @comment.errors.should_not be_empty
   end
 
   it "is invalid with no author" do
     set_comment_attributes(@comment, :author => '')
     @comment.should_not be_valid
-    @comment.errors.on(:author).should_not be_blank
+    @comment.errors.should_not be_empty
   end
 
   it "is valid with a full set of valid attributes" do
@@ -50,23 +50,31 @@ describe Comment do
   end
 
   it "asks post to update it's comment counter after save" do
-    @comment.class.after_save.include?(:denormalize).should == true
-    @comment.post = mock_model(Post)
-    @comment.post.should_receive(:denormalize_comments_count!)
-    @comment.denormalize
+    set_comment_attributes(@comment)
+    @comment.blank_openid_fields
+    @comment.post.update_attributes(:title => 'My Post', :body => "body")
+    @comment.post.save
+    @comment.save
+    @comment.post.approved_comments.count.should == 1
   end
 
   it "asks post to update it's comment counter after destroy" do
-    @comment.class.after_destroy.include?(:denormalize).should == true
-    @comment.post = mock_model(Post)
-    @comment.post.should_receive(:denormalize_comments_count!)
-    @comment.denormalize
+    set_comment_attributes(@comment)
+    @comment.blank_openid_fields
+    @comment.post.update_attributes(:title => 'My Post', :body => "body")
+    @comment.post.save
+    @comment.save
+    @comment.destroy
+    @comment.post.approved_comments.count.should == 0
   end
 
   it "applies a Lesstile filter to body and store it in body_html before save" do
-    @comment.class.before_save.include?(:apply_filter).should == true
-    Lesstile.should_receive(:format_as_xhtml).and_return("formatted")
-    @comment.apply_filter
+    set_comment_attributes(@comment)
+    @comment.blank_openid_fields
+    @comment.post.update_attributes(:title => 'My Post', :body => "body")
+    @comment.post.save
+    @comment.save
+    @comment.body_html.should_not be_nil
   end
 
   it "responds to trusted_user? for defensio integration" do

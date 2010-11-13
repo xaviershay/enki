@@ -1,5 +1,5 @@
-<% content_for(:page_title) do %><%=h posts_title(@tag) %><% end -%>
-<% content_for(:head)       do %><%= auto_discovery_link_tag(:atom, formatted_posts_path(:tag => @tag, :format => 'atom')) %><% end -%>
+<% content_for(:page_title) do %><%= posts_title(@tag) %><% end -%>
+<% content_for(:head)       do %><%= auto_discovery_link_tag(:atom, @tag.nil? ? formatted_posts_path(:format => 'atom') : posts_path(:tag => @tag, :format => 'atom')) %><% end -%>
 
 <% if @posts.empty? -%>
 	<p>There are no posts yet.</p>

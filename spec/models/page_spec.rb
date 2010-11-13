@@ -27,15 +27,19 @@ describe Page, '#generate_slug' do
 end
 
 describe Page, 'before validation' do
-  it('calls #generate_slug') { Page.before_validation.include?(:generate_slug).should == true }
+  it 'calls #generate_slug' do
+    page = Page.new(:title => "My Page", :body => "body")
+    page.valid?
+    page.slug.should_not be_blank
+  end
 end
 
 describe Page, 'validations' do
   def valid_page_attributes
     {
-      :title                => "My Post",
-      :slug                 => "my-post",
-      :body                 => "hello this is my post"
+      :title                => "My Page",
+      :slug                 => "my-page",
+      :body                 => "body"
     }
   end
 

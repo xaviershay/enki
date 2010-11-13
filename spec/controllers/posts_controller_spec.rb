@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe 'successful posts list', :shared => true do
+shared_examples_for 'successful posts list' do
   it "should be successful" do
     do_get
     response.should be_success
@@ -14,6 +14,12 @@ describe 'successful posts list', :shared => true do
   it "should assign the found posts for the view" do
     do_get
     assigns[:posts].should == @posts
+  end
+end
+
+shared_examples_for "ATOM feed" do
+  it "renders with no layout" do
+    response.should render_template(nil)
   end
 end
 

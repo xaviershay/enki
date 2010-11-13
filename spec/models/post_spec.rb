@@ -7,7 +7,7 @@ describe Post, "integration" do
       post1 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
       post2 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
       Tag.find_by_name('ruby').taggings_count.should == 2
-      post2.destroy
+      Post.last.destroy
       Tag.find_by_name('ruby').taggings_count.should == 1
     end
   end
@@ -152,8 +152,18 @@ describe Post, "#minor_edit?" do
 end
 
 describe Post, 'before validation' do
-  it('calls #generate_slug') { Post.before_validation.include?(:generate_slug).should == true }
-  it('calls #set_dates')     { Post.before_validation.include?(:set_dates).should == true }
+  it 'calls #generate_slug' do
+    post = Post.new(:title => "My Post", :body => "body")
+    post.valid?
+    post.slug.should_not be_blank
+  end
+
+  it 'calls #set_dates' do
+    post = Post.new(:title => "My Post", :body => "body")
+    post.valid?
+    post.edited_at.should_not be_blank
+    post.published_at.should_not be_blank
+  end
 end
 
 describe Post, '#denormalize_comments_count!' do

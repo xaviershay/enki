@@ -13,7 +13,7 @@ describe CommentsController, 'with GET to #index' do
   end
 end
 
-describe 'creating new comment', :shared => true do
+shared_examples_for 'creating new comment' do
   it 'assigns comment' do
     assigns(:comment).should_not be_nil
   end
@@ -28,7 +28,7 @@ describe 'creating new comment', :shared => true do
   end
 end
 
-describe "invalid comment", :shared => true do
+shared_examples_for "invalid comment" do
   it 'renders posts/show' do
     response.should be_success
     response.should render_template('posts/show')

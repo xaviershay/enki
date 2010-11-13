@@ -101,7 +101,7 @@ describe Admin::PostsController do
 
     it 'is unprocessable' do
       do_put
-      response.status.should == '422 Unprocessable Entity'
+      response.status.should == 422
     end
   end
 
@@ -163,7 +163,7 @@ describe Admin::PostsController do
 
     it("renders post as json") do
       do_delete
-      response.should have_text(/#{Regexp.escape(@post.to_json)}/)
+      response.should contain(/#{Regexp.escape(@post.to_json)}/)
     end
   end
 end

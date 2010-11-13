@@ -14,16 +14,21 @@ class Admin::SessionsController < ApplicationController
 
   def create
     return successful_login if allow_login_bypass? && params[:bypass_login]
-    authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
-      if result.successful?
-        if config.author_open_ids.include?(URI.parse(identity_url))
-          return successful_login
+    if not params[:openid_url].blank?
+      authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
+        if result.successful?
+          if enki_config.author_open_ids.include?(URI.parse(identity_url))
+            return successful_login
+          else
+            flash.now[:error] = "You are not authorized"
+          end
         else
-          flash.now[:error] = "You are not authorized"
+          flash.now[:error] = result.message
         end
-      else
-        flash.now[:error] = result.message
+        render :action => 'new'
       end
+    else
+      flash.now[:error] = "Sorry, the OpenID server couldn't be found"
       render :action => 'new'
     end
   end
@@ -37,7 +42,7 @@ protected
 
   def successful_login
     session[:logged_in] = true
-    redirect_to(admin_dashboard_path)
+    redirect_to(admin_root_path)
   end
 
   def allow_login_bypass?
