@@ -20,7 +20,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'RedCloth', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
 gem 'rack-openid', :require => 'rack/openid'
-gem 'chronic'
+gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
 gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'

@@ -33,7 +33,7 @@ class Post < ActiveRecord::Base
 
   attr_accessor :published_at_natural
   def published_at_natural
-    @published_at_natural ||= published_at.send_with_default(:strftime, 'now', "%Y-%m-%d")
+    @published_at_natural ||= published_at.send_with_default(:strftime, 'now', "%Y-%m-%d %H:%M")
   end
 
   class << self

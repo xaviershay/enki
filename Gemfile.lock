@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     RedCloth (4.2.3)
+    aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.1)
       actionpack (= 3.0.1)
@@ -32,7 +33,6 @@ GEM
     arel (1.0.1)
       activesupport (~> 3.0.0)
     builder (2.1.2)
-    chronic (0.3.0)
     coderay (0.9.5)
     cucumber (0.9.4)
       builder (~> 2.1.2)
@@ -115,7 +115,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth
-  chronic
+  aaronh-chronic
   coderay
   cucumber-rails
   factory_girl
