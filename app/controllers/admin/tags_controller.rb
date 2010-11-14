@@ -1,4 +1,6 @@
 class Admin::TagsController < Admin::BaseController
+  before_filter :find_tag, :except => 'index'
+
   def index
     @tags = Tag.paginate(:order => 'name', :page => params[:page])
   end
