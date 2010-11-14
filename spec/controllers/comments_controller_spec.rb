@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CommentsController, 'with GET to #index' do
+  include UrlHelper
+
   it 'redirects to the parent post URL' do
     @mock_post = mock_model(Post,
       :published_at => 1.year.ago,
@@ -14,6 +16,8 @@ describe CommentsController, 'with GET to #index' do
 end
 
 shared_examples_for 'creating new comment' do
+  include UrlHelper
+
   it 'assigns comment' do
     assigns(:comment).should_not be_nil
   end
@@ -221,12 +225,12 @@ end
 describe CommentsController, 'with an AJAX request to new' do
   before(:each) do
     Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
-    controller.should_receive(:render).with(:partial => 'comment.html.erb')
 
     xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
       :author => 'Don Alias',
       :body   => 'A comment'
     }
+    response.should be_success
   end
 
   it "assigns a new comment for the view" do
