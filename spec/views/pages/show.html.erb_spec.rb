@@ -15,7 +15,7 @@ describe "/pages/show.html.erb" do
   end
 
   after(:each) do
-    rendered.should be_valid_xhtml_fragment
+    rendered.should be_valid_html5_fragment
   end
 
   it "should render a page" do

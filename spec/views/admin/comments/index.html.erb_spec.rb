@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/comments/index.html.erb" do
   after(:each) do
-    rendered.should be_valid_xhtml_fragment
+    rendered.should be_valid_html5_fragment
   end
 
   it 'should render' do
