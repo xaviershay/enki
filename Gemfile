@@ -5,7 +5,6 @@ gem 'rails', '3.0.1'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-# gem 'mysql2'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 # Use unicorn as the web server
@@ -31,7 +30,7 @@ gem 'will_paginate', '~> 3.0.pre3'
 # put test-only gems in this group so their generators
 # and rake tasks are available in development mode:
 group :development, :test do
-  gem 'cucumber'
+  gem 'cucumber-rails'
   gem 'webrat'
   gem 'factory_girl'
   gem 'rspec'

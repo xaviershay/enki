@@ -10,11 +10,6 @@ require 'cucumber/rails/world'
 # Comment out the next line if you're not using RSpec's matchers (should / should_not) in your steps.
 require 'cucumber/rails/rspec'
 
-require File.expand_path(File.dirname(__FILE__) + '/factories')
-
-#require 'rr'
-#Cucumber::Rails::World.send(:include, RR::Adapters::RRMethods)
-
 # Fix for Webrat for Rails 2.3 until Webrat gets patched
 # http://webrat.lighthouseapp.com/projects/10503/tickets/161-urlencodedpairparser-removed-in-edge-rails
 module Webrat

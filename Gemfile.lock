@@ -40,6 +40,8 @@ GEM
       gherkin (~> 2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
+    cucumber-rails (0.3.2)
+      cucumber (>= 0.8.0)
     diff-lcs (1.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
@@ -115,7 +117,7 @@ DEPENDENCIES
   RedCloth
   chronic
   coderay
-  cucumber
+  cucumber-rails
   factory_girl
   formtastic
   lesstile
