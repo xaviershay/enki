@@ -5,5 +5,5 @@
 <%= form.input_field_set do -%>
   <%= form.input :title %>
   <%= form.input :slug, :hint => "Leave blank for an auto-generated slug based on the title." %>
-  <%= form.input :body, :hint => "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode." %>
+  <%= form.input :body, :hint => "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode.".html_safe %>
 <% end -%>
