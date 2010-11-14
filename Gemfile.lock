@@ -53,6 +53,7 @@ GEM
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
+    hpricot (0.8.3)
     i18n (0.4.2)
     json (1.4.6)
     lesstile (1.0.0)
@@ -108,7 +109,6 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     will_paginate (3.0.pre2)
-    xml-simple (1.0.12)
 
 PLATFORMS
   ruby
@@ -120,6 +120,7 @@ DEPENDENCIES
   cucumber-rails
   factory_girl
   formtastic
+  hpricot
   lesstile
   rack-openid
   rails (= 3.0.1)
@@ -129,4 +130,3 @@ DEPENDENCIES
   sqlite3-ruby
   webrat
   will_paginate (~> 3.0.pre3)
-  xml-simple

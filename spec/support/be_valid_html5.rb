@@ -5,7 +5,8 @@ require 'hpricot'
 
 class BeValidHtml5
 
-  def initialize(options)
+  def initialize(base, options)
+    @base = base
     @fragment = options[:fragment]
   end
 
@@ -38,9 +39,9 @@ class BeValidHtml5
   class_inheritable_accessor :auto_validate_includes
 
 
-  def matches?(response)
-    fn = response.rendered[:template].template_path
-    fragment = response.body
+  def matches?(rendered)
+    fn = @base
+    fragment = rendered
     fragment = wrap_with_html5_header(fragment) if @fragment
     return true if validity_checks_disabled?
     base_filename = cache_resource('markup',fragment,fn)
@@ -142,9 +143,9 @@ class BeValidHtml5
 end
 
 def be_valid_html5
-  BeValidhtml5.new
+  BeValidhtml5.new(subject)
 end
 
 def be_valid_html5_fragment
-  BeValidHtml5.new(:fragment => true)
+  BeValidHtml5.new(subject, :fragment => true)
 end

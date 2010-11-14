@@ -35,5 +35,5 @@ group :development, :test do
   gem 'factory_girl'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'xml-simple', :require => 'xmlsimple'
+  gem 'hpricot'
 end
