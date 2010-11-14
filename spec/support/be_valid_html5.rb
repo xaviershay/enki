@@ -59,7 +59,7 @@ class BeValidHtml5
     unless markup_is_valid
       fragment.split($/).each_with_index{|line, index| message << "#{'%04i' % (index+1)} : #{line}#{$/}"} if @@display_invalid_content
       @message = "Invalid markup:\n"
-      @elements = Hpricot.XML(response.body).search("li.msg_err > span.msg")
+      @elements = Hpricot(response.body.force_encoding('utf-8')).search("li.msg_err > span.msg")
       (@elements).each { |span| @message << CGI.unescapeHTML(span.inner_html) + "\n" }
     end
     if markup_is_valid
@@ -114,7 +114,7 @@ class BeValidHtml5
       resource_md5 = Digest::MD5.hexdigest(resource).to_s
       file_md5 = nil
 
-      output_dir = "#{RAILS_ROOT}/tmp/#{base}"
+      output_dir = "#{Rails.root}/tmp/#{base}"
       base_filename = File.join(output_dir, fn)
       filename = base_filename
 
