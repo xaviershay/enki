@@ -3,7 +3,7 @@
 <% end -%>
 
 <h1><%= t('admin.posts.index.title') %></h1>
-<table cellspacing="0" cellpadding="0">
+<table>
   <thead>
     <tr>
       <th><%= t('admin.posts.index.published_at') %></th>
@@ -20,7 +20,7 @@
     <% else -%>
       <%= render :partial => 'post', :collection => @posts %>
     <% end -%>
-  </tbody>  
+  </tbody>
 
   <tfoot>
     <% if @posts.total_pages > 1 -%>
@@ -30,5 +30,5 @@
         </td>  
       </tr>
     <% end -%>
-  </tfoot>  
+  </tfoot>
 </table>

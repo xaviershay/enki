@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   include UrlHelper
-  OPEN_ID_ERRORS = { 
-    :missing  => "Sorry, the OpenID server couldn't be found", 
+  OPEN_ID_ERRORS = {
+    :missing  => "Sorry, the OpenID server couldn't be found",
     :canceled => "OpenID verification was canceled",
     :failed   => "Sorry, the OpenID verification failed" }
 
@@ -20,7 +20,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       format.js do
-        render :partial => 'comment.html.erb'
+        render :partial => 'comment.html.erb', :locals => {:comment => @comment}
       end
     end
   end

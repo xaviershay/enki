@@ -4,7 +4,7 @@
 <% end -%>
 
 <h1><%= t('admin.comments.index.title') %></h1>
-<table cellspacing="0" cellpadding="0">
+<table>
   <thead>
     <tr>
       <th><%= t('admin.comments.index.created_at') %></th>
@@ -14,8 +14,8 @@
       <th><%= t('admin.comments.index.actions') %></th>
     </tr>
   </thead>
-	
-  <tbody> 
+
+  <tbody>
     <% if @comments.empty? -%>
       <tr><td colspan="5"><%= t('admin.comments.index.no_comments') %></td></tr>
     <% else -%>
@@ -30,6 +30,6 @@
           <%= will_paginate(@comments, :previous_label => t('plugins.will_paginate.previous_label'), :next_label => t('plugins.will_paginate.next_label')) %>
         </td>  
       </tr>  
-    <% end -%>  
+    <% end -%>
   </tfoot>
 </table>

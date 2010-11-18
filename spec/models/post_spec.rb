@@ -7,7 +7,7 @@ describe Post, "integration" do
       post1 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
       post2 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
       Tag.find_by_name('ruby').taggings_count.should == 2
-      post2.destroy
+      Post.last.destroy
       Tag.find_by_name('ruby').taggings_count.should == 1
     end
   end
@@ -95,7 +95,7 @@ describe Post, "#set_dates" do
       post.edited_at.should == now
     end
   end
-  
+
   describe 'when edited_at is nil' do
     it 'sets edited_at to current time' do
       now = Time.now
@@ -134,10 +134,10 @@ describe Post, '#published?' do
   before(:each) do
     @post = Post.new
   end
-  
+
   it "should return false if published_at is not filled" do
     @post.should_not be_published
-  end  
+  end
 
   it "should return true if published_at is filled" do
     @post.published_at = Time.now
@@ -152,8 +152,18 @@ describe Post, "#minor_edit?" do
 end
 
 describe Post, 'before validation' do
-  it('calls #generate_slug') { Post.before_validation.include?(:generate_slug).should == true }
-  it('calls #set_dates')     { Post.before_validation.include?(:set_dates).should == true }
+  it 'calls #generate_slug' do
+    post = Post.new(:title => "My Post", :body => "body")
+    post.valid?
+    post.slug.should_not be_blank
+  end
+
+  it 'calls #set_dates' do
+    post = Post.new(:title => "My Post", :body => "body")
+    post.valid?
+    post.edited_at.should_not be_blank
+    post.published_at.should_not be_blank
+  end
 end
 
 describe Post, '#denormalize_comments_count!' do
@@ -207,7 +217,7 @@ describe Post, '.build_for_preview' do
   it 'returns a new post' do
     @post.should be_new_record
   end
-  
+
   it 'generates slug' do
     @post.slug.should_not be_nil
   end
@@ -216,7 +226,7 @@ describe Post, '.build_for_preview' do
     @post.edited_at.should_not be_nil
     @post.published_at.should_not be_nil
   end
-  
+
   it 'applies filter to body' do
     @post.body_html.should == '<p>body</p>'
   end

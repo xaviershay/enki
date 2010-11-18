@@ -1,14 +1,14 @@
 <h1><%= t('admin.tags.index.title') %></h1>
 
-<table cellspacing="0" cellpadding="0">
-  <thead>  
+<table>
+  <thead>
     <tr>
       <th><%= t('admin.tags.index.name') %></th>
       <th><%= t('admin.tags.index.posts_tagged') %></th>
       <th><%= t('admin.tags.index.actions') %></th>
     </tr>
   </thead>
-	
+
   <tbody>
     <% if @tags.empty? -%>
       <tr><td colspan="3"><%= t('admin.tags.index.no_tags') %></td></tr>
@@ -31,8 +31,8 @@
       <tr class="pagination">
         <td colspan='3'>
           <%= will_paginate(@tags, :previous_label => '« newer', :next_label => 'older »') %>
-        </td>  
-      </tr>  
-    <% end -%>  
+        </td>
+      </tr>
+    <% end -%>
   </tfoot>
 </table>

@@ -9,11 +9,18 @@ h2. Quick Start
 <pre><code>  git clone git://github.com/xaviershay/enki.git enki
   cd enki
   git checkout -b myblog # Create a new work branch
+  bundle install         # Install all the required gems
+
   cp config/database.example.yml config/database.yml
   # Edit config/enki.yml and config/database.yml to taste
+
+  # Next step needs libxml2 and libxslt1 and their headers
+  # On Debian-based systems: apt-get install libxml2-dev libxslt1-dev
+  # On Mac OS X: no action required
+
   rake db:migrate
-  rake spec
-  ./script/server
+  rake            # Run tests
+  rails server    # Start the server
   # Load http://localhost:3000/admin in your browser</code></pre>
 
 Or for bonus points, fork "enki at github":http://github.com/xaviershay/enki/tree/master and clone that instead.
@@ -39,6 +46,10 @@ Mephisto is feature packed and quite customizable. It can however be daunting tr
 h2. How it differs from SimpleLog
 
 Enki embodies much of the philosophy of SimpleLog, but does so in a style that is much more consistent with Rails best practices, making it easier to understand and hack the code.
+
+h2. Compatibility
+
+Uses rails 3. Runs on MySQL or Postgres. Works on heroku.
 
 h2. Contributors, these guys rock
 

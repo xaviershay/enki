@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-# This is under-specced because I anticipate changing this controller 
+# This is under-specced because I anticipate changing this controller
 # substantially quite soon
 describe Admin::TagsController do
   describe 'handling GET to index' do

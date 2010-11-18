@@ -3,12 +3,12 @@
   <%= javascript_include_tag 'live-comment-preview' %>
 <% end -%>
 <% content_for(:page_title) do -%>
-<%=h post_title(@post) -%>
+<%= post_title(@post) -%>
 <% end -%>
 <%= render :partial => 'posts/post', :locals => {:post => @post} %>
 <ol class="commentlist">
   <% @post.approved_comments.each do |comment| -%>
-  <li<%= cycle ' class="alt"', '' %> id="comment-<%= comment.id %>">
+  <li<%=raw cycle(' class="alt"', '') %> id="comment-<%= comment.id %>">
     <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
   </li>
   <% end -%>
@@ -21,11 +21,11 @@
     <ul>
       <% @comment.errors.sort_by(&:first).each do |error| -%>
         <li><%= format_comment_error(error) %></li>
-      <% end -%>  
+      <% end -%>
     </ul>
-  </div>  
-  <% end -%>  
-<% form_for([@post, @comment]) do |form| -%>
+  </div>
+  <% end -%>
+<%= form_for([@post, @comment]) do |form| -%>
   <div>
     <p><%= form.text_field 'author' %><label for="comment_author"><small><%= t "pages.posts.comment_name", :openid => 'http://openidexplained.com/' %></small></label></p>
     <p><%= form.text_area 'body' %><br /><small><%= t 'pages.posts.comment_lesstile', :lesstile => "http://lesstile.rubyforge.org" %></small></p>

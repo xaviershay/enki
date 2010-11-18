@@ -1,8 +1,8 @@
 <h1><%= t('admin.posts.new.title') %></h1>
 
-<% semantic_form_for([:admin, @post]) do |form| -%>
+<%= semantic_form_for([:admin, @post]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} -%>
-  <% form.button_field_set do -%>                                    
+  <%= form.button_field_set do -%>                                    
     <%= form.commit_button(t('admin.posts.form.save')) -%>
   <% end -%>
 <% end -%>

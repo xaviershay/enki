@@ -4,7 +4,7 @@
 
 <h1><%= t('admin.pages.index.title') %></h1>
 
-<table cellspacing="0" cellpadding="0">
+<table>
   <thead>
     <tr>
       <th><%= t('admin.pages.index.created_at') %></th>
@@ -14,7 +14,7 @@
       <th><%= t('admin.pages.index.actions') %></th>
     </tr>
   </thead>
-	
+
   <tbody>
     <% if @pages.empty? -%>
       <tr><td colspan="5"><%= t('admin.pages.index.no_pages') %></td></tr>

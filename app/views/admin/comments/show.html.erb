@@ -1,13 +1,13 @@
 <h1><%= t('admin.comments.show.title', :author => h(@comment.author) ) %></h1>
 
-<% semantic_form_for([:admin, @comment]) do |form| -%>
-  <% form.input_field_set do -%>
+<%= semantic_form_for([:admin, @comment]) do |form| -%>
+  <%= form.input_field_set do -%>
     <%= form.input :author, :label => t('admin.comments.form.author') %>
     <%= form.input :author_url, :required => false, :label => t('admin.comments.form.author_url') %>
     <%= form.input :author_email, :required => false, :label => t('admin.comments.form.author_email') %>
     <%= form.input :body, :label => t('admin.comments.form.body'), :hint => t('admin.comments.form.body_hint') %>
   <% end %>
-  <% form.button_field_set do -%>
+  <%= form.button_field_set do -%>
     <%= form.commit_button(t('admin.comments.form.save')) %>
   <% end -%>
 <% end -%>

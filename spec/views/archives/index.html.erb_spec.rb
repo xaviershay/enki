@@ -6,8 +6,10 @@ describe "/archives/index.html.erb" do
   end
 
   before(:each) do
+    view.stub!(:enki_config).and_return(Enki::Config.default)
+
     month = Struct.new(:date, :posts)
-    assigns[:months] = [
+    assign :months, [
       month.new(1.month.ago.utc.beginning_of_month, [
         mock_model(Post, :title => 'Post A', :published_at => 3.weeks.ago.utc, :slug => 'post-a', :tags => [tag("Code")])
       ]),
@@ -19,10 +21,10 @@ describe "/archives/index.html.erb" do
   end
 
   after(:each) do
-    response.should be_valid_xhtml_fragment
+    rendered.should be_valid_html5_fragment
   end
 
   it 'renders posts grouped by month' do
-    render "/archives/index.html.erb"
+    render :template => "/archives/index.html.erb"
   end
 end

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/comments/index.html.erb" do
   after(:each) do
-    response.should be_valid_xhtml_fragment
+    rendered.should be_valid_html5_fragment
   end
 
   it 'should render' do
@@ -17,7 +17,7 @@ describe "/admin/comments/index.html.erb" do
       )
     )]
     comments.stub!(:total_pages).and_return(1)
-    assigns[:comments] = comments
-    render '/admin/comments/index.html.erb'
+    assign :comments, comments
+    render :template => '/admin/comments/index.html.erb'
   end
 end

@@ -38,7 +38,7 @@ describe Admin::CommentsController do
 
     def do_put
       session[:logged_in] = true
-      put :update, :id => 1, :comment => @attributes 
+      put :update, :id => 1, :comment => @attributes
     end
 
     it("redirects to index") do
@@ -54,7 +54,7 @@ describe Admin::CommentsController do
 
     it("puts a message in the flash") do
       do_put
-      flash[:notice].should_not be_blank 
+      flash[:notice].should_not be_blank
     end
   end
 
@@ -69,7 +69,7 @@ describe Admin::CommentsController do
 
     def do_put
       session[:logged_in] = true
-      put :update, :id => 1, :comment => @attributes 
+      put :update, :id => 1, :comment => @attributes
     end
 
     it("renders show") do
@@ -126,7 +126,7 @@ describe Admin::CommentsController do
 
     it("renders comment as json") do
       do_delete
-      response.should have_text(/#{Regexp.escape(@comment.to_json)}/)
+      response.should contain(/#{Regexp.escape(@comment.to_json)}/)
     end
   end
 end
