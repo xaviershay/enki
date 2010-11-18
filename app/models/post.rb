@@ -28,7 +28,7 @@ class Post < ActiveRecord::Base
   def minor_edit?
     self.minor_edit == "1"
   end
-  
+
   def published?
     published_at?
   end
@@ -54,7 +54,7 @@ class Post < ActiveRecord::Base
       tag = options.delete(:tag)
       options = {
         :order      => 'posts.published_at DESC',
-        :conditions => ['published_at < ?', Time.now],
+        :conditions => ['published_at < ?', Time.zone.now],
         :limit      => DEFAULT_LIMIT
       }.merge(options)
       if tag
@@ -68,8 +68,10 @@ class Post < ActiveRecord::Base
       begin
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
         post = find_all_by_slug(slug, options).detect do |post|
-          post.published_at.midnight == day
-        end 
+          [:year, :month, :day].all? {|time|
+            post.published_at.send(time) == day.send(time)
+          }
+        end
       rescue ArgumentError # Invalid time
         post = nil
       end

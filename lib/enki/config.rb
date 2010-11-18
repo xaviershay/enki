@@ -1,3 +1,5 @@
+require 'delegate'
+
 module Enki
   class Config < SimpleDelegator
     def initialize(file_name)
@@ -19,7 +21,7 @@ module Enki
     end
 
     def self.default_location
-      "#{RAILS_ROOT}/config/enki.yml"
+      "#{Rails.root}/config/enki.yml"
     end
 
     private

@@ -11,17 +11,16 @@ class Comment < ActiveRecord::Base
   after_destroy         :denormalize
 
   validates_presence_of :author, :body, :post
+  validate :open_id_error_should_be_blank
 
-  # validate :open_id_thing
-  def validate
-    super 
+  def open_id_error_should_be_blank
     errors.add(:base, openid_error) unless openid_error.blank?
   end
 
   def apply_filter
     self.body_html = Lesstile.format_as_xhtml(self.body, :code_formatter => Lesstile::CodeRayFormatter)
   end
-  
+
   def blank_openid_fields
     self.author_url = ""
     self.author_email = ""
@@ -42,7 +41,7 @@ class Comment < ActiveRecord::Base
   def approved?
     true
   end
- 
+
   def denormalize
     self.post.denormalize_comments_count!
   end
@@ -65,7 +64,7 @@ class Comment < ActiveRecord::Base
     def protected_attribute?(attribute)
       [:author, :body].include?(attribute.to_sym)
     end
-    
+
     def new_with_filter(params)
       comment = Comment.new(params)
       comment.created_at = Time.now

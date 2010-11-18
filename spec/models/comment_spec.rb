@@ -3,9 +3,18 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Comment do
   def valid_comment_attributes(extra = {})
     {
-      :author => 'Don Alias',
-      :body   => 'This is a comment',
-      :post   => Post.new
+      :author       => 'Don Alias',
+      :author_url   => "me",
+      :author_email => "me@fake.com",
+      :body         => 'This is a comment',
+      :post         => Post.create!(
+        :title    => 'My Post',
+        :body     => "body",
+        :tag_list => "ruby",
+        :author => Author.create!(
+          :name    => 'Don',
+          :email   => 'don@example.com',
+          :open_id => 'http://example.com'))
     }.merge(extra)
   end
 
@@ -22,19 +31,19 @@ describe Comment do
   it "is invalid with no post" do
     set_comment_attributes(@comment, :post => nil)
     @comment.should_not be_valid
-    @comment.errors.on(:post).should_not be_blank
+    @comment.errors.should_not be_empty
   end
 
   it "is invalid with no body" do
     set_comment_attributes(@comment, :body => '')
     @comment.should_not be_valid
-    @comment.errors.on(:body).should_not be_blank
+    @comment.errors.should_not be_empty
   end
 
   it "is invalid with no author" do
     set_comment_attributes(@comment, :author => '')
     @comment.should_not be_valid
-    @comment.errors.on(:author).should_not be_blank
+    @comment.errors.should_not be_empty
   end
 
   it "is valid with a full set of valid attributes" do
@@ -50,23 +59,31 @@ describe Comment do
   end
 
   it "asks post to update it's comment counter after save" do
-    @comment.class.after_save.include?(:denormalize).should == true
-    @comment.post = mock_model(Post)
-    @comment.post.should_receive(:denormalize_comments_count!)
-    @comment.denormalize
+    set_comment_attributes(@comment)
+    @comment.blank_openid_fields
+    @comment.post.update_attributes(:title => 'My Post', :body => "body")
+    @comment.post.save
+    @comment.save
+    @comment.post.approved_comments.count.should == 1
   end
 
   it "asks post to update it's comment counter after destroy" do
-    @comment.class.after_destroy.include?(:denormalize).should == true
-    @comment.post = mock_model(Post)
-    @comment.post.should_receive(:denormalize_comments_count!)
-    @comment.denormalize
+    set_comment_attributes(@comment)
+    @comment.blank_openid_fields
+    @comment.post.update_attributes(:title => 'My Post', :body => "body")
+    @comment.post.save
+    @comment.save
+    @comment.destroy
+    @comment.post.approved_comments.count.should == 0
   end
 
   it "applies a Lesstile filter to body and store it in body_html before save" do
-    @comment.class.before_save.include?(:apply_filter).should == true
-    Lesstile.should_receive(:format_as_xhtml).and_return("formatted")
-    @comment.apply_filter
+    set_comment_attributes(@comment)
+    @comment.blank_openid_fields
+    @comment.post.update_attributes(:title => 'My Post', :body => "body")
+    @comment.post.save
+    @comment.save
+    @comment.body_html.should_not be_nil
   end
 
   it "responds to trusted_user? for defensio integration" do
@@ -93,8 +110,8 @@ describe Comment, '#blank_openid_fields_if_unused' do
     @comment.blank_openid_fields
   end
 
-  it('blanks out author_url')              { @comment.author_url.should == '' } 
-  it('blanks out author_email')            { @comment.author_email.should == '' } 
+  it('blanks out author_url')              { @comment.author_url.should == '' }
+  it('blanks out author_email')            { @comment.author_email.should == '' }
 end
 
 describe Comment, '.find_recent' do

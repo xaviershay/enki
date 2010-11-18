@@ -14,18 +14,22 @@ class Admin::SessionsController < ApplicationController
 
   def create
     return successful_login(Author.find(:first)) if allow_login_bypass? && params[:bypass_login]
-    authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
-      if result.successful?
-        if author = Author.with_open_id(identity_url)
-          return successful_login(author)
+    if params[:openid_url].present?
+      authenticate_with_open_id(params[:openid_url]) do |result, identity_url|
+        if result.successful?
+          if author = Author.with_open_id(identity_url)
+            return successful_login(author)
+          else
+            flash.now[:error] = result.message
+          end
         else
-          flash.now[:error] = "You are not authorized"
+          flash.now[:error] = "Sorry, the OpenID server couldn't be found"
         end
-      else
-        flash.now[:error] = result.message
       end
-      render :action => 'new'
+    else
+      flash.now[:error] = "You must supply a URL"
     end
+    render :action => 'new'
   end
 
   def destroy
@@ -38,11 +42,11 @@ protected
   def successful_login(author)
     session[:logged_in] = true
     session[:author_id] = author.id
-    redirect_to(admin_dashboard_path)
+    redirect_to(admin_root_path)
   end
 
   def allow_login_bypass?
-    ["development", "test"].include?(RAILS_ENV)
+    %w(development test).include?(Rails.env)
   end
   helper_method :allow_login_bypass?
 end

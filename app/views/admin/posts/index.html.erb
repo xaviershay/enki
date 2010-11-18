@@ -3,7 +3,7 @@
 <% end -%>
 
 <h1>Your posts</h1>
-<table cellspacing="0" cellpadding="0">
+<table>
   <thead>
     <tr>
       <th>Published At</th>
@@ -20,15 +20,15 @@
     <% else -%>
       <%= render :partial => 'post', :collection => @posts %>
     <% end -%>
-  </tbody>  
+  </tbody>
 
   <tfoot>
     <% if @posts.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan="5">
           <%= will_paginate(@posts, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>  
+        </td>
       </tr>
     <% end -%>
-  </tfoot>  
+  </tfoot>
 </table>

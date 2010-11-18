@@ -27,7 +27,7 @@ class Admin::PostsController < Admin::BaseController
       end
     end
   end
-  
+
   def update
     if @post.update_attributes(params[:post])
       respond_to do |format|
@@ -54,13 +54,13 @@ class Admin::PostsController < Admin::BaseController
   def new
     @post = Post.new
   end
-  
+
   def preview
     @post = Post.build_for_preview(params[:post])
 
     respond_to do |format|
       format.js {
-        render :partial => 'posts/post.html.erb'
+        render :partial => 'posts/post.html.erb', :locals => {:post => @post}
       }
     end
   end
@@ -71,9 +71,9 @@ class Admin::PostsController < Admin::BaseController
     respond_to do |format|
       format.html do
         flash[:notice] = "Deleted post '#{@post.title}'"
-        redirect_to :action => 'index' 
+        redirect_to :action => 'index'
       end
-      format.json { 
+      format.json {
         render :json => {
           :undo_path    => undo_admin_undo_item_path(undo_item),
           :undo_message => undo_item.description,

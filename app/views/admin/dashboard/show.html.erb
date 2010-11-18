@@ -5,7 +5,7 @@
 <% end -%>
 
 <div id="summary">
-<h1><%= link_to(h(config[:title]), '/') %></h1>
+<h1><%= link_to(enki_config[:title], '/') %></h1>
 <p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
 </div>
 
@@ -14,12 +14,12 @@
 <ul>
   <% @posts.each_with_index do |post, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <%= link_to("<h3>%s</h3>" % [h(truncate(post.title, :length => 50))], admin_post_path(post)) %>
-      <span class='date'><%=h post.published_at.strftime("%b %e") %></span>
-      <span class='count'><%= link_to(h(post.approved_comments.size), post_path(post)) %></span>
-    </li>  
+      <h3><%= link_to(truncate(post.title, :length => 50), admin_post_path(post)) %></h3>
+      <span class='date'><%= post.published_at.strftime("%b %e") %></span>
+      <span class='count'><%= link_to(post.approved_comments.size, post_path(post)) %></span>
+    </li>
   <% end -%>
-</ul>  
+</ul>
 </div>
 
 <div id="recent-comments" class="panel">
@@ -27,13 +27,13 @@
 <ul>
   <% @comment_activity.each_with_index do |activity, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <%= link_to("<h3>%s</h3>" % [h(truncate(activity.post.title, :length => 50))], post_path(activity.post)) %>
-      <span class='date'><%=h activity.most_recent_comment.created_at.strftime("%b %e") %></span>
-      <span class='count'><%=h activity.post.approved_comments.size %></span>
+      <h3><%= link_to(truncate(activity.post.title, :length => 50), post_path(activity.post)) %></h3>
+      <span class='date'><%= activity.most_recent_comment.created_at.strftime("%b %e") %></span>
+      <span class='count'><%= activity.post.approved_comments.size %></span>
       <ul>
         <% activity.comments.each_with_index do |comment, index| -%>
-          <% content_tag :li, :class => activity.comments.size == index + 1 ? 'last' : nil do -%>
-            <%= link_to(h(comment.author), admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
+          <%= content_tag :li, :class => activity.comments.size == index + 1 ? 'last' : nil do -%>
+            <%= link_to(comment.author, admin_comment_path(comment), {:id => "comment-link-#{comment.id}", :class => 'comment-link'}) -%>
           <% end -%>
         <% end -%>
       </ul>
@@ -41,8 +41,8 @@
         <div class='comment-body' id='comment-body-<%= comment.id %>'>
           <div class='comment-actions'>
             <%= link_to(image_tag('silk/pencil.png', :alt => 'edit'), admin_comment_path(comment)) %>
-            <% form_for(:comment, comment, :url => admin_comment_path(comment), :html => {:class => 'delete-item', :id => "delete-comment-#{comment.id}", :method => :delete}) do |form| -%>
-              <%= image_submit_tag("silk/delete.png") %>
+            <%= form_for(comment, :as => :comment, :url => admin_comment_path(comment), :html => {:class => 'delete-item', :id => "delete-comment-#{comment.id}", :method => :delete}) do |form| -%>
+              <%= image_submit_tag("silk/delete.png", :alt => 'Delete Comment') %>
             <% end -%>
           </div>
           <%= comment.body_html %>
@@ -50,6 +50,6 @@
       <% end -%>
     </li>
   <% end -%>
-</ul>  
+</ul>
 </div>
 

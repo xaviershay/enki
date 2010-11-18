@@ -2,11 +2,12 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/sessions/new.html.erb" do
   after(:each) do
-    response.should be_valid_xhtml_fragment
+    rendered.should be_valid_html5_fragment
   end
 
   it "renders" do
-    @controller.template.stub!(:allow_login_bypass?).and_return(true)
-    render '/admin/sessions/new.html.erb'
+    view.stub!(:enki_config).and_return(Enki::Config.default)
+    view.stub!(:allow_login_bypass?).and_return(true)
+    render :template => '/admin/sessions/new.html.erb'
   end
 end

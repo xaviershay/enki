@@ -4,7 +4,7 @@
 
 <h1>Your pages</h1>
 
-<table cellspacing="0" cellpadding="0">
+<table>
   <thead>
     <tr>
       <th>Created At</th>
@@ -14,7 +14,7 @@
       <th>Actions</th>
     </tr>
   </thead>
-	
+
   <tbody>
     <% if @pages.empty? -%>
       <tr><td colspan="5">There are no pages at this time.</td></tr>
@@ -28,8 +28,8 @@
       <tr class="pagination">
         <td colspan='5'>
           <%= will_paginate(@pages, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>  
-      </tr>  
-    <% end -%>  
+        </td>
+      </tr>
+    <% end -%>
   </tfoot>
 </table>

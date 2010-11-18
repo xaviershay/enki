@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe PageTitleHelper do
   include PageTitleHelper
 
-  def config
+  def enki_config
     {:title => 'Blog Title'}
   end
 

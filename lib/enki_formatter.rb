@@ -5,7 +5,7 @@ class EnkiFormatter
         text,
         :text_formatter => lambda {|text| RedCloth.new(CGI::unescapeHTML(text)).to_html},
         :code_formatter => Lesstile::CodeRayFormatter
-      )  
+      )
     end
   end
 end

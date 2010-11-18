@@ -1,8 +1,8 @@
 /* High level containers */
-body 
-{ 
+body
+{
   color: black;
-  
+
   font: normal 12px verdana, arial, helvetica, sans-serif;
   line-height: 1.5;
   padding: 0px;
@@ -11,10 +11,10 @@ body
 
 #page_container
 {
-  width: 70em; 
+  width: 70em;
   position: absolute;
   min-height: 400px;
-  
+
   color: black;
 
   margin-top: 5px;
@@ -55,7 +55,7 @@ h2 a, h3, h4, h5
 }
 
 /* Text */
-p 
+p
 {
   padding: 0px;
   margin-top: 0.5em;
@@ -77,13 +77,13 @@ strong
   background-position: 0px 2px;
 }
 
-a 
+a
 {
   color: #000051;
-  
-  text-decoration: none;    
+
+  text-decoration: none;
 }
-  
+
 small a, label a
 {
   text-decoration: underline;
@@ -91,9 +91,9 @@ small a, label a
 
 a:hover
 {
-  text-decoration: underline;    
+  text-decoration: underline;
 }
-  
+
 #footer a
 {
   color: gray;
@@ -106,11 +106,11 @@ img
 }
 
 /* Two columns */
-#navigation 
+#navigation
 {
   position: absolute;
   width: 10em;
-  top: -1px; 
+  top: -1px;
   right: -1px;
 
   border: none;
@@ -137,12 +137,12 @@ img
 #navigation ul
 {
   padding-left: 10px;
-  
+
   margin-left: 0px;
   margin-top: 0px;
   list-style: none;
 }
-  
+
 #navigation ul li
 {
   padding-left: 0px;
@@ -167,7 +167,7 @@ img
   margin-bottom: 1em;
 }
 
-#main 
+#main
 {
   padding-right: 150px;
   padding-left: 0px;
@@ -178,9 +178,9 @@ img
 div.meta
 {
  margin-top: 1em;
- margin-bottom: 3em; 
+ margin-bottom: 3em;
 }
-/* Formatting */   
+/* Formatting */
 
 .meta ul
 {
@@ -212,7 +212,7 @@ div.meta
 {
   display: inline;
 }
- 
+
 .meta ul li:after
 {
   content: " | ";
@@ -228,7 +228,7 @@ h2
   margin-bottom: 0px;
 }
 
-.separator 
+.separator
 {
   height: 1px;
   margin-top:5px;
@@ -276,7 +276,7 @@ div.comments div.meta
   min-height: 0px;
   padding: 0px
 }
-  
+
 div.comments div.separator
 {
   height: 10px;
@@ -305,7 +305,7 @@ span.error
 {
   font-weight: bold;
   }
-  
+
 hr
 {
   border-top: dotted 1px black;
@@ -331,8 +331,8 @@ hr
 /* TOC */
 fieldset.toc
 {
-  float: right; 
-  border: dotted 1px black; 
+  float: right;
+  border: dotted 1px black;
   background-color: #fafafa;
   padding: 10px;
   margin-left: 5px;

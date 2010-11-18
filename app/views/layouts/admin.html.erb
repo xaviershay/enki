@@ -1,13 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC
-    "-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN"
-    "http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg-flat.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
 <head>
-  <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
-  
-  <title><%=h config[:title] %> - Admin</title>
+  <meta charset="utf-8">
+
+  <title><%= enki_config[:title] %> - Admin</title>
 
   <%= javascript_include_tag 'jquery.js' %>
   <%= javascript_include_tag 'jquery.livequery.js' %>
@@ -25,8 +21,8 @@
   <% if flash[:notice] -%>
   <script>
     jQuery(document).ready(function() {
-      humanMsg.displayMsg('<%= escape_javascript(h(flash[:notice])) %>');
-    })  
+      humanMsg.displayMsg('<%= escape_javascript(flash[:notice]) %>');
+    })
   </script>
   <% end -%>
 
@@ -38,9 +34,9 @@
     </div>
     <div id="nav">
       <ul>
-        <li><%= nav_link_to("Dashboard", admin_dashboard_path,  :accesskey => '1') %></li>
-        <li><%= nav_link_to("Posts",     admin_posts_path,      :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :access_key => 'n') %></li>
-        <li><%= nav_link_to("Pages",     admin_pages_path,      :accesskey => '3') %> <%= nav_link_to("(+)", new_admin_page_path, :access_key => 'p') %></li>
+        <li><%= nav_link_to("Dashboard", admin_root_path,  :accesskey => '1') %></li>
+        <li><%= nav_link_to("Posts",     admin_posts_path,      :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :accesskey => 'n') %></li>
+        <li><%= nav_link_to("Pages",     admin_pages_path,      :accesskey => '3') %> <%= nav_link_to("(+)", new_admin_page_path, :accesskey => 'p') %></li>
         <li><%= nav_link_to("Comments",  admin_comments_path,   :accesskey => '4') %></li>
         <li><%= nav_link_to("Tags",      admin_tags_path,       :accesskey => '5') %></li>
         <li><%= nav_link_to("Actions",   admin_undo_items_path, :accesskey => '6') %></li>
@@ -50,6 +46,6 @@
         <li><%= link_to("View Site", '/',             :accesskey => 'v', :title => 'View Site') %></li>
       </ul>
     </div>
-  </div>  
+  </div>
 </body>
 </html>

@@ -8,13 +8,13 @@ $(document).ready(function (){
 
   $('.comment-link').click (function() {
     comment_body_id = '#comment-body-' + extractId($(this));
-    
+
     $('.comment-body').not(comment_body_id).hide();
     $(comment_body_id).toggle();
 
     return false;
   })
-  
+
   $(document).click(function() {
     $('.comment-body').hide();
   });

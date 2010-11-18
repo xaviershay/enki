@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CommentsController, 'with GET to #index' do
+  include UrlHelper
+
   it 'redirects to the parent post URL' do
     @mock_post = mock_model(Post,
       :published_at => 1.year.ago,
@@ -13,29 +15,9 @@ describe CommentsController, 'with GET to #index' do
   end
 end
 
-describe CommentsController, 'with an atom GET to #index' do
-  before(:each) do
-    @mock_post = mock_model(Post)
-    @mock_post.stub!(:approved_comments).and_return(@mock_comments = [mock_model(Comment)])
-    Post.stub!(:find_by_permalink).and_return(@mock_post)
+shared_examples_for 'creating new comment' do
+  include UrlHelper
 
-    get :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :format => 'atom'
-  end
-  
-  it 'assigns a post' do
-    assigns(:post).should_not be_nil
-  end
-
-  it 'assigns comments' do
-    assigns(:comments).should == @mock_comments
-  end
-  
-  it 'render the index template' do
-    response.should render_template('comments/index')
-  end
-end
-
-describe 'creating new comment', :shared => true do
   it 'assigns comment' do
     assigns(:comment).should_not be_nil
   end
@@ -50,7 +32,7 @@ describe 'creating new comment', :shared => true do
   end
 end
 
-describe "invalid comment", :shared => true do
+shared_examples_for "invalid comment" do
   it 'renders posts/show' do
     response.should be_success
     response.should render_template('posts/show')
@@ -97,9 +79,9 @@ describe CommentsController, 'handling commenting' do
         'body'   => 'This is a comment'
       }
 
-      @controller.stub!(:authenticate_with_open_id).and_return(true)
+      @controller.stub!(:authenticate_with_open_id).and_return(nil)
     end
-    
+
     def do_post
       post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => @comment
     end
@@ -110,7 +92,7 @@ describe CommentsController, 'handling commenting' do
     end
 
     it 'redirects to OpenID authority' do
-      @controller.should_receive(:authenticate_with_open_id).and_return(true)
+      @controller.should_receive(:authenticate_with_open_id).and_return(nil)
       do_post
     end
   end
@@ -213,7 +195,7 @@ describe CommentsController, 'handling commenting' do
       }
     end
 
-    
+
     it "allows setting of author" do
       assigns(:comment).author.should == 'Don Alias'
     end
@@ -231,7 +213,7 @@ describe CommentsController, 'handling commenting' do
     end
 
     it "forbids setting of created_at" do
-      assigns(:comment).created_at.should_not == @created_at 
+      assigns(:comment).created_at.should_not == @created_at
     end
 
     it "forbids setting of updated_at" do
@@ -243,12 +225,12 @@ end
 describe CommentsController, 'with an AJAX request to new' do
   before(:each) do
     Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
-    controller.should_receive(:render).with(:partial => 'comment.html.erb')
 
     xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
       :author => 'Don Alias',
       :body   => 'A comment'
     }
+    response.should be_success
   end
 
   it "assigns a new comment for the view" do

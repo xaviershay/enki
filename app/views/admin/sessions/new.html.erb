@@ -1,6 +1,6 @@
-<h1><%= link_to(h(config[:title]), '/') %></h1>
+<h1><%= link_to(enki_config[:title], '/') %></h1>
 <% if flash[:error] %><p><%= flash[:error] %></p><% end %>
-<% form_tag(admin_session_path) do -%>
+<%= form_tag(admin_session_path) do -%>
   <h2>Stop! Who are you?</h2>
   <p><%= text_field_tag 'openid_url' %></p>
   <% if allow_login_bypass? -%>

@@ -8,8 +8,8 @@ jQuery.delegate = function(rules) {
 
 
 function restripe() {
-  $('table tr:odd').removeClass('alt'); 
-  $('table tr:even').addClass('alt'); 
+  $('table tr:odd').removeClass('alt');
+  $('table tr:even').addClass('alt');
 }
 
 function asyncDeleteForm(obj, options) {
@@ -25,7 +25,7 @@ function asyncDeleteForm(obj, options) {
       if (msg.undo_path) {
         display += '<span class="undo-link"> (<a class="undo-link" href="' + msg.undo_path + '">undo</a>)</span>';
         undo_stack.push(msg.undo_path);
-      }  
+      }
       humanMsg.displayMsg(display);
     },
     error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -48,7 +48,7 @@ function processUndo(path, options) {
     error: function (XMLHttpRequest, textStatus, errorThrown) {
       humanMsg.displayMsg( 'Could not undo' );
     }
-  }, options || {}));  
+  }, options || {}));
 
   // Assume success and remove undo link
   $('a.undo-link[href=' + path + ']').parent('span').hide();
@@ -57,20 +57,20 @@ function processUndo(path, options) {
 
 function asyncUndoBehaviour(options) {
   $('#humanMsgLog').click($.delegate({
-    'a.undo-link': function(e) { 
+    'a.undo-link': function(e) {
       processUndo(jQuery(e.target).attr('href'), options);
       return false;
     }
   }));
   jQuery.each(["Ctrl+Z", "Meta+Z"], function () {
-    shortcut.add(this, function() { 
+    shortcut.add(this, function() {
       item = undo_stack.pop();
       if (item)
-        processUndo(item, options) 
+        processUndo(item, options)
       else
         humanMsg.displayMsg("Nothing to undo");
     });
-  });  
+  });
 }
 
 var undo_stack = new Array();
@@ -101,5 +101,5 @@ function destroyAndUndoBehaviour(type) {
 
     $('form.delete-item').submit(onDeleteFormClick);
   }
-}  
+}
 

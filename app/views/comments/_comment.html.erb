@@ -1,4 +1,4 @@
   <cite><%= author_link(comment) %></cite> says:
-  <br />
+  <br>
   <small class="commentmetadata"><a href="#comment-<%= comment.id %>" title=""><%= format_comment_date(comment.created_at) %></a></small>
-  <p><%= comment.body_html.untaint %></p>
+  <p><%=raw comment.body_html %></p>
