@@ -10,6 +10,6 @@
 	</div>
 	<% end -%>
   <% if more_content? -%>
-    <div class="related"><%= t 'pages.posts.see_archive', :archives_link => link_to("archives", archives_path) %></div>
+    <div class="related"><%= t('pages.posts.see_archive', :archives_link => link_to("archives", archives_path)).htmL_safe %></div>
   <% end -%>
 <% end -%>
