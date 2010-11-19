@@ -2,12 +2,12 @@
   <%= javascript_include_tag 'admin/edit-preview' %>
 <% end -%>
 
-<%= form.input_field_set do -%>
+<%= form.inputs do -%>
   <%= form.input :title, :label => t('admin.posts.form.title') -%>
   <%= form.input :body, :label => t('admin.posts.form.body'), :hint => t('admin.posts.form.body_hint.html') -%>
   <%= form.input :tag_list, :as => 'string', :required => false, :label => t('admin.posts.form.tag_list'), :hint => t('admin.posts.form.tag_list_hint') -%>
 <% end -%>
-<%= form.input_field_set do -%>
+<%= form.inputs do -%>
   <%= form.input :published_at_natural, :label => t('admin.posts.form.published_at'), :as => 'string', :hint => t('admin.posts.form.published_at_hint.html', :more => "http://chronic.rubyforge.org/") -%>
   <%= form.input :slug, :label => "Slug", :hint => t('admin.posts.form.slug_hint') -%>
   <%= form.input :minor_edit, :as => 'boolean', :label => t('admin.posts.form.minor_edit'), :hint => t('admin.posts.form.minor_edit_hint') unless @post.new_record? -%>
