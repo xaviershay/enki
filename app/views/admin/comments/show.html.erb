@@ -1,13 +1,13 @@
 <h1>Editing comment by <%= @comment.author %></h1>
 
 <%= semantic_form_for([:admin, @comment]) do |form| -%>
-  <%= form.input_field_set do -%>
+  <%= form.inputs do -%>
     <%= form.input :author %>
     <%= form.input :author_url, :required => false %>
     <%= form.input :author_email, :required => false %>
     <%= form.input :body, :hint => "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>.".html_safe %>
   <% end %>
-  <%= form.button_field_set do -%>
+  <%= form.buttons do -%>
     <%= form.commit_button("Save") %>
   <% end -%>
 <% end -%>
