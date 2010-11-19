@@ -6,17 +6,19 @@ en:
     posts:
       comments:
         one: "1 comment"
-        other: "{{count}} comments"
+        other: "%{count} comments"
       comment_error_title: "Comment not added!"
-      comment_name: "Name or <a href=\"{{openid}}\">OpenID</a> (required)"
-      comment_lesstile: "(<a href=\"{{lesstile}}\">lesstile enabled</a> - surround code blocks with ---)"
+      comment_name: 
+        html: "Name or <a href=\"%{openid}\">OpenID</a> (required)"
+      comment_lesstile:
+        html: "(<a href=\"%{lesstile}\">lesstile enabled</a> - surround code blocks with ---)"
       comment_button: "Add Comment"
       comment_says: "says:"
       no_posts: "There are no posts yet."
       post_comment_title: "Post a comment"
-      posted_on: "Posted on {{date}}"
-      see_archive: "Looking for more? Head on over to the {{archives_link}}."
-      tagged: "Tagged {{tags_link}}"
+      posted_on: "Posted on %{date}"
+      see_archive: "Looking for more? Head on over to the %{archives_link}."
+      tagged: "Tagged %{tags_link}"
     menu:
       pages_title: "Pages"
       categories_title: "Categories"
@@ -39,7 +41,8 @@ en:
         author_url: "Author url"
         author_email: "Author email"
         body: "Body"
-        body_hint: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
+        body_hint:
+          html: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
         save: "Save"
       index:
         actions: "Actions"
@@ -50,19 +53,19 @@ en:
         post: "Post"
         title: "Comments"
       show:
-        title: "Editing comment by {{author}}"
+        title: "Editing comment by %{author}"
     dashboard:
       comment:
         one: "1 comment"
-        other: "{{count}} comments"
+        other: "%{count} comments"
       latest_comments: "Latest Comments"
       latest_posts: "Latest Posts"
       post:
         one: "1 post"
-        other: "{{count}} posts"
+        other: "%{count} posts"
       tag:
         one: "1 tag"
-        other: "{{count}} tags"
+        other: "%{count} tags"
     health:
       title: "Health"
     navigation:
@@ -78,7 +81,8 @@ en:
     pages:
       form:
         body: "Body"
-        body_hint: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
+        body_hint:
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
         slug: "Slug"
         slug_hint: "Leave blank for an auto-generated slug based on the title."
         save: "Save"
@@ -94,15 +98,17 @@ en:
       new:
         title: "New page"
       show:
-        title: "Editing page - {{link}}"
+        title: "Editing page - %{link}"
     posts:
       form:
         body: "Body"
-        body_hint: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
+        body_hint:
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
         minor_edit: "Minor edit"
         minor_edit_hint: "Minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like."
         published_at: "Published at"
-        published_at_hint: "Example: now, yesterday, 1 hour from now, <a href=\"{{more}}\">more&hellip;</a>"
+        published_at_hint:
+          html: "Example: now, yesterday, 1 hour from now, <a href=\"%{more}\">more&hellip;</a>"
         slug: "Slug"
         slug_hint: "Leave blank for an auto-generated slug based on the title."
         tag_list: "Tag list"
@@ -121,7 +127,7 @@ en:
       new:
         title: "New post"
       show:
-        title: "Editing post - {{permalink}}"
+        title: "Editing post - %{permalink}"
     sessions:
       bypass_login: "Bypass credentials check"
       login_greeting: "Stop! Who are you?"
@@ -137,7 +143,7 @@ en:
         posts_tagged: "Posts Tagged"
         title: "Your tags"
       edit:
-        title: "Editing tag - {{permalink}}"
+        title: "Editing tag - %{permalink}"
     title: "Admin"
   plugins:
     will_paginate:

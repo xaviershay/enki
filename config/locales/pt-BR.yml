@@ -8,8 +8,10 @@ pt-BR:
         one: "1 comentário"
         other: "{{count}} comentários"
       comment_error_title: "O comentário não foi adicionado!"
-      comment_name: "Nome ou <a href=\"{{openid}}\">OpenID</a> (obrigatório)"
-      comment_lesstile: "(<a href=\"{{lesstile}}\">lesstile habilitado</a> - envolver bloco de código com ---)"
+      comment_name:
+        html: "Nome ou <a href=\"{{openid}}\">OpenID</a> (obrigatório)"
+      comment_lesstile:
+        html: "(<a href=\"{{lesstile}}\">lesstile habilitado</a> - envolver bloco de código com ---)"
       comment_button: "Adicionar comentário"
       comment_says: "diz:"
       no_posts: "Ainda não há comentários."
@@ -38,7 +40,8 @@ pt-BR:
         author_url: "Url do autor"
         author_email: "Email do autor"
         body: "Corpo do Texto"
-        body_hint: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
+        body_hint:
+          html: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
         save: "Salvar"
       index:
         actions: "Ações"
@@ -77,7 +80,8 @@ pt-BR:
     pages:
       form:
         body: "Corpo do Texto"
-        body_hint: "<a href='http://hobix.com/textile/quick.html'>Textile ativado</a>. Use Ctrl+E para alternar entre modo de visualização e edição."
+        body_hint: 
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile ativado</a>. Use Ctrl+E para alternar entre modo de visualização e edição."
         slug: "Slug"
         slug_hint: "Deixe em branco para que seja gerado um slug com base no título."
         save: "Salvar"
@@ -97,11 +101,13 @@ pt-BR:
     posts:
       form:
         body: "Corpo do Texto"
-        body_hint: "<a href='http://hobix.com/textile/quick.html'>Textile ativado</a>. Use Ctrl+E para alternar entre modo de visualização e edição."
+        body_hint: 
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile ativado</a>. Use Ctrl+E para alternar entre modo de visualização e edição."
         minor_edit: "Edição menor"
         minor_edit_hint: "Edições menores não serão mostradas como atualizadas nos leitores de feed. Use isso para arrumar erros e afins."
         published_at: "Publicado em"
-        published_at_hint: "Exemplo: agora, ontem, 1 hora atrás, <a href=\"{{more}}\">more&hellip;</a>"
+        published_at_hint: 
+          html: "Exemplo: agora, ontem, 1 hora atrás, <a href=\"{{more}}\">more&hellip;</a>"
         slug: "Slug"
         slug_hint: "Deixe em branco para que seja gerado um slug com base no título."
         tag_list: "Lista de etiquetas"
