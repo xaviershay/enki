@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
       @comment.blank_openid_fields
     else
       session[:pending_comment] = params[:comment]
-      return if authenticate_with_open_id(@comment.author, :optional => [:nickname, :fullname, :email]) do |result, identity_url, registration|
+      authenticate_with_open_id(@comment.author, :optional => [:nickname, :fullname, :email]) do |result, identity_url, registration|
         if result.status == :successful
           @comment.post = @post
 
@@ -49,9 +49,11 @@ class CommentsController < ApplicationController
           @comment.openid_error = OPEN_ID_ERRORS[ result.status ]
         end
       end
+
+      return if response.headers[Rack::OpenID::AUTHENTICATE_HEADER]
     end
 
-    if session[:pending_comment].nil? && @comment.save
+    if @comment.save
       redirect_to post_path(@post)
     else
       render :template => 'posts/show'
