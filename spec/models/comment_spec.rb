@@ -18,7 +18,7 @@ describe Comment do
   before(:each) do
     @comment = Comment.new
   end
-
+  
   it "is invalid with no post" do
     set_comment_attributes(@comment, :post => nil)
     @comment.should_not be_valid
