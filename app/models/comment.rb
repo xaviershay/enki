@@ -1,4 +1,9 @@
 class Comment < ActiveRecord::Base
+  include Gravtastic
+  gravtastic :author_email,
+             :size => 40,
+             :default => Enki::Config.default[:url] + '/images/openid_icon.png'
+
   DEFAULT_LIMIT = 15
 
   attr_accessor         :openid_error

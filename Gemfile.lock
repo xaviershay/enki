@@ -52,6 +52,7 @@ GEM
     gherkin (2.2.9)
       json (~> 1.4.6)
       term-ansicolor (~> 1.0.5)
+    gravtastic (3.1.0)
     hpricot (0.8.3)
     i18n (0.4.2)
     json (1.4.6)
@@ -119,6 +120,7 @@ DEPENDENCIES
   cucumber-rails
   factory_girl
   formtastic
+  gravtastic
   hpricot
   lesstile
   rack-openid
