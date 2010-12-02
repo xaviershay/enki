@@ -14,6 +14,8 @@ class Comment < ActiveRecord::Base
   before_save           :apply_filter
   after_save            :denormalize
   after_destroy         :denormalize
+  
+  after_create :send_notification
 
   validates_presence_of :author, :body, :post
   validate :open_id_error_should_be_blank
@@ -63,6 +65,10 @@ class Comment < ActiveRecord::Base
   # Delegates
   def post_title
     post.title
+  end
+  
+  def send_notification
+    CommentMailer.deliver_notification(self)
   end
 
   class << self
