@@ -1,3 +1,5 @@
+  <%= image_tag(comment.gravatar_url, :class => 'gravatar') \
+    unless comment.author_email.empty? -%>
   <cite><%= author_link(comment) %></cite> says:
   <br>
   <small class="commentmetadata"><a href="#comment-<%= comment.id %>" title=""><%= format_comment_date(comment.created_at) %></a></small>

@@ -14,7 +14,7 @@ module UrlHelper
     if comment.author_url.blank?
      comment.author
     else
-      link_to(comment.author, comment.author_url, :class => 'openid')
+      link_to(comment.author, comment.author_url)
     end
   end
 end

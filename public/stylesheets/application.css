@@ -69,12 +69,14 @@ strong
   color: #333333;
 }
 /* Links */
-.openid
-{
-  background-image: url("/images/openid_icon.png");
-  padding-left: 15px;
-  background-repeat: no-repeat;
-  background-position: 0px 2px;
+ul.commentlist {
+  position: relative;
+  padding-left: 50px;
+}
+
+.gravatar {
+  position: absolute;
+  left: 0px;
 }
 
 a
