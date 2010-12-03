@@ -55,7 +55,7 @@ h2. Contributors, these guys rock
 
 <pre><code>git log | grep Author | sort | uniq</code></pre>
 
-If you want to help out, try tackling an "open issue":https://github.com/xaviershay/enki/issues.
+If you want to help out, try tackling an "open issue":https://github.com/xaviershay/enki/issues. Please include specs for any fixes. Enki is by design feature light. Unless you feel very strongly your feature should be in core, add a link to your fork in the wiki instead.
 
 h2. License
 
