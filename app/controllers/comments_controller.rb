@@ -25,15 +25,14 @@ class CommentsController < ApplicationController
     end
   end
 
+  # TODO: Spec OpenID with cucumber and rack-my-id
   def create
     @comment = Comment.new((session[:pending_comment] || params[:comment] || {}).reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
 
     session[:pending_comment] = nil
 
-    unless @comment.requires_openid_authentication?
-      @comment.blank_openid_fields
-    else
+    if @comment.requires_openid_authentication?
       session[:pending_comment] = params[:comment]
       authenticate_with_open_id(@comment.author, :optional => [:nickname, :fullname, :email]) do |result, identity_url, registration|
         if result.status == :successful
@@ -49,14 +48,16 @@ class CommentsController < ApplicationController
           @comment.openid_error = OPEN_ID_ERRORS[ result.status ]
         end
       end
-
-      return if response.headers[Rack::OpenID::AUTHENTICATE_HEADER]
+    else
+      @comment.blank_openid_fields
     end
 
-    if @comment.save
-      redirect_to post_path(@post)
-    else
-      render :template => 'posts/show'
+    unless response.headers[Rack::OpenID::AUTHENTICATE_HEADER] # OpenID gem already provided a response
+      if @comment.save
+        redirect_to post_path(@post)
+      else
+        render :template => 'posts/show'
+      end
     end
   end
 
