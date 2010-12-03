@@ -77,8 +77,8 @@ class Admin::PostsController < Admin::BaseController
         render :json => {
           :undo_path    => undo_admin_undo_item_path(undo_item),
           :undo_message => undo_item.description,
-          :post         => @post
-        }.to_json
+          :post         => @post.attributes
+        }
       }
     end
   end

@@ -124,9 +124,9 @@ describe Admin::CommentsController do
       do_delete
     end
 
-    it("renders comment as json") do
+    it("renders json including a description of the comment") do
       do_delete
-      response.should contain(/#{Regexp.escape(@comment.to_json)}/)
+      JSON.parse(response.body)['undo_message'].should == 'hello'
     end
   end
 end

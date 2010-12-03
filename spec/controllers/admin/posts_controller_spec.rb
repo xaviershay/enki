@@ -161,9 +161,9 @@ describe Admin::PostsController do
       do_delete
     end
 
-    it("renders post as json") do
+    it("renders json including a description of the post") do
       do_delete
-      response.should contain(/#{Regexp.escape(@post.to_json)}/)
+      JSON.parse(response.body)['undo_message'].should == 'hello'
     end
   end
 end
