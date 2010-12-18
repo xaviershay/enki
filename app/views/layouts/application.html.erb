@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en-US">
 <head>
   <meta charset="utf-8">
-  <title><%= yield(:page_title) || enki_config[:title] %></title>
+  <title><%= html_title yield(:page_title) %></title>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag 'jquery' %>
   <%= open_id_delegation_link_tags(enki_config[:open_id_delegation, :server], enki_config[:open_id_delegation, :delegate]) if enki_config[:open_id_delegation] %>
