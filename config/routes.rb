@@ -5,7 +5,7 @@ Enki::Application.routes.draw do
     resources :posts, :pages do
       post 'preview', :on => :collection
     end
-    resources :comments, :tags
+    resources :comments
     resources :undo_items do
       post 'undo', :on => :member
     end
