@@ -1,5 +1,11 @@
+url = if @tag.nil?
+  formatted_posts_path(:format => 'atom', :only_path => false)
+else
+  posts_path(:tag => @tag, :format => 'atom', :only_path => false)
+end
+
 atom_feed(
-  :url         => posts_path(:tag => @tag, :format => 'atom', :only_path => false),
+  :url         => url,
   :root_url    => posts_path(:tag => @tag, :only_path => false),
   :schema_date => '2008'
 ) do |feed|
