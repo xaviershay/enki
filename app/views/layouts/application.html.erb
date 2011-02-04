@@ -12,38 +12,40 @@
 </head>
 <body>
   <div id="page_container">
-    <h1 id="page_heading"><a href="<%= root_url %>"><%= enki_config[:title] %></a></h1>
+    <div id="content">
+      <h1 id="page_heading"><a href="<%= root_url %>"><%= enki_config[:title] %></a></h1>
 
-    <div id="main">
-      <%= yield %>
-    </div>
+      <div id="main">
+        <%= yield %>
+      </div>
 
-    <div id="navigation">
-      <h2>Pages</h2>
-      <ul>
-        <% page_links_for_navigation.each do |link| -%>
-          <li><%= link_to(link.name, link.url) %></li>
-        <% end -%>
-      </ul>
-      <% unless category_links_for_navigation.empty? -%>
-        <h2>Categories</h2>
+      <div id="navigation">
+        <h2>Pages</h2>
         <ul>
-          <% category_links_for_navigation.each do |link| -%>
+          <% page_links_for_navigation.each do |link| -%>
             <li><%= link_to(link.name, link.url) %></li>
           <% end -%>
         </ul>
-      <% end -%>
-      <form method="get" id="sform" action="http://www.google.com/search">
-        <div>
-          <h2><label for="q">Search</label></h2>
+        <% unless category_links_for_navigation.empty? -%>
+          <h2>Categories</h2>
+          <ul>
+            <% category_links_for_navigation.each do |link| -%>
+              <li><%= link_to(link.name, link.url) %></li>
+            <% end -%>
+          </ul>
+        <% end -%>
+        <form method="get" id="sform" action="http://www.google.com/search">
+          <div>
+            <h2><label for="q">Search</label></h2>
 
-          <input type="text" id="q" value="" name="q">
-          <input type="hidden" name="sitesearch" value="<%= enki_config[:url] %>">
-        </div>
-      </form>
+            <input type="text" id="q" value="" name="q">
+            <input type="hidden" name="sitesearch" value="<%= enki_config[:url] %>">
+          </div>
+        </form>
+      </div>
+
+      <div id="footer"><%= enki_config[:title] %> &#169; <%= enki_config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{enki_config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
     </div>
-
-    <div id="footer"><%= enki_config[:title] %> &#169; <%= enki_config[:author, :name] %>. Valid <a href="http://validator.w3.org/check?uri=referer">HTML5</a> and <%= link_to "ATOM", "http://feedvalidator.org/check.cgi?url=#{enki_config[:url]}/posts.atom" %>. Powered by <a href="http://www.enkiblog.com" title="A Ruby on Rails blogging app for the fashionable developer">Enki</a>.</div>
   </div>
 </body>
 </html>

@@ -1,8 +1,8 @@
 /* High level containers */
-body
-{
+body 
+{ 
   color: black;
-
+  
   font: normal 12px verdana, arial, helvetica, sans-serif;
   line-height: 1.5;
   padding: 0px;
@@ -11,41 +11,43 @@ body
 
 #page_container
 {
-  width: 70em;
   position: absolute;
   min-height: 400px;
-
+  
   color: black;
+	width: 100%;
+}
 
-  margin-top: 5px;
-  padding-left: 10px;
-  border-right: solid 1px #aaaaaa;
-  border-top: solid 1px #aaaaaa;
+#content {
+	width: 900px;
+  margin: 5px auto;
+	position: relative;
+	padding-right: 55px;
+/*	display: inline;*/
 }
 
 #footer
 {
-  position: absolute;
-  bottom: -1px;
-  right: -1px;
+  position: relative;
   font-size: 8pt;
-  padding-top: 5px;
+/*  padding-top: 5px;*/
   padding-right: 15px;
   padding-bottom: 5px;
   padding-left: 5px;
   color: gray;
-  border-bottom: solid 1px #aaaaaa;
+/*  border-bottom: solid 1px #aaaaaa;*/
 }
 
 /* Headings */
 h1#page_heading
 {
   font-size: 24pt;
+	color: #000 !important;
 }
 
 h2
 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   color: #333333;
 }
 
@@ -55,7 +57,7 @@ h2 a, h3, h4, h5
 }
 
 /* Text */
-p
+p 
 {
   padding: 0px;
   margin-top: 0.5em;
@@ -77,13 +79,13 @@ strong
   background-position: 0px 2px;
 }
 
-a
+a 
 {
   color: #000051;
-
-  text-decoration: none;
+  
+  text-decoration: none;    
 }
-
+  
 small a, label a
 {
   text-decoration: underline;
@@ -91,9 +93,9 @@ small a, label a
 
 a:hover
 {
-  text-decoration: underline;
+  text-decoration: underline;    
 }
-
+  
 #footer a
 {
   color: gray;
@@ -106,20 +108,15 @@ img
 }
 
 /* Two columns */
-#navigation
+#navigation 
 {
   position: absolute;
-  width: 10em;
-  top: -1px;
+  width: 15em;
+  top: -1px; 
   right: -1px;
 
   border: none;
-  border-left: solid 1px #aaaaaa;
-  border-bottom: solid 1px #aaaaaa;
-  border-top: solid 1px white;
-  border-right: solid 1px white;
-
-  padding: 10px;
+  padding: 5px;
 }
 
 #navigation h2
@@ -137,12 +134,12 @@ img
 #navigation ul
 {
   padding-left: 10px;
-
+  
   margin-left: 0px;
   margin-top: 0px;
   list-style: none;
 }
-
+  
 #navigation ul li
 {
   padding-left: 0px;
@@ -160,6 +157,7 @@ img
 {
   border: solid 1px black;
   width: 100%;
+	margin-left: 10px;
 }
 
 #navigation form
@@ -167,20 +165,20 @@ img
   margin-bottom: 1em;
 }
 
-#main
+#main 
 {
   padding-right: 150px;
   padding-left: 0px;
-  padding-top: 15px;
+  padding-top: 0px;
   padding-bottom: 40px;
 }
 
 div.meta
 {
  margin-top: 1em;
- margin-bottom: 3em;
+ margin-bottom: 3em; 
 }
-/* Formatting */
+/* Formatting */   
 
 .meta ul
 {
@@ -190,7 +188,7 @@ div.meta
   padding-bottom: 0.5em;
   display: inline;
   color: #cccccc;
-  font-size: 10pt;
+	font-size: 9pt;
 }
 .archive-month .tags
 {
@@ -212,7 +210,7 @@ div.meta
 {
   display: inline;
 }
-
+ 
 .meta ul li:after
 {
   content: " | ";
@@ -228,7 +226,7 @@ h2
   margin-bottom: 0px;
 }
 
-.separator
+.separator 
 {
   height: 1px;
   margin-top:5px;
@@ -266,17 +264,23 @@ textarea
   background-color: #fafafa;
 }
 
+div.date 
+{
+	color: #999;
+	font-size: .8em;
+}
 
 div.comments div.body
 {
   padding: 5px;
 }
+
 div.comments div.meta
 {
   min-height: 0px;
-  padding: 0px
+  padding: 0px;
 }
-
+  
 div.comments div.separator
 {
   height: 10px;
@@ -305,7 +309,7 @@ span.error
 {
   font-weight: bold;
   }
-
+  
 hr
 {
   border-top: dotted 1px black;
