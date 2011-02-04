@@ -24,7 +24,7 @@ gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
 gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
-gem 'will_paginate', '~> 3.0.pre3'
+gem 'will_paginate', '= 3.0.pre2'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

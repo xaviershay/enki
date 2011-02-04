@@ -128,4 +128,4 @@ DEPENDENCIES
   ruby-openid
   sqlite3-ruby
   webrat
-  will_paginate (~> 3.0.pre3)
+  will_paginate (= 3.0.pre2)
