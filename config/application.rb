@@ -2,6 +2,9 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 
+# Bundler 1.0.10 incorrectly activates the new experimental Psych YAML parser
+# in 1.9.2, which breaks on RedCloth. This hack reverts it, but can be removed
+# once it is all sorted out. The const_defined check is required for 1.8.7 compat.
 YAML::ENGINE.yamler = "syck" if YAML.const_defined?("ENGINE")
 
 # If you have a Gemfile, require the gems listed there, including any gems
