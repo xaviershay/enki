@@ -160,5 +160,9 @@ describe PostsController do
       do_get
       assigns[:comment].should equal(@comment)
     end
+    
+    it "should route /pages to posts#index with tag pages" do
+      {:get => "/pages"}.should route_to(:controller => 'posts', :action => 'index', :tag => 'pages')
+    end
   end
 end
