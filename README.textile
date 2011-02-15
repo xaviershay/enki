@@ -41,8 +41,6 @@ h2. How it differs from Mephisto
 
 Mephisto is feature packed and quite customizable. It can however be daunting trying to find your way around the code, which isn’t so good if you’re trying to hack in your own features. Enki strips out a lot of the features that you probably don’t need (multiple authors and liquid templates, for example), and focuses on keeping a tight code base that is easy to comprehend and extend.
 
-*If you’re converting from Mephisto,* be sure to have a look at "enki-translator":http://github.com/xaviershay/enki-translator/tree/master
-
 h2. How it differs from SimpleLog
 
 Enki embodies much of the philosophy of SimpleLog, but does so in a style that is much more consistent with Rails best practices, making it easier to understand and hack the code.
