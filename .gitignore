@@ -7,4 +7,3 @@ db/schema.rb
 .bundle
 *.log
 .rvmrc
-vendor/*
