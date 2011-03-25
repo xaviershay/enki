@@ -178,4 +178,10 @@ describe Comment, '#requires_openid_authentication?' do
 
     it { should_not be }
   end
+
+  describe 'with a nil author' do
+    subject { Comment.new.requires_openid_authentication? }
+
+    it { should_not be }
+  end
 end
