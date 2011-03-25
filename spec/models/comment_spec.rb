@@ -165,3 +165,17 @@ describe Comment, '.build_for_preview with OpenID author' do
     @comment.author.should == "Your OpenID Name"
   end
 end
+
+describe Comment, '#requires_openid_authentication?' do
+  describe 'with an author containing a .' do
+    subject { Comment.new(:author => 'example.com').requires_openid_authentication? }
+
+      it { should be }
+  end
+
+  describe 'with a normal author' do
+    subject { Comment.new(:author => 'Don Alias').requires_openid_authentication? }
+
+    it { should_not be }
+  end
+end
