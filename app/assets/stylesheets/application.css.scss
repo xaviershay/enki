@@ -1,8 +1,15 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *= require_self
+ *= require_tree ./site
+*/
+
 /* High level containers */
-body 
-{ 
+body
+{
   color: black;
-  
   font: normal 12px verdana, arial, helvetica, sans-serif;
   line-height: 1.5;
   padding: 0px;
@@ -13,17 +20,16 @@ body
 {
   position: absolute;
   min-height: 400px;
-  
   color: black;
-	width: 100%;
+  width: 100%;
 }
 
 #content {
-	width: 900px;
+  width: 900px;
   margin: 5px auto;
-	position: relative;
-	padding-right: 55px;
-/*	display: inline;*/
+  position: relative;
+  padding-right: 55px;
+/*  display: inline;*/
 }
 
 #footer
@@ -42,7 +48,7 @@ body
 h1#page_heading
 {
   font-size: 24pt;
-	color: #000 !important;
+  color: #000 !important;
 }
 
 h2
@@ -157,7 +163,7 @@ img
 {
   border: solid 1px black;
   width: 100%;
-	margin-left: 10px;
+  margin-left: 10px;
 }
 
 #navigation form
@@ -188,7 +194,7 @@ div.meta
   padding-bottom: 0.5em;
   display: inline;
   color: #cccccc;
-	font-size: 9pt;
+  font-size: 9pt;
 }
 .archive-month .tags
 {
@@ -266,8 +272,8 @@ textarea
 
 div.date 
 {
-	color: #999;
-	font-size: .8em;
+  color: #999;
+  font-size: .8em;
 }
 
 div.comments div.body
@@ -280,7 +286,7 @@ div.comments div.meta
   min-height: 0px;
   padding: 0px;
 }
-  
+
 div.comments div.separator
 {
   height: 10px;
@@ -309,7 +315,7 @@ span.error
 {
   font-weight: bold;
   }
-  
+
 hr
 {
   border-top: dotted 1px black;
