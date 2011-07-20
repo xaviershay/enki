@@ -21,7 +21,7 @@
     </ul>
   </div>
   <% end -%>
-<%= form_for([@post, @comment]) do |form| -%>
+<%= form_for([@post, @comment], :url => post_comments_path(@post)) do |form| -%>
   <div>
     <p><%= form.text_field 'author' %><label for="comment_author"><small>Name or <a href="http://openidexplained.com/">OpenID</a> (required)</small></label></p>
     <p><%= form.text_area 'body' %><br><small>(<a href="http://lesstile.rubyforge.org">lesstile enabled</a> - surround code blocks with ---)</small></p>
