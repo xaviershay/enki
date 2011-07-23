@@ -11,11 +11,7 @@ class CommentsController < ApplicationController
   before_filter :find_post, :except => [:new]
 
   def index
-    if request.post? || using_open_id?
-      create
-    else
-      redirect_to(post_path(@post))
-    end
+    redirect_to(post_path(@post))
   end
 
   def new

@@ -65,7 +65,7 @@ describe CommentsController, 'handling commenting' do
     before(:each) do
       mock_post!
 
-      post :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
+      post :create, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
         :author => 'Don Alias',
         :body   => 'This is a comment',
 
