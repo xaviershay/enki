@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => :create
+  before_filter :verify_authenticity_token_unless_openid, :only => :create
+
   include UrlHelper
   OPEN_ID_ERRORS = {
     :missing  => "Sorry, the OpenID server couldn't be found",
@@ -65,5 +68,9 @@ class CommentsController < ApplicationController
 
   def find_post
     @post = Post.find_by_permalink(*[:year, :month, :day, :slug].collect {|x| params[x] })
+  end
+
+  def verify_authenticity_token_unless_openid
+    verify_authenticity_token unless using_open_id?
   end
 end
