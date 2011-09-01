@@ -1,9 +1,19 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '~> 3.1.0.rc4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+# Asset template engines
+gem 'json'
+gem 'sass'
+gem 'coffee-script'
+gem 'uglifier'
+
+gem 'therubyracer'
+
+gem 'jquery-rails'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
@@ -24,7 +34,8 @@ gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
 gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
-gem 'will_paginate', '= 3.0.pre2'
+gem 'will_paginate', :git => 'https://github.com/xspond/will_paginate.git',
+  :branch => 'rails3-1'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators
