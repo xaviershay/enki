@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require 'json'
 
 describe Admin::CommentsController do
   describe 'handling GET to index' do

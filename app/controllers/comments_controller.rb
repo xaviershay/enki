@@ -26,8 +26,8 @@ class CommentsController < ApplicationController
 
   # TODO: Spec OpenID with cucumber and rack-my-id
   def create
-    @comment = Comment.new (session[:pending_comment] || params[:comment] || {}).
-      reject {|key, value| !Comment.protected_attribute?(key) }
+    @comment = Comment.new((session[:pending_comment] || params[:comment] || {}).
+      reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
 
     session[:pending_comment] = nil
