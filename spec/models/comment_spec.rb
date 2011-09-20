@@ -49,6 +49,13 @@ describe Comment do
     @comment.requires_openid_authentication?.should == true
   end
 
+  it "requires OpenID authentication when the author's name starts with http" do
+    @comment.author = "http://localhost:9294"
+    @comment.requires_openid_authentication?.should == true
+    @comment.author = "https://localhost:9294"
+    @comment.requires_openid_authentication?.should == true
+  end
+
   it "asks post to update it's comment counter after save" do
     set_comment_attributes(@comment)
     @comment.blank_openid_fields

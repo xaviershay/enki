@@ -80,7 +80,7 @@ module OpenIdAuthentication
     # working across sites
     def using_open_id?(identifier = nil) #:doc:
       identifier ||= open_id_identifier
-      !identifier.blank? || request.env[Rack::OpenID::RESPONSE]
+      identifier.present? || request.env[Rack::OpenID::RESPONSE]
     end
 
     def authenticate_with_open_id(identifier = nil, options = {}, &block) #:doc:
