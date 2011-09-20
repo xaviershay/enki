@@ -7,8 +7,8 @@ gem 'rails', '~> 3.1.0.rc4'
 
 # Asset template engines
 gem 'json'
-gem 'sass'
-gem 'coffee-script'
+gem 'sass-rails', "~> 3.1.0"
+gem 'coffee-rails', "~> 3.1.0"
 gem 'uglifier'
 
 gem 'therubyracer'
