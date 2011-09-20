@@ -5,6 +5,7 @@ require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "active_resource/railtie"
+require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Bundler 1.0.10 incorrectly activates the new experimental Psych YAML parser
