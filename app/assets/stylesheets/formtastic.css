@@ -21,7 +21,7 @@ html[xmlns] form fieldset { display: block; }
 /* INPUT LIs
 --------------------------------------------------------------------------------------------------*/
 
-form fieldset ol li { border-bottom:1px solid #ccc; padding:10px; }*/
+form fieldset ol li { border-bottom:1px solid #ccc; padding:10px; }
 
 /* clearfixing the li's */
 form fieldset ol li { display: inline-block; }
