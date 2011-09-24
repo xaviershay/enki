@@ -15,6 +15,7 @@ $(document).ready(function() {
           type: 'POST',
           data: form.serialize().replace(/&*_method=\w+&*/, ''),
           url: dest,
+          dataType: 'html',
           error: function() {
             $('#preview .content').html('<p>Failed to generate preview. Toggle back to edit mode and check that all required fields are filled in and valid.</p>');
           },
