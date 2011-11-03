@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     RedCloth (4.2.7)
+    RedCloth (4.2.7-java)
     aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.4)
@@ -26,11 +27,16 @@ GEM
       activesupport (= 3.0.4)
       arel (~> 2.0.2)
       tzinfo (~> 0.3.23)
+    activerecord-jdbc-adapter (1.2.0)
+    activerecord-jdbcsqlite3-adapter (1.2.0)
+      activerecord-jdbc-adapter (~> 1.2.0)
+      jdbc-sqlite3 (~> 3.7.2)
     activeresource (3.0.4)
       activemodel (= 3.0.4)
       activesupport (= 3.0.4)
     activesupport (3.0.4)
     arel (2.0.8)
+    bouncy-castle-java (1.5.0146.1)
     builder (2.1.2)
     coderay (0.9.7)
     cucumber (0.10.0)
@@ -51,9 +57,17 @@ GEM
       i18n (~> 0.4)
     gherkin (2.3.3)
       json (~> 1.4.6)
+    gherkin (2.3.3-java)
+      json (~> 1.4.6)
     hpricot (0.8.3)
+    hpricot (0.8.3-java)
     i18n (0.5.0)
+    jdbc-sqlite3 (3.7.2)
+    jruby-openssl (0.7.4)
+      bouncy-castle-java
+    jruby-rack (1.0.10)
     json (1.4.6)
+    json (1.4.6-java)
     lesstile (1.0.1)
     mail (2.2.15)
       activesupport (>= 2.3.6)
@@ -62,6 +76,8 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.16)
     nokogiri (1.4.4)
+    nokogiri (1.4.4-java)
+      weakling (>= 0.0.3)
     polyglot (0.3.1)
     rack (1.2.1)
     rack-mount (0.6.13)
@@ -106,7 +122,12 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
+    trinidad (1.2.3)
+      jruby-rack (>= 1.0.9)
+      trinidad_jars (>= 1.0.1)
+    trinidad_jars (1.0.1)
     tzinfo (0.3.24)
+    weakling (0.0.4-java)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
       rack (>= 1.0)
@@ -114,16 +135,19 @@ GEM
     will_paginate (3.0.pre2)
 
 PLATFORMS
+  java
   ruby
 
 DEPENDENCIES
-  RedCloth
+  RedCloth (= 4.2.7)
   aaronh-chronic
+  activerecord-jdbcsqlite3-adapter
   coderay
   cucumber-rails
   factory_girl
   formtastic
   hpricot
+  jruby-openssl
   lesstile
   rack-openid
   rails (= 3.0.4)
@@ -131,5 +155,6 @@ DEPENDENCIES
   rspec-rails
   ruby-openid
   sqlite3-ruby
+  trinidad
   webrat
   will_paginate (= 3.0.pre2)

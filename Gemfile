@@ -5,7 +5,15 @@ gem 'rails', '3.0.4'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3-ruby', :require => 'sqlite3'
+platforms :ruby do
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+end
+
+platforms :jruby do
+  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'trinidad'
+  gem 'jruby-openssl'
+end
 
 # Use unicorn as the web server
 # gem 'unicorn'
@@ -17,7 +25,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'RedCloth', :require => 'redcloth'
+gem 'RedCloth', '4.2.7', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
 gem 'rack-openid', :require => 'rack/openid'
 gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
