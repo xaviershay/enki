@@ -147,7 +147,7 @@ describe Admin::PostsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @post = Post.new(:title => 'A post')
-      @post.stub!(:destroy_with_undo).and_return(mock(UndoItem, :description => 'hello'))
+      @post.stub!(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       Post.stub!(:find).and_return(@post)
     end
 
@@ -157,7 +157,7 @@ describe Admin::PostsController do
     end
 
     it("deletes post") do
-      @post.should_receive(:destroy_with_undo).and_return(mock(UndoItem, :description => 'hello'))
+      @post.should_receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       do_delete
     end
 
