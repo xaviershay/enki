@@ -111,7 +111,7 @@ describe Admin::CommentsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @comment = Comment.new(:author => 'xavier')
-      @comment.stub!(:destroy_with_undo).and_return(mock("undo_item", :description => 'hello'))
+      @comment.stub!(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       Comment.stub!(:find).and_return(@comment)
     end
 
@@ -121,7 +121,7 @@ describe Admin::CommentsController do
     end
 
     it("deletes comment") do
-      @comment.should_receive(:destroy_with_undo).and_return(mock("undo_item", :description => 'hello'))
+      @comment.should_receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       do_delete
     end
 
