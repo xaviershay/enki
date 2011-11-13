@@ -43,5 +43,5 @@ group :development, :test do
   gem 'factory_girl'
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'hpricot'
+  gem 'nokogiri', '~> 1.5.0'
 end
