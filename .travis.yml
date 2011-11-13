@@ -1,2 +1,2 @@
 before_script:
-  - "cp config/database.example.ym config/database.yml"
+  - "cp config/database.example.yml config/database.yml"
