@@ -25,7 +25,7 @@ end
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'RedCloth', '4.2.7', :require => 'redcloth'
+gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
 gem 'rack-openid', :require => 'rack/openid'
 gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2

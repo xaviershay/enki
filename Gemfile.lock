@@ -1,8 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    RedCloth (4.2.7)
-    RedCloth (4.2.7-java)
+    RedCloth (4.2.8)
     aaronh-chronic (0.3.9)
     abstract (1.0.0)
     actionmailer (3.0.4)
@@ -139,7 +138,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  RedCloth (= 4.2.7)
+  RedCloth (~> 4.2.7)
   aaronh-chronic
   activerecord-jdbcsqlite3-adapter
   coderay
