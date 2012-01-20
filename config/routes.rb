@@ -1,5 +1,5 @@
 Enki::Application.routes.draw do
-  namespace 'admin' do
+  namespace :admin do
     resource :session
 
     resources :posts, :pages do

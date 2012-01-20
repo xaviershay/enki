@@ -1,9 +1,3 @@
-<% content_for(:head) do -%>
-  <%= javascript_include_tag 'jquery.jfeed.js' %>
-  <%= javascript_include_tag 'common' %>
-  <%= javascript_include_tag 'admin/dashboard' %>
-<% end -%>
-
 <div id="summary">
 <h1><%= link_to(enki_config[:title], '/') %></h1>
 <p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>

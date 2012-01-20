@@ -10,6 +10,8 @@ gem 'rails', '3.2.0.rc2'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+
+  gem 'uglifier', '>= 1.0.3'
 end
 
 platforms :ruby do
@@ -21,6 +23,8 @@ platforms :jruby do
   gem 'trinidad'
   gem 'jruby-openssl'
 end
+
+gem 'jquery-rails'
 
 # Use unicorn as the web server
 # gem 'unicorn'
