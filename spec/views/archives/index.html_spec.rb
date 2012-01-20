@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "/archives/index.html.erb" do
+describe "/archives/index.html" do
   def tag(name)
     mock_model(Tag, :name => name)
   end
@@ -25,6 +25,6 @@ describe "/archives/index.html.erb" do
   end
 
   it 'renders posts grouped by month' do
-    render :template => "/archives/index.html.erb"
+    render :template => "/archives/index", :formats => [:html]
   end
 end

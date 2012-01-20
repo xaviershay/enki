@@ -1,9 +1,16 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rails', '3.0.4'
+gem 'rails', '3.2.0.rc2'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+end
 
 platforms :ruby do
   gem 'sqlite3-ruby', :require => 'sqlite3'
@@ -25,14 +32,14 @@ end
 # gem 'ruby-debug'
 
 # Bundle the extra gems:
-gem 'RedCloth', '~> 4.2.7', :require => 'redcloth'
+gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
 gem 'rack-openid', :require => 'rack/openid'
 gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
 gem 'coderay'
 gem 'lesstile'
 gem 'formtastic'
-gem 'will_paginate', '= 3.0.pre2'
+gem 'will_paginate', '~> 3.0.2'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

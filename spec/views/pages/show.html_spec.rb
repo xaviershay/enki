@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "/pages/show.html.erb" do
+describe "/pages/show.html" do
   include UrlHelper
 
   before(:each) do
@@ -19,6 +19,6 @@ describe "/pages/show.html.erb" do
   end
 
   it "should render a page" do
-    render :template => "/pages/show.html.erb"
+    render :template => "/pages/show", :formats => [:html]
   end
 end

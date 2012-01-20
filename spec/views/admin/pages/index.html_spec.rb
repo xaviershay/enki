@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin/pages/index.html.erb" do
+describe "/admin/pages/index.html" do
   after(:each) do
     rendered.should be_valid_html5_fragment
   end
@@ -14,6 +14,6 @@ describe "/admin/pages/index.html.erb" do
     )]
     pages.stub!(:total_pages).and_return(1)
     assign :pages, pages
-    render :template => '/admin/pages/index.html.erb'
+    render :template => '/admin/pages/index', :formats => [:html]
   end
 end

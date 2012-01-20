@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "/posts/index.html.erb" do
+describe "/posts/index.html" do
   before(:each) do
     view.stub!(:enki_config).and_return(Enki::Config.default)
 
@@ -25,11 +25,11 @@ describe "/posts/index.html.erb" do
   end
 
   it "should render list of posts" do
-    render :template => "/posts/index.html.erb"
+    render :template => "/posts/index", :formats => [:html]
   end
 
   it "should render list of posts with a tag" do
     assigns[:tag] = 'code'
-    render :template => "/posts/index.html.erb"
+    render :template => "/posts/index", :formats => [:html]
   end
 end

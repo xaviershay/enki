@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe "/layouts/application.html.erb" do
+describe "/layouts/application.html" do
   before(:each) do
     view.stub!(:enki_config).and_return(Enki::Config.default)
 
@@ -18,6 +18,6 @@ describe "/layouts/application.html.erb" do
   end
 
   it 'renders' do
-    render :template => '/layouts/application.html.erb'
+    render :template => '/layouts/application', :formats => [:html]
   end
 end

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin/pages/show.html.erb" do
+describe "/admin/pages/show.html" do
   after(:each) do
     rendered.should be_valid_html5_fragment
   end
@@ -11,6 +11,6 @@ describe "/admin/pages/show.html.erb" do
       :created_at => Time.now,
       :slug       => 'a-page'
     )
-    render :template => '/admin/pages/show.html.erb'
+    render :template => '/admin/pages/show', :formats => [:html]
   end
 end

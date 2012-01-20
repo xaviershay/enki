@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../spec_helper'
 
-describe "/admin/comments/show.html.erb" do
+describe "/admin/comments/show.html" do
   after(:each) do
     rendered.should be_valid_html5_fragment
   end
@@ -19,6 +19,6 @@ describe "/admin/comments/show.html.erb" do
       :slug         => 'a-post',
       :published_at => Time.now
     ))
-    render :template => '/admin/comments/show.html.erb'
+    render :template => '/admin/comments/show', :formats => [:html]
   end
 end
