@@ -105,7 +105,9 @@ class Post < ActiveRecord::Base
 
   def set_dates
     self.edited_at = Time.now if self.edited_at.nil? || !minor_edit?
-    self.published_at = Chronic.parse(self.published_at_natural)
+    if new_published_at = Chronic.parse(self.published_at_natural)
+      self.published_at = new_published_at
+    end
   end
 
   def denormalize_comments_count!
