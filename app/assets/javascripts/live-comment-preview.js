@@ -13,7 +13,6 @@ $(function() { // onload
       data: comment_form.serialize(),
       url:  dest + '/new',
       timeout: 2000,
-      dataType: 'text/html',
       error: function() {
         if ($('#comment-preview').length == 0) {
           comment_form.after('<div id="comment-preview"></div>')
