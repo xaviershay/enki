@@ -1,3 +1,6 @@
+# From https://github.com/sikachu/verification
+# This used to be an official part of Rails but was deprecated.
+#
 module ActionController #:nodoc:
   module Verification #:nodoc:
     extend ActiveSupport::Concern
