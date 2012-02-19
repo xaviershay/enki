@@ -8,5 +8,4 @@
 $LOAD_PATH.unshift(File.expand_path('../../../lib/acts_as_taggable_on_steroids/lib', __FILE__))
 require 'acts_as_taggable_on_steroids/init'
 require 'tag_list'
-require 'tagging'
 require 'tags_helper'
