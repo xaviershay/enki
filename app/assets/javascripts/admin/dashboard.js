@@ -19,8 +19,6 @@ $(document).ready(function (){
     $('.comment-body').hide();
   });
 
-  asyncUndoBehaviour();
-
   $('form.delete-item').submit(function () {
     // Assume success and remove comment
     comment_link_id = '#comment-link-' + extractId($(this));
