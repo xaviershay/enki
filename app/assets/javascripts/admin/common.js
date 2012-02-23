@@ -17,6 +17,7 @@ function restripe() {
 }
 
 function asyncDeleteForm(obj, options) {
+  var type = /^\/admin\/(\w+)\/\d/.exec(obj.attr('action'))[1];
   $.ajax($.extend({
     type: "DELETE",
     url: obj.attr('action'),
@@ -27,7 +28,7 @@ function asyncDeleteForm(obj, options) {
     success: function(msg){
       display = msg.undo_message
       if (msg.undo_path) {
-        display += '<span class="undo-link"> (<a class="undo-link" href="' + msg.undo_path + '">undo</a>)</span>';
+        display += '<span class="undo-link"> (<a class="undo-link ' + type + '" href="' + msg.undo_path + '">undo</a>)</span>';
         undo_stack.push(msg.undo_path);
       }
       humanMsg.displayMsg(display);
@@ -59,13 +60,13 @@ function processUndo(path, options) {
   undo_stack = jQuery.grep(undo_stack, function(e) { return e != path });
 }
 
-function asyncUndoBehaviour(options) {
-  $('#humanMsgLog').click($.delegate({
-    'a.undo-link': function(e) {
-      processUndo(jQuery(e.target).attr('href'), options);
-      return false;
-    }
-  }));
+function asyncUndoBehaviour(type, options) {
+  var args = {};
+  args['a.undo-link.' + type] = function(e) {
+    processUndo(jQuery(e.target).attr('href'), options);
+    return false;
+  }
+  $('#humanMsgLog').click($.delegate(args));
   jQuery.each(["Ctrl+Z", "Meta+Z"], function () {
     shortcut.add(this, function() {
       item = undo_stack.pop();
@@ -90,7 +91,7 @@ function onDeleteFormClick() {
 
 function destroyAndUndoBehaviour(type) {
   return function (){
-    asyncUndoBehaviour({
+    asyncUndoBehaviour(type, {
       success: function(msg){
         humanMsg.displayMsg( msg.message );
         $.get('/admin/' + type + '/' + msg.obj.id, function(data) {
@@ -103,6 +104,7 @@ function destroyAndUndoBehaviour(type) {
       },
     });
 
+    $('form.delete-item').unbind('submit', onDeleteFormClick);
     $('form.delete-item').submit(onDeleteFormClick);
   }
 }

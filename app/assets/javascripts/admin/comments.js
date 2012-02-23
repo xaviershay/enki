@@ -1,3 +1,3 @@
 $(document).ready(function() {
-  destroyAndUndoBehaviour('comments')
+  destroyAndUndoBehaviour('comments')();
 }); // Defined in admin/common.js
