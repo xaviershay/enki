@@ -103,6 +103,7 @@ function destroyAndUndoBehaviour(type) {
       },
     });
 
+    $('form.delete-item').unbind('submit', onDeleteFormClick);
     $('form.delete-item').submit(onDeleteFormClick);
   }
 }
