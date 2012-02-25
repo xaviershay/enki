@@ -12,6 +12,7 @@ $(function() { // onload
     jQuery.ajax({
       data: comment_form.serialize(),
       url:  dest + '/new',
+      dataType: 'html',
       timeout: 2000,
       error: function() {
         if ($('#comment-preview').length == 0) {
