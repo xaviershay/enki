@@ -28,7 +28,6 @@
     </div>
     <div id="nav">
       <ul>
-<<<<<<< HEAD
         <li><%= nav_link_to(t('admin.navigation.dashboard'), admin_root_path,       :accesskey => '1') %></li>
         <li><%= nav_link_to(t('admin.navigation.posts'),     admin_posts_path,      :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :accesskey => 'n') %></li>
         <li><%= nav_link_to(t('admin.navigation.pages'),     admin_pages_path,      :accesskey => '3') %> <%= nav_link_to("(+)", new_admin_page_path, :accesskey => 'p') %></li>
@@ -36,14 +35,6 @@
         <li><%= nav_link_to(t('admin.navigation.tags'),      admin_tags_path,       :accesskey => '5') %></li>
         <li><%= nav_link_to(t('admin.navigation.actions'),   admin_undo_items_path, :accesskey => '6') %></li>
         <li><%= nav_link_to(t('admin.navigation.health'),    admin_health_path, :accesskey => '6') %></li>
-=======
-        <li><%= nav_link_to("Dashboard", admin_root_path,       :accesskey => '1') %></li>
-        <li><%= nav_link_to("Posts",     admin_posts_path,      :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :accesskey => 'n') %></li>
-        <li><%= nav_link_to("Pages",     admin_pages_path,      :accesskey => '3') %> <%= nav_link_to("(+)", new_admin_page_path, :accesskey => 'p') %></li>
-        <li><%= nav_link_to("Comments",  admin_comments_path,   :accesskey => '4') %></li>
-        <li><%= nav_link_to("Actions",   admin_undo_items_path, :accesskey => '5') %></li>
-        <li><%= nav_link_to("Health",    admin_health_path,     :accesskey => '6') %></li>
->>>>>>> master
         <li class="separator">&nbsp;</li>
         <li><%= link_to(t('admin.navigation.logout'), admin_session_path, :accesskey => 'l', :method => :delete) %></li>
         <li><%= link_to(t('admin.navigation.view_site'), '/',             :accesskey => 'v', :title => t('admin.navigation.view_site')) %></li>

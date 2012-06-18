@@ -17,8 +17,6 @@
       <div id="main">
         <%= yield %>
       </div>
-
-<<<<<<< HEAD
     <div id="navigation">
       <h2><%= t 'pages.menu.pages_title' %></h2>
       <ul>
@@ -26,25 +24,8 @@
           <li><%= link_to(link.name, link.url) %></li>
         <% end -%>
       </ul>
-      <% unless category_links_for_navigation.empty? -%>
-        <h2><%= t 'pages.menu.categories_title' %></h2>
-=======
-      <div id="navigation">
-        <h2>Pages</h2>
->>>>>>> master
-        <ul>
-          <% page_links_for_navigation.each do |link| -%>
-            <li><%= link_to(link.name, link.url) %></li>
-          <% end -%>
-        </ul>
-<<<<<<< HEAD
-      <% end -%>
-      <form method="get" id="sform" action="http://www.google.com/search">
-        <div>
-          <h2><label for="q"><%= t 'pages.menu.search_title' %></label></h2>
-=======
         <% unless category_links_for_navigation.empty? -%>
-          <h2>Categories</h2>
+        <h2><%= t 'pages.menu.categories_title' %></h2>
           <ul>
             <% category_links_for_navigation.each do |link| -%>
               <li><%= link_to(link.name, link.url) %></li>
@@ -53,9 +34,7 @@
         <% end -%>
         <form method="get" id="sform" action="http://www.google.com/search">
           <div>
-            <h2><label for="q">Search</label></h2>
->>>>>>> master
-
+            <h2><label for="q">%= t 'pages.menu.categories_title' %></label></h2>
             <input type="text" id="q" value="" name="q">
             <input type="hidden" name="sitesearch" value="<%= enki_config[:url] %>">
           </div>
