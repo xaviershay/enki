@@ -60,7 +60,7 @@ class Admin::PagesController < Admin::BaseController
 
     respond_to do |format|
       format.js {
-        render :partial => 'pages/page.html.erb', :locals => {:page => @page}
+        render :partial => 'pages/page', :locals => {:page => @page}
       }
     end
   end
@@ -77,7 +77,7 @@ class Admin::PagesController < Admin::BaseController
         render :json => {
           :undo_path    => undo_admin_undo_item_path(undo_item),
           :undo_message => undo_item.description,
-          :page         => @page
+          :page         => @page.attributes
         }.to_json
       }
     end

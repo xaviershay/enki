@@ -1,10 +1,6 @@
-<% content_for(:head) do -%>
-  <%= javascript_include_tag('jquery.form.js') %>
-  <%= javascript_include_tag('admin/comments.js') %>
-<% end -%>
-
 <h1><%= t('admin.comments.index.title') %></h1>
-<table>
+
+<table id='comments'>
   <thead>
     <tr>
       <th><%= t('admin.comments.index.created_at') %></th>

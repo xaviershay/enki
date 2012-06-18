@@ -15,6 +15,14 @@ module PageTitleHelper
     compose_title(page.title)
   end
 
+  def html_title(content)
+    if content.present?
+      content
+    else
+      enki_config[:title]
+    end
+  end
+
   private
 
   def compose_title(*parts)

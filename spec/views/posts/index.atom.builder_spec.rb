@@ -22,11 +22,11 @@ describe "/posts/index.atom.builder" do
   end
 
   it "should render list of posts" do
-    render :template => "/posts/index.atom.builder"
+    render :template => "/posts/index", :formats => [:atom], :handler => [:builder]
   end
 
   it "should render list of posts with a tag" do
     assigns[:tag] = 'code'
-    render :template => "/posts/index.atom.builder"
+    render :template => "/posts/index", :formats => [:atom], :handler => [:builder]
   end
 end
