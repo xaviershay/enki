@@ -1,6 +1,6 @@
 <tr class="<%= cycle('', 'alt') %>">
-  <td><%= post.published_at.strftime('%d %b, %Y') %></td>
-  <td><%= link_to (post.title == '' ? '[Untitled]' : truncate(post.title, :length => 30)), admin_post_path(post) %></td>
+  <td><%= l(post.published_at.to_date, :format => :long) %></td>
+  <td><%= link_to (post.title == '' ? t('admin.posts.index.untitled') : truncate(post.title, :length => 30)), admin_post_path(post) %></td>
   <td><% tmpc = truncate(post.body, :length => 55) %><%= (tmpc != '' ? tmpc : '&nbsp;') %></td>
   <td><%= post.approved_comments.size %></td>
   <td>

@@ -1,5 +1,5 @@
 <tr class="<%= cycle('', 'alt') %>">
-  <td><%= page.created_at.strftime('%d %b, %Y') %></td>
+  <td><%= l(page.created_at.to_date, :format => :long) %></td>
   <td><%= link_to(page.title, admin_page_path(page)) %></td>
   <td><%= truncate(page.body, :length => 50) %></td>
   <td><%= page.slug %></td>

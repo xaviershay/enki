@@ -1,19 +1,18 @@
-<h1>Your pages</h1>
-
+<h1><%= t('admin.pages.index.title') %></h1>
 <table id='pages'>
   <thead>
     <tr>
-      <th>Created At</th>
-      <th>Title</th>
-      <th>Excerpt</th>
-      <th>Link</th>
-      <th>Actions</th>
+      <th><%= t('admin.pages.index.created_at') %></th>
+      <th><%= t('admin.pages.index.title_header') %></th>
+      <th><%= t('admin.pages.index.excerpt') %></th>
+      <th><%= t('admin.pages.index.link') %></th>
+      <th><%= t('admin.pages.index.actions') %></th>
     </tr>
   </thead>
 
   <tbody>
     <% if @pages.empty? -%>
-      <tr><td colspan="5">There are no pages at this time.</td></tr>
+      <tr><td colspan="5"><%= t('admin.pages.index.no_pages') %></td></tr>
     <% else -%>
       <%= render :partial => 'page', :collection => @pages %>
     <% end -%>
@@ -23,9 +22,9 @@
     <% if @pages.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan='5'>
-          <%= will_paginate(@pages, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>
-      </tr>
-    <% end -%>
+          <%= will_paginate(@pages, :previous_label => t('plugins.will_paginate.previous_label'), :next_label => t('plugins.will_paginate.next_label') ) %>
+        </td>  
+      </tr>  
+    <% end -%>  
   </tfoot>
 </table>

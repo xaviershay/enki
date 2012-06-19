@@ -1,19 +1,19 @@
-<h1>Comments</h1>
+<h1><%= t('admin.comments.index.title') %></h1>
 
 <table id='comments'>
   <thead>
     <tr>
-      <th>Created At</th>
-      <th>Commenter</th>
-      <th>Excerpt</th>
-      <th>Post</th>
-      <th>Actions</th>
+      <th><%= t('admin.comments.index.created_at') %></th>
+      <th><%= t('admin.comments.index.commenter') %></th>
+      <th><%= t('admin.comments.index.excerpt') %></th>
+      <th><%= t('admin.comments.index.post') %></th>
+      <th><%= t('admin.comments.index.actions') %></th>
     </tr>
   </thead>
 
   <tbody>
     <% if @comments.empty? -%>
-      <tr><td colspan="5">There are no comments at this time.</td></tr>
+      <tr><td colspan="5"><%= t('admin.comments.index.no_comments') %></td></tr>
     <% else -%>
       <%= render :partial => 'comment', :collection => @comments %>
     <% end -%>
@@ -23,9 +23,9 @@
     <% if @comments.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan='5'>
-          <%= will_paginate(@comments, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>
-      </tr>
+          <%= will_paginate(@comments, :previous_label => t('plugins.will_paginate.previous_label'), :next_label => t('plugins.will_paginate.next_label')) %>
+        </td>  
+      </tr>  
     <% end -%>
   </tfoot>
 </table>

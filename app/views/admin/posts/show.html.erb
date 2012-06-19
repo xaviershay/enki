@@ -1,8 +1,8 @@
-<h1>Editing post - <%= link_to(@post.title, post_path(@post)) %></h1>
+<h1><%= t('admin.posts.show.title', :permalink => link_to(h(@post.title), post_path(@post)) ).html_safe %></h1>
 
 <%= semantic_form_for([:admin, @post]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>
   <%= form.actions do -%>
-    <%= form.action :submit, :as => :button -%>
+    <%= form.action :submit, :as => :button,:label => t('admin.posts.form.save') -%>
   <% end -%>
 <% end -%>

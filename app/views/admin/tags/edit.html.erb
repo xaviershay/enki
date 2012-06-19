@@ -1,0 +1,10 @@
+<h1><%= t('admin.tags.edit.title', :permalink => link_to(@tag.name, posts_path(:tag => @tag)) ).html_safe %></h1>
+
+<%= semantic_form_for([:admin, @tag]) do |form| -%>
+  <%= form.inputs do -%>  
+    <%= form.input :name, :label => t('admin.tags.form.name') %>
+  <% end -%>  
+  <%= form.buttons do -%>
+    <%= form.commit_button(t('admin.tags.form.save')) -%>
+  <% end -%>  
+<% end -%>

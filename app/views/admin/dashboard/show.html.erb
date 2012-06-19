@@ -1,28 +1,28 @@
 <div id="summary">
 <h1><%= link_to(enki_config[:title], '/') %></h1>
-<p class="stats"><%= pluralize(@stats.post_count, 'post') %>, <%= pluralize(@stats.comment_count, 'comment') %>, <%= pluralize(@stats.tag_count, 'tag') %></p>
+<p class="stats"><%= t 'admin.dashboard.post', :count => @stats.post_count %>, <%= t 'admin.dashboard.comment', :count => @stats.comment_count %>, <%= t 'admin.dashboard.tag', :count => @stats.tag_count %></p>
 </div>
 
 <div id="recent-posts" class="panel">
-<h2>Latest Posts</h2>
+<h2><%= t('admin.dashboard.latest_posts') %></h2>
 <ul>
   <% @posts.each_with_index do |post, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
       <h3><%= link_to(truncate(post.title, :length => 50), admin_post_path(post)) %></h3>
-      <span class='date'><%= post.published_at.strftime("%b %e") %></span>
+      <span class='date'><%= l(post.published_at.to_date, :format => :short) %></span>
       <span class='count'><%= link_to(post.approved_comments.size, post_path(post)) %></span>
-    </li>
+    </li>  
   <% end -%>
 </ul>
 </div>
 
 <div id="recent-comments" class="panel">
-<h2>Latest Comments</h2>
+<h2><%= t('admin.dashboard.latest_comments') %></h2>
 <ul>
   <% @comment_activity.each_with_index do |activity, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
       <h3><%= link_to(truncate(activity.post.title, :length => 50), post_path(activity.post)) %></h3>
-      <span class='date'><%= activity.most_recent_comment.created_at.strftime("%b %e") %></span>
+      <span class='date'><%= l(activity.most_recent_comment.created_at.to_date, :format => :short) %></span>
       <span class='count'><%= activity.post.approved_comments.size %></span>
       <ul>
         <% activity.comments.each_with_index do |comment, index| -%>

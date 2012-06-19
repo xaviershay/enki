@@ -1,19 +1,18 @@
-<h1>Your posts</h1>
-
+<h1><%= t('admin.posts.index.title') %></h1>
 <table id='posts'>
   <thead>
     <tr>
-      <th>Published At</th>
-      <th>Title</th>
-      <th>Excerpt</th>
-      <th>Comments</th>
-      <th>Actions</th>
+      <th><%= t('admin.posts.index.published_at') %></th>
+      <th><%= t('admin.posts.index.title_header') %></th>
+      <th><%= t('admin.posts.index.excerpt') %></th>
+      <th><%= t('admin.posts.index.comments') %></th>
+      <th><%= t('admin.posts.index.actions') %></th>
     </tr>
   </thead>
 
   <tbody>
     <% if @posts.empty? -%>
-      <tr><td colspan="5">There are no posts at this time.</td></tr>
+      <tr><td colspan="5"><%= t('admin.posts.index.no_posts') %></td></tr>
     <% else -%>
       <%= render :partial => 'post', :collection => @posts %>
     <% end -%>
@@ -23,8 +22,8 @@
     <% if @posts.total_pages > 1 -%>
       <tr class="pagination">
         <td colspan="5">
-          <%= will_paginate(@posts, :previous_label => '« Newer', :next_label => 'Older »') %>
-        </td>
+          <%= will_paginate(@posts, :previous_label => t('plugins.will_paginate.previous_label'), :next_label => t('plugins.will_paginate.next_label')) %>
+        </td>  
       </tr>
     <% end -%>
   </tfoot>

@@ -1,8 +1,8 @@
 <% content_for(:page_title) do %><%= archives_title %><% end -%>
-<h2>Archives</h2>
+<h2><%= t 'pages.archives.title' %></h2>
 
 <% if @months.empty? -%>
-	<p>Once posts are added they will start to appear in this archive.</p>
+	<p><%= t 'pages.archives.no_posts' %> </p>
 <% else -%>
 
 	<% @months.each do |month| -%>

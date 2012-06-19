@@ -1,0 +1,151 @@
+en:
+  pages:
+    archives:
+      title: "Archives"
+      no_posts: "Once posts are added they will start to appear in this archive."
+    posts:
+      comments:
+        one: "1 comment"
+        other: "%{count} comments"
+      comment_error_title: "Comment not added!"
+      comment_name: 
+        html: "Name or <a href=\"%{openid}\">OpenID</a> (required)"
+      comment_lesstile:
+        html: "(<a href=\"%{lesstile}\">lesstile enabled</a> - surround code blocks with ---)"
+      comment_button: "Add Comment"
+      comment_says: "says:"
+      no_posts: "There are no posts yet."
+      post_comment_title: "Post a comment"
+      posted_on: "Posted on %{date}"
+      see_archive: "Looking for more? Head on over to the %{archives_link}."
+      tagged: "Tagged %{tags_link}"
+    menu:
+      pages_title: "Pages"
+      categories_title: "Categories"
+      search_title: "Search"
+      home: "Home"
+      archives: "Archives"
+    login:
+      title: "Admin Login"
+      view_site: "View Site"
+  admin:
+    actions:
+      index:
+        action: "Action"
+        date: "Date"
+        description: "Description"
+        title: "Recent actions"
+    comments:
+      form:
+        author: "Author"
+        author_url: "Author url"
+        author_email: "Author email"
+        body: "Body"
+        body_hint:
+          html: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
+        save: "Save"
+      index:
+        actions: "Actions"
+        created_at: "Created At"
+        commenter: "Commenter"
+        excerpt: "Excerpt"
+        no_comments: "There are no comments at this time."
+        post: "Post"
+        title: "Comments"
+      show:
+        title: "Editing comment by %{author}"
+    dashboard:
+      comment:
+        one: "1 comment"
+        other: "%{count} comments"
+      latest_comments: "Latest Comments"
+      latest_posts: "Latest Posts"
+      post:
+        one: "1 post"
+        other: "%{count} posts"
+      tag:
+        one: "1 tag"
+        other: "%{count} tags"
+    health:
+      title: "Health"
+    navigation:
+      dashboard: "Dashboard"
+      posts: "Posts"
+      pages: "Pages"
+      comments: "Comments"
+      tags: "Tags"
+      actions: "Actions"
+      health: "Health"
+      logout: "Logout"
+      view_site: "View Site"
+    pages:
+      form:
+        body: "Body"
+        body_hint:
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
+        slug: "Slug"
+        slug_hint: "Leave blank for an auto-generated slug based on the title."
+        save: "Save"
+        title: "Title"
+      index:
+        actions: "Actions"
+        created_at: "Created At"
+        excerpt: "Excerpt"
+        link: "Link"
+        no_pages: "There are no pages at this time."
+        title: "Your pages"
+        title_header: "Title"
+      new:
+        title: "New page"
+      show:
+        title: "Editing page - %{link}"
+    posts:
+      form:
+        body: "Body"
+        body_hint:
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode."
+        minor_edit: "Minor edit"
+        minor_edit_hint: "Minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like."
+        published_at: "Published at"
+        published_at_hint:
+          html: "Example: now, yesterday, 1 hour from now, <a href=\"%{more}\">more&hellip;</a>"
+        slug: "Slug"
+        slug_hint: "Leave blank for an auto-generated slug based on the title."
+        tag_list: "Tag list"
+        tag_list_hint: "Comma separated: ruby, rails&hellip;"
+        title: "Title"
+        save: "Save"
+      index:
+        no_posts: "There are no posts at this time."
+        published_at: "Published At"
+        title: "Your Posts"
+        title_header: "Title"
+        excerpt: "Excerpt"
+        comments: "Comments"
+        actions: "Actions"
+        untitled: "[Untitled]"
+      new:
+        title: "New post"
+      show:
+        title: "Editing post - %{permalink}"
+    sessions:
+      bypass_login: "Bypass credentials check"
+      login_greeting: "Stop! Who are you?"
+      openid_button: "Login with OpenID"
+    tags:
+      form:
+        name: "Name"
+        save: "Save"
+      index:
+        actions: "Actions"
+        name: "Name"
+        no_tags: "There are no tags at this time."
+        posts_tagged: "Posts Tagged"
+        title: "Your tags"
+      edit:
+        title: "Editing tag - %{permalink}"
+    title: "Admin"
+  plugins:
+    will_paginate:
+      previous_label: "« Newer"
+      next_label: "Older »"

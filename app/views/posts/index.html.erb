@@ -2,7 +2,7 @@
 <% content_for(:head)       do %><%= auto_discovery_link_tag(:atom, @tag.nil? ? formatted_posts_path(:format => 'atom') : posts_path(:tag => @tag, :format => 'atom')) %><% end -%>
 
 <% if @posts.empty? -%>
-	<p>There are no posts yet.</p>
+	<p><%= t 'pages.posts.no_posts' %></p>
 <% else -%>
 	<% @posts.each do |post| -%>
 	<div class="post post-<%= post.id %>">
@@ -10,6 +10,6 @@
 	</div>
 	<% end -%>
   <% if more_content? -%>
-    <div class="related">Looking for more? Head on over to the <%= link_to("archives", archives_path) %>.</div>
+    <div class="related"><%= t('pages.posts.see_archive', :archives_link => link_to("archives", archives_path)).htmL_safe %></div>
   <% end -%>
 <% end -%>

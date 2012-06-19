@@ -1,5 +1,5 @@
 <tr id="comment-<%= comment.id %>" class="<%= cycle('', 'alt') %>">
-  <td class='created_at'><%= comment.created_at.strftime('%d %b, %Y') %></td>
+  <td class='created_at'><%= l(comment.created_at.to_date, :format => :long) %></td>
   <td class='author'><%= link_to(comment.author, admin_comment_path(comment)) %></td>
   <td><%= truncate(comment.body, :length => 40) %></td>
   <td><%= link_to(comment.post_title, admin_post_path(comment.post))%></td>

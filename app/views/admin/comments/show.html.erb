@@ -1,13 +1,13 @@
-<h1>Editing comment by <%= @comment.author %></h1>
+<h1><%= t('admin.comments.show.title', :author => h(@comment.author) ) %></h1>
 
 <%= semantic_form_for([:admin, @comment]) do |form| -%>
   <%= form.inputs do -%>
-    <%= form.input :author %>
-    <%= form.input :author_url, :required => false %>
-    <%= form.input :author_email, :required => false %>
-    <%= form.input :body, :hint => "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>.".html_safe %>
+    <%= form.input :author, :label => t('admin.comments.form.author') %>
+    <%= form.input :author_url, :required => false, :label => t('admin.comments.form.author_url') %>
+    <%= form.input :author_email, :required => false, :label => t('admin.comments.form.author_email') %>
+    <%= form.input :body, :label => t('admin.comments.form.body'), :hint => t('admin.comments.form.body_hint.html') %>
   <% end %>
   <%= form.actions do -%>
-    <%= form.action :submit, :as => :button %>
+    <%= form.action :submit, :as => :button,:label => t('admin.comments.form.save')%>
   <% end -%>
 <% end -%>

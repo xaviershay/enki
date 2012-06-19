@@ -1,0 +1,164 @@
+pt-BR:
+  pages:
+    archives:
+      title: "Histórico"
+      no_posts: "Quando os artigos forem adicionados elas aparecerão neste histórico."
+    posts:
+      comments:
+        one: "1 comentário"
+        other: "{{count}} comentários"
+      comment_error_title: "O comentário não foi adicionado!"
+      comment_name:
+        html: "Nome ou <a href=\"{{openid}}\">OpenID</a> (obrigatório)"
+      comment_lesstile:
+        html: "(<a href=\"{{lesstile}}\">lesstile habilitado</a> - envolver bloco de código com ---)"
+      comment_button: "Adicionar comentário"
+      comment_says: "diz:"
+      no_posts: "Ainda não há comentários."
+      post_comment_title: "Envie um comentário"
+      posted_on: "Publicado em {{date}}"
+      see_archive: "Procurando por mais alguma coisa? Veja se encontra no {{archives_link}}."
+      tagged: "Etiquetas {{tags_link}}"
+    menu:
+      pages_title: "Páginas"
+      categories_title: "Categorias"
+      search_title: "Busca"
+      home: "Principal"
+      archives: "Histórico"
+    login:
+      title: "Login de Administrador"
+      view_site: "Ver o Site"
+  admin:
+    actions:
+      index:
+        action: "Ação"
+        date: "Data"
+        title: "Ações Recentes"
+    comments:
+      form:
+        author: "Autor"
+        author_url: "Url do autor"
+        author_email: "Email do autor"
+        body: "Corpo do Texto"
+        body_hint:
+          html: "<a href='http://lesstile.rubyforge.org'>Lesstile enabled</a>."
+        save: "Salvar"
+      index:
+        actions: "Ações"
+        created_at: "Criado em"
+        commenter: "Autor"
+        excerpt: "Resumo"
+        no_comments: "Não há comentários agora."
+        post: "Artigo"
+        title: "Comentários"
+      show:
+        title: "Editando comentários de {{author}}"
+    dashboard:
+      comment:
+        one: "1 comentário"
+        other: "{{count}} comentários"
+      latest_comments: "Últimos comentários"
+      latest_posts: "Últimos artigos"
+      post:
+        one: "1 artigo"
+        other: "{{count}} artigos"
+      tag:
+        one: "1 etiqueta"
+        other: "{{count}} etiquetas"
+    health:
+      title: "Monitoramento"
+    navigation:
+      dashboard: "Painel"
+      posts: "Artigos"
+      pages: "Páginas"
+      comments: "Comentários"
+      tags: "Etiquetas"
+      actions: "Ações"
+      health: "Monitoramento"
+      logout: "Sair"
+      view_site: "Ver o site"
+    pages:
+      form:
+        body: "Corpo do Texto"
+        body_hint: 
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile ativado</a>. Use Ctrl+E para alternar entre modo de visualização e edição."
+        slug: "Slug"
+        slug_hint: "Deixe em branco para que seja gerado um slug com base no título."
+        save: "Salvar"
+        title: "Título"
+      index:
+        actions: "Ações"
+        created_at: "Criado em"
+        excerpt: "Resumo"
+        link: "Endereço"
+        no_pages: "Não há páginas nesse momento."
+        title: "Suas páginas"
+        title_header: "Título"
+      new:
+        title: "Nova Página"
+      show:
+        title: "Editando página - {{link}}"
+    posts:
+      form:
+        body: "Corpo do Texto"
+        body_hint: 
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile ativado</a>. Use Ctrl+E para alternar entre modo de visualização e edição."
+        minor_edit: "Edição menor"
+        minor_edit_hint: "Edições menores não serão mostradas como atualizadas nos leitores de feed. Use isso para arrumar erros e afins."
+        published_at: "Publicado em"
+        published_at_hint: 
+          html: "Exemplo: agora, ontem, 1 hora atrás, <a href=\"{{more}}\">more&hellip;</a>"
+        slug: "Slug"
+        slug_hint: "Deixe em branco para que seja gerado um slug com base no título."
+        tag_list: "Lista de etiquetas"
+        tag_list_hint: "Separados por vírgula: ruby, rails&hellip;"
+        title: "Título"
+        save: "Salvar"
+      index:
+        no_posts: "Não há artigos no momento."
+        published_at: "Publicado em"
+        title: "Seus Artigos"
+        title_header: "Título"
+        excerpt: "Resumo"
+        comments: "Comentarios"
+        actions: "Ações"
+        untitled: "[Sem Título]"
+      new:
+        title: "Novo Artigo"
+      show:
+        title: "Editando Artigo - {{permalink}}"
+    sessions:
+      bypass_login: "Pule a verificação da credencial"
+      login_greeting: "Pare! Quem é você?"
+      openid_button: "Entrar com OpenID"
+    tags:
+      form:
+        name: "Nome"
+        save: "Salvar"
+      index:
+        actions: "Ações"
+        name: "Nome"
+        no_tags: "Não existem etiquetas ainda."
+        posts_tagged: "Artigos Marcadas"
+        title: "Suas Etiquetas"
+      edit:
+        title: "editando marcação - {{permalink}}"
+    title: "Administrador"
+  plugins:
+    will_paginate:
+      previous_label: "« mais Novo"
+      next_label: "Mais velho »"
+  activerecord:
+    models:
+      post: "Artigo"
+      page: "Página"
+      tag: "Etiqueta"
+      tagging: "Etiquetamento"
+      comment: "Comentário"
+    attributes:
+      _all:
+        created_at: "Data de criação"
+        updated_at: "Data da última atualização"
+      post:
+        title: "Título"
+        body: "Texto"

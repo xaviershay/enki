@@ -1,13 +1,13 @@
 module DateHelper
   def format_month(date)
-    date.strftime("%B %Y")
+    I18n.localize date.to_date, :format => :month_year
   end
 
   def format_post_date(date)
-    date.strftime("%B %d, %Y")
+    I18n.localize date.to_date, :format => :long
   end
 
   def format_comment_date(date)
-    format_post_date(date) + " at " + date.strftime("%l:%M %p")
+    I18n.localize date, :format => :long
   end
 end
