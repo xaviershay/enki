@@ -3,6 +3,6 @@
 <%= semantic_form_for([:admin, @page]) do |form| -%>
   <%= render :partial => 'form', :locals => {:form => form} %>
   <%= form.actions do -%>
-    <%= form.action :submit, :as => :button, t('admin.pages.form.save')-%>
+    <%= form.action :submit, :as => :button, :label => t('admin.pages.form.save')-%>
   <% end -%>
 <% end -%>

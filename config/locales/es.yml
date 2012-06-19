@@ -1,0 +1,151 @@
+es:
+  pages:
+    archives:
+      title: "Archivos"
+      no_posts: "Una vez las entradas se hayan añadido, irán apareciendo en este archivo."
+    posts:
+      comments:
+        one: "1 comentario"
+        other: "%{count} comentarios"
+      comment_error_title: "No se ha añadido el comentario!"
+      comment_name: 
+        html: "Nombre o <a href=\"%{openid}\">OpenID</a> (obligatorio)"
+      comment_lesstile:
+        html: "(<a href=\"%{lesstile}\">lesstile habilitado</a> - rodea el código con ---)"
+      comment_button: "Añadir Comentario"
+      comment_says: "dice:"
+      no_posts: "Todavía no hay entradas."
+      post_comment_title: "Publicar un comentario"
+      posted_on: "Publicado en %{date}"
+      see_archive: "Buscas más? Busca en el %{archives_link}."
+      tagged: "Etiquetado %{tags_link}"
+    menu:
+      pages_title: "Páginas"
+      categories_title: "Categorías"
+      search_title: "Buscar"
+      home: "Página de Inicio"
+      archives: "Archivos"
+    login:
+      title: "Entrar cómo Administrador"
+      view_site: "Ver Sitio"
+  admin:
+    actions:
+      index:
+        action: "Acción"
+        date: "Fecha"
+        description: "Descripción"
+        title: "Acciones recientes"
+    comments:
+      form:
+        author: "Autor"
+        author_url: "Url del Autor"
+        author_email: "Email del Autor"
+        body: "Cuerpo"
+        body_hint:
+          html: "<a href='http://lesstile.rubyforge.org'>Lesstile habilitado</a>."
+        save: "Guardar"
+      index:
+        actions: "Acciones"
+        created_at: "Creado En"
+        commenter: "Creado por"
+        excerpt: "Extracto"
+        no_comments: "No existen comentarios en este momento."
+        post: "Entrada"
+        title: "Comentarios"
+      show:
+        title: "Editando comentario de %{author}"
+    dashboard:
+      comment:
+        one: "1 comentario"
+        other: "%{count} comentarios"
+      latest_comments: "Últimos Comentarios"
+      latest_posts: "Últimas Entradas"
+      post:
+        one: "1 entrada"
+        other: "%{count} entradas"
+      tag:
+        one: "1 etiqueta"
+        other: "%{count} etiquetas"
+    health:
+      title: "Salud"
+    navigation:
+      dashboard: "Dashboard"
+      posts: "Entradas"
+      pages: "Páginas"
+      comments: "Comentarios"
+      tags: "Etiquetas"
+      actions: "Acciones"
+      health: "Salud"
+      logout: "Salir"
+      view_site: "Ver Sitio"
+    pages:
+      form:
+        body: "Cuerpo"
+        body_hint:
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile activado</a>. Usa Ctrl+E para cambiar entre el modo de previsualización y el modo de edición."
+        slug: "Slug"
+        slug_hint: "Dejar en blanco para un slug autogenerado a partir del título."
+        save: "Guardar"
+        title: "Título"
+      index:
+        actions: "Acciones"
+        created_at: "Creado el"
+        excerpt: "Extracto"
+        link: "Enlace"
+        no_pages: "En este momento no existen páginas."
+        title: "Tus páginas"
+        title_header: "Título"
+      new:
+        title: "Página Nueva"
+      show:
+        title: "Editando página - %{link}"
+    posts:
+      form:
+        body: "Cuerpo"
+        body_hint:
+          html: "<a href='http://hobix.com/textile/quick.html'>Textile activado</a>. Usa Ctrl+E para cambiar entre el modo de previsualización y el modo de edición."
+        minor_edit: "Edición menor"
+        minor_edit_hint: "Ediciones menores no se mostraran actualizadas en los lectores de feeds.  Usa esto para corregir errores de escritura y similares."
+        published_at: "Publicado en"
+        published_at_hint:
+          html: "Ejemplo: ahora, ayer, 1 hora desde ahora, <a href=\"%{more}\">more&hellip;</a>"
+        slug: "Slug"
+        slug_hint: "Dejar en blanco para un slug autogenerado a partir del título."
+        tag_list: "Lista de etiquetas"
+        tag_list_hint: "Separado en comas: ruby, rails&hellip;"
+        title: "Título"
+        save: "Guardar"
+      index:
+        no_posts: "No existen entradas en este momento."
+        published_at: "Publicado en"
+        title: "Tus Entradas"
+        title_header: "Título"
+        excerpt: "Extracto"
+        comments: "Comentarios"
+        actions: "Acciones"
+        untitled: "[Sín Título]"
+      new:
+        title: "Entrada Nueva"
+      show:
+        title: "Editando entrada - %{permalink}"
+    sessions:
+      bypass_login: "Evitar control de credenciales"
+      login_greeting: "Stop! Quién eres?"
+      openid_button: "Entrar con OpenID"
+    tags:
+      form:
+        name: "Nombre"
+        save: "Guardar"
+      index:
+        actions: "Acciones"
+        name: "Nombre"
+        no_tags: "No existen etiquetas en este momento."
+        posts_tagged: "Entradas Etiquetadas"
+        title: "Tus etiquetas"
+      edit:
+        title: "Editango etiqueta - %{permalink}"
+    title: "Administración"
+  plugins:
+    will_paginate:
+      previous_label: "« Reciente"
+      next_label: "Antigua »"

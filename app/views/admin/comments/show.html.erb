@@ -8,6 +8,6 @@
     <%= form.input :body, :label => t('admin.comments.form.body'), :hint => t('admin.comments.form.body_hint.html') %>
   <% end %>
   <%= form.actions do -%>
-    <%= form.action :submit, :as => :button,t('admin.comments.form.save')%>
+    <%= form.action :submit, :as => :button,:label => t('admin.comments.form.save')%>
   <% end -%>
 <% end -%>
