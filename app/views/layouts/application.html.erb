@@ -35,7 +35,7 @@
         <% end -%>
         <form method="get" id="sform" action="http://www.google.com/search">
           <div>
-            <h2><label for="q">Search</label></h2>
+            <h2><label for="q"><%= t 'pages.menu.search_title' %></label></h2>
 
             <input type="text" id="q" value="" name="q">
             <input type="hidden" name="sitesearch" value="<%= enki_config[:url] %>">
