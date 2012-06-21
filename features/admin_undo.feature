@@ -12,7 +12,7 @@ Feature: Undo
     And I follow "Comments"
     And I press "Delete Comment"
     # Not sure why this doesn't redirect automatically
-    And I follow "redirected"
+    # And I follow "redirected"
     And I follow "Actions"
     And I press "Undo"
     Then a comment exists with attributes:

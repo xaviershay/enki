@@ -3,8 +3,6 @@ class PostsController < ApplicationController
     @tag = params[:tag]
     @posts = Post.find_recent(:tag => @tag, :include => :tags)
 
-    raise(ActiveRecord::RecordNotFound) if @tag && @posts.empty?
-
     respond_to do |format|
       format.html
       format.atom { render :layout => false }

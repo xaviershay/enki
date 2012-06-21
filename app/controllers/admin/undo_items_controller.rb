@@ -19,7 +19,7 @@ class Admin::UndoItemsController < Admin::BaseController
         format.json {
           render :json => {
             :message => item.complete_description,
-            :obj     => object
+            :obj     => object.attributes
           }
         }
       end

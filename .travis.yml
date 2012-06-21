@@ -1,0 +1,3 @@
+before_script:
+  - "cp config/database.example.yml config/database.yml"
+script: "bundle exec rake db:migrate --trace && bundle exec rake --trace"

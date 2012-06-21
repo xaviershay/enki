@@ -31,8 +31,8 @@ class BeValidXhtml
   @@auto_validate = false
   cattr_accessor :auto_validate
 
-  class_inheritable_accessor :auto_validate_excludes
-  class_inheritable_accessor :auto_validate_includes
+  class_attribute :auto_validate_excludes
+  class_attribute :auto_validate_includes
 
 
   def matches?(rendered)

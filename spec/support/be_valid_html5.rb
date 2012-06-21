@@ -1,7 +1,6 @@
 # Paste me into spec_helper.rb, or save me somewhere else and require me in.
 require 'net/http'
 require 'digest/md5'
-require 'hpricot'
 
 class BeValidHtml5
 
@@ -35,8 +34,8 @@ class BeValidHtml5
   @@auto_validate = false
   cattr_accessor :auto_validate
 
-  class_inheritable_accessor :auto_validate_excludes
-  class_inheritable_accessor :auto_validate_includes
+  class_attribute :auto_validate_excludes
+  class_attribute :auto_validate_includes
 
 
   def matches?(rendered)
@@ -59,7 +58,7 @@ class BeValidHtml5
     unless markup_is_valid
       fragment.split($/).each_with_index{|line, index| message << "#{'%04i' % (index+1)} : #{line}#{$/}"} if @@display_invalid_content
       @message = "Invalid markup:\n"
-      @elements = Hpricot(response.body.force_encoding('utf-8')).search("li.msg_err > span.msg")
+      @elements = Nokogiri::HTML(response.body.force_encoding('utf-8')).css("li.msg_err > span.msg")
       (@elements).each { |span| @message << CGI.unescapeHTML(span.inner_html) + "\n" }
     end
     if markup_is_valid

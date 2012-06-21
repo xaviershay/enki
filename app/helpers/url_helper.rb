@@ -6,7 +6,7 @@ module UrlHelper
     path
   end
 
-  def post_comments_path(post)
+  def post_comments_path(post, comment)
     post_path(post) + "/comments"
   end
 
