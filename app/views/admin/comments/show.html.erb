@@ -7,7 +7,7 @@
     <%= form.input :author_email, :required => false, :label => t('admin.comments.form.author_email') %>
     <%= form.input :body, :label => t('admin.comments.form.body'), :hint => t('admin.comments.form.body_hint.html') %>
   <% end %>
-  <%= form.buttons do -%>
-    <%= form.commit_button(t('admin.comments.form.save')) %>
+  <%= form.actions do -%>
+    <%= form.action :submit, :as => :button, :label => t('admin.comments.form.save')%>
   <% end -%>
 <% end -%>

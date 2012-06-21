@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require 'json'
 
 describe Admin::CommentsController do
   describe 'handling GET to index' do
@@ -110,7 +111,7 @@ describe Admin::CommentsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @comment = Comment.new(:author => 'xavier')
-      @comment.stub!(:destroy_with_undo).and_return(mock("undo_item", :description => 'hello'))
+      @comment.stub!(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       Comment.stub!(:find).and_return(@comment)
     end
 
@@ -120,13 +121,13 @@ describe Admin::CommentsController do
     end
 
     it("deletes comment") do
-      @comment.should_receive(:destroy_with_undo).and_return(mock("undo_item", :description => 'hello'))
+      @comment.should_receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       do_delete
     end
 
-    it("renders comment as json") do
+    it("renders json including a description of the comment") do
       do_delete
-      response.should contain(/#{Regexp.escape(@comment.to_json)}/)
+      JSON.parse(response.body)['undo_message'].should == 'hello'
     end
   end
 end

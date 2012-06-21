@@ -1,9 +1,6 @@
-<% content_for(:head) do -%>
-  <%= javascript_include_tag('admin/posts.js') %>
-<% end -%>
-
 <h1><%= t('admin.posts.index.title') %></h1>
-<table>
+
+<table id='posts'>
   <thead>
     <tr>
       <th><%= t('admin.posts.index.published_at') %></th>

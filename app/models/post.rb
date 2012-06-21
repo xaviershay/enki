@@ -89,8 +89,9 @@ class Post < ActiveRecord::Base
 
   def destroy_with_undo
     transaction do
+      undo = DeletePostUndo.create_undo(self)
       self.destroy
-      return DeletePostUndo.create_undo(self)
+      return undo
     end
   end
 
@@ -104,7 +105,9 @@ class Post < ActiveRecord::Base
 
   def set_dates
     self.edited_at = Time.now if self.edited_at.nil? || !minor_edit?
-    self.published_at = Chronic.parse(self.published_at_natural)
+    if new_published_at = Chronic.parse(self.published_at_natural)
+      self.published_at = new_published_at
+    end
   end
 
   def denormalize_comments_count!

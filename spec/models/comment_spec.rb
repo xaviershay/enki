@@ -49,6 +49,13 @@ describe Comment do
     @comment.requires_openid_authentication?.should == true
   end
 
+  it "requires OpenID authentication when the author's name starts with http" do
+    @comment.author = "http://localhost:9294"
+    @comment.requires_openid_authentication?.should == true
+    @comment.author = "https://localhost:9294"
+    @comment.requires_openid_authentication?.should == true
+  end
+
   it "asks post to update it's comment counter after save" do
     set_comment_attributes(@comment)
     @comment.blank_openid_fields
@@ -163,5 +170,25 @@ describe Comment, '.build_for_preview with OpenID author' do
 
   it 'sets author to "Your OpenID Name"' do
     @comment.author.should == "Your OpenID Name"
+  end
+end
+
+describe Comment, '#requires_openid_authentication?' do
+  describe 'with an author containing a .' do
+    subject { Comment.new(:author => 'example.com').requires_openid_authentication? }
+
+      it { should be }
+  end
+
+  describe 'with a normal author' do
+    subject { Comment.new(:author => 'Don Alias').requires_openid_authentication? }
+
+    it { should_not be }
+  end
+
+  describe 'with a nil author' do
+    subject { Comment.new.requires_openid_authentication? }
+
+    it { should_not be }
   end
 end

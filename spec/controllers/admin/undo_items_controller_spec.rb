@@ -35,7 +35,7 @@ describe Admin::UndoItemsController do
   describe 'handling POST to undo accepting JSON' do
     before do
       @item = mock_model(UndoItem, :complete_description => "hello")
-      @item.stub!(:process!)
+      @item.stub!(:process!).and_return(Post.new)
       UndoItem.stub!(:find).and_return(@item)
     end
 
