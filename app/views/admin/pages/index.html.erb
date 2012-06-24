@@ -1,10 +1,6 @@
-<% content_for(:head) do -%>
-  <%= javascript_include_tag('admin/pages.js') %>
-<% end -%>
-
 <h1><%= t('admin.pages.index.title') %></h1>
 
-<table>
+<table id='pages'>
   <thead>
     <tr>
       <th><%= t('admin.pages.index.created_at') %></th>

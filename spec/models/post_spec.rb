@@ -124,6 +124,14 @@ describe Post, "#set_dates" do
     post.set_dates
     post.published_at.should == now
   end
+
+  it 'does not set published_at if published_at_natural is invalid' do
+    now = Time.now
+    post = Post.new(:published_at_natural => 'bogus', :published_at => now)
+    Chronic.should_receive(:parse).with('bogus').and_return(nil)
+    post.set_dates
+    post.published_at.should == now
+  end
 end
 
 describe Post, "#minor_edit" do

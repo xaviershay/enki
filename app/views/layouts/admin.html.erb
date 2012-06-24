@@ -5,16 +5,10 @@
 
   <title><%= enki_config[:title] %> - <%= t 'admin.title' %> </title>
 
-  <%= javascript_include_tag 'jquery.js' %>
-  <%= javascript_include_tag 'jquery.livequery.js' %>
-  <%= javascript_include_tag 'jquery.form.js' %>
-  <%= javascript_include_tag 'jquery.easing.1.3.js' %>
-  <%= javascript_include_tag 'humanmsg' %>
-  <%= javascript_include_tag 'admin/shortcut' %>
-  <%= javascript_include_tag 'admin/common' %>
+  <%= csrf_meta_tag %>
 
-  <%= stylesheet_link_tag 'formtastic' %>
-  <%= stylesheet_link_tag 'humanmsg' %>
+  <%= javascript_include_tag 'admin' %>
+
   <%= stylesheet_link_tag 'admin' %>
   <%= yield(:head) %>
 
@@ -38,10 +32,9 @@
         <li><%= nav_link_to(t('admin.navigation.posts'),     admin_posts_path,      :accesskey => '2') %> <%= nav_link_to("(+)", new_admin_post_path, :accesskey => 'n') %></li>
         <li><%= nav_link_to(t('admin.navigation.pages'),     admin_pages_path,      :accesskey => '3') %> <%= nav_link_to("(+)", new_admin_page_path, :accesskey => 'p') %></li>
         <li><%= nav_link_to(t('admin.navigation.comments'),  admin_comments_path,   :accesskey => '4') %></li>
-        <li><%= nav_link_to(t('admin.navigation.tags'),      admin_tags_path,       :accesskey => '5') %></li>
-        <li><%= nav_link_to(t('admin.navigation.actions'),   admin_undo_items_path, :accesskey => '6') %></li>
+        <li><%= nav_link_to(t('admin.navigation.actions'),   admin_undo_items_path, :accesskey => '5') %></li>
         <li><%= nav_link_to(t('admin.navigation.health'),    admin_health_path, :accesskey => '6') %></li>
-        <li class="separator">&nbsp;</li>
+	<li class="separator">&nbsp;</li>
         <li><%= link_to(t('admin.navigation.logout'), admin_session_path, :accesskey => 'l', :method => :delete) %></li>
         <li><%= link_to(t('admin.navigation.view_site'), '/',             :accesskey => 'v', :title => t('admin.navigation.view_site')) %></li>
       </ul>
