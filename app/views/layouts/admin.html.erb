@@ -13,11 +13,11 @@
   <%= yield(:head) %>
 
   <% if flash[:notice] -%>
-  <script>
-    jQuery(document).ready(function() {
-      humanMsg.displayMsg('<%= escape_javascript(flash[:notice]) %>');
-    })
-  </script>
+    <%= javascript_tag do -%>
+      $(function() {
+        humanMsg.displayMsg('<%= escape_javascript(flash[:notice]) %>');
+      })
+    <% end -%>
   <% end -%>
 
 </head>
