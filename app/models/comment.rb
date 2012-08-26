@@ -10,7 +10,7 @@ class Comment < ActiveRecord::Base
   after_save            :denormalize
   after_destroy         :denormalize
 
-  validates_presence_of :author, :body, :post
+  validates             :author, :body, :post, :presence => true
   validate :open_id_error_should_be_blank
 
   def open_id_error_should_be_blank
