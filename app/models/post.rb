@@ -10,7 +10,7 @@ class Post < ActiveRecord::Base
   before_validation       :set_dates
   before_save             :apply_filter
 
-  validates_presence_of   :title, :slug, :body
+  validates               :title, :slug, :body, :presence => true
 
   validate                :validate_published_at_natural
 
