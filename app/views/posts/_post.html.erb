@@ -1,13 +1,13 @@
 <h2><%= link_to(post.title, post_path(post)) %></h2>
-<div class="entrybody">
-  <%=raw post.body_html %>
+<div class="entry-body">
+  <%== post.body_html %>
 </div>
 <div class="meta">
   <ul>
     <li class="date">Posted on <%= format_post_date(post.published_at) %></li>
-    <li class="comments"><%= link_to(pluralize(post.approved_comments.size, "comment"), post_path(post, :anchor => 'comments')) %></li>
+    <li class="comments"><%= link_to pluralize(post.approved_comments.size, "comment"), post_path(post, :anchor => 'comments') %></li>
     <% unless post.tags.empty? -%>
-    <li class="tags">Tagged <%= linked_tag_list(post.tags) %></li>
+      <li class="tags">Tagged <%= linked_tag_list(post.tags) %></li>
     <% end -%>
   </ul>
 </div>
