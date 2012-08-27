@@ -1,30 +1,42 @@
-<% content_for(:page_title) do -%>
-<%= post_title(@post) -%>
+<% content_for :page_title do -%>
+  <%= post_title @post -%>
 <% end -%>
-<%= render :partial => 'posts/post', :locals => {:post => @post} %>
+
+<%= render @post %>
+
 <ol class="commentlist">
   <% @post.approved_comments.each do |comment| -%>
-  <li<%=raw cycle(' class="alt"', '') %> id="comment-<%= comment.id %>">
-    <%= render :partial => 'comments/comment', :locals => {:comment => comment} %>
-  </li>
+    <li<%=raw cycle(' class="alt"', '') %> id="comment-<%= comment.id %>">
+      <%= render comment %>
+    </li>
   <% end -%>
 </ol>
-<div class="related">Looking for more? Head on over to the <%= link_to("archives", archives_path) %>.</div>
+
+<div class="related">Looking for more? Head on over to the <%= link_to 'archives', archives_path %>.</div>
+
 <h2>Post a comment</h2>
-  <% unless @comment.errors.empty? -%>
-  <div class="errors">
-    <h3>Comment not added!</h3>
-    <ul>
-      <% @comment.errors.sort_by(&:first).each do |error| -%>
-        <li><%= format_comment_error(error) %></li>
-      <% end -%>
-    </ul>
-  </div>
-  <% end -%>
-<%= form_for([@post, @comment]) do |form| -%>
-  <div>
-    <p><%= form.text_field 'author' %><label for="comment_author"><small>Name or <a href="http://openidexplained.com/">OpenID</a> (required)</small></label></p>
-    <p><%= form.text_area 'body' %><br><small>(<a href="http://lesstile.rubyforge.org">lesstile enabled</a> - surround code blocks with ---)</small></p>
-    <p><%= submit_tag "Add Comment" %></p>
-  </div>
+<% unless @comment.errors.empty? -%>
+<div class="errors">
+  <h3>Comment not added!</h3>
+  <ul>
+    <% @comment.errors.sort_by(&:first).each do |error| -%>
+      <li><%= format_comment_error(error) %></li>
+    <% end -%>
+  </ul>
+</div>
 <% end -%>
+
+<div>
+  <%= form_for [@post, @comment] do |form| -%>
+    <p>
+      <%= form.text_field 'author' %>
+      <%= form.label :author %>
+      <small>Name or <%= link_to 'OpenID', 'http://openidexplained.com/' %> (required)</small>
+    </p>
+    <p>
+      <%= form.text_area 'body' %><br/>
+      <small>(<%= link_to 'lesstile enabled', 'http://lesstile.rubyforge.org' %> - surround code blocks with ---)</small>
+    </p>
+    <p><%= form.submit 'Add Comment' %></p>
+  <% end -%>
+</div>

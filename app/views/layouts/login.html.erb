@@ -2,9 +2,7 @@
 <html dir="ltr" lang="en-US">
 <head>
   <meta charset="utf-8">
-
   <title><%= enki_config[:title] %> - Admin Login</title>
-
   <%= stylesheet_link_tag 'login' %>
 </head>
 <body>
@@ -14,7 +12,7 @@
     </div>
     <div id="nav">
       <ul>
-        <li><%= link_to("View Site", '/', :title => 'View Site') %></li>
+        <li><%= link_to 'View Site', root_path, :title => 'View Site' %></li>
       </ul>
     </div>
   </div>
