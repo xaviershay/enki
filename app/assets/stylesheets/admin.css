@@ -303,3 +303,7 @@ table img {
 #preview .content table {
   margin-bottom: 0;
 }
+
+#content {
+  padding-bottom: 2em;
+}
