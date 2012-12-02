@@ -42,11 +42,16 @@ describe Comment do
     @comment.should be_valid
   end
 
-  it "requires OpenID authentication when the author's name contains a period" do
+  it "requires OpenID authentication when the author's name looks like a url" do
     @comment.author = "Don Alias"
     @comment.requires_openid_authentication?.should == false
     @comment.author = "enkiblog.com"
     @comment.requires_openid_authentication?.should == true
+  end
+
+  it "doesn't require auth just because the author's name contains a dot" do
+    @comment.author = "Dr. Alias"
+    @comment.requires_openid_authentication?.should == false
   end
 
   it "requires OpenID authentication when the author's name starts with http" do
@@ -174,7 +179,7 @@ describe Comment, '.build_for_preview with OpenID author' do
 end
 
 describe Comment, '#requires_openid_authentication?' do
-  describe 'with an author containing a .' do
+  describe 'with an author that looks like a url' do
     subject { Comment.new(:author => 'example.com').requires_openid_authentication? }
 
       it { should be }
