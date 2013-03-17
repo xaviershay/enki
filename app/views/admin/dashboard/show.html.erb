@@ -21,7 +21,7 @@
 <ul>
   <% @comment_activity.each_with_index do |activity, i| -%>
     <li class="<%= i == 0 ? 'first ' : '' %>item">
-      <h3><%= link_to(truncate(activity.post.title, :length => 50), post_path(activity.post)) %></h3>
+      <h3><%= link_to_post(activity.post, truncate(activity.post.title, :length => 50)) %></h3>
       <span class='date'><%= activity.most_recent_comment.created_at.strftime("%b %e") %></span>
       <span class='count'><%= activity.post.approved_comments.size %></span>
       <ul>

@@ -29,6 +29,7 @@ describe "/posts/show.html" do
       :title             => "A post",
       :body_html         => "Posts contents!",
       :published_at      => 1.year.ago,
+      :published?        => true,
       :slug              => 'a-post',
       :approved_comments => [mock_comment, mock_comment2],
       :tags              => [mock_tag]

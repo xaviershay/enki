@@ -126,11 +126,27 @@ describe Post, "#set_dates" do
   end
 
   it 'does not set published_at if published_at_natural is invalid' do
-    now = Time.now
-    post = Post.new(:published_at_natural => 'bogus', :published_at => now)
+    pub = 1.day.ago
+    post = Post.new(:published_at_natural => 'bogus', :published_at => pub)
     Chronic.should_receive(:parse).with('bogus').and_return(nil)
     post.set_dates
-    post.published_at.should == now
+    post.published_at.should == pub
+  end
+
+  it 'preserves published_at if published_at_natural is nil' do
+    pub = 1.day.ago
+    post = Post.new(:published_at_natural => nil, :published_at => pub)
+    post.set_dates
+    # Some rounding/truncating is acceptable...
+    post.published_at.should be_within(60.seconds).of(pub)
+  end
+
+  it 'clears published_at if published_at_natural is empty' do
+    pub = 1.day.ago
+    post = Post.new(:published_at_natural => '', :published_at => pub)
+    Chronic.stub(:parse).with('').and_return(nil)
+    post.set_dates
+    post.published_at.should == nil
   end
 end
 
@@ -167,7 +183,9 @@ describe Post, 'before validation' do
   end
 
   it 'calls #set_dates' do
-    post = Post.new(:title => "My Post", :body => "body")
+    post = Post.new(:title => "My Post",
+                    :body => "body",
+                    :published_at_natural => 'now')
     post.valid?
     post.edited_at.should_not be_blank
     post.published_at.should_not be_blank
@@ -219,7 +237,10 @@ end
 
 describe Post, '.build_for_preview' do
   before(:each) do
-    @post = Post.build_for_preview(:title => 'My Post', :body => "body", :tag_list => "ruby")
+    @post = Post.build_for_preview(:title => 'My Post',
+                                   :body => "body",
+                                   :tag_list => "ruby",
+                                   :published_at_natural => 'now')
   end
 
   it 'returns a new post' do
