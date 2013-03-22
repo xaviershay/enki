@@ -4,7 +4,7 @@
 
 <%= render @post %>
 
-<ol class="commentlist">
+<ol id="comments" class="commentlist">
   <% @post.approved_comments.each do |comment| -%>
     <li<%=raw cycle(' class="alt"', '') %> id="comment-<%= comment.id %>">
       <%= render comment %>
