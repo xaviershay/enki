@@ -96,7 +96,7 @@ GEM
       addressable (~> 2.2.6)
       ffi (~> 1.0.9)
       spoon (~> 0.0.1)
-    lesstile (1.0.1)
+    lesstile (1.1.0)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -195,7 +195,7 @@ DEPENDENCIES
   RedCloth (~> 4.2.9)
   aaronh-chronic
   activerecord-jdbcsqlite3-adapter
-  coderay
+  coderay (~> 1.0.5)
   cucumber-rails
   cucumber-websteps
   database_cleaner
@@ -204,7 +204,7 @@ DEPENDENCIES
   formtastic
   jquery-rails
   jruby-openssl
-  lesstile
+  lesstile (~> 1.1.0)
   nokogiri (~> 1.5.0)
   open_id_authentication
   rack-openid
