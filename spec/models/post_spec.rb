@@ -243,3 +243,16 @@ describe Post, '.build_for_preview' do
     @post.tags.collect {|tag| tag.name}.should == ['ruby']
   end
 end
+
+describe Post, "#apply_filter" do
+  it "converts Textile to HTML by default" do
+    post = Post.new(:body => "* Hello")
+    post.apply_filter
+    post.body_html.should include("<li>Hello</li>")
+  end
+  it "does not filter body when body_filter is 'none'" do
+    post = Post.new(:body => "<p>Hello\nWorld</p>", :body_filter => :none)
+    post.apply_filter
+    post.body_html.should == "<p>Hello\nWorld</p>"
+  end
+end
