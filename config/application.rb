@@ -20,6 +20,11 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+# This configures the base path of routes for the main application.
+# For example, set to '/blog' to run at http://example.com/blog
+# It must appear before the Application class body.  Initializers run too late.
+#ENV['RAILS_RELATIVE_URL_ROOT'] = '/blog'
+
 module Enki
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
