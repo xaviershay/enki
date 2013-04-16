@@ -144,7 +144,6 @@ describe Post, "#set_dates" do
   it 'clears published_at if published_at_natural is empty' do
     pub = 1.day.ago
     post = Post.new(:published_at_natural => '', :published_at => pub)
-    Chronic.stub(:parse).with('').and_return(nil)
     post.set_dates
     post.published_at.should == nil
   end

@@ -15,7 +15,7 @@ class Post < ActiveRecord::Base
   validate                :validate_published_at_natural
 
   def validate_published_at_natural
-    if published_at_natural.present? and !published?
+    if published_at_natural.present? && !published?
       errors.add("published_at_natural", "Unable to parse time")
     end
   end
