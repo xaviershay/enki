@@ -100,7 +100,14 @@ class Post < ActiveRecord::Base
   end
 
   def apply_filter
-    self.body_html = EnkiFormatter.format_as_xhtml(self.body)
+    case body_filter.to_s
+    when 'none' then
+      self.body_html = self.body
+    when 'lesstile_to_xhtml' then
+      self.body_html = EnkiFormatter.format_as_xhtml(self.body)
+    else
+      raise "Unknown filter type: #{body_filter}"
+    end
   end
 
   def set_dates
