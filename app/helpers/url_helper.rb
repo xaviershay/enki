@@ -17,4 +17,23 @@ module UrlHelper
       link_to(comment.author, comment.author_url, :class => 'openid')
     end
   end
+
+  def link_to_post(post, link_text=post.title)
+    if post.published?
+      link_to(link_text, post_path(post))
+    else
+      link_text
+    end
+  end
+
+  def link_to_post_comments(post)
+    link_text = pluralize(post.approved_comments.size, "comment")
+    if post.published?
+      link_to(link_text, post_path(post, :anchor => 'comments'))
+    else
+      # Posts would have to be published to be on the public index,
+      # the only place where a fragment won't work.
+      link_to(link_text, '#comments')
+    end
+  end
 end

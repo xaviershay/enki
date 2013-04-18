@@ -4,7 +4,7 @@
   <%= form.input :tag_list, :as => 'string', :required => false, :hint => 'Comma separated: ruby, rails&hellip;'.html_safe -%>
 <% end -%>
 <%= form.inputs do -%>
-  <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'Example: now, yesterday, 1 hour from now, '.html_safe + link_to("more&hellip;".html_safe, "http://chronic.rubyforge.org/") -%>
+  <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'Examples: now, yesterday, 1 hour from now, '.html_safe + link_to("etc".html_safe, "http://chronic.rubyforge.org/") + '. Leave blank for an unpublished draft.' -%>
   <%= form.input :slug, :hint => "Leave blank for an auto-generated slug based on the title." -%>
   <%= form.input :minor_edit, :as => 'boolean', :hint => 'Minor edits will not show up as refreshed in feed readers. Use this to fix spelling mistakes and the like.' unless @post.new_record? -%>
 <% end -%>
