@@ -38,6 +38,12 @@ Enki is a compact, easily extendable base for your blog. It does this by being h
 * If you're not using OpenID you're a chump
 * Hacking code is the easiest way to customize something
 
+h2. URL path prefix
+
+Enki can run your blog with a URL path prefix.  For example, you can run it at example.com/*blog* instead of blog.example.com.  You can do so with the RAILS_RELATIVE_URL_ROOT environment variable, set either before starting the server or in config/application.rb before Enki::Application.  Uncommenting this line in config/application.rb will enable this behavior in all environments:
+
+<pre><code>ENV['RAILS_RELATIVE_URL_ROOT'] = '/blog'</code></pre>
+
 h2. How it differs from Mephisto
 
 Mephisto is feature packed and quite customizable. It can however be daunting trying to find your way around the code, which isn’t so good if you’re trying to hack in your own features. Enki strips out a lot of the features that you probably don’t need (multiple authors and liquid templates, for example), and focuses on keeping a tight code base that is easy to comprehend and extend.
