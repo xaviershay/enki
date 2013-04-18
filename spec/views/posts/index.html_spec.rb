@@ -12,6 +12,7 @@ describe "/posts/index.html" do
       :title             => "A post",
       :body_html         => "Posts contents!",
       :published_at      => 1.year.ago,
+      :published?        => true,
       :slug              => 'a-post',
       :approved_comments => [mock_model(Comment)],
       :tags              => [mock_tag]

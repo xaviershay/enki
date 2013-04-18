@@ -19,6 +19,7 @@ describe "/admin/dashboard/show.html" do
     assign :comment_activity, [mock("comment-activity-1",
       :post                => mock_model(Post,
         :published_at      => Time.now,
+        :published?        => true,
         :title             => "A Post",
         :slug              => 'a-post',
         :approved_comments => []
