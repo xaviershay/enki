@@ -1,7 +1,7 @@
 <h2><%= link_to_post(post) %></h2>
 
 <div class="entry-body">
-  <%= post.body_html %>
+  <%= raw(post.body_html) %>
 </div>
 <div class="meta">
   <ul>
