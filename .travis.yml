@@ -1,3 +1,7 @@
+rvm:
+  - 1.9.3
+  - 2.0.0
+bundler_args: --without development production --quiet
 before_script:
   - "cp config/database.example.yml config/database.yml"
 script: "bundle exec rake db:migrate --trace && bundle exec rake --trace"
