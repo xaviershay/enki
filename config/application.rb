@@ -8,11 +8,6 @@ require "active_resource/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
-# Bundler 1.0.10 incorrectly activates the new experimental Psych YAML parser
-# in 1.9.2, which breaks on RedCloth. This hack reverts it, but can be removed
-# once it is all sorted out. The const_defined check is required for 1.8.7 compat.
-YAML::ENGINE.yamler = "syck" if YAML.const_defined?("ENGINE")
-
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
