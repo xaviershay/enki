@@ -56,7 +56,7 @@ Enki embodies much of the philosophy of SimpleLog, but does so in a style that i
 
 h2. Compatibility
 
-Uses rails 3. Runs on MySQL or Postgres. Works on heroku.
+Uses Ruby 1.9.3 or newer and Rails 3. Runs on MySQL or Postgres. Works on heroku.
 
 h2. Contributors, these guys rock
 

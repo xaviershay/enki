@@ -31,11 +31,11 @@ describe DeleteCommentUndo do
   end
 
   describe '#description' do
-    it("should not be nil") { DeleteCommentUndo.new(:data => '---').description.should_not be_nil }
+    it("should not be nil") { DeleteCommentUndo.new(:data => "--- {}\n").description.should_not be_nil }
   end
 
   describe '#complete_description' do
-    it("should not be nil") { DeleteCommentUndo.new(:data => '---').complete_description.should_not be_nil }
+    it("should not be nil") { DeleteCommentUndo.new(:data => "--- {}\n").complete_description.should_not be_nil }
   end
 
   describe '.create_undo' do
