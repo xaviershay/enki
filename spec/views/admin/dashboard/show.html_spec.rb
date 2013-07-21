@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/dashboard/show.html" do
   before(:each) do
-    view.stub!(:enki_config).and_return(Enki::Config.default)
+    view.stub(:enki_config).and_return(Enki::Config.default)
   end
 
   after(:each) do
@@ -16,7 +16,7 @@ describe "/admin/dashboard/show.html" do
       :slug              => 'a-post',
       :approved_comments => []
     )]
-    assign :comment_activity, [mock("comment-activity-1",
+    assign :comment_activity, [double("comment-activity-1",
       :post                => mock_model(Post,
         :published_at      => Time.now,
         :published?        => true,

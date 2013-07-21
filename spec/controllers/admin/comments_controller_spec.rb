@@ -5,7 +5,7 @@ describe Admin::CommentsController do
   describe 'handling GET to index' do
     before(:each) do
       @posts = [mock_model(Comment), mock_model(Comment)]
-      Comment.stub!(:paginate).and_return(@comments)
+      Comment.stub(:paginate).and_return(@comments)
       session[:logged_in] = true
       get :index
     end
@@ -18,7 +18,7 @@ describe Admin::CommentsController do
   describe 'handling GET to show' do
     before(:each) do
       @comment = Comment.new
-      Comment.stub!(:find).and_return(@comment)
+      Comment.stub(:find).and_return(@comment)
       session[:logged_in] = true
       get :show, :id => 1
     end
@@ -31,8 +31,8 @@ describe Admin::CommentsController do
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @comment = mock_model(Comment, :author => 'Don Alias')
-      @comment.stub!(:update_attributes).and_return(true)
-      Comment.stub!(:find).and_return(@comment)
+      @comment.stub(:update_attributes).and_return(true)
+      Comment.stub(:find).and_return(@comment)
 
       @attributes = {'body' => 'a comment'}
     end
@@ -62,8 +62,8 @@ describe Admin::CommentsController do
   describe 'handling PUT to update with invalid attributes' do
     before(:each) do
       @comment = mock_model(Comment, :author => 'Don Alias')
-      @comment.stub!(:update_attributes).and_return(false)
-      Comment.stub!(:find).and_return(@comment)
+      @comment.stub(:update_attributes).and_return(false)
+      Comment.stub(:find).and_return(@comment)
 
       @attributes = {:body => ''}
     end
@@ -87,8 +87,8 @@ describe Admin::CommentsController do
   describe 'handling DELETE to destroy' do
     before(:each) do
       @comment = Comment.new
-      @comment.stub!(:destroy)
-      Comment.stub!(:find).and_return(@comment)
+      @comment.stub(:destroy)
+      Comment.stub(:find).and_return(@comment)
     end
 
     def do_delete
@@ -111,8 +111,8 @@ describe Admin::CommentsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @comment = Comment.new(:author => 'xavier')
-      @comment.stub!(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
-      Comment.stub!(:find).and_return(@comment)
+      @comment.stub(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+      Comment.stub(:find).and_return(@comment)
     end
 
     def do_delete

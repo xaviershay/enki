@@ -44,6 +44,12 @@ class Admin::CommentsController < Admin::BaseController
     end
   end
 
+  private
+
+  def comment_params
+    params.require(:comment).permit(:author, :author_url, :author_email, :body)
+  end
+
   protected
 
   def find_comment

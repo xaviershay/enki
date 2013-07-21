@@ -43,7 +43,7 @@ describe CommentActivity, '#comments' do
     comments = []
     comments.should_receive(:find_recent).with(hash_including(:limit => 5)).and_return(ret)
     post = mock_model(Post)
-    post.stub!(:approved_comments).and_return(comments)
+    post.stub(:approved_comments).and_return(comments)
     CommentActivity.new(post).comments.should == ret
   end
 
@@ -51,7 +51,7 @@ describe CommentActivity, '#comments' do
     post = mock_model(Post)
     activity = CommentActivity.new(post)
 
-    post.should_receive(:approved_comments).once.and_return(mock('stub').as_null_object)
+    post.should_receive(:approved_comments).once.and_return(double('stub').as_null_object)
     2.times { activity.comments }
   end
 end

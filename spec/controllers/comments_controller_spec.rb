@@ -8,7 +8,7 @@ describe CommentsController, 'with GET to #index' do
       :published_at => 1.year.ago,
       :slug         => 'a-post'
     )
-    Post.stub!(:find_by_permalink).and_return(@mock_post)
+    Post.stub(:find_by_permalink).and_return(@mock_post)
     get :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post'
     response.should be_redirect
     response.should redirect_to(post_path(@mock_post))
@@ -55,9 +55,9 @@ describe CommentsController, 'handling commenting' do
       :slug                        => 'a-post',
       :day                         => '01'
     }.each_pair do |attribute, value|
-      @mock_post.stub!(attribute).and_return(value)
+      @mock_post.stub(attribute).and_return(value)
     end
-    Post.stub!(:find_by_permalink).and_return(@mock_post)
+    Post.stub(:find_by_permalink).and_return(@mock_post)
     @mock_post
   end
 

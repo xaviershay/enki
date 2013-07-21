@@ -3,29 +3,29 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe DeleteCommentUndo do
   describe '#process!' do
     it 'creates a new comment based on the attributes stored in #data' do
-      Comment.stub!(:find_by_id).and_return(nil)
+      Comment.stub(:find_by_id).and_return(nil)
 
       item = DeleteCommentUndo.new(:data => "---\nid: 1\na: b")
-      item.stub!(:transaction).and_yield
-      item.stub!(:destroy)
+      item.stub(:transaction).and_yield
+      item.stub(:destroy)
 
-      Comment.should_receive(:create).with('a' => 'b').and_return(mock("comment", :new_record? => false))
+      Comment.should_receive(:create).with('a' => 'b').and_return(double("comment", :new_record? => false))
       item.process!
     end
   end
 
   describe '#process! with existing comment' do
     it 'raises' do
-      Comment.stub!(:find_by_id).and_return(Object.new)
+      Comment.stub(:find_by_id).and_return(Object.new)
       lambda { DeleteCommentUndo.new(:data => "---\nid: 1").process! }.should raise_error(UndoFailed)
     end
   end
 
   describe '#process! with invalid comment' do
     it 'raises' do
-      Comment.stub!(:find_by_id).and_return(nil)
+      Comment.stub(:find_by_id).and_return(nil)
 
-      Comment.stub!(:create).and_return(mock("comment", :new_record? => true))
+      Comment.stub(:create).and_return(double("comment", :new_record? => true))
       lambda { DeleteCommentUndo.new(:data => "---\nid: 1").process! }.should raise_error(UndoFailed)
     end
   end

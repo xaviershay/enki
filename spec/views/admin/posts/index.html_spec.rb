@@ -13,7 +13,7 @@ describe "/admin/posts/index.html" do
       :slug              => 'a-post',
       :approved_comments => []
     )]
-    posts.stub!(:total_pages).and_return(1)
+    posts.stub(:total_pages).and_return(1)
     assign :posts, posts
     render :template => '/admin/posts/index', :formats => [:html]
   end

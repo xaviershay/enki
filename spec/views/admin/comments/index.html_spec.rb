@@ -16,7 +16,7 @@ describe "/admin/comments/index.html" do
         :published_at => Time.now
       )
     )]
-    comments.stub!(:total_pages).and_return(1)
+    comments.stub(:total_pages).and_return(1)
     assign :comments, comments
     render :template => '/admin/comments/index', :formats => [:html]
   end

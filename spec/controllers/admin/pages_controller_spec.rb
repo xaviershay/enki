@@ -4,7 +4,7 @@ describe Admin::PagesController do
   describe 'handling GET to index' do
     before(:each) do
       @pages = [mock_model(Page), mock_model(Page)]
-      Page.stub!(:paginate).and_return(@pages)
+      Page.stub(:paginate).and_return(@pages)
       session[:logged_in] = true
       get :index
     end
@@ -25,7 +25,7 @@ describe Admin::PagesController do
   describe 'handling GET to show' do
     before(:each) do
       @page = mock_model(Page)
-      Page.stub!(:find).and_return(@page)
+      Page.stub(:find).and_return(@page)
       session[:logged_in] = true
       get :show, :id => 1
     end
@@ -46,7 +46,7 @@ describe Admin::PagesController do
   describe 'handling GET to new' do
     before(:each) do
       @page = mock_model(Page)
-      Page.stub!(:new).and_return(@page)
+      Page.stub(:new).and_return(@page)
       session[:logged_in] = true
       get :new
     end
@@ -58,8 +58,8 @@ describe Admin::PagesController do
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @page = mock_model(Page, :title => 'A page')
-      @page.stub!(:update_attributes).and_return(true)
-      Page.stub!(:find).and_return(@page)
+      @page.stub(:update_attributes).and_return(true)
+      Page.stub(:find).and_return(@page)
     end
 
     def do_put
@@ -91,8 +91,8 @@ describe Admin::PagesController do
   describe 'handling PUT to update with invalid attributes' do
     before(:each) do
       @page = mock_model(Page)
-      @page.stub!(:update_attributes).and_return(false)
-      Page.stub!(:find).and_return(@page)
+      @page.stub(:update_attributes).and_return(false)
+      Page.stub(:find).and_return(@page)
     end
 
     def do_put

@@ -4,7 +4,7 @@ describe PagesController do
   describe 'handling GET for a single post' do
     before(:each) do
       @page = mock_model(Page)
-      Page.stub!(:find_by_slug).and_return(@page)
+      Page.stub(:find_by_slug).and_return(@page)
     end
 
     def do_get
@@ -34,7 +34,7 @@ describe PagesController do
 
   describe 'handling GET with invalid page' do
     it 'raises a RecordNotFound error' do
-      Page.stub!(:find_by_slug).and_return(nil)
+      Page.stub(:find_by_slug).and_return(nil)
       lambda {
         get :show, :id => 'a-page'
       }.should raise_error(ActiveRecord::RecordNotFound)
