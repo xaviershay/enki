@@ -4,7 +4,7 @@ describe Admin::PostsController do
   describe 'handling GET to index' do
     before(:each) do
       @posts = [mock_model(Post), mock_model(Post)]
-      Post.stub!(:paginate).and_return(@posts)
+      Post.stub(:paginate).and_return(@posts)
       session[:logged_in] = true
       get :index
     end
@@ -25,7 +25,7 @@ describe Admin::PostsController do
   describe 'handling GET to show' do
     before(:each) do
       @post = mock_model(Post)
-      Post.stub!(:find).and_return(@post)
+      Post.stub(:find).and_return(@post)
       session[:logged_in] = true
       get :show, :id => 1
     end
@@ -46,7 +46,7 @@ describe Admin::PostsController do
   describe 'handling GET to new' do
     before(:each) do
       @post = mock_model(Post)
-      Post.stub!(:new).and_return(@post)
+      Post.stub(:new).and_return(@post)
       session[:logged_in] = true
       get :new
     end
@@ -58,8 +58,8 @@ describe Admin::PostsController do
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @post = mock_model(Post, :title => 'A post')
-      @post.stub!(:update_attributes).and_return(true)
-      Post.stub!(:find).and_return(@post)
+      @post.stub(:update_attributes).and_return(true)
+      Post.stub(:find).and_return(@post)
     end
 
     def do_put
@@ -71,7 +71,7 @@ describe Admin::PostsController do
       published_at = Time.now
       @post.should_receive(:update_attributes).with(valid_post_attributes)
 
-      Time.stub!(:now).and_return(published_at)
+      Time.stub(:now).and_return(published_at)
       do_put
     end
 
@@ -85,13 +85,13 @@ describe Admin::PostsController do
   describe 'handling PUT to update with invalid attributes' do
     before(:each) do
       @post = mock_model(Post)
-      @post.stub!(:update_attributes).and_return(false)
-      Post.stub!(:find).and_return(@post)
+      @post.stub(:update_attributes).and_return(false)
+      Post.stub(:find).and_return(@post)
     end
 
     def do_put
       session[:logged_in] = true
-      put :update, :id => 1, :post => {}
+      put :update, :id => 1, :post => valid_post_attributes
     end
 
     it 'renders show' do
@@ -123,8 +123,8 @@ describe Admin::PostsController do
   describe 'handling DELETE to destroy' do
     before(:each) do
       @post = Post.new
-      @post.stub!(:destroy_with_undo)
-      Post.stub!(:find).and_return(@post)
+      @post.stub(:destroy_with_undo)
+      Post.stub(:find).and_return(@post)
     end
 
     def do_delete
@@ -147,8 +147,8 @@ describe Admin::PostsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @post = Post.new(:title => 'A post')
-      @post.stub!(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
-      Post.stub!(:find).and_return(@post)
+      @post.stub(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+      Post.stub(:find).and_return(@post)
     end
 
     def do_delete

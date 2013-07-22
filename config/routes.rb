@@ -10,7 +10,7 @@ Enki::Application.routes.draw do
       post 'undo', :on => :member
     end
 
-    match 'health(/:action)' => 'health', :action => 'index', :as => :health
+    get 'health(/:action)' => 'health', :action => 'index', :as => :health
 
     root :to => 'dashboard#show'
   end

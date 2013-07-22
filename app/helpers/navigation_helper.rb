@@ -3,13 +3,13 @@ module NavigationHelper
     link = Struct.new(:name, :url)
     [link.new("Home", root_path),
      link.new("Archives", archives_path)] +
-      Page.find(:all, :order => 'title').collect {|page| link.new(page.title, page_path(page.slug))}
+      Page.order('title').collect { |page| link.new(page.title, page_path(page.slug)) }
   end
 
   def category_links_for_navigation
     link = Struct.new(:name, :url)
-    @popular_tags ||= Tag.find(:all).reject {|tag| tag.taggings.empty? }.sort_by {|tag| tag.taggings.size }.reverse
-    @popular_tags.collect {|tag| link.new(tag.name, posts_path(:tag => tag.name)) }
+    @popular_tags ||= Tag.all.reject { |tag| tag.taggings.empty? }.sort_by { |tag| tag.taggings.size }.reverse
+    @popular_tags.collect { |tag| link.new(tag.name, posts_path(:tag => tag.name)) }
   end
 
   def class_for_tab(tab_name, index)

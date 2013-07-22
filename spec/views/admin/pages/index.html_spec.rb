@@ -12,7 +12,7 @@ describe "/admin/pages/index.html" do
       :slug       => 'a-page',
       :created_at => Time.now
     )]
-    pages.stub!(:total_pages).and_return(1)
+    pages.stub(:total_pages).and_return(1)
     assign :pages, pages
     render :template => '/admin/pages/index', :formats => [:html]
   end

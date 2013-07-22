@@ -17,7 +17,7 @@ end
 
 Given /^the following comments? exists:$/ do |comment_table|
   comment_table.hashes.each do |hash|
-    Factory(:comment, hash)
+    FactoryGirl.create(:comment, hash)
   end
 end
 

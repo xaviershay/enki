@@ -4,7 +4,7 @@ describe Admin::UndoItemsController do
   describe 'handling GET to index' do
     before(:each) do
       @undo_items = [mock_model(UndoItem)]
-      UndoItem.stub!(:find).and_return(@undo_items)
+      UndoItem.stub_chain(:order, :limit, :all).and_return(@undo_items)
       session[:logged_in] = true
       get :index
     end
@@ -17,8 +17,8 @@ describe Admin::UndoItemsController do
   describe 'handling POST to undo' do
     before do
       @item = mock_model(UndoItem, :complete_description => "hello")
-      @item.stub!(:process!)
-      UndoItem.stub!(:find).and_return(@item)
+      @item.stub(:process!)
+      UndoItem.stub(:find).and_return(@item)
     end
 
     def do_post
@@ -35,8 +35,8 @@ describe Admin::UndoItemsController do
   describe 'handling POST to undo accepting JSON' do
     before do
       @item = mock_model(UndoItem, :complete_description => "hello")
-      @item.stub!(:process!).and_return(Post.new)
-      UndoItem.stub!(:find).and_return(@item)
+      @item.stub(:process!).and_return(Post.new)
+      UndoItem.stub(:find).and_return(@item)
     end
 
     def do_post
@@ -52,8 +52,8 @@ describe Admin::UndoItemsController do
   describe 'handling POST to undo with invalid undo item' do
     before do
       @item = mock_model(UndoItem)
-      @item.stub!(:process!).and_raise(UndoFailed)
-      UndoItem.stub!(:find).and_return(@item)
+      @item.stub(:process!).and_raise(UndoFailed)
+      UndoItem.stub(:find).and_return(@item)
     end
 
     def do_post
@@ -69,8 +69,8 @@ describe Admin::UndoItemsController do
   describe 'handling POST to undo with invalid undo item accepting JSON' do
     before do
       @item = mock_model(UndoItem)
-      @item.stub!(:process!).and_raise(UndoFailed)
-      UndoItem.stub!(:find).and_return(@item)
+      @item.stub(:process!).and_raise(UndoFailed)
+      UndoItem.stub(:find).and_return(@item)
     end
 
     def do_post

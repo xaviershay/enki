@@ -1,22 +1,21 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.13'
+gem 'rails', '~> 4.0.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.6'
-end
+gem 'sass-rails'
 
 platforms :ruby do
   gem 'sqlite3'
 end
 
 platforms :jruby do
-  gem 'activerecord-jdbcsqlite3-adapter'
+  # The stable version has not yet supported Rails 4
+  gem 'activerecord-jdbcsqlite3-adapter', '1.3.0.beta2'
   gem 'trinidad'
   gem 'jruby-openssl'
 end

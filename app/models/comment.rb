@@ -84,7 +84,7 @@ class Comment < ActiveRecord::Base
     end
 
     def find_recent(options = {})
-      find(:all, {
+      all({
         :limit => DEFAULT_LIMIT,
         :order => 'created_at DESC'
       }.merge(options))

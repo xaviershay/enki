@@ -27,7 +27,7 @@ describe PostsController do
   describe 'handling GET to index'do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub!(:find_recent).and_return(@posts)
+      Post.stub(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -45,7 +45,7 @@ describe PostsController do
   describe 'handling GET to index with tag'do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub!(:find_recent).and_return(@posts)
+      Post.stub(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -78,7 +78,7 @@ describe PostsController do
       # means it is possible for a tag to exist (and show up in the navigation)
       # without having any public posts. If that issue is ever fixed, this
       # behaviour should revert to 404ing.
-      Post.stub!(:find_recent).and_return([])
+      Post.stub(:find_recent).and_return([])
       get :index, :tag => 'bogus'
       assigns(:posts).should be_empty
     end
@@ -87,7 +87,7 @@ describe PostsController do
   describe 'handling GET to /posts.atom'do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub!(:find_recent).and_return(@posts)
+      Post.stub(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -107,7 +107,7 @@ describe PostsController do
   describe 'handling GET to /posts.atom with tag'do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub!(:find_recent).and_return(@posts)
+      Post.stub(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -128,8 +128,8 @@ describe PostsController do
     before(:each) do
       @post = mock_model(Post)
       @comment = mock_model(Post)
-      Post.stub!(:find_by_permalink).and_return(@post)
-      Comment.stub!(:new).and_return(@comment)
+      Post.stub(:find_by_permalink).and_return(@post)
+      Comment.stub(:new).and_return(@comment)
     end
 
     def do_get

@@ -6,8 +6,8 @@ describe "/admin/sessions/new.html" do
   end
 
   it "renders" do
-    view.stub!(:enki_config).and_return(Enki::Config.default)
-    view.stub!(:allow_login_bypass?).and_return(true)
+    view.stub(:enki_config).and_return(Enki::Config.default)
+    view.stub(:allow_login_bypass?).and_return(true)
     render :template => '/admin/sessions/new', :formats => [:html]
   end
 end

@@ -40,7 +40,7 @@ describe Admin::SessionsController do
 
   describe '#allow_login_bypass? when RAILS_ENV == production' do
     it 'returns false' do
-      ::Rails.stub!(:env).and_return('production')
+      ::Rails.stub(:env).and_return('production')
       @controller.send(:allow_login_bypass?).should == false
     end
   end
@@ -74,8 +74,8 @@ describe Admin::SessionsController, "handling CREATE with post" do
   end
 
   def stub_open_id_authenticate(url, status_code, return_value)
-    status = mock("Result", :successful? => status_code == :successful, :message => '')
-    @controller.stub!(:enki_config).and_return(mock("enki_config", :author_open_ids => [
+    status = double("Result", :successful? => status_code == :successful, :message => '')
+    @controller.stub(:enki_config).and_return(double("enki_config", :author_open_ids => [
         "http://enkiblog.com",
         "http://secondaryopenid.com"
       ].collect {|uri| URI.parse(uri)}
@@ -138,7 +138,7 @@ describe Admin::SessionsController, "handling CREATE with post" do
   end
   describe "with bypass login selected but login bypassing disabled" do
     before do
-      @controller.stub!(:allow_login_bypass?).and_return(false)
+      @controller.stub(:allow_login_bypass?).and_return(false)
       post :create, :openid_url => "", :bypass_login => "1"
     end
     it_should_behave_like "not logged in"
