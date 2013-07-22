@@ -13,7 +13,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def create
-    @post = Post.new(params[:post])
+    @post = Post.new(post_params)
     if @post.save
       respond_to do |format|
         format.html {
@@ -23,13 +23,13 @@ class Admin::PostsController < Admin::BaseController
       end
     else
       respond_to do |format|
-        format.html { render :action => 'new',         :status => :unprocessable_entity }
+        format.html { render :action => 'new', :status => :unprocessable_entity }
       end
     end
   end
 
   def update
-    if @post.update_attributes(params[:post])
+    if @post.update_attributes(post_params)
       respond_to do |format|
         format.html {
           flash[:notice] = "Updated post '#{@post.title}'"
@@ -38,7 +38,7 @@ class Admin::PostsController < Admin::BaseController
       end
     else
       respond_to do |format|
-        format.html { render :action => 'show',        :status => :unprocessable_entity }
+        format.html { render :action => 'show', :status => :unprocessable_entity }
       end
     end
   end
@@ -83,9 +83,16 @@ class Admin::PostsController < Admin::BaseController
     end
   end
 
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :body, :minor_edit)
+  end
+
   protected
 
   def find_post
     @post = Post.find(params[:id])
   end
+
 end

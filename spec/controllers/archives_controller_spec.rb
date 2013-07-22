@@ -5,7 +5,7 @@ describe ArchivesController do
     before(:each) do
       month = Struct.new(:date, :posts)
       @months = [month.new(1.month.ago.utc.beginning_of_month, [mock_model(Post)])]
-      Post.stub!(:find_all_grouped_by_month).and_return(@months)
+      Post.stub(:find_all_grouped_by_month).and_return(@months)
     end
 
     def do_get

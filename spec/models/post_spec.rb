@@ -16,7 +16,7 @@ end
 describe Post, ".find_recent" do
   it 'finds the most recent posts that were published before now' do
     now = Time.now
-    Time.stub!(:now).and_return(now)
+    Time.stub(:now).and_return(now)
     Post.should_receive(:find).with(:all, {
       :order      => 'posts.published_at DESC',
       :conditions => ['published_at < ?', now],
@@ -27,7 +27,7 @@ describe Post, ".find_recent" do
 
   it 'finds the most recent posts that were published before now with a tag' do
     now = Time.now
-    Time.stub!(:now).and_return(now)
+    Time.stub(:now).and_return(now)
     Post.should_receive(:find_tagged_with).with('code', {
       :order      => 'posts.published_at DESC',
       :conditions => ['published_at < ?', now],
@@ -38,7 +38,7 @@ describe Post, ".find_recent" do
 
   it 'finds all posts grouped by month' do
     now = Time.now
-    Time.stub!(:now).and_return(now)
+    Time.stub(:now).and_return(now)
     posts = [1, 1, 2].collect {|month| mock_model(Post, :month => month) }
     Post.should_receive(:find).with(:all, {
       :order      => 'posts.published_at DESC',
@@ -87,10 +87,10 @@ describe Post, "#set_dates" do
   describe 'when minor_edit is false' do
     it 'sets edited_at to current time' do
       now = Time.now
-      Time.stub!(:now).and_return(now)
+      Time.stub(:now).and_return(now)
 
       post = Post.new(:edited_at => 1.day.ago)
-      post.stub!(:minor_edit?).and_return(false)
+      post.stub(:minor_edit?).and_return(false)
       post.set_dates
       post.edited_at.should == now
     end
@@ -99,10 +99,10 @@ describe Post, "#set_dates" do
   describe 'when edited_at is nil' do
     it 'sets edited_at to current time' do
       now = Time.now
-      Time.stub!(:now).and_return(now)
+      Time.stub(:now).and_return(now)
 
       post = Post.new
-      post.stub!(:minor_edit?).and_return(true)
+      post.stub(:minor_edit?).and_return(true)
       post.set_dates
       post.edited_at.should == now
     end
@@ -111,7 +111,7 @@ describe Post, "#set_dates" do
   describe 'when minor_edit is true' do
     it 'does not changed edited_at' do
       post = Post.new(:edited_at => now = 1.day.ago)
-      post.stub!(:minor_edit?).and_return(true)
+      post.stub(:minor_edit?).and_return(true)
       post.set_dates
       post.edited_at.should == now
     end
@@ -195,7 +195,7 @@ describe Post, '#denormalize_comments_count!' do
   it 'updates approved_comments_count without triggering AR callbacks' do
     p = Post.new
     p.id = 999
-    p.stub!(:approved_comments).and_return(stub("approved_comments association", :count => 9))
+    p.stub(:approved_comments).and_return(double("approved_comments association", :count => 9))
     Post.should_receive(:update_all).with(["approved_comments_count = ?", 9], ["id = ?", 999])
     p.denormalize_comments_count!
   end

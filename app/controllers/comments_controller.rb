@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Comment.build_for_preview(params[:comment])
+    @comment = Comment.build_for_preview(comment_params)
 
     respond_to do |format|
       format.js do
@@ -26,14 +26,14 @@ class CommentsController < ApplicationController
 
   # TODO: Spec OpenID with cucumber and rack-my-id
   def create
-    @comment = Comment.new((session[:pending_comment] || params[:comment] || {}).
+    @comment = Comment.new((session[:pending_comment] || comment_params || {}).
       reject {|key, value| !Comment.protected_attribute?(key) })
     @comment.post = @post
 
     session[:pending_comment] = nil
 
     if @comment.requires_openid_authentication?
-      session[:pending_comment] = params[:comment]
+      session[:pending_comment] = comment_params
       authenticate_with_open_id(@comment.author,
         :optional => [:nickname, :fullname, :email]
       ) do |result, identity_url, registration|
@@ -69,6 +69,12 @@ class CommentsController < ApplicationController
         render :template => 'posts/show'
       end
     end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:author, :author_url, :author_email, :body)
   end
 
   protected

@@ -6,7 +6,7 @@ describe "/archives/index.html" do
   end
 
   before(:each) do
-    view.stub!(:enki_config).and_return(Enki::Config.default)
+    view.stub(:enki_config).and_return(Enki::Config.default)
 
     month = Struct.new(:date, :posts)
     assign :months, [

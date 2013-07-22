@@ -4,7 +4,7 @@ describe "/pages/show.html" do
   include UrlHelper
 
   before(:each) do
-    view.stub!(:enki_config).and_return(Enki::Config.default)
+    view.stub(:enki_config).and_return(Enki::Config.default)
 
     @page = mock_model(Page,
       :title             => "A page",

@@ -4,7 +4,7 @@ describe "/posts/show.html" do
   include UrlHelper
 
   before(:each) do
-    view.stub!(:enki_config).and_return(Enki::Config.default)
+    view.stub(:enki_config).and_return(Enki::Config.default)
 
     mock_tag = mock_model(Tag,
       :name => 'code'

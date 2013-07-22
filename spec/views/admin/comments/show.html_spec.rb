@@ -14,7 +14,7 @@ describe "/admin/comments/show.html" do
       :created_at              => Time.now
     )
     allow_message_expectations_on_nil
-    assigns[:comment].stub!(:post).and_return(mock_model(Post,
+    assigns[:comment].stub(:post).and_return(mock_model(Post,
       :title        => 'A post',
       :slug         => 'a-post',
       :published_at => Time.now

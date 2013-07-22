@@ -120,8 +120,8 @@ end
 describe Comment, '.find_recent' do
   it 'finds the most recent comments that were posted before now' do
     now = Time.now
-    Time.stub!(:now).and_return(now)
-    Comment.should_receive(:find).with(:all, {
+    Time.stub(:now).and_return(now)
+    Comment.should_receive(:all).with({
       :order      => 'created_at DESC',
       :limit      => Comment::DEFAULT_LIMIT
     }).and_return(comments = [mock_model(Comment)])
@@ -129,7 +129,7 @@ describe Comment, '.find_recent' do
   end
 
   it 'allows and override of the default limit' do
-    Comment.should_receive(:find).with(:all, hash_including(:limit => 999))
+    Comment.should_receive(:all).with(hash_including(:limit => 999))
     Comment.find_recent(:limit => 999)
   end
 end
