@@ -73,7 +73,7 @@ describe CommentsController, 'handling commenting' do
         :author_url              => 'http://www.enkiblog.com',
         :author_email            => 'donalias@enkiblog.com',
         :created_at              => @created_at = 1.year.ago,
-        :updated_at              => @updated_at = 1.year.ago,
+        :updated_at              => @updated_at = 1.year.ago
       }
     end
 
