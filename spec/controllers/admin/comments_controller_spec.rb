@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require File.dirname(__FILE__) + '/../../factories'
 require 'json'
 
 describe Admin::CommentsController do
@@ -81,6 +82,28 @@ describe Admin::CommentsController do
     it("assigns comment for the view") do
       do_put
       assigns(:comment).should == @comment
+    end
+  end
+
+  describe 'handling PUT to update with expected whitelisted attributes present' do
+    before(:each) do
+      @comment = FactoryGirl.create(:comment)
+      Comment.stub(:find).and_return(@comment)
+    end
+
+    it 'allows whitelisted attributes as expected' do
+      session[:logged_in] = true
+      put :update, :id => 1, :comment => {
+        'author'       => "Don Alias",
+        'author_url'   => "http://example.com",
+        'author_email' => "donalias@example.com",
+        'body'         => "This is a comment"
+      }
+
+      assigns(:comment).author.should == "Don Alias"
+      assigns(:comment).author_url.should == "http://example.com"
+      assigns(:comment).author_email.should == "donalias@example.com"
+      assigns(:comment).body.should == "This is a comment"
     end
   end
 

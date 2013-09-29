@@ -18,7 +18,7 @@ class Admin::CommentsController < Admin::BaseController
   end
 
   def update
-    if @comment.update_attributes(params[:comment])
+    if @comment.update_attributes(comment_params)
       flash[:notice] = "Updated comment by #{@comment.author}"
       redirect_to :action => 'index'
     else
