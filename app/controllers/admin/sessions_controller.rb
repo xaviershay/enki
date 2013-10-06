@@ -1,4 +1,7 @@
 class Admin::SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => :create
+  before_filter :verify_authenticity_token_unless_openid, :only => :create
+
   layout 'login'
 
   def show
@@ -49,5 +52,10 @@ protected
   def allow_login_bypass?
     %w(development test).include?(Rails.env)
   end
+
+  def verify_authenticity_token_unless_openid
+    verify_authenticity_token unless using_open_id?
+  end
+
   helper_method :allow_login_bypass?
 end
