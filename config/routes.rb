@@ -27,7 +27,7 @@ Enki::Application.routes.draw do
 
   scope :to => 'posts#index' do
     get 'posts.:format', :as => :formatted_posts
-    get '(:tag)', :as => :posts
+    get '(:tag)', :as => :posts, :constraints => {tag: /[^\/]+/}
   end
 
   root :to => 'posts#index'
