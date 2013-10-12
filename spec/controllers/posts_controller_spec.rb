@@ -58,10 +58,6 @@ describe PostsController do
       Post.should_receive(:find_recent).with(:tag => 'code', :include => :tags).and_return(@posts)
       do_get
     end
-
-    it "should receive the full tag name when it contains a dot character" do
-      { :get => '/enki.o' }.should route_to(:controller => 'posts', :action => 'index', :tag => 'enki.o')
-    end
   end
 
   describe 'handling GET to index with no posts' do
@@ -163,10 +159,6 @@ describe PostsController do
     it "should assign a new comment for the view" do
       do_get
       assigns[:comment].should equal(@comment)
-    end
-
-    it "should route /pages to posts#index with tag pages" do
-      {:get => "/pages"}.should route_to(:controller => 'posts', :action => 'index', :tag => 'pages')
     end
   end
 end
