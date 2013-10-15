@@ -13,8 +13,8 @@ describe PostsController do
     end
 
     it "should generate the correct params when the tag name contains a dot character" do
-      { :get => "/enki.o" }.should route_to(:controller => "posts", :action => "index", :tag => "enki.o", :format => nil)
-      { :get => "/enki.o.atom" }.should route_to(:controller => "posts", :action => "index", :tag => "enki.o", :format => "atom")
+      {:get => "/enki.o"}.should route_to(:controller => "posts", :action => "index", :tag => "enki.o", :format => nil)
+      {:get => "/enki.o.atom"}.should route_to(:controller => "posts", :action => "index", :tag => "enki.o", :format => "atom")
     end
 
     it "should route /pages to posts#index with tag pages" do
