@@ -125,8 +125,11 @@ class Post < ActiveRecord::Base
     self.slug.slugorize!
   end
 
-  # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
   def tag_list=(value)
+    value = value.split(',') if value.is_a?(String)
+    value.map!{ |tag_name| Tag::filter_name(tag_name) }
+
+    # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
     value = value.join(", ") if value.respond_to?(:join)
     super(value)
   end

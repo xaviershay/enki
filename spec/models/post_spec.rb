@@ -76,10 +76,16 @@ describe Post, '#generate_slug' do
 end
 
 describe Post, '#tag_list=' do
-  it 'accept an array argument so it is symmetrical with the reader' do
+  it 'accepts an array argument so it is symmetrical with the reader' do
     p = Post.new
     p.tag_list = ["a", "b"]
     p.tag_list.should == ["a", "b"]
+  end
+
+  it 'filters the tag list and keeps only alphanumeric, underscore, space, dot and dash characters' do
+    p = Post.new
+    p.tag_list = 'square, triangle, oblong, whacky-& $#*wild-1.0'
+    p.tag_list.should == ['square', 'triangle', 'oblong', 'whacky-and wild-1.0']
   end
 end
 

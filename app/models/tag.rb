@@ -34,4 +34,10 @@ class Tag < ActiveRecord::Base
   def count
     read_attribute(:count).to_i
   end
+
+  def self.filter_name(tag_name)
+    tag_name.gsub!('&', 'and')               # Replace & with 'and'.
+    tag_name.gsub!(/[^A-Za-z0-9_ \.-]/, '')  # Get rid of anything other than these allowed characters.
+    tag_name
+  end
 end
