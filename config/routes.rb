@@ -27,7 +27,7 @@ Enki::Application.routes.draw do
 
   scope :to => 'posts#index' do
     get 'posts.:format', :as => :formatted_posts
-    get '(:tag)', :as => :posts
+    get '(:tag)', :as => :posts, :tag => /(?:[A-Za-z0-9_ \.-]|%20)+?/, :format => /html|atom/
   end
 
   root :to => 'posts#index'
