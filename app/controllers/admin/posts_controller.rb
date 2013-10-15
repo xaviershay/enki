@@ -56,7 +56,7 @@ class Admin::PostsController < Admin::BaseController
   end
 
   def preview
-    @post = Post.build_for_preview(params[:post])
+    @post = Post.build_for_preview(post_params)
 
     respond_to do |format|
       format.js {
