@@ -13,7 +13,7 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def create
-    @page = Page.new(params[:page])
+    @page = Page.new(page_params)
     if @page.save
       respond_to do |format|
         format.html {
@@ -29,7 +29,7 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def update
-    if @page.update_attributes(params[:page])
+    if @page.update_attributes(page_params)
       respond_to do |format|
         format.html {
           flash[:notice] = "Updated page '#{@page.title}'"
@@ -56,7 +56,7 @@ class Admin::PagesController < Admin::BaseController
   end
 
   def preview
-    @page = Page.build_for_preview(params[:page])
+    @page = Page.build_for_preview(page_params)
 
     respond_to do |format|
       format.js {
@@ -84,6 +84,10 @@ class Admin::PagesController < Admin::BaseController
   end
 
   protected
+
+  def page_params
+    params.require(:page).permit(:title, :slug, :body)
+  end
 
   def find_page
     @page = Page.find(params[:id])
