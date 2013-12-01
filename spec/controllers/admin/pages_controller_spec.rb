@@ -97,7 +97,11 @@ describe Admin::PagesController do
 
     def do_put
       session[:logged_in] = true
-      put :update, :id => 1, :page => {}
+      put :update, :id => 1, :page => {
+        'title' => nil,
+        'slug'  => 'my-page',
+        'body'  => 'This is my page'
+      }
     end
 
     it 'renders show' do
