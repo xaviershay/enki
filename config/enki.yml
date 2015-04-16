@@ -3,14 +3,22 @@
 title: My Enki Blog
 url:   http://enkiblog.com
 author:
-  name:    Don Alias        # For copyright notice and ATOM feeds
-  email:   don@enkiblog.com # Exception emails will go here, and it is used in ATOM feeds
-  open_id:                  # These are used to login to the admin area
+  name:    Don Alias                # For copyright notice and ATOM feeds
+  email:   don@enkiblog.com         # Exception emails will go here, and it is used in ATOM feeds
+
+  # If you want to use the google_oauth2 (Google OpenID Connect) OmniAuth strategy to login to the admin area,
+  # google_oauth2_email should match the email of your OpenID Connect identity
+  google_oauth2_email: "you@your-openid-connect-domain.com"
+
+  # If you want to use OpenID (which is distinct from OpenID Connect) to login to the admin area, open_id should contain
+  # your OpenID URL(s)
+  open_id:
       - http://enkiblog.com
       - http://secondaryopenid.com
 
 # Delete the following section if your site will not be acting as an OpenID delegate (http://wiki.openid.net/Delegation)
 # If you're deploying with mongrel, make sure you read http://rhnh.net/2008/04/13/nginx-openid-delegation-and-yadis
+# Note that OpenID Connect does not support delegation
 open_id_delegation:
   server:   http://www.myopenid.com/server
   delegate: http://username.myopenid.com

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20110709024316) do
+ActiveRecord::Schema.define(version: 20150414113518) do
 
   create_table "comments", force: true do |t|
     t.integer  "post_id",      null: false
@@ -27,19 +27,14 @@ ActiveRecord::Schema.define(version: 20110709024316) do
   add_index "comments", ["created_at"], name: "index_comments_on_created_at"
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
 
-  create_table "open_id_authentication_associations", force: true do |t|
-    t.integer "issued"
-    t.integer "lifetime"
-    t.string  "handle"
-    t.string  "assoc_type"
-    t.binary  "server_url"
-    t.binary  "secret"
-  end
-
-  create_table "open_id_authentication_nonces", force: true do |t|
-    t.integer "timestamp",  null: false
-    t.string  "server_url"
-    t.string  "salt",       null: false
+  create_table "omni_auth_details", force: true do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.text     "info"
+    t.text     "credentials"
+    t.text     "extra"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pages", force: true do |t|

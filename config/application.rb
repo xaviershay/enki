@@ -6,6 +6,19 @@ if defined?(Bundler)
   Bundler.require(:default, Rails.env)
 end
 
+# Make google_oauth2.yml values available as ENV values (used with the google_oauth2 OmniAuth strategy).
+# If deploying to Heroku, you will need to set the two required ENV values manually for Heroku, for example:
+# heroku config:set GOOGLE_CLIENT_ID=my_client_id
+# heroku config:set GOOGLE_CLIENT_SECRET=my_client_secret
+if File.exists?(File.expand_path('../google_oauth2.yml', __FILE__))
+  config = YAML.load(File.read(File.expand_path('../google_oauth2.yml', __FILE__)))
+  config.merge! config.fetch(Rails.env, {})
+
+  config.each do |key, value|
+    ENV[key] ||= value.to_s unless value.kind_of? Hash
+  end
+end
+
 # This configures the base path of routes for the main application.
 # For example, set to '/blog' to run at http://example.com/blog
 # It must appear before the Application class body.  Initializers run too late.

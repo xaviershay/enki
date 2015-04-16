@@ -30,5 +30,16 @@ Enki::Application.routes.draw do
     get '(:tag)', :as => :posts, :tag => /(?:[A-Za-z0-9_ \.-]|%20)+?/, :format => /html|atom/
   end
 
+  # OmniAuth routes.
+  post '/auth/open_id_comment/callback', :to => 'comments#create'
+  match '/auth/failure' => 'comments#create',
+  :constraints => lambda { |request|
+    request.query_parameters[:strategy] == ApplicationController::OMNIAUTH_OPEN_ID_COMMENT_STRATEGY
+  }, :via => [:get]
+  post '/auth/open_id_admin/callback', :to => 'admin/sessions#create'
+  match '/auth/:provider/callback', :to => 'admin/sessions#create', :via => [:get, :post]
+  get '/auth/failure/comments/new', :to => 'comments#new'
+  get '/auth/failure', :to => 'admin/sessions#new'
+
   root :to => 'posts#index'
 end

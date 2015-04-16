@@ -25,3 +25,4 @@ jQuery.ajaxSetup({
 jQuery.prototype.any = function(callback) {
   return (this.filter(callback).length > 0)
 }
+

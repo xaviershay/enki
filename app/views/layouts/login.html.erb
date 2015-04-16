@@ -4,6 +4,16 @@
   <meta charset="utf-8">
   <title><%= enki_config[:title] %> - Admin Login</title>
   <%= stylesheet_link_tag 'login' %>
+  <%= javascript_tag do -%>
+    // Why is this code here? After a failed OpenID login, second and subsequent tries will cause Rails to throw an
+    // ActionDispatch::Cookies::CookieOverflow exception when hitting the /auth/open_id_admin path (this path is
+    // dynamically set by OmniAuth) due to the large amount of stuff passed in from the query string. So let's
+    // automagically say goodbye to the query string, no one needs it here anyway.
+    // to the query string.
+    if (window.location.href.indexOf('/auth/open_id_admin/callback?') > -1) {
+      window.history.pushState(null, 'Look ma! No query string!', '/auth/open_id_admin/callback');
+    }
+  <% end -%>
 </head>
 <body>
   <div id="page">

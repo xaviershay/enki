@@ -73,73 +73,86 @@ describe Admin::SessionsController, "handling CREATE with post" do
     @controller.instance_eval { flash.extend(DisableFlashSweeping) }
   end
 
-  def stub_open_id_authenticate(url, status_code, return_value)
-    status = double("Result", :successful? => status_code == :successful, :message => '')
+  #def stub_enki_config(url, status_code, return_value)
+  #  status = double("Result", :successful? => status_code == :successful, :message => '')
+  #  @controller.stub(:enki_config).and_return(double("enki_config", :author_open_ids => [
+  #      "http://enkiblog.com",
+  #      "http://secondaryopenid.com"
+  #    ].collect {|uri| URI.parse(uri)}
+  #  ))
+  #  @controller.should_receive(:authenticate_with_open_id).with(url).and_yield(status,url).and_return(return_value)
+  #end
+  def stub_auth_response(auth_response)
+    request.env["omniauth.auth"] = auth_response
+  end
+  def stub_enki_config
     @controller.stub(:enki_config).and_return(double("enki_config", :author_open_ids => [
         "http://enkiblog.com",
         "http://secondaryopenid.com"
-      ].collect {|uri| URI.parse(uri)}
+      ].collect {|uri| URI.parse(uri)},
+      :author_google_oauth2_email => "you@your-openid-connect-domain.com"
     ))
-    @controller.should_receive(:authenticate_with_open_id).with(url).and_yield(status,url).and_return(return_value)
   end
   describe "with invalid URL http://evilman.com and OpenID authentication succeeding" do
     before do
-      stub_open_id_authenticate("http://evilman.com", :successful, false)
-      post :create, :openid_url => "http://evilman.com"
+      stub_enki_config
+      stub_auth_response({ :provider => ApplicationController::OMNIAUTH_OPEN_ID_ADMIN_STRATEGY,
+                           :uid => "http://evilman.com" })
+
+      post :create
     end
     it_should_behave_like "not logged in"
   end
   describe "with valid URL http://enkiblog.com and OpenID authentication succeeding" do
     before do
-      stub_open_id_authenticate("http://enkiblog.com", :successful, false)
-      post :create, :openid_url => "http://enkiblog.com"
+      stub_enki_config
+      stub_auth_response({ :provider => ApplicationController::OMNIAUTH_OPEN_ID_ADMIN_STRATEGY,
+                            :uid => "http://enkiblog.com" })
+
+      post :create
     end
     it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with valid secondary URL http://secondaryopenid.com and OpenID authentication succeeding" do
     before do
-      stub_open_id_authenticate("http://secondaryopenid.com", :successful, false)
-      post :create, :openid_url => "http://secondaryopenid.com"
+      stub_enki_config
+      stub_auth_response({ :provider => ApplicationController::OMNIAUTH_OPEN_ID_ADMIN_STRATEGY,
+                            :uid => "http://secondaryopenid.com" })
+
+      post :create
     end
     it_should_behave_like "logged in and redirected to /admin"
   end
-  describe "with valid URL http://enkiblog.com and OpenID authentication returning 'failed'" do
+  describe "with invalid email notyou@someotherdomain.com and Google OpenID Connect authentication succeeding" do
     before do
-      stub_open_id_authenticate("http://enkiblog.com", :failed, true)
-      post :create, :openid_url => "http://enkiblog.com"
+      stub_enki_config
+      stub_auth_response({ :provider => ApplicationController::OMNIAUTH_GOOGLE_OAUTH2_STRATEGY,
+                           :info => { :email => "notyou@someotherdomain.com" } })
+
+      post :create
     end
     it_should_behave_like "not logged in"
   end
-  describe "with valid URL http://enkiblog.com and OpenID authentication returning 'missing'" do
+  describe "with valid email you@your-openid-connect-domain.com and Google OpenID Connect authentication succeeding" do
     before do
-      stub_open_id_authenticate("http://enkiblog.com", :missing, true)
-      post :create, :openid_url => "http://enkiblog.com"
+      stub_enki_config
+      stub_auth_response({ :provider => ApplicationController::OMNIAUTH_GOOGLE_OAUTH2_STRATEGY,
+                           :info => { :email => "you@your-openid-connect-domain.com" } })
+
+      post :create
     end
-    it_should_behave_like "not logged in"
-  end
-  describe "with valid URL http://enkiblog.com and OpenID authentication returning 'canceled'" do
-    before do
-      stub_open_id_authenticate("http://enkiblog.com", :canceled, true)
-      post :create, :openid_url => "http://enkiblog.com"
-    end
-    it_should_behave_like "not logged in"
-  end
-  describe "with no URL" do
-    before do
-      post :create, :openid_url => ""
-    end
-    it_should_behave_like "not logged in"
+    it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with bypass login selected" do
     before do
-      post :create, :openid_url => "", :bypass_login => "1"
+      post :create, :bypass_login => "1"
     end
     it_should_behave_like "logged in and redirected to /admin"
   end
   describe "with bypass login selected but login bypassing disabled" do
     before do
       @controller.stub(:allow_login_bypass?).and_return(false)
-      post :create, :openid_url => "", :bypass_login => "1"
+      post :create, :bypass_login => "1"
     end
     it_should_behave_like "not logged in"
   end

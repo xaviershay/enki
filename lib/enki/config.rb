@@ -16,6 +16,10 @@ module Enki
       [self[:author, :open_id]].flatten.map {|uri| URI.parse(uri)}
     end
 
+    def author_google_oauth2_email
+      [self[:author, :google_oauth2_email]]
+    end
+
     def self.default
       Enki::Config.new(default_location)
     end
