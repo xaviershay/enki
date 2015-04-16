@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150414113518) do
   add_index "comments", ["post_id"], name: "index_comments_on_post_id"
 
   create_table "omni_auth_details", force: true do |t|
-    t.string   "provider"
+    t.string   "provider",    null: false
     t.string   "uid"
     t.text     "info"
     t.text     "credentials"
