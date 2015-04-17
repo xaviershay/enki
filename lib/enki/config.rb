@@ -17,7 +17,7 @@ module Enki
     end
 
     def author_google_oauth2_email
-      [self[:author, :google_oauth2_email]]
+      [self[:author, :google_oauth2_email]].pop
     end
 
     def self.default
