@@ -51,15 +51,15 @@ You will need a Google account, then:
 * Go to "https://console.developers.google.com":https://console.developers.google.com
 * Select (or create) your project
 * Click 'APIs & auth'
-* Make sure "Contacts API" and "Google+ API" are enabled.
+* Make sure "Contacts API" and "Google+ API" are enabled
 * Go to the Consent Screen, and provide an 'Email address' and 'Product name'
-* Wait 10 minutes for changes to take effect.
 * Click on 'Credentials' under 'APIs & auth' and take note of your 'Client ID' and 'Client secret'
+* Wait 10 minutes for changes to take effect
 
 Create a new file called <code>google_oauth2.yml</code> in your <code>config</code> directory, add your 'Client ID' and 'Client secret' to the file thusly:
 
-<pre><code>GOOGLE_CLIENT_ID: 'ADD_YOUR_CLIENT_ID_HERE'
-GOOGLE_CLIENT_SECRET: 'ADD_YOUR_CLIENT_SECRET_HERE'
+<pre><code>GOOGLE_CLIENT_ID: ADD_YOUR_CLIENT_ID_HERE
+GOOGLE_CLIENT_SECRET: ADD_YOUR_CLIENT_SECRET_HERE
 </code></pre>
 
 If you are deploying to Heroku, you will need to set the above as <code>ENV</code> variables instead of using <code>google_oauth2.yml</code>. For example:

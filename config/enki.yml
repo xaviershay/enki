@@ -8,7 +8,7 @@ author:
 
   # If you want to use the google_oauth2 (Google OpenID Connect) OmniAuth strategy to login to the admin area,
   # google_oauth2_email should match the email of your OpenID Connect identity
-  google_oauth2_email: "you@your-openid-connect-domain.com"
+  google_oauth2_email: you@your-openid-connect-domain.com
 
   # If you want to use OpenID (which is distinct from OpenID Connect) to login to the admin area, open_id should contain
   # your OpenID URL(s)
