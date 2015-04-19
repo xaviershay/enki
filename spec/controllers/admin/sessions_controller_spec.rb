@@ -72,16 +72,6 @@ describe Admin::SessionsController, "handling CREATE with post" do
   before do
     @controller.instance_eval { flash.extend(DisableFlashSweeping) }
   end
-
-  #def stub_enki_config(url, status_code, return_value)
-  #  status = double("Result", :successful? => status_code == :successful, :message => '')
-  #  @controller.stub(:enki_config).and_return(double("enki_config", :author_open_ids => [
-  #      "http://enkiblog.com",
-  #      "http://secondaryopenid.com"
-  #    ].collect {|uri| URI.parse(uri)}
-  #  ))
-  #  @controller.should_receive(:authenticate_with_open_id).with(url).and_yield(status,url).and_return(return_value)
-  #end
   def stub_auth_response(auth_response)
     request.env["omniauth.auth"] = auth_response
   end

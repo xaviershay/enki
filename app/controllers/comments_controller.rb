@@ -22,8 +22,8 @@ class CommentsController < ApplicationController
 
   # TODO: Spec OpenID with cucumber and rack-my-id
   def create
-      @comment = Comment.new((session[:pending_comment] || comment_params || {}).
-        reject { |key, value| !Comment.protected_attribute?(key) })
+    @comment = Comment.new((session[:pending_comment] || comment_params || {}).
+      reject { |key, value| !Comment.protected_attribute?(key) })
 
     @comment.post = @post
 
@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
         session[:pending_comment] = comment_params
         session[:post_id] = @post.id
         redirect_to auth_path(:open_id_comment, "openid_url=#{@comment.author}")
-      elsif !request.env['omniauth.auth'].nil? # Process success response.
+      elsif request.env['omniauth.auth'].persent? # Process success response.
         @comment.author_url = request.env['omniauth.auth'][:uid]
         @comment.author = request.env['omniauth.auth'][:info][:name]
         @comment.author_email = request.env['omniauth.auth'][:info][:email] || ''
@@ -80,7 +80,7 @@ class CommentsController < ApplicationController
   end
 
   def using_open_id?
-    if !request.env['omniauth.auth'].nil? &&
+    if request.env['omniauth.auth'].present? &&
        request.env['omniauth.auth'][:provider] == OMNIAUTH_OPEN_ID_COMMENT_STRATEGY
       return true
     end

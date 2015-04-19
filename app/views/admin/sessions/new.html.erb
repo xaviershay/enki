@@ -5,8 +5,8 @@
   <%= form_tag(admin_session_path) do -%>
     <%= hidden_field_tag 'bypass_login', '1' -%>
     <p><%= submit_tag('Bypass credentials check') %></p>
-  <%- end %>
-<%- end %>
+  <% end -%>
+<% end -%>
 <%= form_tag(auth_path(:google_oauth2)) do -%>
   <p><%= submit_tag('Login with Google OpenID Connect') %></p>
 <% end -%>
