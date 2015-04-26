@@ -58,6 +58,10 @@ group :test do
   gem 'webrat'
 end
 
+group :development do
+  gem 'rack-mini-profiler'
+end
+
 group :development, :test do
   gem 'rspec-rails'
 end
