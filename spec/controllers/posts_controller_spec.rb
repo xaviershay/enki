@@ -24,7 +24,7 @@ shared_examples_for "ATOM feed" do
 end
 
 describe PostsController do
-  describe 'handling GET to index'do
+  describe 'handling GET to index' do
     before(:each) do
       @posts = [mock_model(Post)]
       Post.stub(:find_recent).and_return(@posts)
@@ -42,7 +42,7 @@ describe PostsController do
     end
   end
 
-  describe 'handling GET to index with tag'do
+  describe 'handling GET to index with tag' do
     before(:each) do
       @posts = [mock_model(Post)]
       Post.stub(:find_recent).and_return(@posts)
@@ -72,15 +72,13 @@ describe PostsController do
     it_should_behave_like('successful posts list')
   end
 
-  describe 'handling GET to index with invalid tag'do
-    it "shows post not found" do
+  describe 'handling GET to index with invalid tag' do
+    it 'returns missing' do
       # This would normally 404, except the way future dated posts are handled
       # means it is possible for a tag to exist (and show up in the navigation)
       # without having any public posts. If that issue is ever fixed, this
       # behaviour should revert to 404ing.
-      Post.stub(:find_recent).and_return([])
-      get :index, :tag => 'bogus'
-      assigns(:posts).should be_empty
+      lambda { get :index, :tag => 'bogus' }.should raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
