@@ -4,8 +4,8 @@ describe NavigationHelper do
   describe '#page_links_for_navigation' do
     it 'should return the expected links' do
       pages = []
-      pages << mock_model(Page, :title => 'Page one')
-      pages << mock_model(Page, :title => 'Page two')
+      pages << mock_model(Page, :title => 'Page one', :slug => 'page-one')
+      pages << mock_model(Page, :title => 'Page two', :slug => 'page-two')
       Page.stub(:order).and_return(pages)
 
       page_links_for_navigation.count.should == 4

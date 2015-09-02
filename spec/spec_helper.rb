@@ -24,6 +24,9 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = true
+
+  # For compatibility with rspec-rails 3.x.x.
+  config.infer_spec_type_from_file_location!
 end
 
 module DisableFlashSweeping

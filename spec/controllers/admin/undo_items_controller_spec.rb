@@ -45,7 +45,7 @@ describe Admin::UndoItemsController do
       post :undo, :id => 1, :format => 'json'
     end
 
-    it("renders json")       { do_post; response.should contain(/hello/) }
+    it("renders json")       { do_post; response.body.should match(/hello/) }
     it("processes the item") { @item.should_receive(:process!); do_post }
   end
 
@@ -79,6 +79,6 @@ describe Admin::UndoItemsController do
       post :undo, :id => 1, :format => 'json'
     end
 
-    it("renders json") { do_post; response.should contain(/message/) }
+    it("renders json") { do_post; response.body.should match(/message/) }
   end
 end

@@ -48,7 +48,7 @@ end
 
 shared_examples_for "logged in and redirected to /admin" do
   it "should set session[:logged_in]" do
-    session[:logged_in].should be_true
+    session[:logged_in].should be_truthy
   end
   it "should redirect to admin posts" do
     response.should be_redirect

@@ -54,6 +54,8 @@ group :test do
   gem 'cucumber-websteps', :require => false
   gem 'factory_girl'
   gem 'rspec'
+  gem 'rspec-activemodel-mocks'
+  gem 'rspec-collection_matchers'
   gem 'nokogiri', '~> 1.5.0'
   gem 'webrat'
 end
