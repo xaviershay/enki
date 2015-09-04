@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.2.4'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -56,7 +56,7 @@ group :test do
   gem 'rspec'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
-  gem 'nokogiri', '~> 1.5.0'
+  gem 'nokogiri', '~> 1.6.0'
   gem 'webrat'
 end
 
