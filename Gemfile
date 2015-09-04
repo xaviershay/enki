@@ -54,7 +54,13 @@ group :test do
   gem 'cucumber-websteps', :require => false
   gem 'factory_girl'
   gem 'rspec'
-  gem 'rspec-activemodel-mocks'
+
+  # Temporary fix for current compatibility issue with Rails 4.2.x and rspec-activemodel-mocks. Should be able to go
+  # back to the standard rspec-activemodel-mocks gem once this issue is resolved:
+  # https://github.com/rspec/rspec-activemodel-mocks/pull/10
+  gem 'rspec-activemodel-mocks', :git => 'https://github.com/jdelStrother/rspec-activemodel-mocks.git',
+                                 :branch => 'read_attribute'
+
   gem 'rspec-collection_matchers'
   gem 'nokogiri', '~> 1.6.0'
   gem 'webrat'

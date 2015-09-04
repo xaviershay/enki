@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/jdelStrother/rspec-activemodel-mocks.git
+  revision: 1211c347c5a574739616ccadf4b3b54686f9051f
+  branch: read_attribute
+  specs:
+    rspec-activemodel-mocks (1.0.1)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -156,10 +166,6 @@ GEM
       rspec-core (~> 3.3.0)
       rspec-expectations (~> 3.3.0)
       rspec-mocks (~> 3.3.0)
-    rspec-activemodel-mocks (1.0.1)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
-      rspec-mocks (>= 2.99, < 4.0)
     rspec-collection_matchers (1.1.2)
       rspec-expectations (>= 2.99.0.beta1)
     rspec-core (3.3.2)
@@ -231,7 +237,7 @@ DEPENDENCIES
   rack-openid
   rails (~> 4.2.4)
   rspec
-  rspec-activemodel-mocks
+  rspec-activemodel-mocks!
   rspec-collection_matchers
   rspec-rails
   ruby-openid
