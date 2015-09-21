@@ -52,22 +52,37 @@ class Post < ActiveRecord::Base
 
     def find_recent(options = {})
       tag = options.delete(:tag)
+      include_tags = options[:include] == :tags
+      order = 'published_at DESC'
+      conditions = ['published_at < ?', Time.zone.now]
+      limit = options[:limit] ||= DEFAULT_LIMIT
+
       options = {
-        :order      => 'posts.published_at DESC',
-        :conditions => ['published_at < ?', Time.zone.now],
-        :limit      => DEFAULT_LIMIT
+        :order      => order,
+        :conditions => conditions,
+        :limit      => limit
       }.merge(options)
+
       if tag
         find_tagged_with(tag, options)
       else
-        find(:all, options)
+        result = where(conditions)
+        result = result.includes(:tags) if include_tags
+        result.order(order).limit(limit)
       end
     end
 
     def find_by_permalink(year, month, day, slug, options = {})
       begin
         day = Time.parse([year, month, day].collect(&:to_i).join("-")).midnight
-        post = find_all_by_slug(slug, options).detect do |post|
+        result = where(['slug = ?', slug])
+
+        if !options.empty? && options[:include].present?
+          result = result.includes(:approved_comments) if options[:include].include?(:approved_comments)
+          result = result.includes(:tags) if options[:include].include?(:tags)
+        end
+
+        post = result.detect do |post|
           [:year, :month, :day].all? {|time|
             post.published_at.send(time) == day.send(time)
           }
@@ -79,11 +94,7 @@ class Post < ActiveRecord::Base
     end
 
     def find_all_grouped_by_month
-      posts = find(
-        :all,
-        :order      => 'posts.published_at DESC',
-        :conditions => ['published_at < ?', Time.now]
-      )
+      posts = where(['published_at < ?', Time.now]).order('published_at DESC')
       month = Struct.new(:date, :posts)
       posts.group_by(&:month).inject([]) {|a, v| a << month.new(v[0], v[1])}
     end
@@ -117,7 +128,7 @@ class Post < ActiveRecord::Base
   end
 
   def denormalize_comments_count!
-    Post.update_all(["approved_comments_count = ?", self.approved_comments.count], ["id = ?", self.id])
+    update_column(:approved_comments_count, self.approved_comments.count)
   end
 
   def generate_slug

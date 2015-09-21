@@ -4,8 +4,7 @@ require File.dirname(__FILE__) + '/../../factories'
 describe Admin::PostsController do
   describe 'handling GET to index' do
     before(:each) do
-      @posts = [mock_model(Post), mock_model(Post)]
-      Post.stub(:paginate).and_return(@posts)
+      FactoryGirl.create_list(:post, 2)
       session[:logged_in] = true
       get :index
     end
@@ -19,7 +18,9 @@ describe Admin::PostsController do
     end
 
     it "finds posts for the view" do
-      assigns[:posts].should == @posts
+      assigns[:posts].size.should be 2
+      assigns[:posts][0].should be_a_kind_of(Post)
+      assigns[:posts][1].should be_a_kind_of(Post)
     end
   end
 

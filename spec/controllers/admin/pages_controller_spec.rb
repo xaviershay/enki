@@ -1,10 +1,10 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require File.dirname(__FILE__) + '/../../factories'
 
 describe Admin::PagesController do
   describe 'handling GET to index' do
     before(:each) do
-      @pages = [mock_model(Page), mock_model(Page)]
-      Page.stub(:paginate).and_return(@pages)
+      FactoryGirl.create_list(:page, 2)
       session[:logged_in] = true
       get :index
     end
@@ -18,7 +18,7 @@ describe Admin::PagesController do
     end
 
     it "finds pages for the view" do
-      assigns[:pages].should == @pages
+      assigns[:pages].size.should == 2
     end
   end
 

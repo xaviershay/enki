@@ -19,4 +19,10 @@ FactoryGirl.define do
     body         'Not all those who wander are lost'
     association :post
   end
+
+  factory :page do
+    title 'My page'
+    slug  'my-manually-entered-slug'
+    body  'hello this is my page'
+  end
 end

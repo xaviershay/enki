@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../factories'
 
 describe Comment do
   def valid_comment_attributes(extra = {})
@@ -118,19 +119,23 @@ describe Comment, '#blank_openid_fields_if_unused' do
 end
 
 describe Comment, '.find_recent' do
-  it 'finds the most recent comments that were posted before now' do
-    now = Time.now
-    Time.stub(:now).and_return(now)
-    Comment.should_receive(:all).with({
-      :order      => 'created_at DESC',
-      :limit      => Comment::DEFAULT_LIMIT
-    }).and_return(comments = [mock_model(Comment)])
-    Comment.find_recent.should == comments
+  before(:each) do
+      FactoryGirl.create_list(:comment, Comment::DEFAULT_LIMIT + 1)
   end
 
-  it 'allows and override of the default limit' do
-    Comment.should_receive(:all).with(hash_including(:limit => 999))
-    Comment.find_recent(:limit => 999)
+  it 'finds comments and returns them in created_at DESC order' do
+    result = Comment.find_recent
+    result[0].created_at.should be > result[1].created_at
+  end
+
+  it 'allows override of the default limit' do
+    result = Comment.find_recent(:limit => 1)
+    result.size.should be 1
+  end
+
+  it 'returns the default number of records when no limit override is provided' do
+    result = Comment.find_recent
+    result.size.should be Comment::DEFAULT_LIMIT
   end
 end
 

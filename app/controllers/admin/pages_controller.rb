@@ -4,10 +4,7 @@ class Admin::PagesController < Admin::BaseController
   def index
     respond_to do |format|
       format.html {
-        @pages = Page.paginate(
-          :order => "created_at DESC",
-          :page  => params[:page]
-        )
+        @pages = Page.paginate(:page => params[:page]).order("created_at DESC")
       }
     end
   end
@@ -23,7 +20,7 @@ class Admin::PagesController < Admin::BaseController
       end
     else
       respond_to do |format|
-        format.html { render :action => 'new',         :status => :unprocessable_entity }
+        format.html { render :action => 'new', :status => :unprocessable_entity }
       end
     end
   end
@@ -38,7 +35,7 @@ class Admin::PagesController < Admin::BaseController
       end
     else
       respond_to do |format|
-        format.html { render :action => 'show',        :status => :unprocessable_entity }
+        format.html { render :action => 'show', :status => :unprocessable_entity }
       end
     end
   end

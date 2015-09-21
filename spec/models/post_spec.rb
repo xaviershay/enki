@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
-
+require File.dirname(__FILE__) + '/../factories'
 
 describe Post, "integration" do
   describe 'setting tag_list' do
@@ -13,39 +13,58 @@ describe Post, "integration" do
   end
 end
 
-describe Post, ".find_recent" do
-  it 'finds the most recent posts that were published before now' do
-    now = Time.now
-    Time.stub(:now).and_return(now)
-    Post.should_receive(:find).with(:all, {
-      :order      => 'posts.published_at DESC',
-      :conditions => ['published_at < ?', now],
-      :limit      => Post::DEFAULT_LIMIT
-    })
-    Post.find_recent
+describe Post, "#find_recent" do
+  before(:each) do
+    FactoryGirl.create_list(:post, Post::DEFAULT_LIMIT)
   end
 
-  it 'finds the most recent posts that were published before now with a tag' do
+  it 'finds the posts that were published before now and return them in published_at DESC order' do
+    previously_published_post = Post.take
+    previously_published_post.title = "Yesterday's post"
+    previously_published_post.published_at_natural = 'yesterday'
+    previously_published_post.save
+
+    result = Post.find_recent
+    result.last.title.should eq("Yesterday's post")
+  end
+
+  it 'allows override of the default limit' do
+    result = Post.find_recent(:limit => 1)
+    result.size.should be 1
+  end
+
+  it 'returns the default number of records when no limit override is provided' do
+    FactoryGirl.create(:post)
+
+    result = Post.find_recent
+    result.size.should be Post::DEFAULT_LIMIT
+  end
+
+  it 'finds posts that were published before now with a tag and returns them in published_at DESC order' do
     now = Time.now
     Time.stub(:now).and_return(now)
     Post.should_receive(:find_tagged_with).with('code', {
-      :order      => 'posts.published_at DESC',
+      :order      => 'published_at DESC',
       :conditions => ['published_at < ?', now],
       :limit      => Post::DEFAULT_LIMIT
     })
     Post.find_recent(:tag => 'code')
   end
+end
 
-  it 'finds all posts grouped by month' do
-    now = Time.now
-    Time.stub(:now).and_return(now)
-    posts = [1, 1, 2].collect {|month| mock_model(Post, :month => month) }
-    Post.should_receive(:find).with(:all, {
-      :order      => 'posts.published_at DESC',
-      :conditions => ['published_at < ?', now]
-    }).and_return(posts)
-    months = Post.find_all_grouped_by_month.collect {|month| [month.date, month.posts]}
-    months.should == [[1, [posts[0], posts[1]]], [2, [posts[2]]]]
+describe Post, '#find_all_grouped_by_month' do
+  it 'finds all posts and returns them grouped by month, in published_at DESC order' do
+    FactoryGirl.create(:post, :published_at_natural => 'last month')
+    FactoryGirl.create(:post, :published_at_natural => 'now')
+    FactoryGirl.create(:post, :published_at_natural => 'now')
+    this_month = Time.now.month
+
+    result = Post.find_all_grouped_by_month
+
+    result[0].date.month.should eq this_month
+    result[1].date.month.should eq this_month - 1
+    result[0].posts.size.should be 2
+    result[1].posts.size.should be 1
   end
 end
 
@@ -199,11 +218,12 @@ end
 
 describe Post, '#denormalize_comments_count!' do
   it 'updates approved_comments_count without triggering AR callbacks' do
-    p = Post.new
-    p.id = 999
-    p.stub(:approved_comments).and_return(double("approved_comments association", :count => 9))
-    Post.should_receive(:update_all).with(["approved_comments_count = ?", 9], ["id = ?", 999])
-    p.denormalize_comments_count!
+    post = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
+    comment_count = 42
+    post.stub(:approved_comments).and_return(double("approved_comments association", :count => comment_count))
+
+    post.should_receive(:update_column).with(:approved_comments_count, comment_count)
+    post.denormalize_comments_count!
   end
 end
 

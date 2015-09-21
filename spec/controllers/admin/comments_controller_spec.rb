@@ -5,15 +5,14 @@ require 'json'
 describe Admin::CommentsController do
   describe 'handling GET to index' do
     before(:each) do
-      @posts = [mock_model(Comment), mock_model(Comment)]
-      Comment.stub(:paginate).and_return(@comments)
+      FactoryGirl.create_list(:comment, 2)
       session[:logged_in] = true
       get :index
     end
 
     it("is successful")               { response.should be_success }
     it("renders index template")      { response.should render_template('index') }
-    it("finds comments for the view") { assigns[:comments].should == @comments }
+    it("finds comments for the view") { assigns[:comments].size.should == 2 }
   end
 
   describe 'handling GET to show' do

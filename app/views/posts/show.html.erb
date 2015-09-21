@@ -27,7 +27,7 @@
 <% end -%>
 
 <div>
-  <%= form_for [@post, @comment] do |form| -%>
+  <%= form_for [@post, @comment], :url => post_comments_path(@post, @comment) do |form| -%>
     <p>
       <%= form.text_field 'author' %>
       <%= form.label :author %>
