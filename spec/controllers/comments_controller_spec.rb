@@ -8,10 +8,10 @@ describe CommentsController, 'with GET to #index' do
       :published_at => 1.year.ago,
       :slug         => 'a-post'
     )
-    Post.stub(:find_by_permalink).and_return(@mock_post)
+    allow(Post).to receive(:find_by_permalink).and_return(@mock_post)
     get :index, :year => '2007', :month => '01', :day => '01', :slug => 'a-post'
-    response.should be_redirect
-    response.should redirect_to(post_path(@mock_post))
+    expect(response).to be_redirect
+    expect(response).to redirect_to(post_path(@mock_post))
   end
 end
 
@@ -19,27 +19,27 @@ shared_examples_for 'creating new comment' do
   include UrlHelper
 
   it 'assigns comment' do
-    assigns(:comment).should_not be_nil
+    expect(assigns(:comment)).not_to be_nil
   end
 
   it 'creates a new comment on the post' do
-    assigns(:comment).should_not be_new_record
+    expect(assigns(:comment)).not_to be_new_record
   end
 
   it 'redirects to post' do
-    response.should be_redirect
-    response.should redirect_to(post_path(@mock_post))
+    expect(response).to be_redirect
+    expect(response).to redirect_to(post_path(@mock_post))
   end
 end
 
 shared_examples_for "invalid comment" do
   it 'renders posts/show' do
-    response.should be_success
-    response.should render_template('posts/show')
+    expect(response).to be_success
+    expect(response).to render_template('posts/show')
   end
 
   it 'leaves comment in invalid state' do
-    assigns(:comment).should_not be_valid
+    expect(assigns(:comment)).not_to be_valid
   end
 end
 
@@ -55,9 +55,9 @@ describe CommentsController, 'handling commenting' do
       :slug                        => 'a-post',
       :day                         => '01'
     }.each_pair do |attribute, value|
-      @mock_post.stub(attribute).and_return(value)
+      allow(@mock_post).to receive(attribute).and_return(value)
     end
-    Post.stub(:find_by_permalink).and_return(@mock_post)
+    allow(Post).to receive(:find_by_permalink).and_return(@mock_post)
     @mock_post
   end
 
@@ -79,43 +79,43 @@ describe CommentsController, 'handling commenting' do
 
 
     it "allows setting of author" do
-      assigns(:comment).author.should == 'Don Alias'
+      expect(assigns(:comment).author).to eq('Don Alias')
     end
 
     it "allows setting of body" do
-      assigns(:comment).body.should == 'This is a comment'
+      expect(assigns(:comment).body).to eq('This is a comment')
     end
 
     it "forbids setting of author_url" do
-      assigns(:comment).author_url.should be_blank
+      expect(assigns(:comment).author_url).to be_blank
     end
 
     it "forbids setting of author_email" do
-      assigns(:comment).author_email.should be_blank
+      expect(assigns(:comment).author_email).to be_blank
     end
 
     it "forbids setting of created_at" do
-      assigns(:comment).created_at.should_not == @created_at
+      expect(assigns(:comment).created_at).not_to eq(@created_at)
     end
 
     it "forbids setting of updated_at" do
-      assigns(:comment).updated_at.should_not == @updated_at
+      expect(assigns(:comment).updated_at).not_to eq(@updated_at)
     end
   end
 end
 
 describe CommentsController, 'with an AJAX request to new' do
   before(:each) do
-    Comment.should_receive(:build_for_preview).and_return(@comment = mock_model(Comment))
+    expect(Comment).to receive(:build_for_preview).and_return(@comment = mock_model(Comment))
 
     xhr :get, :new, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
       :author => 'Don Alias',
       :body   => 'A comment'
     }
-    response.should be_success
+    expect(response).to be_success
   end
 
   it "assigns a new comment for the view" do
-    assigns(:comment).should == @comment
+    expect(assigns(:comment)).to eq(@comment)
   end
 end

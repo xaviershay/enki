@@ -3,23 +3,23 @@ require File.dirname(__FILE__) + '/../spec_helper'
 shared_examples_for 'successful posts list' do
   it "should be successful" do
     do_get
-    response.should be_success
+    expect(response).to be_success
   end
 
   it "should render index template" do
     do_get
-    response.should render_template('index')
+    expect(response).to render_template('index')
   end
 
   it "should assign the found posts for the view" do
     do_get
-    assigns[:posts].should == @posts
+    expect(assigns[:posts]).to eq(@posts)
   end
 end
 
 shared_examples_for "ATOM feed" do
   it "renders with no layout" do
-    response.should render_template(nil)
+    expect(response).to render_template(nil)
   end
 end
 
@@ -27,7 +27,7 @@ describe PostsController do
   describe 'handling GET to index' do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub(:find_recent).and_return(@posts)
+      allow(Post).to receive(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -37,7 +37,7 @@ describe PostsController do
     it_should_behave_like('successful posts list')
 
     it "should find recent posts" do
-      Post.should_receive(:find_recent).with(:tag => nil, :include => :tags).and_return(@posts)
+      expect(Post).to receive(:find_recent).with(:tag => nil, :include => :tags).and_return(@posts)
       do_get
     end
   end
@@ -45,7 +45,7 @@ describe PostsController do
   describe 'handling GET to index with tag' do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub(:find_recent).and_return(@posts)
+      allow(Post).to receive(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -55,7 +55,7 @@ describe PostsController do
     it_should_behave_like('successful posts list')
 
     it "should find recent tagged posts" do
-      Post.should_receive(:find_recent).with(:tag => 'code', :include => :tags).and_return(@posts)
+      expect(Post).to receive(:find_recent).with(:tag => 'code', :include => :tags).and_return(@posts)
       do_get
     end
   end
@@ -78,14 +78,14 @@ describe PostsController do
       # means it is possible for a tag to exist (and show up in the navigation)
       # without having any public posts. If that issue is ever fixed, this
       # behaviour should revert to 404ing.
-      lambda { get :index, :tag => 'bogus' }.should raise_error(ActiveRecord::RecordNotFound)
+      expect { get :index, :tag => 'bogus' }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
 
   describe 'handling GET to /posts.atom'do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub(:find_recent).and_return(@posts)
+      allow(Post).to receive(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -97,7 +97,7 @@ describe PostsController do
     it_should_behave_like('ATOM feed')
 
     it "should find recent posts" do
-      Post.should_receive(:find_recent).with(:tag => nil, :include => :tags).and_return(@posts)
+      expect(Post).to receive(:find_recent).with(:tag => nil, :include => :tags).and_return(@posts)
       do_get
     end
   end
@@ -105,7 +105,7 @@ describe PostsController do
   describe 'handling GET to /posts.atom with tag'do
     before(:each) do
       @posts = [mock_model(Post)]
-      Post.stub(:find_recent).and_return(@posts)
+      allow(Post).to receive(:find_recent).and_return(@posts)
     end
 
     def do_get
@@ -117,7 +117,7 @@ describe PostsController do
     it_should_behave_like('ATOM feed')
 
     it "should find recent posts" do
-      Post.should_receive(:find_recent).with(:tag => 'code', :include => :tags).and_return(@posts)
+      expect(Post).to receive(:find_recent).with(:tag => 'code', :include => :tags).and_return(@posts)
       do_get
     end
   end
@@ -126,8 +126,8 @@ describe PostsController do
     before(:each) do
       @post = mock_model(Post)
       @comment = mock_model(Post)
-      Post.stub(:find_by_permalink).and_return(@post)
-      Comment.stub(:new).and_return(@comment)
+      allow(Post).to receive(:find_by_permalink).and_return(@post)
+      allow(Comment).to receive(:new).and_return(@comment)
     end
 
     def do_get
@@ -136,27 +136,27 @@ describe PostsController do
 
     it "should be successful" do
       do_get
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "should render show template" do
       do_get
-      response.should render_template('show')
+      expect(response).to render_template('show')
     end
 
     it "should find the post requested" do
-      Post.should_receive(:find_by_permalink).with('2008', '01', '01', 'a-post', :include => [:approved_comments, :tags]).and_return(@post)
+      expect(Post).to receive(:find_by_permalink).with('2008', '01', '01', 'a-post', :include => [:approved_comments, :tags]).and_return(@post)
       do_get
     end
 
     it "should assign the found post for the view" do
       do_get
-      assigns[:post].should equal(@post)
+      expect(assigns[:post]).to equal(@post)
     end
 
     it "should assign a new comment for the view" do
       do_get
-      assigns[:comment].should equal(@comment)
+      expect(assigns[:comment]).to equal(@comment)
     end
   end
 end

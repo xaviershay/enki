@@ -22,44 +22,44 @@ describe Comment do
 
   it "is invalid with no post" do
     set_comment_attributes(@comment, :post => nil)
-    @comment.should_not be_valid
-    @comment.errors.should_not be_empty
+    expect(@comment).not_to be_valid
+    expect(@comment.errors).not_to be_empty
   end
 
   it "is invalid with no body" do
     set_comment_attributes(@comment, :body => '')
-    @comment.should_not be_valid
-    @comment.errors.should_not be_empty
+    expect(@comment).not_to be_valid
+    expect(@comment.errors).not_to be_empty
   end
 
   it "is invalid with no author" do
     set_comment_attributes(@comment, :author => '')
-    @comment.should_not be_valid
-    @comment.errors.should_not be_empty
+    expect(@comment).not_to be_valid
+    expect(@comment.errors).not_to be_empty
   end
 
   it "is valid with a full set of valid attributes" do
     set_comment_attributes(@comment)
-    @comment.should be_valid
+    expect(@comment).to be_valid
   end
 
   it "requires OpenID authentication when the author's name looks like a url" do
     @comment.author = "Don Alias"
-    @comment.requires_openid_authentication?.should == false
+    expect(@comment.requires_openid_authentication?).to eq(false)
     @comment.author = "enkiblog.com"
-    @comment.requires_openid_authentication?.should == true
+    expect(@comment.requires_openid_authentication?).to eq(true)
   end
 
   it "doesn't require auth just because the author's name contains a dot" do
     @comment.author = "Dr. Alias"
-    @comment.requires_openid_authentication?.should == false
+    expect(@comment.requires_openid_authentication?).to eq(false)
   end
 
   it "requires OpenID authentication when the author's name starts with http" do
     @comment.author = "http://localhost:9294"
-    @comment.requires_openid_authentication?.should == true
+    expect(@comment.requires_openid_authentication?).to eq(true)
     @comment.author = "https://localhost:9294"
-    @comment.requires_openid_authentication?.should == true
+    expect(@comment.requires_openid_authentication?).to eq(true)
   end
 
   it "asks post to update it's comment counter after save" do
@@ -68,7 +68,7 @@ describe Comment do
     @comment.post.update_attributes(:title => 'My Post', :body => "body")
     @comment.post.save
     @comment.save
-    @comment.post.approved_comments.count.should == 1
+    expect(@comment.post.approved_comments.count).to eq(1)
   end
 
   it "asks post to update it's comment counter after destroy" do
@@ -78,7 +78,7 @@ describe Comment do
     @comment.post.save
     @comment.save
     @comment.destroy
-    @comment.post.approved_comments.count.should == 0
+    expect(@comment.post.approved_comments.count).to eq(0)
   end
 
   it "applies a Lesstile filter to body and store it in body_html before save" do
@@ -87,21 +87,21 @@ describe Comment do
     @comment.post.update_attributes(:title => 'My Post', :body => "body")
     @comment.post.save
     @comment.save
-    @comment.body_html.should_not be_nil
+    expect(@comment.body_html).not_to be_nil
   end
 
   it "responds to trusted_user? for defensio integration" do
-    @comment.respond_to?(:trusted_user?).should == true
+    expect(@comment.respond_to?(:trusted_user?)).to eq(true)
   end
 
   it "responds to user_logged_in? for defensio integration" do
-    @comment.respond_to?(:user_logged_in?).should == true
+    expect(@comment.respond_to?(:user_logged_in?)).to eq(true)
   end
 
   it "delegates post_tile to post" do
     @comment.post = mock_model(Post)
-    @comment.post.should_receive(:title).and_return("hello")
-    @comment.post_title.should == "hello"
+    expect(@comment.post).to receive(:title).and_return("hello")
+    expect(@comment.post_title).to eq("hello")
   end
 
   # TODO: acts_as_defensio_comment tests
@@ -114,8 +114,8 @@ describe Comment, '#blank_openid_fields_if_unused' do
     @comment.blank_openid_fields
   end
 
-  it('blanks out author_url')              { @comment.author_url.should == '' }
-  it('blanks out author_email')            { @comment.author_email.should == '' }
+  it('blanks out author_url')              { expect(@comment.author_url).to eq('') }
+  it('blanks out author_email')            { expect(@comment.author_email).to eq('') }
 end
 
 describe Comment, '.find_recent' do
@@ -125,17 +125,17 @@ describe Comment, '.find_recent' do
 
   it 'finds comments and returns them in created_at DESC order' do
     result = Comment.find_recent
-    result[0].created_at.should be > result[1].created_at
+    expect(result[0].created_at).to be > result[1].created_at
   end
 
   it 'allows override of the default limit' do
     result = Comment.find_recent(:limit => 1)
-    result.size.should be 1
+    expect(result.size).to be 1
   end
 
   it 'returns the default number of records when no limit override is provided' do
     result = Comment.find_recent
-    result.size.should be Comment::DEFAULT_LIMIT
+    expect(result.size).to be Comment::DEFAULT_LIMIT
   end
 end
 
@@ -145,15 +145,15 @@ describe Comment, '.build_for_preview' do
   end
 
   it 'returns a new comment' do
-    @comment.should be_new_record
+    expect(@comment).to be_new_record
   end
 
   it 'sets created_at' do
-    @comment.created_at.should_not be_nil
+    expect(@comment.created_at).not_to be_nil
   end
 
   it 'applies filter to body' do
-    @comment.body_html.should == 'A Comment'
+    expect(@comment.body_html).to eq('A Comment')
   end
 end
 
@@ -163,23 +163,23 @@ describe Comment, '.build_for_preview with OpenID author' do
   end
 
   it 'returns a new comment' do
-    @comment.should be_new_record
+    expect(@comment).to be_new_record
   end
 
   it 'sets created_at' do
-    @comment.created_at.should_not be_nil
+    expect(@comment.created_at).not_to be_nil
   end
 
   it 'applies filter to body' do
-    @comment.body_html.should == 'A Comment'
+    expect(@comment.body_html).to eq('A Comment')
   end
 
   it 'sets author_url to OpenID identity' do
-    @comment.author_url.should == 'http://enkiblog.com'
+    expect(@comment.author_url).to eq('http://enkiblog.com')
   end
 
   it 'sets author to "Your OpenID Name"' do
-    @comment.author.should == "Your OpenID Name"
+    expect(@comment.author).to eq("Your OpenID Name")
   end
 end
 
@@ -187,18 +187,18 @@ describe Comment, '#requires_openid_authentication?' do
   describe 'with an author that looks like a url' do
     subject { Comment.new(:author => 'example.com').requires_openid_authentication? }
 
-      it { should be }
+      it { is_expected.to be }
   end
 
   describe 'with a normal author' do
     subject { Comment.new(:author => 'Don Alias').requires_openid_authentication? }
 
-    it { should_not be }
+    it { is_expected.not_to be }
   end
 
   describe 'with a nil author' do
     subject { Comment.new.requires_openid_authentication? }
 
-    it { should_not be }
+    it { is_expected.not_to be }
   end
 end

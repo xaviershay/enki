@@ -22,18 +22,18 @@ describe CommentActivity, '#comments' do
 
     it "should have the comment activity sorted by when they were created" do
       comment_activity = CommentActivity.find_recent
-      comment_activity.first.post.should == @comments.first.post
+      expect(comment_activity.first.post).to eq(@comments.first.post)
     end
 
     it do
       comment_activity = CommentActivity.find_recent
-      comment_activity.should have_exactly(5).posts
+      expect(comment_activity).to have_exactly(5).posts
     end
 
     it "should not return repeated posts" do
       comment = Comment.create! valid_comment_attributes(:post => Post.first, :created_at => Time.now)
       comment_activity = CommentActivity.find_recent
-      comment_activity.select{|a| a.post == comment.post}.size.should == 1
+      expect(comment_activity.select{|a| a.post == comment.post}.size).to eq(1)
     end
 
   end
@@ -41,17 +41,17 @@ describe CommentActivity, '#comments' do
   it 'finds the 5 most recent approved comments for the post' do
     ret = [mock_model(Comment)]
     comments = []
-    comments.should_receive(:find_recent).with(hash_including(:limit => 5)).and_return(ret)
+    expect(comments).to receive(:find_recent).with(hash_including(:limit => 5)).and_return(ret)
     post = mock_model(Post)
-    post.stub(:approved_comments).and_return(comments)
-    CommentActivity.new(post).comments.should == ret
+    allow(post).to receive(:approved_comments).and_return(comments)
+    expect(CommentActivity.new(post).comments).to eq(ret)
   end
 
   it 'is memoized to avoid excess hits to the DB' do
     post = mock_model(Post)
     activity = CommentActivity.new(post)
 
-    post.should_receive(:approved_comments).once.and_return(double('stub').as_null_object)
+    expect(post).to receive(:approved_comments).once.and_return(double('stub').as_null_object)
     2.times { activity.comments }
   end
 end

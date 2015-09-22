@@ -10,29 +10,29 @@ describe Admin::CommentsController do
       get :index
     end
 
-    it("is successful")               { response.should be_success }
-    it("renders index template")      { response.should render_template('index') }
-    it("finds comments for the view") { assigns[:comments].size.should == 2 }
+    it("is successful")               { expect(response).to be_success }
+    it("renders index template")      { expect(response).to render_template('index') }
+    it("finds comments for the view") { expect(assigns[:comments].size).to eq(2) }
   end
 
   describe 'handling GET to show' do
     before(:each) do
       @comment = Comment.new
-      Comment.stub(:find).and_return(@comment)
+      allow(Comment).to receive(:find).and_return(@comment)
       session[:logged_in] = true
       get :show, :id => 1
     end
 
-    it("is successful")              { response.should be_success }
-    it("renders show template")      { response.should render_template('show') }
-    it("finds comment for the view") { assigns[:comment].should == @comment }
+    it("is successful")              { expect(response).to be_success }
+    it("renders show template")      { expect(response).to render_template('show') }
+    it("finds comment for the view") { expect(assigns[:comment]).to eq(@comment) }
   end
 
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @comment = mock_model(Comment, :author => 'Don Alias')
-      @comment.stub(:update_attributes).and_return(true)
-      Comment.stub(:find).and_return(@comment)
+      allow(@comment).to receive(:update_attributes).and_return(true)
+      allow(Comment).to receive(:find).and_return(@comment)
 
       @attributes = {'body' => 'a comment'}
     end
@@ -44,26 +44,26 @@ describe Admin::CommentsController do
 
     it("redirects to index") do
       do_put
-      response.should be_redirect
-      response.should redirect_to(admin_comments_path)
+      expect(response).to be_redirect
+      expect(response).to redirect_to(admin_comments_path)
     end
 
     it("updates comment") do
-      @comment.should_receive(:update_attributes).with(@attributes).and_return(true)
+      expect(@comment).to receive(:update_attributes).with(@attributes).and_return(true)
       do_put
     end
 
     it("puts a message in the flash") do
       do_put
-      flash[:notice].should_not be_blank
+      expect(flash[:notice]).not_to be_blank
     end
   end
 
   describe 'handling PUT to update with invalid attributes' do
     before(:each) do
       @comment = mock_model(Comment, :author => 'Don Alias')
-      @comment.stub(:update_attributes).and_return(false)
-      Comment.stub(:find).and_return(@comment)
+      allow(@comment).to receive(:update_attributes).and_return(false)
+      allow(Comment).to receive(:find).and_return(@comment)
 
       @attributes = {:body => ''}
     end
@@ -75,19 +75,19 @@ describe Admin::CommentsController do
 
     it("renders show") do
       do_put
-      response.should render_template('show')
+      expect(response).to render_template('show')
     end
 
     it("assigns comment for the view") do
       do_put
-      assigns(:comment).should == @comment
+      expect(assigns(:comment)).to eq(@comment)
     end
   end
 
   describe 'handling PUT to update with expected whitelisted attributes present' do
     before(:each) do
       @comment = FactoryGirl.create(:comment)
-      Comment.stub(:find).and_return(@comment)
+      allow(Comment).to receive(:find).and_return(@comment)
     end
 
     it 'allows whitelisted attributes as expected' do
@@ -99,18 +99,18 @@ describe Admin::CommentsController do
         'body'         => "This is a comment"
       }
 
-      assigns(:comment).author.should == "Don Alias"
-      assigns(:comment).author_url.should == "http://example.com"
-      assigns(:comment).author_email.should == "donalias@example.com"
-      assigns(:comment).body.should == "This is a comment"
+      expect(assigns(:comment).author).to eq("Don Alias")
+      expect(assigns(:comment).author_url).to eq("http://example.com")
+      expect(assigns(:comment).author_email).to eq("donalias@example.com")
+      expect(assigns(:comment).body).to eq("This is a comment")
     end
   end
 
   describe 'handling DELETE to destroy' do
     before(:each) do
       @comment = Comment.new
-      @comment.stub(:destroy)
-      Comment.stub(:find).and_return(@comment)
+      allow(@comment).to receive(:destroy)
+      allow(Comment).to receive(:find).and_return(@comment)
     end
 
     def do_delete
@@ -120,12 +120,12 @@ describe Admin::CommentsController do
 
     it("redirects to index") do
       do_delete
-      response.should be_redirect
-      response.should redirect_to(admin_comments_path)
+      expect(response).to be_redirect
+      expect(response).to redirect_to(admin_comments_path)
     end
 
     it("deletes comment") do
-      @comment.should_receive(:destroy)
+      expect(@comment).to receive(:destroy)
       do_delete
     end
   end
@@ -133,8 +133,8 @@ describe Admin::CommentsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @comment = Comment.new(:author => 'xavier')
-      @comment.stub(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
-      Comment.stub(:find).and_return(@comment)
+      allow(@comment).to receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+      allow(Comment).to receive(:find).and_return(@comment)
     end
 
     def do_delete
@@ -143,13 +143,13 @@ describe Admin::CommentsController do
     end
 
     it("deletes comment") do
-      @comment.should_receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+      expect(@comment).to receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       do_delete
     end
 
     it("renders json including a description of the comment") do
       do_delete
-      JSON.parse(response.body)['undo_message'].should == 'hello'
+      expect(JSON.parse(response.body)['undo_message']).to eq('hello')
     end
   end
 end

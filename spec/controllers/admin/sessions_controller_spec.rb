@@ -4,8 +4,8 @@ describe Admin::SessionsController do
   describe 'handling GET to show (default)' do
     it 'redirects to new' do
       get :show
-      response.should be_redirect
-      response.should redirect_to(new_admin_session_path)
+      expect(response).to be_redirect
+      expect(response).to redirect_to(new_admin_session_path)
     end
   end
 
@@ -15,11 +15,11 @@ describe Admin::SessionsController do
     end
 
     it "should be successful" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "should render index template" do
-      response.should render_template('new')
+      expect(response).to render_template('new')
     end
   end
 
@@ -29,42 +29,42 @@ describe Admin::SessionsController do
     end
 
     it 'logs out the current session' do
-      session[:logged_in].should == false
+      expect(session[:logged_in]).to eq(false)
     end
 
     it 'redirects to /' do
-      response.should be_redirect
-      response.should redirect_to('/')
+      expect(response).to be_redirect
+      expect(response).to redirect_to('/')
     end
   end
 
   describe '#allow_login_bypass? when RAILS_ENV == production' do
     it 'returns false' do
-      ::Rails.stub(:env).and_return('production')
-      @controller.send(:allow_login_bypass?).should == false
+      allow(::Rails).to receive(:env).and_return('production')
+      expect(@controller.send(:allow_login_bypass?)).to eq(false)
     end
   end
 end
 
 shared_examples_for "logged in and redirected to /admin" do
   it "should set session[:logged_in]" do
-    session[:logged_in].should be_truthy
+    expect(session[:logged_in]).to be_truthy
   end
   it "should redirect to admin posts" do
-    response.should be_redirect
-    response.should redirect_to('/admin')
+    expect(response).to be_redirect
+    expect(response).to redirect_to('/admin')
   end
 end
 shared_examples_for "not logged in" do
   it "should not set session[:logged_in]" do
-    session[:logged_in].should be_nil
+    expect(session[:logged_in]).to be_nil
   end
   it "should render new" do
-    response.should be_success
-    response.should render_template("new")
+    expect(response).to be_success
+    expect(response).to render_template("new")
   end
   it "should set flash.now[:error]" do
-    flash.now[:error].should_not be_nil
+    expect(flash.now[:error]).not_to be_nil
   end
 end
 
@@ -76,7 +76,7 @@ describe Admin::SessionsController, "handling CREATE with post" do
     request.env["omniauth.auth"] = auth_response
   end
   def stub_enki_config
-    @controller.stub(:enki_config).and_return(double("enki_config", :author_open_ids => [
+    allow(@controller).to receive(:enki_config).and_return(double("enki_config", :author_open_ids => [
         "http://enkiblog.com",
         "http://secondaryopenid.com"
       ].collect {|uri| URI.parse(uri)},
@@ -141,7 +141,7 @@ describe Admin::SessionsController, "handling CREATE with post" do
   end
   describe "with bypass login selected but login bypassing disabled" do
     before do
-      @controller.stub(:allow_login_bypass?).and_return(false)
+      allow(@controller).to receive(:allow_login_bypass?).and_return(false)
       post :create, :bypass_login => "1"
     end
     it_should_behave_like "not logged in"

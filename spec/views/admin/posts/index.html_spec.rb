@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/posts/index.html" do
   after(:each) do
-    rendered.should be_valid_html5_fragment
+    expect(rendered).to be_valid_html5_fragment
   end
 
   it 'should render' do
@@ -13,7 +13,7 @@ describe "/admin/posts/index.html" do
       :slug              => 'a-post',
       :approved_comments => []
     )]
-    posts.stub(:total_pages).and_return(1)
+    allow(posts).to receive(:total_pages).and_return(1)
     assign :posts, posts
     render :template => '/admin/posts/index', :formats => [:html]
   end

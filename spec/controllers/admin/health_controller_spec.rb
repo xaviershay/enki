@@ -8,11 +8,11 @@ describe Admin::HealthController do
     end
 
     it "is successful" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "renders health template" do
-      response.should render_template("index")
+      expect(response).to render_template("index")
     end
   end
 
@@ -20,17 +20,17 @@ describe Admin::HealthController do
     describe 'when logged in' do
       it 'raises a RuntimeError' do
         session[:logged_in] = true
-        lambda {
+        expect {
           post :generate_exception
-        }.should raise_error
+        }.to raise_error
       end
     end
 
     describe 'when not logged in' do
       it 'does not raise' do
-        lambda {
+        expect {
           post :generate_exception
-        }.should_not raise_error
+        }.not_to raise_error
       end
     end
   end
@@ -39,8 +39,8 @@ describe Admin::HealthController do
     it '405s' do
       session[:logged_in] = true
       get :generate_exception
-      response.status.should == 405
-      response.headers['Allow'].should == 'POST'
+      expect(response.status).to eq(405)
+      expect(response.headers['Allow']).to eq('POST')
     end
   end
 end

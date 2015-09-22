@@ -8,7 +8,7 @@ describe DeletePostUndo do
       end
       item = post.destroy_with_undo
       new_post = item.process!
-      new_post.comments.count.should == 1
+      expect(new_post.comments.count).to eq(1)
     end
   end
 end

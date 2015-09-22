@@ -4,7 +4,7 @@ describe "/pages/show.html" do
   include UrlHelper
 
   before(:each) do
-    view.stub(:enki_config).and_return(Enki::Config.default)
+    allow(view).to receive(:enki_config).and_return(Enki::Config.default)
 
     @page = mock_model(Page,
       :title             => "A page",
@@ -15,7 +15,7 @@ describe "/pages/show.html" do
   end
 
   after(:each) do
-    rendered.should be_valid_html5_fragment
+    expect(rendered).to be_valid_html5_fragment
   end
 
   it "should render a page" do

@@ -10,58 +10,58 @@ describe Admin::PostsController do
     end
 
     it "is successful" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "renders index template" do
-      response.should render_template('index')
+      expect(response).to render_template('index')
     end
 
     it "finds posts for the view" do
-      assigns[:posts].size.should be 2
-      assigns[:posts][0].should be_a_kind_of(Post)
-      assigns[:posts][1].should be_a_kind_of(Post)
+      expect(assigns[:posts].size).to be 2
+      expect(assigns[:posts][0]).to be_a_kind_of(Post)
+      expect(assigns[:posts][1]).to be_a_kind_of(Post)
     end
   end
 
   describe 'handling GET to show' do
     before(:each) do
       @post = mock_model(Post)
-      Post.stub(:find).and_return(@post)
+      allow(Post).to receive(:find).and_return(@post)
       session[:logged_in] = true
       get :show, :id => 1
     end
 
     it "is successful" do
-      response.should be_success
+      expect(response).to be_success
     end
 
     it "renders show template" do
-      response.should render_template('show')
+      expect(response).to render_template('show')
     end
 
     it "finds post for the view" do
-      assigns[:post].should == @post
+      expect(assigns[:post]).to eq(@post)
     end
   end
 
   describe 'handling GET to new' do
     before(:each) do
       @post = mock_model(Post)
-      Post.stub(:new).and_return(@post)
+      allow(Post).to receive(:new).and_return(@post)
       session[:logged_in] = true
       get :new
     end
 
-    it('is successful') { response.should be_success}
+    it('is successful') { expect(response).to be_success}
     it('assigns post for the view') { assigns[:post] == @post }
   end
 
   describe 'handling PUT to update with valid attributes' do
     before(:each) do
       @post = mock_model(Post, :title => 'A post')
-      @post.stub(:update_attributes).and_return(true)
-      Post.stub(:find).and_return(@post)
+      allow(@post).to receive(:update_attributes).and_return(true)
+      allow(Post).to receive(:find).and_return(@post)
     end
 
     def do_put
@@ -71,24 +71,24 @@ describe Admin::PostsController do
 
     it 'updates the post' do
       published_at = Time.now
-      @post.should_receive(:update_attributes).with(valid_post_attributes)
+      expect(@post).to receive(:update_attributes).with(valid_post_attributes)
 
-      Time.stub(:now).and_return(published_at)
+      allow(Time).to receive(:now).and_return(published_at)
       do_put
     end
 
     it 'it redirects to show' do
       do_put
-      response.should be_redirect
-      response.should redirect_to(admin_post_path(@post))
+      expect(response).to be_redirect
+      expect(response).to redirect_to(admin_post_path(@post))
     end
   end
 
   describe 'handling PUT to update with invalid attributes' do
     before(:each) do
       @post = mock_model(Post)
-      @post.stub(:update_attributes).and_return(false)
-      Post.stub(:find).and_return(@post)
+      allow(@post).to receive(:update_attributes).and_return(false)
+      allow(Post).to receive(:find).and_return(@post)
     end
 
     def do_put
@@ -98,19 +98,19 @@ describe Admin::PostsController do
 
     it 'renders show' do
       do_put
-      response.should render_template('show')
+      expect(response).to render_template('show')
     end
 
     it 'is unprocessable' do
       do_put
-      response.status.should == 422
+      expect(response.status).to eq(422)
     end
   end
 
   describe 'handling PUT to update with expected whitelisted attributes present' do
     before(:each) do
       @post = FactoryGirl.create(:post)
-      Post.stub(:find).and_return(@post)
+      allow(Post).to receive(:find).and_return(@post)
     end
 
     it 'allows whitelisted attributes as expected' do
@@ -124,19 +124,19 @@ describe Admin::PostsController do
         'minor_edit'           => "1"
       }
 
-      assigns(:post).title.should == "My Updated Post"
-      assigns(:post).body.should == "hello this is my updated post"
-      assigns(:post).tag_list.should == ["red", "green", "blue", "magenta"]
-      assigns(:post).published_at_natural.should == "1 hour from now"
-      assigns(:post).slug.should == "my-manually-entered-updated-post-slug"
-      assigns(:post).minor_edit.should == "1"
+      expect(assigns(:post).title).to eq("My Updated Post")
+      expect(assigns(:post).body).to eq("hello this is my updated post")
+      expect(assigns(:post).tag_list).to eq(["red", "green", "blue", "magenta"])
+      expect(assigns(:post).published_at_natural).to eq("1 hour from now")
+      expect(assigns(:post).slug).to eq("my-manually-entered-updated-post-slug")
+      expect(assigns(:post).minor_edit).to eq("1")
     end
   end
 
   describe 'handling POST to create with valid attributes' do
     it 'creates a post' do
       session[:logged_in] = true
-      lambda { post :create, :post => valid_post_attributes }.should change(Post, :count).by(1)
+      expect { post :create, :post => valid_post_attributes }.to change(Post, :count).by(1)
     end
   end
 
@@ -152,12 +152,12 @@ describe Admin::PostsController do
         'minor_edit'           => "0"
       }
 
-      assigns(:post).title.should == "My Awesome New Post"
-      assigns(:post).body.should == "hello this is my awesome new post"
-      assigns(:post).tag_list.should == ["teal", "azure", "turquoise"]
-      assigns(:post).published_at_natural.should == "now"
-      assigns(:post).slug.should == "my-manually-entered-slug"
-      assigns(:post).minor_edit.should == "0"
+      expect(assigns(:post).title).to eq("My Awesome New Post")
+      expect(assigns(:post).body).to eq("hello this is my awesome new post")
+      expect(assigns(:post).tag_list).to eq(["teal", "azure", "turquoise"])
+      expect(assigns(:post).published_at_natural).to eq("now")
+      expect(assigns(:post).slug).to eq("my-manually-entered-slug")
+      expect(assigns(:post).minor_edit).to eq("0")
     end
   end
 
@@ -172,8 +172,8 @@ describe Admin::PostsController do
   describe 'handling DELETE to destroy' do
     before(:each) do
       @post = Post.new
-      @post.stub(:destroy_with_undo)
-      Post.stub(:find).and_return(@post)
+      allow(@post).to receive(:destroy_with_undo)
+      allow(Post).to receive(:find).and_return(@post)
     end
 
     def do_delete
@@ -183,12 +183,12 @@ describe Admin::PostsController do
 
     it("redirects to index") do
       do_delete
-      response.should be_redirect
-      response.should redirect_to(admin_posts_path)
+      expect(response).to be_redirect
+      expect(response).to redirect_to(admin_posts_path)
     end
 
     it("deletes post") do
-      @post.should_receive(:destroy_with_undo)
+      expect(@post).to receive(:destroy_with_undo)
       do_delete
     end
   end
@@ -196,8 +196,8 @@ describe Admin::PostsController do
   describe 'handling DELETE to destroy, JSON request' do
     before(:each) do
       @post = Post.new(:title => 'A post')
-      @post.stub(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
-      Post.stub(:find).and_return(@post)
+      allow(@post).to receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+      allow(Post).to receive(:find).and_return(@post)
     end
 
     def do_delete
@@ -206,13 +206,13 @@ describe Admin::PostsController do
     end
 
     it("deletes post") do
-      @post.should_receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
+      expect(@post).to receive(:destroy_with_undo).and_return(mock_model(UndoItem, :description => 'hello'))
       do_delete
     end
 
     it("renders json including a description of the post") do
       do_delete
-      JSON.parse(response.body)['undo_message'].should == 'hello'
+      expect(JSON.parse(response.body)['undo_message']).to eq('hello')
     end
   end
 end
@@ -229,9 +229,9 @@ describe Admin::PostsController, 'with an AJAX request to preview' do
   end
 
   it "assigns a new post for the view" do
-    assigns(:post).title.should == 'My Post'
-    assigns(:post).body.should == 'body'
-    assigns(:post).tag_list.should == ['ruby']
-    assigns(:post).published_at_natural.should == 'now'
+    expect(assigns(:post).title).to eq('My Post')
+    expect(assigns(:post).body).to eq('body')
+    expect(assigns(:post).tag_list).to eq(['ruby'])
+    expect(assigns(:post).published_at_natural).to eq('now')
   end
 end

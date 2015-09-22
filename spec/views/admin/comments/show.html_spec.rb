@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/comments/show.html" do
   after(:each) do
-    rendered.should be_valid_html5_fragment
+    expect(rendered).to be_valid_html5_fragment
   end
 
   it 'should render' do
@@ -14,7 +14,7 @@ describe "/admin/comments/show.html" do
       :created_at              => Time.now
     )
     allow_message_expectations_on_nil
-    assigns[:comment].stub(:post).and_return(mock_model(Post,
+    allow(assigns[:comment]).to receive(:post).and_return(mock_model(Post,
       :title        => 'A post',
       :slug         => 'a-post',
       :published_at => Time.now

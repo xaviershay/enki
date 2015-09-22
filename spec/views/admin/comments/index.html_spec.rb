@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 
 describe "/admin/comments/index.html" do
   after(:each) do
-    rendered.should be_valid_html5_fragment
+    expect(rendered).to be_valid_html5_fragment
   end
 
   it 'should render' do
@@ -16,7 +16,7 @@ describe "/admin/comments/index.html" do
         :published_at => Time.now
       )
     )]
-    comments.stub(:total_pages).and_return(1)
+    allow(comments).to receive(:total_pages).and_return(1)
     assign :comments, comments
     render :template => '/admin/comments/index', :formats => [:html]
   end
