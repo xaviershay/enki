@@ -91,7 +91,7 @@ class BeValidHtml5
    " expected html5 to be valid, but validation produced these errors:\n #{@message}"
   end
 
-  def negative_failure_message
+  def failure_message_when_negated
     " expected to not be valid, but was (missing validation?)"
   end
 

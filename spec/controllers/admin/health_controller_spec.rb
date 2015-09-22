@@ -22,7 +22,7 @@ describe Admin::HealthController do
         session[:logged_in] = true
         expect {
           post :generate_exception
-        }.to raise_error
+        }.to raise_error RuntimeError
       end
     end
 

@@ -161,7 +161,6 @@ describe Post, "#set_dates" do
   it 'preserves published_at if published_at_natural is nil' do
     pub = 1.day.ago
     post = Post.new(:published_at_natural => nil, :published_at => pub)
-    puts post.inspect
 
     post.set_dates
     # Some rounding/truncating is acceptable...

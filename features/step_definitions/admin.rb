@@ -7,7 +7,7 @@ end
 Then /a RuntimeError is thrown when I press "(.*)"/ do |button|
   lambda {
     click_button(button)
-  }.should raise_error
+  }.should raise_error RuntimeError
 end
 
 Then /^the comment exists$/ do
