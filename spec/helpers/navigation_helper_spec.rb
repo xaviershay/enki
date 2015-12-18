@@ -46,9 +46,9 @@ describe NavigationHelper do
       expect(category_links_for_navigation.count).to eq(5)
       expect(category_links_for_navigation[0].name).to eq('red')
       expect(category_links_for_navigation[1].name).to eq('green')
-      expect(category_links_for_navigation[2].name).to eq('another tag with spaces')
-      expect(category_links_for_navigation[3].name).to eq('tag with spaces')
-      expect(category_links_for_navigation[4].name).to eq('blue')
+      expect(category_links_for_navigation[2].name).to eq('tag with spaces')
+      expect(category_links_for_navigation[3].name).to eq('blue')
+      expect(category_links_for_navigation[4].name).to eq('another tag with spaces')
     end
   end
 end
