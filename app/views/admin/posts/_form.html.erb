@@ -1,7 +1,7 @@
 <%= form.inputs do -%>
   <%= form.input :title -%>
   <%= form.input :body, :hint => "<a href='http://redcloth.org/textile'>Textile enabled</a>. Use Ctrl+E to switch between preview and edit mode.".html_safe -%>
-  <%= form.input :tag_list, :as => 'string', :required => false, :hint => 'Comma separated: ruby, rails&hellip;'.html_safe -%>
+  <%= form.input :tag_list, :input_html => { :value => @post.tag_list.join(', ')}, :as => 'string', :required => false, :hint => 'Comma separated: ruby, rails&hellip;'.html_safe -%>
 <% end -%>
 <%= form.inputs do -%>
   <%= form.input :published_at_natural, :label => 'Published at', :as => 'string', :hint => 'Examples: now, yesterday, 1 hour from now, '.html_safe + link_to("etc".html_safe, "http://chronic.rubyforge.org/") + '. Leave blank for an unpublished draft.' -%>

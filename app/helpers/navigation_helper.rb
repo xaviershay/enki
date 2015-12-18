@@ -17,6 +17,6 @@ module NavigationHelper
       published_posts = Post.where.not(:published_at => nil)
       published_tag_names = published_posts.collect { |post| post.cached_tag_list.split(',') }.flatten.uniq
       published_tag_names.each { |tag| tag.strip! }
-      Tag.where(:name => published_tag_names).sort_by { |tag| tag.taggings.size }.reverse
+      ActsAsTaggableOn::Tag.where(:name => published_tag_names).sort_by { |tag| tag.taggings.size }.reverse
     end
 end

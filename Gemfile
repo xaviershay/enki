@@ -10,6 +10,7 @@ gem 'rails', '~> 4.2.4'
 gem 'sass-rails'
 
 platforms :ruby do
+#  gem 'pg'
   gem 'sqlite3'
 end
 
@@ -44,6 +45,7 @@ gem 'exception_notification', '~> 2.5.2'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-openid'
+gem 'acts-as-taggable-on', '~> 3.5'
 
 # Bundle gems for the local environment. Make sure to
 # put test-only gems in this group so their generators

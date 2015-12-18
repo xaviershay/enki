@@ -44,8 +44,8 @@ class Post < ActiveRecord::Base
       post.generate_slug
       post.set_dates
       post.apply_filter
-      TagList.from(params[:tag_list]).each do |tag|
-        post.tags << Tag.new(:name => tag)
+      post.tag_list.each do |tag|
+        post.tags << ActsAsTaggableOn::Tag.find_or_create_with_like_by_name(tag)
       end
       post
     end
@@ -57,14 +57,11 @@ class Post < ActiveRecord::Base
       conditions = ['published_at < ?', Time.zone.now]
       limit = options[:limit] ||= DEFAULT_LIMIT
 
-      options = {
-        :order      => order,
-        :conditions => conditions,
-        :limit      => limit
-      }.merge(options)
-
       if tag
-        find_tagged_with(tag, options)
+        result = where(conditions)
+        result = result.tagged_with(tag)
+        result = result.includes(:tags) if include_tags
+        result.order(order).limit(limit)
       else
         result = where(conditions)
         result = result.includes(:tags) if include_tags
@@ -136,12 +133,4 @@ class Post < ActiveRecord::Base
     self.slug.slugorize!
   end
 
-  def tag_list=(value)
-    value = value.split(',') if value.is_a?(String)
-    value.map!{ |tag_name| Tag::filter_name(tag_name) }
-
-    # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
-    value = value.join(", ") if value.respond_to?(:join)
-    super(value)
-  end
 end
