@@ -17,7 +17,7 @@ describe Stats do
 
   describe '#tag_count' do
     it 'returns the total number of tags' do
-      expect(Tag).to receive(:count).and_return(2)
+      expect(ActsAsTaggableOn::Tag).to receive(:count).and_return(2)
       expect(Stats.new.tag_count).to eq(2)
     end
   end

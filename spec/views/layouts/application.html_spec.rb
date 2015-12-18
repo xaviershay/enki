@@ -4,11 +4,11 @@ describe "/layouts/application.html" do
   before(:each) do
     allow(view).to receive(:enki_config).and_return(Enki::Config.default)
 
-    mock_tag = mock_model(Tag,
+    mock_tag = mock_model(ActsAsTaggableOn::Tag,
       :name     => 'code',
-      :taggings => [mock_model(Tagging)]
+      :taggings => [mock_model(ActsAsTaggableOn::Tagging)]
     )
-    allow(Tag).to receive(:find).and_return([mock_tag])
+    allow(ActsAsTaggableOn::Tag).to receive(:find).and_return([mock_tag])
 
     mock_page = mock_model(Page,
       :title     => 'about',

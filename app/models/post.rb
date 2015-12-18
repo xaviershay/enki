@@ -58,8 +58,8 @@ class Post < ActiveRecord::Base
       limit = options[:limit] ||= DEFAULT_LIMIT
 
       if tag
-        result = where(conditions)
-        result = result.tagged_with(tag)
+        result = Post.tagged_with(tag)
+        result = result.where(conditions)
         result = result.includes(:tags) if include_tags
         result.order(order).limit(limit)
       else
@@ -133,4 +133,14 @@ class Post < ActiveRecord::Base
     self.slug.slugorize!
   end
 
+  def tag_list=(value)
+    value = value.split(',') if value.is_a?(String)
+    value.map!{ |tag_name| tag_name.gsub!('&', 'and')
+      tag_name.gsub!(/[^A-Za-z0-9_ \.-]/, '')
+      tag_name }
+
+    # TODO: Contribute this back to acts_as_taggable_on_steroids plugin
+    value = value.join(", ") if value.respond_to?(:join)
+    super(value)
+  end
 end

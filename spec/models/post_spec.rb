@@ -6,9 +6,9 @@ describe Post, "integration" do
     it 'increments tag counter cache' do
       post1 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
       post2 = Post.create!(:title => 'My Post', :body => "body", :tag_list => "ruby")
-      expect(Tag.find_by_name('ruby').taggings_count).to eq(2)
+      expect(ActsAsTaggableOn::Tag.find_by_name('ruby').taggings_count).to eq(2)
       Post.last.destroy
-      expect(Tag.find_by_name('ruby').taggings_count).to eq(1)
+      expect(ActsAsTaggableOn::Tag.find_by_name('ruby').taggings_count).to eq(1)
     end
   end
 end
