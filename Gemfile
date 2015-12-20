@@ -36,7 +36,7 @@ gem 'jquery-rails'
 gem 'RedCloth', '~> 4.2.9', :require => 'redcloth'
 gem 'ruby-openid', :require => 'openid'
 gem 'rack-openid', :require => 'rack/openid'
-gem 'aaronh-chronic', :require => 'chronic' # Fixes for 1.9.2
+gem 'chronic'
 gem 'coderay', '~> 1.0.5'
 gem 'lesstile', '~> 1.1.0'
 gem 'formtastic'
@@ -56,13 +56,7 @@ group :test do
   gem 'cucumber-websteps', :require => false
   gem 'factory_girl'
   gem 'rspec'
-
-  # Temporary fix for current compatibility issue with Rails 4.2.x and rspec-activemodel-mocks. Should be able to go
-  # back to the standard rspec-activemodel-mocks gem once this issue is resolved:
-  # https://github.com/rspec/rspec-activemodel-mocks/pull/10
-  gem 'rspec-activemodel-mocks', :git => 'https://github.com/jdelStrother/rspec-activemodel-mocks.git',
-                                 :branch => 'read_attribute'
-
+  gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
   gem 'nokogiri', '~> 1.6.0'
   gem 'webrat'
