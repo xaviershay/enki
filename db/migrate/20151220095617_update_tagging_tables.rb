@@ -10,16 +10,17 @@ class UpdateTaggingTables < ActiveRecord::Migration
       # long enough to store the required class names.
       # t.references :taggable, polymorphic: true
       t.references :tagger, polymorphic: true
-      t.string :taggable_type, null: false, default: ''
+      t.string :taggable_type, null: false, default: 'Post'
 
       # Limit is created to prevent MySQL error on index
       # length for MyISAM table type: http://bit.ly/vgW2Ql
-      t.string :context, limit: 128
+      t.string :context, limit: 128, default: 'tags', null: false
 
       #t.datetime :created_at
     end
     # set default before to force the db filling this field
     change_column_default(:taggings, :taggable_type, nil)
+    change_column_default(:taggings, :context, nil)
 
     if ActsAsTaggableOn::Utils.using_mysql?
       execute("ALTER TABLE tags MODIFY name varchar(255) CHARACTER SET utf8 COLLATE utf8_bin;")
