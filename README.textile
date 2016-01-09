@@ -73,6 +73,10 @@ h3. Using OpenID 2.0 for authentication
 
 Open up <code>config/enki.yml</code> and make sure that one or more of your OpenID identity URLs are included in the <code>open_id</code> value(s).
 
+h2. Upgrading to Enki 2016
+
+As of January 2016, Enki no longer uses "acts_as_taggable_on_steroids":https://github.com/jviney/acts_as_taggable_on_steroids as it has been replaced with "ActsAsTaggableOn":https://github.com/mbleigh/acts-as-taggable-on. Commit "5e97796":https://github.com/xaviershay/enki/commit/5e977967cfeae6b98976b82b9bf260ee276be00f contains database migrations that update the existing tag-related tables to be compatible with ActsAsTaggableOn. This is a non-destructive migration so any existing tag records in your database should be unaffected. However, just to be safe you may wish to back up your database before running <code>bundle install</code> and <code>rake db:migrate</code> to upgrade your Enki install.
+
 h2. Upgrading to Enki 2015
 
 As of April 2015, Enki no longer uses the "open_id_authentication":https://github.com/Velir/open_id_authentication gem. Commit "ec85aef":https://github.com/xaviershay/enki/commit/ec85aef26ee82f17e8225be5cbe03ea459d1f112 contains database migrations that remove both tables used by open_id_authentication and add a new table to store OmniAuth response information. Should you wish to keep any data that you may have currently stored in either the open_id_authentication_nonces or open_id_authentication_associations tables, retrieve this information before you run <code>rake db:migrate</code> to upgrade your Enki install.

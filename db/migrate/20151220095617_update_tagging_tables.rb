@@ -4,19 +4,14 @@ class UpdateTaggingTables < ActiveRecord::Migration
     change_column_null :tags, :taggings_count, true
 
     change_table :taggings do |t|
-      #t.references :tag
-
       # You should make sure that the column created is
       # long enough to store the required class names.
-      # t.references :taggable, polymorphic: true
       t.references :tagger, polymorphic: true
       t.string :taggable_type, null: false, default: 'Post'
 
       # Limit is created to prevent MySQL error on index
       # length for MyISAM table type: http://bit.ly/vgW2Ql
       t.string :context, limit: 128, default: 'tags', null: false
-
-      #t.datetime :created_at
     end
     # set default before to force the db filling this field
     change_column_default(:taggings, :taggable_type, nil)
@@ -35,7 +30,6 @@ class UpdateTaggingTables < ActiveRecord::Migration
     end
 
     #create new index structures
-
     add_index :tags, :name, unique: true
     add_index :taggings,
               [:tag_id, :taggable_id, :taggable_type, :context, :tagger_id, :tagger_type],
