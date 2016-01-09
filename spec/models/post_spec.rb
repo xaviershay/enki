@@ -39,17 +39,6 @@ describe Post, "#find_recent" do
     result = Post.find_recent
     expect(result.size).to be Post::DEFAULT_LIMIT
   end
-
-#  it 'finds posts that were published before now with a tag and returns them in published_at DESC order' do
-#    now = Time.now
-#    allow(Time).to receive(:now).and_return(now)
-#    expect(Post).to receive(:find_tagged_with).with('code', {
-#      :order      => 'published_at DESC',
-#      :conditions => ['published_at < ?', now],
-#      :limit      => Post::DEFAULT_LIMIT
-#    })
-#    Post.find_recent(:tag => 'code')
-#  end
 end
 
 describe Post, '#find_all_grouped_by_month' do
@@ -57,12 +46,14 @@ describe Post, '#find_all_grouped_by_month' do
     FactoryGirl.create(:post, :published_at_natural => 'last month')
     FactoryGirl.create(:post, :published_at_natural => 'now')
     FactoryGirl.create(:post, :published_at_natural => 'now')
-    this_month = Time.now.month
+    date_time = DateTime.new
+    this_month = date_time.month
+    previous_month = (date_time << 1).strftime('%-m').to_i
 
     result = Post.find_all_grouped_by_month
 
     expect(result[0].date.month).to eq this_month
-    expect(result[1].date.month).to eq this_month - 1
+    expect(result[1].date.month).to eq previous_month
     expect(result[0].posts.size).to be 2
     expect(result[1].posts.size).to be 1
   end
