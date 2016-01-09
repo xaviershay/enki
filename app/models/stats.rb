@@ -8,6 +8,6 @@ class Stats
   end
 
   def tag_count
-    Tag.count
+    ActsAsTaggableOn::Tag.count
   end
 end

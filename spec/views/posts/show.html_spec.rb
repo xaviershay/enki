@@ -6,7 +6,7 @@ describe "/posts/show.html" do
   before(:each) do
     allow(view).to receive(:enki_config).and_return(Enki::Config.default)
 
-    mock_tag = mock_model(Tag,
+    mock_tag = mock_model(ActsAsTaggableOn::Tag,
       :name => 'code'
     )
 

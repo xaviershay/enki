@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe "/archives/index.html" do
   def tag(name)
-    mock_model(Tag, :name => name)
+    mock_model(ActsAsTaggableOn::Tag, :name => name)
   end
 
   before(:each) do
