@@ -61,6 +61,19 @@ describe CommentsController, 'handling commenting' do
     @mock_post
   end
 
+  describe "with a POST to and an invalid comment" do
+    before(:each) do
+      mock_post!
+
+      post :create, :year => '2007', :month => '01', :day => '01', :slug => 'a-post', :comment => {
+        :author => nil,
+        :body   => 'This is a comment'
+      }
+    end
+
+    it_behaves_like("invalid comment")
+  end
+
   describe "with a POST to #index (non-OpenID comment)" do
     before(:each) do
       mock_post!
@@ -77,6 +90,7 @@ describe CommentsController, 'handling commenting' do
       }
     end
 
+    it_behaves_like("creating new comment")
 
     it "allows setting of author" do
       expect(assigns(:comment).author).to eq('Don Alias')

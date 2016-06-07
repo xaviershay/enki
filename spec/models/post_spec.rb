@@ -46,7 +46,7 @@ describe Post, '#find_all_grouped_by_month' do
     FactoryGirl.create(:post, :published_at_natural => 'last month')
     FactoryGirl.create(:post, :published_at_natural => 'now')
     FactoryGirl.create(:post, :published_at_natural => 'now')
-    date_time = DateTime.new
+    date_time = DateTime.now
     this_month = date_time.month
     previous_month = (date_time << 1).strftime('%-m').to_i
 
