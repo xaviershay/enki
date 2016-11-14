@@ -1,0 +1,17 @@
+{
+  "name": "enki",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "rails"
+    }
+  ]
+}
