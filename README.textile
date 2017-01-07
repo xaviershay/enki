@@ -1,3 +1,7 @@
+h1. This project is no longer actively developed
+
+Both of the core collaborators have switched their blogs to Jekyll:https://jekyllrb.com/ or similar static site generators. We're still reviewing and merging PRs for Enki, but doing no active development ourselves.
+
 h1. Enki
 
 !https://travis-ci.org/xaviershay/enki.png?branch=master!:https://travis-ci.org/xaviershay/enki
