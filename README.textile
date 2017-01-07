@@ -1,6 +1,6 @@
 h1. This project is no longer actively developed
 
-Both of the core collaborators have switched their blogs to Jekyll:https://jekyllrb.com/ or similar static site generators. We're still reviewing and merging PRs for Enki, but doing no active development ourselves.
+Both of the core collaborators have switched their blogs to "Jekyll":https://jekyllrb.com/ or similar static site generators. We're still reviewing and merging PRs for Enki, but doing no active development ourselves.
 
 h1. Enki
 
@@ -10,7 +10,7 @@ A Ruby on Rails blogging app for the fashionable developer.
 
 Preferences are for the masses. Any real coder knows the easiest and best way to customize something is by *hacking code*. Because you want your blog to be you, not bog standard install #4958 with 20 posts per page instead of 15. For this you need a *clean, simple, easy to understand code base* that stays out of your way. No liquid drops and templates hindering your path, no ugly PHP(Hypertext Preprocessor) stylings burning your eyeballs.
 
-h2. Quick Start
+h2. Quick start
 
 <pre><code>  git clone git://github.com/xaviershay/enki.git enki
   cd enki
