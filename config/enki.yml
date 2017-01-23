@@ -1,6 +1,6 @@
 # Configuration options for your blog - customise to taste
 # This file contains no secret information, so can be stored in source control (unlike database.yml)
-title: My Enki Blog
+title: CI/CD Demo
 url:   http://enkiblog.com
 author:
   name:    Don Alias                # For copyright notice and ATOM feeds

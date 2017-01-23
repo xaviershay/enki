@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20151220095617) do
     t.integer  "tagger_id"
     t.string   "tagger_type"
     t.string   "taggable_type",             null: false
-    t.string   "context",       limit: 128
+    t.string   "context",       limit: 128, null: false
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
