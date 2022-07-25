@@ -207,7 +207,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.6)
     tilt (2.0.1)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     webrat (0.7.3)
       nokogiri (>= 1.2.0)
