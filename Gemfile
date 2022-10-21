@@ -58,7 +58,7 @@ group :test do
   gem 'rspec'
   gem 'rspec-activemodel-mocks'
   gem 'rspec-collection_matchers'
-  gem 'nokogiri', '~> 1.13.4'
+  gem 'nokogiri', '~> 1.13.9'
   gem 'webrat'
 end
 
